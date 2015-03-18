@@ -1,1 +1,5 @@
+---
+- project: infra/system-config
+  description: Infrastructure system configuration
+  upstream: http://magma-git.austin.hp.com/openhalonci/openhalon-ci.git
 
