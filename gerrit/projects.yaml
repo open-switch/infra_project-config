@@ -2,4 +2,6 @@
 - project: infra/system-config
   description: Infrastructure system configuration
   upstream: http://magma-git.austin.hp.com/openhalonci/openhalon-ci.git
-
+- project: infra/project-config
+  description: Gerrit project configuration
+  upstream: http://magma-git.austin.hp.com/openhalonci/project-config.git
