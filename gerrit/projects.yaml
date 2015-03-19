@@ -5,3 +5,7 @@
 - project: infra/project-config
   description: Gerrit project configuration
   upstream: http://magma-git.austin.hp.com/openhalonci/project-config.git
+- project: halon/halon-build
+  description: Halon Build System
+- project: halon/halon-dev
+  description: Halon Development Environment
