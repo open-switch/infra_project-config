@@ -1,10 +1,22 @@
 ---
+# Infrastructure projects
 - project: infra/system-config
   description: Infrastructure system configuration
   upstream: http://magma-git.austin.hp.com/openhalonci/openhalon-ci.git
 - project: infra/project-config
   description: Gerrit project configuration
   upstream: http://magma-git.austin.hp.com/openhalonci/project-config.git
+- project: infra/puppet-ssh
+  description: Puppet ssh module
+  upstream: http://magma-git.austin.hp.com/openhalonci/puppet-ssh.git
+- project: infra/puppet-module-puppetboard
+  description: Puppet puppetboard module
+  upstream: http://magma-git.austin.hp.com/openhalonci/puppet-module-puppetboard.git
+- project: infra/puppet-iptables
+  description: Puppet iptables module
+  upstream: http://magma-git.austin.hp.com/openhalonci/puppet-iptables.git
+
+# Halon build and development projects
 - project: halon/halon-build
   description: Halon Build System
 - project: halon/halon-dev
