@@ -15,6 +15,9 @@
 - project: infra/puppet-iptables
   description: Puppet iptables module
   upstream: http://magma-git.austin.hp.com/openhalonci/puppet-iptables.git
+- project: infra/puppet-jenkins
+  description: Puppet jenkins module
+  upstream: https://git.openstack.org/openstack-infra/puppet-jenkins
 
 # Halon build and development projects
 - project: halon/halon-build
