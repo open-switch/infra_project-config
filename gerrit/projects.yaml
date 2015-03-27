@@ -24,3 +24,7 @@
   description: Halon Build System
 - project: halon/halon-dev
   description: Halon Development Environment
+- project: openhalon
+  description: OpenHalon Project
+  upstream: https://review.openhalon.io/halon/halon-build
+
