@@ -20,6 +20,9 @@
   upstream: https://git.openstack.org/openstack-infra/puppet-jenkins
 
 # Halon build and development projects
+- project: openhalon/governance
+  description: OpenHalon Governance
+
 - project: openhalon
   description: OpenHalon Project
 
