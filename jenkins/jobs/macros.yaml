@@ -24,8 +24,8 @@
     name: openhalon-build
     builders:
       - shell: |
-	  #!/bin/bash -x
-	  make configure {platform}
+          #!/bin/bash -x
+          make configure {platform}
 
 - builder:
     name: coverage
