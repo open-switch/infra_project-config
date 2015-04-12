@@ -21,7 +21,7 @@ pipelines:
         - event: comment-added
           require-approval:
             - verified: [-1, -2]
-              username: jenkins
+              username: zuul 
           approval:
             - workflow: 1
     success:
@@ -43,7 +43,7 @@ pipelines:
       current-patchset: True
       approval:
         - verified: [1, 2]
-          username: jenkins
+          username: zuul 
         - workflow: 1
     trigger:
       gerrit:
@@ -53,7 +53,7 @@ pipelines:
         - event: comment-added
           approval:
             - verified: 1
-          username: jenkins
+          username: zuul 
     start:
       gerrit:
         verified: 0
@@ -171,54 +171,6 @@ pipelines:
         to: openstack-qa@lists.openstack.org
         subject: 'Periodic jobs for {change.project} failed'
 
-  - name: check-tripleo
-    description: >
-      Newly uploaded patchsets enter this pipeline to receive an initial +/-1
-      Verified vote from Jenkins. This is used for TripleO patchsets only so
-      that if the TripleO cloud suffers a failure, folk looking can tell that
-      there isn't a system infra problem. only a TripleO specific problem.
-      Once the TripleO test cloud is multi region and has some months of
-      proven stability this will be folded back into the normal check pipeline.
-    success-message: Build succeeded (check-tripleo pipeline).
-    failure-message: >
-      Build failed (check-tripleo pipeline).  For information on how to proceed, see
-      http://docs.openstack.org/infra/manual/developers.html#automated-testing
-    manager: IndependentPipelineManager
-    source: gerrit
-    precedence: normal
-    require:
-      open: True
-      current-patchset: True
-    trigger:
-      gerrit:
-        - event: patchset-created
-        - event: change-restored
-        - event: comment-added
-          comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(recheck|reverify)
-    success:
-      gerrit: {}
-    failure:
-      gerrit: {}
-
-  - name: experimental-tripleo
-    description: >
-      On-demand pipeline for requesting a run against a tripleo experimental
-      jobs - slower and running without redundancy - so not yet gating. Leave
-      review comment of "check experimental" to run jobs in this pipeline.
-    success-message: Build succeeded (experimental-tripleo).
-    failure-message: Build failed (experimental-tripleo).
-    manager: IndependentPipelineManager
-    source: gerrit
-    precedence: low
-    trigger:
-      gerrit:
-        - event: comment-added
-          comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*check experimental\s*$
-    success:
-      gerrit: {}
-    failure:
-      gerrit: {}
-
   - name: merge-check
     description: >
       Each time a change merges, this pipeline verifies that all open changes
@@ -231,14 +183,13 @@ pipelines:
     require:
       approval:
         - verified: [1, 2]
-          username: jenkins
+          username: zuul
     trigger:
       zuul:
         - event: project-change-merged
     merge-failure:
       gerrit:
         verified: -1
-
 
 project-templates:
   - name: merge-check
@@ -253,3 +204,10 @@ project-templates:
 
 jobs:
 
+projects:
+  - name: openhalon 
+    check:
+      - openhalon-default-builds
+    gate:
+      - openhalon-default-builds
+#        - openhalon-publish-caches

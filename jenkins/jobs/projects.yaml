@@ -1,6 +1,24 @@
 # The projects in this file are grouped into sections and sorted
 # alphabetical in each section.
 
+  - project:
+      name: openhalon
+      node: 'openhalon'
+
+      jobs:
+        - 'openhalon-default-builds'
+
+#  - project:
+#      name: governance
+#      node: 'bare-precise || bare-trusty'
+#      tarball-site: tarballs.openstack.org
+#      docroot: governance
+#  
+#      jobs:
+#        - 'gate-{name}-docs'
+#        - 'static-{name}-publish'  
+
+
 ########################################################################
 # Section: OpenStack server projects
 ########################################################################
@@ -1408,15 +1426,15 @@
 #        - 'stable-compat-jobs-{name}'
 #        - 'lib-forward-testing-{name}'
 #  
-#  - project:
-#      name: governance
-#      node: 'bare-precise || bare-trusty'
-#      tarball-site: tarballs.openstack.org
-#      docroot: governance
-#  
-#      jobs:
-#        - 'gate-{name}-docs'
-#        - 'static-{name}-publish'
+  - project:
+      name: governance
+      node: 'bare-precise || bare-trusty'
+      tarball-site: tarballs.openstack.org
+      docroot: governance
+  
+      jobs:
+        - 'gate-{name}-docs'
+        - 'static-{name}-publish'
 #  
 #  - project:
 #      name: heat-cfntools
