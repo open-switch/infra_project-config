@@ -9,11 +9,4 @@
 
 #    publishers:    
 
-- job-group:
-    name: 'openhalon-default-builds'
-    jobs:
-      - 'openhalon-build-{platform}':
-        platform: genericx86-64
-      - 'openhalon-build-{platform}':
-        platform: as5712
     

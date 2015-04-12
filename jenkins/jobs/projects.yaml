@@ -2,11 +2,13 @@
 # alphabetical in each section.
 
   - project:
-      name: openhalon
+      name: openhalon-default-builds
       node: 'openhalon'
-
+      platform:
+        - genericx86-64
+        - as5712
       jobs:
-        - 'openhalon-default-builds'
+        - 'openhalon-build-{platform}'
 
 #  - project:
 #      name: governance
