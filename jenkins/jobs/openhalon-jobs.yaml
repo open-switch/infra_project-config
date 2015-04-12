@@ -3,7 +3,7 @@
     node: openhalon
 
     builders:
-	- revoke-sudo
+        - revoke-sudo
         - gerrit-git-prep
         - openhalon-build
 
