@@ -205,7 +205,7 @@ project-templates:
 jobs:
 
 projects:
-  - name: openhalon 
+  - name: openhalon/openhalon 
     check:
       - openhalon-default-builds
     gate:
