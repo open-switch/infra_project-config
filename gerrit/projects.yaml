@@ -2,26 +2,30 @@
 # Infrastructure projects
 - project: infra/system-config
   description: Infrastructure system configuration
-  upstream: http://magma-git.austin.hp.com/openhalonci/openhalon-ci.git
+#  upstream: http://magma-git.austin.hp.com/openhalonci/openhalon-ci.git
 - project: infra/project-config
   description: Gerrit project configuration
-  upstream: http://magma-git.austin.hp.com/openhalonci/project-config.git
+#  upstream: http://magma-git.austin.hp.com/openhalonci/project-config.git
 - project: infra/puppet-ssh
   description: Puppet ssh module
-  upstream: http://magma-git.austin.hp.com/openhalonci/puppet-ssh.git
+#  upstream: http://magma-git.austin.hp.com/openhalonci/puppet-ssh.git
 - project: infra/puppet-module-puppetboard
   description: Puppet puppetboard module
-  upstream: http://magma-git.austin.hp.com/openhalonci/puppet-module-puppetboard.git
+#  upstream: http://magma-git.austin.hp.com/openhalonci/puppet-module-puppetboard.git
 - project: infra/puppet-iptables
   description: Puppet iptables module
-  upstream: http://magma-git.austin.hp.com/openhalonci/puppet-iptables.git
+#  upstream: http://magma-git.austin.hp.com/openhalonci/puppet-iptables.git
 - project: infra/puppet-jenkins
   description: Puppet jenkins module
-  upstream: https://git.openstack.org/openstack-infra/puppet-jenkins
+#  upstream: https://git.openstack.org/openstack-infra/puppet-jenkins
 
 # Halon build and development projects
 - project: openhalon/governance
   description: OpenHalon Governance
+
+- project: openhalon/openhalon
+  description: OpenHalon Project
+  upstream: https://review.openhalon.io/openhalon
 
 - project: openhalon
   description: OpenHalon Project
