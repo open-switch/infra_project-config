@@ -22,9 +22,15 @@
 
 - builder:
     name: openhalon-build
+
+    wrappers:
+      - build-timeout:
+          timeout: 120
+
     builders:
       - shell: |
           #!/bin/bash -x
+          make distclean
           make configure {platform}
 
 - builder:
