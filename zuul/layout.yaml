@@ -202,10 +202,17 @@ project-templates:
     gate:
       - noop
 
+  - name: openhalon-build
+    check:
+      - openhalon-build-{platform}
+    gate:
+      - openhalon-build-{platform}
+    
+
 projects:
   - name: openhalon/openhalon 
-    check:
-      - openhalon-default-builds
-    gate:
-      - openhalon-default-builds
-#        - openhalon-publish-caches
+    template:
+      - name: openhalon-build
+        platform: genericx86-64
+      - openhalon-build
+        platform: as5712
