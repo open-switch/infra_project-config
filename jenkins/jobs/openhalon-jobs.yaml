@@ -5,7 +5,7 @@
     builders:
         - revoke-sudo
         - gerrit-git-prep
-        - openhalon-build
+        - openhalon-build:
           platform: {platform}
 
 - job-group:
