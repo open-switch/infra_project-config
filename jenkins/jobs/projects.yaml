@@ -2,12 +2,16 @@
 # alphabetical in each section.
 
   - project:
-      name: openhalon-default-builds
+      name: openhalon/openhalon
       node: 'openhalon'
       platform:
         - genericx86-64
         - as5712
       jobs:
+        - 'openhalon-default-builds'
+
+  - job-template:
+        name: 'openhalon-default-builds'
         - 'openhalon-build-{platform}'
 
 #  - project:
