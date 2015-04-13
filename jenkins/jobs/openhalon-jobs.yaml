@@ -6,7 +6,7 @@
         - revoke-sudo
         - gerrit-git-prep
         - openhalon-build:
-          platform: '{platform}'
+            platform: '{platform}'
 
 - job-group:
     name: 'openhalon-default-builds'
