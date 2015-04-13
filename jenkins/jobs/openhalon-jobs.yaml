@@ -2,6 +2,9 @@
     name: 'openhalon-build-{platform}'
     node: openhalon
 
+    wrappers:
+        - build-timeout:
+            timeout: 120
     builders:
         - revoke-sudo
         - gerrit-git-prep
