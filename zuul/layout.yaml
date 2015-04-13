@@ -202,8 +202,6 @@ project-templates:
     gate:
       - noop
 
-jobs:
-
 projects:
   - name: openhalon/openhalon 
     check:
