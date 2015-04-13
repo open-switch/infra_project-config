@@ -7,7 +7,7 @@
         - gerrit-git-prep
         - openhalon-build
 
- - job-group:
+- job-group:
     name: 'openhalon-default-builds'
     jobs:
     - 'openhalon-build-{platform}'
