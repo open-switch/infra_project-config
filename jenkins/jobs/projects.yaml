@@ -10,10 +10,6 @@
       jobs:
         - 'openhalon-default-builds'
 
-  - job-template:
-        name: 'openhalon-default-builds'
-        - 'openhalon-build-{platform}'
-
 #  - project:
 #      name: governance
 #      node: 'bare-precise || bare-trusty'
