@@ -9,17 +9,17 @@
         - ansicolor
         - ssh-agent-credentials:
               users:
-                  - 'jenkins'
+                  - '0f99f00f-a5c0-460d-97b5-9b3dbdfd0773'
 
     builders:
         - revoke-sudo
         - gerrit-git-prep
         - openhalon-build:
             platform: '{platform}'
-
-    publishers:
         - shared-states
         - download-caches
+
+#    publishers:
 #        - openhalon-distclean
 
 - job-group:

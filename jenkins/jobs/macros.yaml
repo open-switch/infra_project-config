@@ -30,6 +30,26 @@
           make
 
 - builder:
+    name: shared-states
+
+    builders:
+      - shell: |
+          #!/bin/bash -x
+          echo "Synchronizing shared states"
+          cd build/sstate-cache
+          rsync --ignore-existing --size-only -avzL -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --progress ?? `lsb_release -s -i`-`lsb_release -s -r` static.openhalon.io:/srv/static/sstate || true
+
+- builder:
+    name: download-caches
+
+    builders:
+      - shell: |
+          #!/bin/bash -x
+          echo "Synchronizing download archive"
+          cd build/downloads
+          rsync --size-only -avz -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --progress *.tar.* *.zip --exclude=*.done static.openhalon.io:/srv/static/archive || true
+
+- builder:
     name: coverage
     builders:
       - shell: "/usr/local/jenkins/slave_scripts/run-cover.sh"
@@ -827,26 +847,3 @@
             - shell: |
                 #!/bin/bash -x
                 make distclean
-                
-- publisher:
-    name: shared-states
-    publishers:
-      - postbuildscript:
-          builders:
-            - shell: |
-                #!/bin/bash -x
-                echo "Synchronizing shared states"
-                cd build/sstate-cache
-                rsync --ignore-existing --size-only -avzL -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --progress ?? `lsb_release -s -i`-`lsb_release -s -r` static.openhalon.io:/srv/static/sstate || true
-
-- publisher:
-    name: download-caches
-    publishers:
-      - postbuildscript:
-          builders:
-            - shell: |
-                 #!/bin/bash -x
-                 echo "Synchronizing download archive"
-                 cd build/downloads
-                 rsync --size-only -avz -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --progress *.tar.* *.zip --exclude=*.done static.openhalon.io:/srv/static/archive || true
-
