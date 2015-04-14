@@ -16,7 +16,7 @@
         - openhalon-build:
             platform: '{platform}'
 
-   publishers:
+    publishers:
         - shared-states
         - archive
 
