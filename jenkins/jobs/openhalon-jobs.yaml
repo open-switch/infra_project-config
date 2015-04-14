@@ -1,5 +1,24 @@
 - job-template:
-    name: 'openhalon-build-{platform}'
+    name: 'openhalon-check-{platform}'
+    node: openhalon
+
+    wrappers:
+        - build-timeout:
+            timeout: 1240
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - gerrit-git-prep
+        - openhalon-build:
+            platform: '{platform}'
+
+    publishers:
+        - openhalon-distclean
+
+- job-template:
+    name: 'openhalon-gate-{platform}'
     node: openhalon
 
     wrappers:
@@ -19,14 +38,13 @@
         - shared-states
         - download-caches
 
-#    publishers:
-#        - openhalon-distclean
+    publishers:
+        - openhalon-distclean
 
 - job-group:
     name: 'openhalon-default-builds'
     jobs:
-    - 'openhalon-build-{platform}'
-    
-#    publishers:    
+      - 'openhalon-check-{platform}'
+      - 'openhalon-gate-{platform}'  
 
     
