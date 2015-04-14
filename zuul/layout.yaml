@@ -204,9 +204,9 @@ project-templates:
 
   - name: openhalon-build
     check:
-      - openhalon-build-{platform}
+      - openhalon-check-{platform}
     gate:
-      - openhalon-build-{platform}
+      - openhalon-gate-{platform}
     
 
 projects:
@@ -214,5 +214,5 @@ projects:
     template:
       - name: openhalon-build
         platform: genericx86-64
-      - openhalon-build
+      - name: openhalon-build
         platform: as5712
