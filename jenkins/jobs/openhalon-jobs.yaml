@@ -5,11 +5,20 @@
     wrappers:
         - build-timeout:
             timeout: 1240
+        - ansicolor
+        - ssh-agent-credentials:
+              users:
+                  - 'jenkins'
+
     builders:
         - revoke-sudo
         - gerrit-git-prep
         - openhalon-build:
             platform: '{platform}'
+
+   publishers:
+        - shared-states
+        - archive
 
 - job-group:
     name: 'openhalon-default-builds'

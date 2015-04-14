@@ -819,3 +819,26 @@
     publishers:
       - zuul-swift-upload-logs-with-console:
           upload_source: '"**/*nose_results.html" "**/*testr_results.html.gz" ".testrepository/tmp*" "**/*subunit_log.txt.gz" ".tox/*/log/*"'
+
+- publisher:
+    name: shared-states
+    publishers:
+      - postbuildscript:
+          builders:
+            - shell: |
+                #!/bin/bash -x
+                echo "Synchronizing shared states"
+                cd build/sstate-cache
+                rsync --ignore-existing --size-only -avzL -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --progress ?? `lsb_release -s -i`-`lsb_release -s -r` static.openhalon.io:/srv/static/sstate || true
+
+- publisher:
+    name: archives
+    publishers:
+      - postbuildscript:
+          builders:
+            - shell: |
+                 #!/bin/bash -x
+                 echo "Synchronizing download archive"
+                 cd build/downloads
+                 rsync --size-only -avz -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --progress *.tar.* *.zip --exclude=*.done static.openhalon.io:/srv/static/archive || true
+
