@@ -4,7 +4,7 @@
 
     wrappers:
         - build-timeout:
-            timeout: 120
+            timeout: 1240
     builders:
         - revoke-sudo
         - gerrit-git-prep
