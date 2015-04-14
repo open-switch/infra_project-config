@@ -832,7 +832,7 @@
                 rsync --ignore-existing --size-only -avzL -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --progress ?? `lsb_release -s -i`-`lsb_release -s -r` static.openhalon.io:/srv/static/sstate || true
 
 - publisher:
-    name: archives
+    name: download-caches
     publishers:
       - postbuildscript:
           builders:

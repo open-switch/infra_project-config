@@ -18,7 +18,7 @@
 
     publishers:
         - shared-states
-        - archive
+        - download-caches
 
 - job-group:
     name: 'openhalon-default-builds'
