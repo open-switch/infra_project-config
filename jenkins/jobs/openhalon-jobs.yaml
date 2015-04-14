@@ -20,7 +20,7 @@
     publishers:
         - shared-states
         - download-caches
-        - openhalon-distclean
+#        - openhalon-distclean
 
 - job-group:
     name: 'openhalon-default-builds'
