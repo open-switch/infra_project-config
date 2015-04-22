@@ -21,8 +21,14 @@
           ! sudo -n true
 
 - builder:
-    name: openhalon-build
+    name: openhalon-distclean
+    builders:
+      - shell: |
+          #!/bin/bash -x
+          test -f Makefile || make distclean
 
+- builder:
+    name: openhalon-build
     builders:
       - shell: |
           #!/bin/bash -x
@@ -841,12 +847,3 @@
     publishers:
       - zuul-swift-upload-logs-with-console:
           upload_source: '"**/*nose_results.html" "**/*testr_results.html.gz" ".testrepository/tmp*" "**/*subunit_log.txt.gz" ".tox/*/log/*"'
-
-- publisher:
-    name: openhalon-distclean
-    publishers:
-      - postbuildscript:
-          builders:
-            - shell: |
-                #!/bin/bash -x
-                make distclean

@@ -10,12 +10,10 @@
 
     builders:
         - revoke-sudo
+        - openhalon-distclean
         - gerrit-git-prep
         - openhalon-build:
             platform: '{platform}'
-
-    publishers:
-        - openhalon-distclean
 
 - job-template:
     name: 'openhalon-gate-{platform}'
@@ -32,14 +30,12 @@
 
     builders:
         - revoke-sudo
+        - openhalon-distclean
         - gerrit-git-prep
         - openhalon-build:
             platform: '{platform}'
         - shared-states
         - download-caches
-
-    publishers:
-        - openhalon-distclean
 
 - job-group:
     name: 'openhalon-default-builds'
