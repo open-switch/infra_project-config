@@ -25,7 +25,7 @@
     builders:
       - shell: |
           #!/bin/bash -x
-          test -f Makefile || make distclean
+          test -f Makefile && make distclean
 
 - builder:
     name: openhalon-build
