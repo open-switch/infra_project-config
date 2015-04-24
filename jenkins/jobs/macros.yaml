@@ -25,7 +25,7 @@
     builders:
       - shell: |
           #!/bin/bash -x
-          test -f Makefile && make distclean
+          if test -f Makefile ; then make distclean ; fi
 
 - builder:
     name: openhalon-build
@@ -34,6 +34,12 @@
           #!/bin/bash -x
           make configure {platform}
           make
+
+- builder:
+    name: openhalon-meta-ide
+    builders:
+      - shell: |
+          make bake meta-ide-support
 
 - builder:
     name: shared-states

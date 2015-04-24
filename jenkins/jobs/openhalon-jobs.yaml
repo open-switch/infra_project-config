@@ -34,6 +34,7 @@
         - gerrit-git-prep
         - openhalon-build:
             platform: '{platform}'
+        - openhalon-meta-ide
         - shared-states
         - download-caches
 
