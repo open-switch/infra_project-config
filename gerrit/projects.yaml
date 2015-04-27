@@ -18,11 +18,14 @@
 - project: infra/puppet-jenkins
   description: Puppet jenkins module
 
+- project: infra/puppet-gerrit
+  description: Puppet gerrit module
+  upstream: https://git.openstack.org/openstack-infra/puppet-gerrit
+
 # Halon build and development projects
 - project: openhalon/governance
   description: OpenHalon Governance
 
 - project: openhalon/openhalon
   description: OpenHalon Project
-  upstream: https://review.openhalon.io/openhalon
 
