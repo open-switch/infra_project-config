@@ -29,3 +29,6 @@
 - project: openhalon/openhalon
   description: OpenHalon Project
 
+# Utilities libraries
+- project: openhalon/halonutils
+  description: OpenHalon utility library
