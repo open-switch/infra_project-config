@@ -32,3 +32,37 @@
 # Utilities libraries
 - project: openhalon/halonutils
   description: OpenHalon utility library
+- project: openhaloni/config-yaml
+  description: Library for reading configuration from YAML files
+
+# Platform daemons
+- project: openhalon/sysd
+  description: System Daemon
+- project: openhalon/fand
+  description: Fan Daemon
+- project: openhalon/ledd
+  description: LED Daemon
+- project: openhalon/powerd
+  description: Power Daemon
+- project: openhalon/pmd
+  description: Pluggable Module Daemon
+- project: openhalon/tempd
+  description: Temperature Daemon
+
+# Management Daemons
+- project: openhalon/cfgd
+  description: Configuration Daemon
+
+# L2 Daemons
+- project: openhalon/vland
+  description: VLAN Daemon
+- project: openhalon/intfd
+  description: Interface Daemon
+- project: openhalon/lacpd
+  description: LACP Daemon
+- project: openhalon/lldpd
+  description: LLDP Daemon
+
+# L3 Daemons
+- project: openhalon/quagga
+  description: Quagga
