@@ -32,7 +32,7 @@
 # Utilities libraries
 - project: openhalon/halonutils
   description: OpenHalon utility library
-- project: openhaloni/config-yaml
+- project: openhalon/config-yaml
   description: Library for reading configuration from YAML files
 
 # Platform daemons
