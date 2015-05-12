@@ -65,6 +65,26 @@
           rsync --size-only -avz -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --progress *.tar.* *.zip --exclude=*.done static.openhalon.io:/srv/static/archive || true
 
 - builder:
+    name: module-build
+
+    builders:
+      - shell: |
+           #!/bin/bash -x
+           if [[ ! -e .git ]]; then
+             # Remove any content, otherwise the clone will fail
+             rm -Rf *
+             git clone https://git.openhalon.io/openhalon/openhalon .
+           else
+             git pull
+           fi
+           make configure {platform}
+           mkdir src/{module}
+           cd src/{module}
+           /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openhalon.io git://git.openhalon.io
+           make devenv_import {module} src/{module}
+           make {module}-build
+
+- builder:
     name: coverage
     builders:
       - shell: "/usr/local/jenkins/slave_scripts/run-cover.sh"

@@ -10,6 +10,14 @@
       jobs:
         - 'openhalon-default-builds'
 
+   - project:
+      name: openhalon/halonutils
+      node: 'openhalon'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'halonutils-jobs'
+
 #  - project:
 #      name: governance
 #      node: 'bare-precise || bare-trusty'

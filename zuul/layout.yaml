@@ -207,7 +207,12 @@ project-templates:
       - openhalon-check-{platform}
     gate:
       - openhalon-gate-{platform}
-    
+
+  - name: module-build
+    check:
+      - {module}-check-{platform}
+    gate:
+      - {module}-gate-{platform}
 
 projects:
   - name: openhalon/openhalon 
@@ -216,3 +221,9 @@ projects:
         platform: genericx86-64
       - name: openhalon-build
         platform: as5712
+
+  -name: openhalon/halonutils
+   template:
+      - name: module-build
+        platform: genericx86-64
+        module: halonutils
