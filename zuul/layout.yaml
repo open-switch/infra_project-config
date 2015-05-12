@@ -222,8 +222,8 @@ projects:
       - name: openhalon-build
         platform: as5712
 
-  -name: openhalon/halonutils
-   template:
+  - name: openhalon/halonutils
+    template:
       - name: module-build
         platform: genericx86-64
         module: halonutils
