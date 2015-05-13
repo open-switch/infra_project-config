@@ -91,7 +91,7 @@
            # Trigger building of some basic recipe to get the recipe environment working, since devtool is not that good yet...
            make bake cmake-native
            make devenv_import {module} $PWD/src/{module}
-           make {module}-build
+           make bake {module}
 
 - builder:
     name: coverage
