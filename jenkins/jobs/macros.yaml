@@ -82,7 +82,7 @@
            cd src/{module}
            /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openhalon.io git://git.openhalon.io
            cd ../..
-           make devenv_import {module} ${PWD}/src/{module}
+           make devenv_import {module} $PWD/src/{module}
            make {module}-build
 
 - builder:
