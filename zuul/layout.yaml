@@ -204,15 +204,15 @@ project-templates:
 
   - name: openhalon-build
     check:
-      - openhalon-check-{platform}
+      - 'openhalon-check-{platform}'
     gate:
-      - openhalon-gate-{platform}
+      - 'openhalon-gate-{platform}'
 
   - name: module-build
     check:
-      - {module}-check-{platform}
+      - '{module}-check-{platform}'
     gate:
-      - {module}-gate-{platform}
+      - '{module}-gate-{platform}'
 
 projects:
   - name: openhalon/openhalon 
