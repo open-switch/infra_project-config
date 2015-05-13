@@ -227,3 +227,9 @@ projects:
       - name: module-build
         platform: genericx86-64
         module: halonutils
+
+  - name: openhalon/config-yaml
+    template:
+      - name: module-build
+        platform: genericx86-64
+        module: config-yaml
