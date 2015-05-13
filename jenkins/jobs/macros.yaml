@@ -79,7 +79,11 @@
            else
              git pull
            fi
-           if [ ! -f .platform ] ; then make configure {platform} ; fi
+           if [ ! -f .platform ] ; then
+             make configure {platform}
+           else
+             make devenv_rm {module}
+           fi
            mkdir -p src/{module}
            cd src/{module}
            /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openhalon.io git://git.openhalon.io
