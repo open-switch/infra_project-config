@@ -69,7 +69,7 @@
 
     builders:
       - shell: |
-           #!/bin/bash -x
+           #!/bin/bash -ex
            if [ -f .platform ] ; then make distclean ; fi
            if [[ ! -e .git ]]; then
              # Remove any content, otherwise the clone will fail
@@ -86,7 +86,7 @@
            # Trigger building of some basic recipe to get the recipe environment working, since devtool is not that good yet...
            make bake cmake-native
            make devenv_import {module} $PWD/src/{module}
-           make {module}-build || exit $?
+           make {module}-build
 
 - builder:
     name: coverage
