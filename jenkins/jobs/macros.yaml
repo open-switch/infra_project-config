@@ -79,7 +79,6 @@
              git pull
            fi
            make configure {platform}
-           make devenv_init
            mkdir -p src/{module}
            cd src/{module}
            /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openhalon.io git://git.openhalon.io
