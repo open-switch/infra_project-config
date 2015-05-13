@@ -18,6 +18,14 @@
       jobs:
         - 'halonutils-jobs'
 
+  - project:
+      name: openhalon/config-yaml
+      node: 'openhalon'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'config-yaml-jobs'
+
 #  - project:
 #      name: governance
 #      node: 'bare-precise || bare-trusty'

@@ -1,0 +1,37 @@
+- job-template:
+    name: 'config-yaml-check-{platform}'
+    node: openhalon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'config-yaml'
+            platform: '{platform}'
+
+- job-template:
+    name: 'config-yaml-gate-{platform}'
+    node: openhalon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'config-yaml'
+            platform: '{platform}'
+
+- job-group:
+    name: 'config-yaml-jobs'
+    jobs:
+      - 'config-yaml-check-{platform}'
+      - 'config-yaml-gate-{platform}'
