@@ -70,6 +70,7 @@
     builders:
       - shell: |
            #!/bin/bash -x
+           if [ -f .platform ] ; then make distclean ; fi
            if [[ ! -e .git ]]; then
              # Remove any content, otherwise the clone will fail
              rm -Rf *
@@ -78,6 +79,7 @@
              git pull
            fi
            make configure {platform}
+           make devenv_init
            mkdir -p src/{module}
            cd src/{module}
            /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openhalon.io git://git.openhalon.io
