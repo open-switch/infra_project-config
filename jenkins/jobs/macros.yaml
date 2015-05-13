@@ -81,8 +81,9 @@
            fi
            if [ ! -f .platform ] ; then
              make configure {platform}
-           else
-             make devenv_rm {module}
+           fi
+           if grep -q {module} .devenv ; then
+             make devenv_rm {module}  
            fi
            mkdir -p src/{module}
            cd src/{module}
