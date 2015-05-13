@@ -83,9 +83,10 @@
            cd src/{module}
            /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openhalon.io git://git.openhalon.io
            cd ../..
-           make devenv_init
+           # Trigger building of some basic recipe to get the recipe environment working, since devtool is not that good yet...
+           make bake cmake-native
            make devenv_import {module} $PWD/src/{module}
-           make {module}-build
+           make {module}-build || exit $?
 
 - builder:
     name: coverage
