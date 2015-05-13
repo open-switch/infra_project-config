@@ -10,7 +10,7 @@
       jobs:
         - 'openhalon-default-builds'
 
-   - project:
+  - project:
       name: openhalon/halonutils
       node: 'openhalon'
       platform:
