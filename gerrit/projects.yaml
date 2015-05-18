@@ -49,6 +49,10 @@
 - project: openhalon/tempd
   description: Temperature Daemon
 
+# HW configuration repositories
+- project: openhalon/as5712-config
+  description: Configuration files for AS5712
+
 # Management Daemons
 - project: openhalon/cfgd
   description: Configuration Daemon
