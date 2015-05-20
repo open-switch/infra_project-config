@@ -52,6 +52,8 @@
 # HW configuration repositories
 - project: openhalon/as5712-config
   description: Configuration files for AS5712
+- project: openhalon/simulator-config
+  description: Configuration files for Simulator
 
 # Management Daemons
 - project: openhalon/cfgd
