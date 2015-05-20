@@ -28,6 +28,11 @@
           if test -f Makefile ; then make distclean ; fi
 
 - builder:
+    name: yaml-lint
+    builders:
+      - shell: /usr/local/jenkins/slave_scripts/yamllint.py {file}
+
+- builder:
     name: openhalon-build
     builders:
       - shell: |
