@@ -20,4 +20,4 @@
               source: '**'
               keep-hierarchy: true
               copy-after-failure: false
-      - console-log
+#      - console-log
