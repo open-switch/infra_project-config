@@ -158,7 +158,7 @@
       - docs
 
     publishers:
-      - zuul-swift-upload-console-log
+      #- zuul-swift-upload-console-log
       - upload-sphinx-draft
 
     node: '{node}'
