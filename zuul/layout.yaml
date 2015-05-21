@@ -217,6 +217,7 @@ project-templates:
 projects:
   - name: openhalon/openhalon 
     template:
+      - name: merge-check
       - name: openhalon-build
         platform: genericx86-64
       - name: openhalon-build
@@ -224,12 +225,25 @@ projects:
 
   - name: openhalon/halonutils
     template:
+      - name: merge-check
       - name: module-build
         platform: genericx86-64
         module: halonutils
 
   - name: openhalon/config-yaml
     template:
+      - name: merge-check
       - name: module-build
         platform: genericx86-64
         module: config-yaml
+
+  - name: openhalon/governance
+    template:
+      - name: merge-check
+    check:
+      - gate-governance-docs
+    gate:
+      - gate-governance-docs
+    post:
+      - static-governance-publish
+

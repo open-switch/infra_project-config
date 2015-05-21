@@ -14,7 +14,7 @@
 
     publishers:
       - scp:
-          site: static.openstack.org
+          site: static.openhalon.io
           files:
             - target: '{docroot}/'
               source: '**'
