@@ -1,0 +1,37 @@
+- job-template:
+    name: 'tempd-check-{platform}'
+    node: halon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'tempd'
+            platform: '{platform}'
+
+- job-template:
+    name: 'tempd-gate-{platform}'
+    node: halon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'tempd'
+            platform: '{platform}'
+
+- job-group:
+    name: 'tempd-jobs'
+    jobs:
+      - 'tempd-check-{platform}'
+      - 'tempd-gate-{platform}'

@@ -1,0 +1,37 @@
+- job-template:
+    name: 'ledd-check-{platform}'
+    node: halon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'ledd'
+            platform: '{platform}'
+
+- job-template:
+    name: 'ledd-gate-{platform}'
+    node: halon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'ledd'
+            platform: '{platform}'
+
+- job-group:
+    name: 'ledd-jobs'
+    jobs:
+      - 'ledd-check-{platform}'
+      - 'ledd-gate-{platform}'

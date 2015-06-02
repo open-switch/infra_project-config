@@ -1,0 +1,37 @@
+- job-template:
+    name: 'lldpd-check-{platform}'
+    node: halon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'lldpd'
+            platform: '{platform}'
+
+- job-template:
+    name: 'lldpd-gate-{platform}'
+    node: halon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'lldpd'
+            platform: '{platform}'
+
+- job-group:
+    name: 'lldpd-jobs'
+    jobs:
+      - 'lldpd-check-{platform}'
+      - 'lldpd-gate-{platform}'

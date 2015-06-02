@@ -1,0 +1,37 @@
+- job-template:
+    name: 'fand-check-{platform}'
+    node: halon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'fand'
+            platform: '{platform}'
+
+- job-template:
+    name: 'fand-gate-{platform}'
+    node: halon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'fand'
+            platform: '{platform}'
+
+- job-group:
+    name: 'fand-jobs'
+    jobs:
+      - 'fand-check-{platform}'
+      - 'fand-gate-{platform}'

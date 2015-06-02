@@ -1,0 +1,37 @@
+- job-template:
+    name: 'quagga-check-{platform}'
+    node: halon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'quagga'
+            platform: '{platform}'
+
+- job-template:
+    name: 'quagga-gate-{platform}'
+    node: halon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'quagga'
+            platform: '{platform}'
+
+- job-group:
+    name: 'quagga-jobs'
+    jobs:
+      - 'quagga-check-{platform}'
+      - 'quagga-gate-{platform}'

@@ -1,0 +1,37 @@
+- job-template:
+    name: 'intfd-check-{platform}'
+    node: halon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'intfd'
+            platform: '{platform}'
+
+- job-template:
+    name: 'intfd-gate-{platform}'
+    node: halon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'intfd'
+            platform: '{platform}'
+
+- job-group:
+    name: 'intfd-jobs'
+    jobs:
+      - 'intfd-check-{platform}'
+      - 'intfd-gate-{platform}'

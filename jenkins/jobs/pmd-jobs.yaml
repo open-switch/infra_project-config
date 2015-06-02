@@ -1,0 +1,37 @@
+- job-template:
+    name: 'pmd-check-{platform}'
+    node: halon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'pmd'
+            platform: '{platform}'
+
+- job-template:
+    name: 'pmd-gate-{platform}'
+    node: halon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'pmd'
+            platform: '{platform}'
+
+- job-group:
+    name: 'pmd-jobs'
+    jobs:
+      - 'pmd-check-{platform}'
+      - 'pmd-gate-{platform}'

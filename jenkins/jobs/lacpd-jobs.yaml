@@ -1,0 +1,37 @@
+- job-template:
+    name: 'lacpd-check-{platform}'
+    node: halon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'lacpd'
+            platform: '{platform}'
+
+- job-template:
+    name: 'lacpd-gate-{platform}'
+    node: halon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'lacpd'
+            platform: '{platform}'
+
+- job-group:
+    name: 'lacpd-jobs'
+    jobs:
+      - 'lacpd-check-{platform}'
+      - 'lacpd-gate-{platform}'
