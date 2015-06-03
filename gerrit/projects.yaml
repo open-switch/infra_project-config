@@ -48,6 +48,8 @@
   description: Pluggable Module Daemon
 - project: openhalon/tempd
   description: Temperature Daemon
+- project: openhalon/bufmond
+  description: Buffer Monitor Daemon
 
 # HW configuration repositories
 - project: openhalon/as5712-config
