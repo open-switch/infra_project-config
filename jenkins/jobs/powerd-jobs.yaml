@@ -1,0 +1,37 @@
+- job-template:
+    name: 'powerd-check-{platform}'
+    node: halon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'powerd'
+            platform: '{platform}'
+
+- job-template:
+    name: 'powerd-gate-{platform}'
+    node: halon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'powerd'
+            platform: '{platform}'
+
+- job-group:
+    name: 'powerd-jobs'
+    jobs:
+      - 'powerd-check-{platform}'
+      - 'powerd-gate-{platform}'
