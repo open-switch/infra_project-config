@@ -237,6 +237,120 @@ projects:
         platform: genericx86-64
         module: config-yaml
 
+  - name: openhalon/openvswitch
+    template:
+      - name: merge-check
+      - name: module-build
+        module: openvswitch
+        platform: genericx86-64
+      - name: module-build
+        module: openvswitch
+        platform: as5712
+
+  - name: openhalon/cfgd
+    template:
+      - name: merge-check
+      - name: module-build
+        module: cfgd
+        platform: genericx86-64
+
+  - name: openhalon/fand
+    template:
+      - name: merge-check
+      - name: module-build
+        module: fand
+        platform: genericx86-64
+      - name: module-build
+        module: fand
+        platform: as5712
+
+  - name: openhalon/intfd
+    template:
+      - name: merge-check
+      - name: module-build
+        module: intfd
+        platform: genericx86-64
+
+  - name: openhalon/lacpd
+    template:
+      - name: merge-check
+      - name: module-build
+        module: lacpd
+        platform: genericx86-64
+
+  - name: openhalon/ledd
+    template:
+      - name: merge-check
+      - name: module-build
+        module: ledd
+        platform: genericx86-64
+      - name: module-build
+        module: ledd
+        platform: as5712
+
+  - name: openhalon/lldpd
+    template:
+      - name: merge-check
+      - name: module-build
+        module: lldpd
+        platform: genericx86-64
+
+  - name: openhalon/pmd
+    template:
+      - name: merge-check
+      - name: module-build
+        module: pmd
+        platform: genericx86-64
+
+  - name: openhalon/powerd
+    template:
+      - name: merge-check
+      - name: module-build
+        module: powerd
+        platform: genericx86-64
+
+  - name: openhalon/sysd
+    template:
+      - name: merge-check
+      - name: module-build
+        module: sysd
+        platform: genericx86-64
+      - name: module-build
+        module: sysd
+        platform: as5712
+
+  - name: openhalon/tempd
+    template:
+      - name: merge-check
+      - name: module-build
+        module: tempd
+        platform: genericx86-64
+      - name: module-build
+        module: tempd
+        platform: as5712
+
+  - name: openhalon/quagga
+    template:
+      - name: merge-check
+      - name: module-build
+        module: quagga
+        platform: genericx86-64
+
+  - name: openhalon/as5712-config
+    template:
+      - name: merge-check
+      - name: module-build
+        module: as5712-config
+        platform: genericx86-64
+
+
+  - name: openhalon/simulator-config
+    template:
+      - name: merge-check
+      - name: module-build
+        module: simulator-config
+        platform: genericx86-64
+
   - name: openhalon/governance
     template:
       - name: merge-check

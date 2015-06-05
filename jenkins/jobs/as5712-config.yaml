@@ -1,0 +1,37 @@
+- job-template:
+    name: 'as5712-config-check-{platform}'
+    node: halon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'halon-config-genericx86-64'
+            platform: '{platform}'
+
+- job-template:
+    name: 'as5712-config-gate-{platform}'
+    node: halon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'halon-config-genericx86-64'
+            platform: '{platform}'
+
+- job-group:
+    name: 'as5712-config-jobs'
+    jobs:
+      - 'as5712-config-check-{platform}'
+      - 'as5712-config-gate-{platform}'

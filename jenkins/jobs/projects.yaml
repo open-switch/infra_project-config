@@ -36,6 +36,15 @@
         - 'static-{name}-publish'
 
   - project:
+      name: openhalon/openvswitch
+      node: 'halon'
+      platform:
+        - genericx86-64
+        - as5712
+      jobs:
+        - 'openvswitch-jobs'
+
+  - project:
       name: openhalon/cfgd
       node: 'openhalon'
       platform:
