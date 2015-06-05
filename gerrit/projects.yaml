@@ -50,6 +50,8 @@
   description: Temperature Daemon
 - project: openhalon/bufmond
   description: Buffer Monitor Daemon
+- project: openhalon/openvswitch
+  description: OpenvSwitch Daemon
 
 # HW configuration repositories
 - project: openhalon/as5712-config
