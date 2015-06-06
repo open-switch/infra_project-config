@@ -1,6 +1,6 @@
 - job-template:
     name: 'powerd-check-{platform}'
-    node: halon
+    node: openhalon
 
     wrappers:
         - build-timeout:
@@ -16,7 +16,7 @@
 
 - job-template:
     name: 'powerd-gate-{platform}'
-    node: halon
+    node: openhalon
 
     wrappers:
         - build-timeout:

@@ -1,6 +1,6 @@
 - job-template:
     name: 'lldpd-check-{platform}'
-    node: halon
+    node: openhalon
 
     wrappers:
         - build-timeout:
@@ -16,7 +16,7 @@
 
 - job-template:
     name: 'lldpd-gate-{platform}'
-    node: halon
+    node: openhalon
 
     wrappers:
         - build-timeout:
