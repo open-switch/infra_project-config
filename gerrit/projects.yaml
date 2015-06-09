@@ -52,6 +52,10 @@
   description: Buffer Monitor Daemon
 - project: openhalon/openvswitch
   description: OpenvSwitch Daemon
+- project: openhalon/ovs-sim-plugin
+  description: Halon Simulator OVS plugin
+- project: openhalon/ovs-bcm-plugin
+  description: Halon Broadcom OVS plugin
 
 # HW configuration repositories
 - project: openhalon/as5712-config
