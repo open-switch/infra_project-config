@@ -143,6 +143,15 @@
       jobs:
         - 'tempd-jobs'
 
+  - project:
+      name: openhalon/simulator-config
+      node: 'openhalon'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'simulator-config-jobs'
+
+
 
 ########################################################################
 # Section: OpenStack server projects

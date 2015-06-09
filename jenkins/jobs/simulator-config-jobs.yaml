@@ -1,0 +1,23 @@
+- job-template:
+    name: 'simulator-config-check-{platform}'
+    node: openhalon
+
+    wrappers:
+        - build-timeout:
+            timeout: 10
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'halon-config-genericx86-64'
+            platform: '{platform}'
+        - yaml-lint:
+            file:
+              - 'src/halon-config-genericx86-64/*.yaml'
+
+- job-group:
+    name: 'simulator-config'
+    jobs:
+      - 'simulator-config-check-{platform}'
