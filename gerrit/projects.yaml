@@ -80,3 +80,7 @@
 # L3 Daemons
 - project: openhalon/quagga
   description: Quagga
+
+# Connectivity Deamons
+- project: openhalon/aaa-utils
+  description: Authentication, Authorization and Accounting Utils
