@@ -151,6 +151,13 @@
       jobs:
         - 'simulator-config-jobs'
 
+  - project:
+      name: openhalon/ovs-sim-plugin
+      node: 'openhalon'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'ovs-sim-plugin-jobs'
 
 
 ########################################################################

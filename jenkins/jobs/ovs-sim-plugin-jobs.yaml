@@ -1,0 +1,37 @@
+- job-template:
+    name: 'ovs-sim-plugin-check-{platform}'
+    node: openhalon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'ovs-sim-plugin'
+            platform: '{platform}'
+
+- job-template:
+    name: 'ovs-sim-plugin-gate-{platform}'
+    node: openhalon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'ovs-sim-plugin'
+            platform: '{platform}'
+
+- job-group:
+    name: 'ovs-sim-plugin-jobs'
+    jobs:
+      - 'ovs-sim-plugin-check-{platform}'
+      - 'ovs-sim-plugin-gate-{platform}'

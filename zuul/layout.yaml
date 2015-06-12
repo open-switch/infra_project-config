@@ -343,6 +343,13 @@ projects:
         module: as5712-config
         platform: genericx86-64
 
+  - name: openhalon/ovs-sim-plugin
+    template:
+      - name: merge-check
+      - name: module-build
+        module: ovs-sim-plugin
+        platform: genericx86-64
+
 
   - name: openhalon/simulator-config
     template:
