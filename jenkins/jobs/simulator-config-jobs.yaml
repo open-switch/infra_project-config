@@ -18,6 +18,6 @@
               - 'src/halon-config-genericx86-64/*.yaml'
 
 - job-group:
-    name: 'simulator-config'
+    name: 'simulator-config-jobs'
     jobs:
       - 'simulator-config-check-{platform}'
