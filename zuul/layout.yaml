@@ -222,6 +222,9 @@ projects:
         platform: genericx86-64
       - name: openhalon-build
         platform: as5712
+    periodic:
+      - openhalon-gate-genericx86-64
+      - openhalon-gate-as5712
 
   - name: openhalon/halonutils
     template:
