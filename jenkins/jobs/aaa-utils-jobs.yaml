@@ -1,0 +1,37 @@
+- job-template:
+    name: 'aaa-utils-check-{platform}'
+    node: openhalon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'aaa-utils'
+            platform: '{platform}'
+
+- job-template:
+    name: 'aaa-utils-gate-{platform}'
+    node: openhalon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'aaa-utils'
+            platform: '{platform}'
+
+- job-group:
+    name: 'aaa-utils-jobs'
+    jobs:
+      - 'aaa-utils-check-{platform}'
+      - 'aaa-utils-gate-{platform}'

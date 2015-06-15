@@ -353,6 +353,12 @@ projects:
         module: ovs-sim-plugin
         platform: genericx86-64
 
+  - name: openhalon/aaa-utils
+    template:
+      - name: merge-check
+      - name: module-build
+        module: aaa-utils
+        platform: genericx86-64
 
   - name: openhalon/simulator-config
     template:
