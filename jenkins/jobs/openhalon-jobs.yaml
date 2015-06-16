@@ -38,10 +38,34 @@
         - shared-states
         - download-caches
 
+- job-template:
+    name: 'openhalon-periodic-{platform}'
+    node: openhalon
+
+    wrappers:
+        - build-timeout:
+            timeout: 1240
+        - timestamps
+        - ansicolor
+        - ssh-agent-credentials:
+              users:
+                  - '0f99f00f-a5c0-460d-97b5-9b3dbdfd0773'
+
+    builders:
+        - revoke-sudo
+        - openhalon-distclean
+        - branch-git-prep:
+            branch: master
+        - openhalon-build:
+            platform: '{platform}'
+        - openhalon-meta-ide
+        - shared-states
+        - download-caches
+
 - job-group:
     name: 'openhalon-default-builds'
     jobs:
       - 'openhalon-check-{platform}'
       - 'openhalon-gate-{platform}'  
+      - 'openhalon-periodic-{platform}'
 
-    
