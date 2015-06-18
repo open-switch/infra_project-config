@@ -84,3 +84,7 @@
 # Connectivity Deamons
 - project: openhalon/aaa-utils
   description: Authentication, Authorization and Accounting Utils
+
+# REST interface
+- project: openhalon/restd
+  description: REST interface
