@@ -54,9 +54,6 @@
           #!/bin/bash -x
           echo "Synchronizing shared states"
           cd build/sstate-cache
-          # Rsync the siginfo files first, excluding the tgz, to avoid half-uploaded states, yocto looks first for the tarball
-          rsync --ignore-existing --exclude='*.done' --exclude='*.tgz' --size-only -avzL -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --progress ?? `lsb_release -s -i`-`lsb_release -s -r` static.openhalon.io:/srv/static/sstate || true
-          # Now we rsync the tgz files
           rsync --ignore-existing --exclude='*.done' --size-only -avzL -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --progress ?? `lsb_release -s -i`-`lsb_release -s -r` static.openhalon.io:/srv/static/sstate || true
 
 - builder:
