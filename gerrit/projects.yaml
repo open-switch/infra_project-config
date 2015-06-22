@@ -88,3 +88,7 @@
 # REST interface
 - project: openhalon/restd
   description: REST interface
+
+- project: openhalon/vsi
+  description: Virtual Switch Image
+  upstream: git://git.hpnos.io/halon/halonnet
