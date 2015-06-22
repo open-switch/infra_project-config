@@ -52,6 +52,9 @@ pipelines:
             - workflow: 1
         - event: comment-added
           approval:
+            - code-review: 2
+        - event: comment-added
+          approval:
             - verified: 1
           username: zuul 
     start:
