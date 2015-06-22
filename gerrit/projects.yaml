@@ -76,6 +76,8 @@
   description: LACP Daemon
 - project: openhalon/lldpd
   description: LLDP Daemon
+- project: openhalon/arpmgrd
+  description: Arp Manager Daemon
 
 # L3 Daemons
 - project: openhalon/quagga
