@@ -380,3 +380,13 @@ projects:
     post:
       - static-governance-publish
 
+  - name: openhalon/vland
+    template:
+      - name: merge-check
+      - name: module-build
+        module: vland
+        platform: genericx86-64
+      - name: module-build
+        module: vland
+        platform: as5712
+

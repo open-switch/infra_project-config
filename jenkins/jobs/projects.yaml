@@ -167,6 +167,15 @@
       jobs:
         - 'aaa-utils-jobs'
 
+  - project:
+      name: openhalon/vland
+      node: 'openhalon'
+      platform:
+        - genericx86-64
+        - as5712
+      jobs:
+        - 'vland-jobs'
+
 ########################################################################
 # Section: OpenStack server projects
 ########################################################################

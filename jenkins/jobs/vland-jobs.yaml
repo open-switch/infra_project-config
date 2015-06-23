@@ -1,0 +1,37 @@
+- job-template:
+    name: 'vland-check-{platform}'
+    node: openhalon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'vland'
+            platform: '{platform}'
+
+- job-template:
+    name: 'vland-gate-{platform}'
+    node: openhalon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'vland'
+            platform: '{platform}'
+
+- job-group:
+    name: 'vland-jobs'
+    jobs:
+      - 'vland-check-{platform}'
+      - 'vland-gate-{platform}'
