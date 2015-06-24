@@ -66,6 +66,8 @@
 # Management Daemons
 - project: openhalon/cfgd
   description: Configuration Daemon
+- project: openhalon/cli
+  description: Switch command line interface
 
 # L2 Daemons
 - project: openhalon/vland
