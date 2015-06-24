@@ -39,7 +39,9 @@
           #!/bin/bash -x
           make configure {platform}
           make build/conf/local.conf
-          sed -i -e 's?^#SSTATE_DIR.*$?SSTATE_DIR = "/mnt/jenkins/workspace/sstate-cache"?' build/conf/local.conf
+          mkdir -p build/sstate-cache
+          rm -Rf build/sstate-cache
+          ln -sf /mnt/jenkins/workspace/sstate-cache build/sstate-cache
           make
 
 - builder:
@@ -86,7 +88,9 @@
            if [ ! -f .platform ] ; then
              make configure {platform}
              make build/conf/local.conf
-             sed -i -e 's?^#SSTATE_DIR.*$?SSTATE_DIR = "/mnt/jenkins/workspace/sstate-cache"?' build/conf/local.conf
+             mkdir -p build/sstate-cache
+             rm -Rf build/sstate-cache
+             ln -sf /mnt/jenkins/workspace/sstate-cache build/sstate-cache
            fi
            if grep -q {module} .devenv ; then
              make devenv_rm {module}  
