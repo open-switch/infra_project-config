@@ -11,7 +11,7 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'vsi-halon'
+            module: 'halon-vsi'
             platform: '{platform}'
 
 - job-template:
@@ -27,7 +27,7 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'vsi-halon'
+            module: 'halon-vsi'
             platform: '{platform}'
 
 - job-group:
