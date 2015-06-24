@@ -185,6 +185,15 @@
       jobs:
         - 'arpmgrd-jobs'
 
+  - project:
+      name: openhalon/restd
+      node: 'openhalon'
+      platform:
+        - genericx86-64
+        - as5712
+      jobs:
+        - 'restd-jobs'
+
 ########################################################################
 # Section: OpenStack server projects
 ########################################################################

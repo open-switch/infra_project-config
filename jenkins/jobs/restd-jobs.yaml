@@ -1,0 +1,37 @@
+- job-template:
+    name: 'restd-check-{platform}'
+    node: openhalon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'restd'
+            platform: '{platform}'
+
+- job-template:
+    name: 'restd-gate-{platform}'
+    node: openhalon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'restd'
+            platform: '{platform}'
+
+- job-group:
+    name: 'restd-jobs'
+    jobs:
+      - 'restd-check-{platform}'
+      - 'restd-gate-{platform}'
