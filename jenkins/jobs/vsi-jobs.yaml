@@ -1,0 +1,37 @@
+- job-template:
+    name: 'vsi-check-{platform}'
+    node: openhalon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'vsi-halon'
+            platform: '{platform}'
+
+- job-template:
+    name: 'vsi-gate-{platform}'
+    node: openhalon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'vsi-halon'
+            platform: '{platform}'
+
+- job-group:
+    name: 'vsi-jobs'
+    jobs:
+      - 'vsi-check-{platform}'
+      - 'vsi-gate-{platform}'

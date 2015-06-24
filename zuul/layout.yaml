@@ -409,3 +409,13 @@ projects:
       - name: module-build
         module: restd
         platform: as5712
+
+  - name: openhalon/vsi
+    template:
+      - name: merge-check
+      - name: module-build
+        module: vsi
+        platform: genericx86-64
+      - name: module-build
+        module: vsi
+        platform: as5712

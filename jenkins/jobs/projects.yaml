@@ -194,6 +194,15 @@
       jobs:
         - 'restd-jobs'
 
+  - project:
+      name: openhalon/vsi
+      node: 'halon'
+      platform:
+        - genericx86-64
+        - as5712
+      jobs:
+        - 'vsi-jobs'
+
 ########################################################################
 # Section: OpenStack server projects
 ########################################################################
