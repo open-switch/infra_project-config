@@ -39,7 +39,7 @@
           #!/bin/bash -x
           make configure {platform}
           make build/conf/local.conf
-          mkdir -p build/sstate-cache
+          mkdir -p /mnt/jenkins/workspace/sstate-cache
           rm -Rf build/sstate-cache
           ln -sf /mnt/jenkins/workspace/sstate-cache build/sstate-cache
           make
@@ -88,7 +88,7 @@
            if [ ! -f .platform ] ; then
              make configure {platform}
              make build/conf/local.conf
-             mkdir -p build/sstate-cache
+             mkdir -p /mnt/jenkins/workspace/sstate-cache
              rm -Rf build/sstate-cache
              ln -sf /mnt/jenkins/workspace/sstate-cache build/sstate-cache
            fi
