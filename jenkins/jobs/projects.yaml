@@ -176,6 +176,15 @@
       jobs:
         - 'vland-jobs'
 
+  - project:
+      name: openhalon/arpmgrd
+      node: 'openhalon'
+      platform:
+        - genericx86-64
+        - as5712
+      jobs:
+        - 'arpmgrd-jobs'
+
 ########################################################################
 # Section: OpenStack server projects
 ########################################################################

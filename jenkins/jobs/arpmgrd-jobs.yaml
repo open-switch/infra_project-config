@@ -1,0 +1,37 @@
+- job-template:
+    name: 'arpmgrd-check-{platform}'
+    node: openhalon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'arpmgrd'
+            platform: '{platform}'
+
+- job-template:
+    name: 'arpmgrd-gate-{platform}'
+    node: openhalon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'arpmgrd'
+            platform: '{platform}'
+
+- job-group:
+    name: 'arpmgrd-jobs'
+    jobs:
+      - 'arpmgrd-check-{platform}'
+      - 'arpmgrd-gate-{platform}'
