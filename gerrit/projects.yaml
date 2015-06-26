@@ -68,6 +68,8 @@
   description: Configuration Daemon
 - project: openhalon/cli
   description: Switch command line interface
+- project: openhalon/mgmt-intf
+  description: Management Interface Daemon
 
 # L2 Daemons
 - project: openhalon/vland
