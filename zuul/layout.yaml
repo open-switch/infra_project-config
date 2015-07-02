@@ -419,3 +419,13 @@ projects:
       - name: module-build
         module: vsi
         platform: as5712
+
+  - name: openhalon/cli
+    template:
+      - name: merge-check
+      - name: module-build
+        module: cli
+        platform: genericx86-64
+      - name: module-build
+        module: cli
+        platform: as5712

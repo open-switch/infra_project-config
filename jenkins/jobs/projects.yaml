@@ -203,6 +203,15 @@
       jobs:
         - 'vsi-jobs'
 
+  - project:
+      name: openhalon/cli
+      node: 'halon'
+      platform:
+        - genericx86-64
+        - as5712
+      jobs:
+        - 'cli-jobs'
+
 ########################################################################
 # Section: OpenStack server projects
 ########################################################################
