@@ -95,6 +95,9 @@
 - project: openhalon/restd
   description: REST interface
 
+# Testing
 - project: openhalon/vsi
   description: Virtual Switch Image
   upstream: git://git.hpnos.io/halon/halonnet
+- project: openhalon/ft-framework
+  description: Feature Test Framework
