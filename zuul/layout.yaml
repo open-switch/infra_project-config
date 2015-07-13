@@ -235,6 +235,9 @@ projects:
       - name: module-build
         platform: genericx86-64
         module: halonutils
+      - name: module-build
+        module: halonutils
+        platform: as5712
 
   - name: openhalon/config-yaml
     template:
@@ -283,6 +286,9 @@ projects:
       - name: module-build
         module: lacpd
         platform: genericx86-64
+      - name: module-build
+        module: lacpd
+        platform: as5712
 
   - name: openhalon/ledd
     template:
@@ -307,6 +313,9 @@ projects:
       - name: module-build
         module: pmd
         platform: genericx86-64
+      - name: module-build
+        module: pmd
+        platform: as5712
 
   - name: openhalon/powerd
     template:
@@ -314,6 +323,9 @@ projects:
       - name: module-build
         module: powerd
         platform: genericx86-64
+      - name: module-build
+        module: powerd
+        platform: as5712
 
   - name: openhalon/sysd
     template:

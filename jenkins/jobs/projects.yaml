@@ -15,6 +15,7 @@
       node: 'openhalon'
       platform:
         - genericx86-64
+        - as5712
       jobs:
         - 'halonutils-jobs'
 
