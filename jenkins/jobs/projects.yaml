@@ -213,6 +213,14 @@
       jobs:
         - 'cli-jobs'
 
+  - project:
+      name: openhalon/as5712-config
+      node: 'openhalon'
+      platform:
+        - as5712
+      jobs:
+        - 'as5712-config-jobs'
+
 ########################################################################
 # Section: OpenStack server projects
 ########################################################################
