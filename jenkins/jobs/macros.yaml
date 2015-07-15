@@ -667,7 +667,7 @@
     builders:
       - shell: |
           #!/bin/sh
-          cd src/{module}/build/dist-docs/
+          cd src/{module}/build/
           make dist-docs
 
 # ======================================================================
