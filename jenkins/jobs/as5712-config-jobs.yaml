@@ -34,4 +34,4 @@
     name: 'as5712-config-jobs'
     jobs:
       - 'as5712-config-check-{platform}'
-      - 'as5712-config-{platform}'
+      - 'as5712-config-gate-{platform}'
