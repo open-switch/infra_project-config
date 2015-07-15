@@ -221,6 +221,15 @@
       jobs:
         - 'as5712-config-jobs'
 
+  - project:
+      name: openhalon/ft-framework
+      node: 'openhalon'
+      platform:
+        - as5712
+        - generic86-64
+      jobs:
+        - 'ft-framework-jobs'
+
 ########################################################################
 # Section: OpenStack server projects
 ########################################################################

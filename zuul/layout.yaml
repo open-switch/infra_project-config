@@ -441,3 +441,15 @@ projects:
       - name: module-build
         module: cli
         platform: as5712
+
+  - name: openhalon/ft-framework
+    template:
+      - name: merge-check
+      - name: module-build
+        module: ft-framework
+        platform: genericx86-64
+      - name: module-build
+        module: ft-framework
+        platform: as5712
+
+
