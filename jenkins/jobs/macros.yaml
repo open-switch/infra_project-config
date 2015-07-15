@@ -662,6 +662,13 @@
           #!/bin/sh
           [ -f /etc/nodepool/uuid ] && echo "Node UUID: $(cat /etc/nodepool/uuid)"
 
+- builder:
+    name: build-openvswitch-docs
+    builders:
+      - shell: |
+          #!/bin/sh
+          cd src/{module}/build/dist-docs/
+          make dist-docs
 
 # ======================================================================
 
