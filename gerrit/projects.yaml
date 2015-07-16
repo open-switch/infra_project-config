@@ -26,6 +26,11 @@
 - project: openhalon/governance
   description: OpenHalon Governance
 
+- project: openswitch/website
+  description: OpenSwitch Website
+- project: openswitch/docs
+  description: OpenSwitch Docs
+
 - project: openhalon/openhalon
   description: OpenHalon Project
 
