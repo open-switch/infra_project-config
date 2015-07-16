@@ -11,7 +11,7 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'as5712-config'
+            module: 'halon-config-as5712'
             platform: '{platform}'
 
 - job-template:
@@ -27,7 +27,7 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'as5712-config'
+            module: 'halon-config-as5712'
             platform: '{platform}'
 
 - job-group:
