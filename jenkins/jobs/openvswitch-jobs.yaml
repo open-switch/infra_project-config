@@ -36,7 +36,7 @@
         - scp:
             site: static.openhalon.io
             files:
-              - target: 'docs-openvswitch'
+              - target: 'docs/openswitch/schema'
                 source: 'src/openvswitch-halon/build/dist-docs/ovs-vswitchd.conf.db.5*'
                 keep-hierarchy: false
                 copy-after-failure: false
