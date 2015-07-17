@@ -226,7 +226,7 @@
       node: 'openhalon'
       platform:
         - as5712
-        - generic86-64
+        - genericx86-64
       jobs:
         - 'ft-framework-jobs'
 
