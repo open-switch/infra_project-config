@@ -93,7 +93,7 @@
              ln -sf /mnt/jenkins/workspace/sstate-cache build/sstate-cache
            fi
            if grep -q {module} .devenv ; then
-             make devenv_rm {module}  
+             make devenv_rm {module}
            fi
            mkdir -p src/{module}
            cd src/{module}
@@ -103,6 +103,28 @@
            make bake cmake-native
            make devenv_import {module} $PWD/src/{module}
            make bake {module}
+
+- builder:
+    name: module-cttest
+    builders:
+      - shell: |
+           #!/bin/bash -x
+           set -e
+           make fs
+           make devenv_ct_init
+           export VSI_IMAGE_NAME=$(uuidgen)
+           make export_docker_image $VSI_IMAGE_NAME
+           make devenv_ct_test PY_TEST_ARGS="src/{module} --exitfirst --junit-xml=build/module-test-results.xml"
+           docker ps -aq | xargs docker stop
+           docker rmi -f $VSI_IMAGE_NAME
+
+- builder:
+    name: jekyll-build
+    builders:
+      - shell: |
+           #!/bin/bash -x
+           set -e
+           jekyll build
 
 - builder:
     name: coverage

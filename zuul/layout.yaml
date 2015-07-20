@@ -218,6 +218,14 @@ project-templates:
       - '{module}-gate-{platform}'
 
 projects:
+  - name: openswitch/website
+    template:
+      - name: merge-check
+    check:
+      - website-check
+    gate:
+      - website-gate
+
   - name: openhalon/openhalon 
     template:
       - name: merge-check

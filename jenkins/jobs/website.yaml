@@ -1,0 +1,38 @@
+- job:
+    name: 'website-check'
+    node: openhalon
+
+    wrappers:
+        - build-timeout:
+            timeout: 10
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - gerrit-git-prep
+        - jekyll-build
+
+- job:
+    name: 'website-gate'
+    node: openhalon
+
+    wrappers:
+        - build-timeout:
+            timeout: 10
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - gerrit-git-prep
+        - jekyll-build
+
+    publishers:
+        - scp:
+            site: static.openhalon.io
+            files:
+              - target: 'www'
+                source: '_site/*'
+                keep-hierarchy: true
+                copy-after-failure: false
