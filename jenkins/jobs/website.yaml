@@ -33,6 +33,6 @@
             site: static.openhalon.io
             files:
               - target: 'www'
-                source: '_site/*'
+                source: '_site'
                 keep-hierarchy: true
                 copy-after-failure: false
