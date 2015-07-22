@@ -61,6 +61,8 @@
   description: Halon Simulator OVS plugin
 - project: openhalon/ovs-bcm-plugin
   description: Halon Broadcom OVS plugin
+- project: openhalon/checkmk-agent
+  description: Check_mk agent
 
 # HW configuration repositories
 - project: openhalon/as5712-config
