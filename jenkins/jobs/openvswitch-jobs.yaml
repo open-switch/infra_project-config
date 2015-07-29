@@ -31,6 +31,7 @@
             platform: '{platform}'
         - build-openvswitch-docs:
             module: 'openvswitch-halon'
+        - shell: "make"
 
     publishers:
         - scp:
