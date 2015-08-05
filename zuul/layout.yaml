@@ -5,7 +5,7 @@ pipelines:
   - name: check
     description: Newly uploaded patchsets enter this pipeline to receive an initial +/-1 Verified vote from Jenkins.
     success-message: Build succeeded (check pipeline).
-    failure-message: Build failed (check pipeline).  
+    failure-message: Build failed (check pipeline).
     manager: IndependentPipelineManager
     source: gerrit
     precedence: normal
@@ -21,7 +21,7 @@ pipelines:
         - event: comment-added
           require-approval:
             - verified: [-1, -2]
-              username: zuul 
+              username: zuul
           approval:
             - workflow: 1
     success:
@@ -34,7 +34,7 @@ pipelines:
   - name: gate
     description: Changes that have been approved by core developers are enqueued in order in this pipeline, and if they pass tests in Jenkins, will be merged.
     success-message: Build succeeded (gate pipeline).
-    failure-message: Build failed (gate pipeline).  
+    failure-message: Build failed (gate pipeline).
     manager: DependentPipelineManager
     source: gerrit
     precedence: high
@@ -43,7 +43,7 @@ pipelines:
       current-patchset: True
       approval:
         - verified: [1, 2]
-          username: zuul 
+          username: zuul
         - workflow: 1
     trigger:
       gerrit:
@@ -56,7 +56,7 @@ pipelines:
         - event: comment-added
           approval:
             - verified: 1
-          username: zuul 
+          username: zuul
     start:
       gerrit:
         verified: 0
@@ -226,7 +226,7 @@ projects:
     gate:
       - website-gate
 
-  - name: openhalon/openhalon 
+  - name: openhalon/openhalon
     template:
       - name: merge-check
       - name: openhalon-build
@@ -460,4 +460,12 @@ projects:
         module: ft-framework
         platform: as5712
 
-
+  - name: openhalon/l3portd
+    template:
+      - name: merge-check
+      - name: module-build
+        module: l3portd
+        platform: genericx86-64
+      - name: module-build
+        module: l3portd
+        platform: as5712
