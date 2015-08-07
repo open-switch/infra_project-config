@@ -104,6 +104,10 @@
 - project: openhalon/restd
   description: REST interface
 
+# Web interface
+- project: openswitch/webui
+  description: Web User Interface for OpenSwitch
+
 # Testing
 - project: openhalon/vsi
   description: Virtual Switch Image
