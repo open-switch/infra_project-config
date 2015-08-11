@@ -240,7 +240,7 @@
         - 'l3portd-jobs'
 
   - project:
-      name: openhalon/webui
+      name: openswitch/webui
       node: 'openhalon'
       platform:
         - as5712

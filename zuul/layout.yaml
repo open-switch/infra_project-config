@@ -470,7 +470,7 @@ projects:
         module: l3portd
         platform: as5712
 
-  - name: openhalon/webui
+  - name: openswitch/webui
     template:
       - name: merge-check
       - name: module-build
