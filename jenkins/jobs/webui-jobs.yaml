@@ -1,0 +1,37 @@
+- job-template:
+    name: 'webui-check-{platform}'
+    node: openhalon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'webui'
+            platform: '{platform}'
+
+- job-template:
+    name: 'webui-gate-{platform}'
+    node: openhalon
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'webui'
+            platform: '{platform}'
+
+- job-group:
+    name: 'webui-jobs'
+    jobs:
+      - 'webui-check-{platform}'
+      - 'webui-gate-{platform}'

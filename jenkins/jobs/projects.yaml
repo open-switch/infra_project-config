@@ -239,6 +239,15 @@
       jobs:
         - 'l3portd-jobs'
 
+  - project:
+      name: openhalon/webui
+      node: 'openhalon'
+      platform:
+        - as5712
+        - genericx86-64
+      jobs:
+        - 'webui-jobs'
+
 ########################################################################
 # Section: OpenStack server projects
 ########################################################################
