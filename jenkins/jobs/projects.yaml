@@ -248,6 +248,15 @@
       jobs:
         - 'webui-jobs'
 
+  - project:
+      name: openswitch/bufmond
+      node: 'openhalon'
+      platform:
+        - as5712
+        - genericx86-64
+      jobs:
+        - 'bufmond-jobs'
+
 ########################################################################
 # Section: OpenStack server projects
 ########################################################################

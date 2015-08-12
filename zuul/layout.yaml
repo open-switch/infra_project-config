@@ -479,3 +479,13 @@ projects:
       - name: module-build
         module: webui
         platform: as5712
+
+  - name: openhalon/bufmond
+    template:
+      - name: merge-check
+      - name: module-build
+        module: bufmond
+        platform: genericx86-64
+      - name: module-build
+        module: bufmond
+        platform: as5712
