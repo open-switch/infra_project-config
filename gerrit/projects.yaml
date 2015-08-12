@@ -114,3 +114,12 @@
   upstream: git://git.hpnos.io/halon/halonnet
 - project: openhalon/ft-framework
   description: Feature Test Framework
+
+# Infrastructure projects OpenSwitch
+- project: openswitch/system-config
+  description: Infrastructure system configuration
+  upstream: git://git.openhalon.io/infra/system-config
+
+- project: openswitch/project-config
+  description: Gerrit project configuration
+  upstream: git://git.openhalon.io/infra/project-config
