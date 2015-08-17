@@ -2,12 +2,25 @@
 # Infrastructure projects
 - project: infra/system-config
   description: Infrastructure system configuration
-  upstream: https://git.openhalon.io/openswitch/system-config
 
 - project: infra/project-config
   description: Project configuration
-  upstream: https://git.openhalon.io/openswitch/project-config
 
 - project: infra/puppet-gerrit
   description: Puppet gerrit module
-  upstream: https://git.openhalon.io/infra/puppet-gerrit
+
+- project: infra/puppet-ssh
+  description: Puppet ssh module
+  upstream: https://git.openhalon.io/infra/puppet-ssh
+
+- project: infra/puppet-module-puppetboard
+  description: Puppet puppetboard module
+  upstream: https://git.openhalon.io/infra/puppet-module-puppetboard
+
+- project: infra/puppet-iptables
+  description: Puppet iptables module
+  upstream: https://git.openhalon.io/infra/puppet-iptables
+
+- project: infra/puppet-jenkins
+  description: Puppet jenkins module
+  upstream: https://git.openhalon.io/infra/puppet-jenkins
