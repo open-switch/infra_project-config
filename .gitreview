@@ -1,4 +1,4 @@
 [gerrit]
 host=review.openhalon.io
 port=29418
-project=infra/project-config.git
+project=openswitch/project-config.git
