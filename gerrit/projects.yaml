@@ -1,1 +1,13 @@
 ---
+# Infrastructure projects
+- project: infra/system-config
+  description: Infrastructure system configuration
+  upstream: https://git.openhalon.io/openswitch/system-config
+
+- project: infra/project-config
+  description: Project configuration
+  upstream: https://git.openhalon.io/openswitch/project-config
+
+- project: infra/puppet-gerrit
+  description: Puppet gerrit module
+  upstream: https://git.openhalon.io/infra/puppet-gerrit
