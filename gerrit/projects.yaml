@@ -23,3 +23,13 @@
 
 - project: infra/website
   description: OpenSwitch Website
+
+# Documentation
+- project: openswitch/governance
+  description: OpenSwitch Governance Documentation
+  upstream: https://git.openhalon.io/openhalon/governance
+
+# Build System
+- project: openswitch/ops-build
+  description: OpenSwitch Build System
+  upstream: https://git.openhalon.io/openhalon/openhalon
