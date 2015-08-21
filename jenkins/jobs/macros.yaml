@@ -128,6 +128,37 @@
            jekyll build
 
 - builder:
+    name: gulp-dist
+    builders:
+      - shell: |
+           #!/bin/bash -x
+           set -e
+
+           if [[ ! -e .git ]]; then
+             # Remove any content, otherwise the clone will fail
+             rm -Rf *
+             git clone https://git.openhalon.io/openhalon/openhalon .
+           else
+             git pull
+           fi
+           if [ ! -f .platform ] ; then
+             make configure {platform}
+             make build/conf/local.conf
+             mkdir -p /mnt/jenkins/workspace/sstate-cache
+             rm -Rf build/sstate-cache
+             ln -sf /mnt/jenkins/workspace/sstate-cache build/sstate-cache
+           fi
+           make bake node-native
+           export PATH=$PWD/build/tmp/sysroots/x86_64-linux/usr/bin:$PATH
+           mkdir website
+           cd website
+           /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openhalon.io git://git.openhalon.io
+           npm install -g gulp
+           npm install -g grommet
+           npm install
+           gulp dist
+
+- builder:
     name: coverage
     builders:
       - shell: "/usr/local/jenkins/slave_scripts/run-cover.sh"

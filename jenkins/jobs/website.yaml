@@ -1,6 +1,6 @@
 - job:
     name: 'website-check'
-    node: openhalon
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -11,11 +11,11 @@
     builders:
         - revoke-sudo
         - gerrit-git-prep
-        - jekyll-build
+        - gulp-dist
 
 - job:
     name: 'website-gate'
-    node: openhalon
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -26,13 +26,13 @@
     builders:
         - revoke-sudo
         - gerrit-git-prep
-        - jekyll-build
+        - gulp-dist
 
     publishers:
         - scp:
-            site: static.openhalon.io
+            site: static.openswitch.net
             files:
               - target: 'www'
-                source: '_site/**'
+                source: 'website/dist/**'
                 keep-hierarchy: true
                 copy-after-failure: false
