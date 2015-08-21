@@ -19,7 +19,7 @@
 
     wrappers:
         - build-timeout:
-            timeout: 70
+            timeout: 60
         - timestamps
         - ansicolor
 
