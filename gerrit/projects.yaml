@@ -11,16 +11,16 @@
 
 - project: infra/puppet-ssh
   description: Puppet ssh module
-  upstream: https://git.openhalon.io/infra/puppet-ssh
 
 - project: infra/puppet-module-puppetboard
   description: Puppet puppetboard module
-  upstream: https://git.openhalon.io/infra/puppet-module-puppetboard
 
 - project: infra/puppet-iptables
   description: Puppet iptables module
-  upstream: https://git.openhalon.io/infra/puppet-iptables
 
 - project: infra/puppet-jenkins
   description: Puppet jenkins module
-  upstream: https://git.openhalon.io/infra/puppet-jenkins
+
+- project: infra/website
+  description: OpenSwitch Website
+  upstream: https://git.openhalon.io/openswitch/website
