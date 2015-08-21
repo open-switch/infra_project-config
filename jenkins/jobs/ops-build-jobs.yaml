@@ -26,7 +26,7 @@
         - ansicolor
         - ssh-agent-credentials:
               users:
-                  - '0f99f00f-a5c0-460d-97b5-9b3dbdfd0773'
+                  - 'ffc18805-a3da-4771-918a-eaaa6a1a0c70'
 
     builders:
         - revoke-sudo
@@ -66,6 +66,5 @@
     name: 'ops-default-builds'
     jobs:
       - 'ops-check-{platform}'
-      - 'ops-gate-{platform}'  
+      - 'ops-gate-{platform}'
       - 'ops-periodic-{platform}'
-
