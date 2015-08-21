@@ -1,6 +1,6 @@
 - job-template:
-    name: 'openhalon-check-{platform}'
-    node: openhalon
+    name: 'ops-check-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -10,14 +10,14 @@
 
     builders:
         - revoke-sudo
-        - openhalon-distclean
+        - ops-distclean
         - gerrit-git-prep
-        - openhalon-build:
+        - ops-build:
             platform: '{platform}'
 
 - job-template:
-    name: 'openhalon-gate-{platform}'
-    node: openhalon
+    name: 'ops-gate-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -30,17 +30,17 @@
 
     builders:
         - revoke-sudo
-        - openhalon-distclean
+        - ops-distclean
         - gerrit-git-prep
-        - openhalon-build:
+        - ops-build:
             platform: '{platform}'
-        - openhalon-meta-ide
+        - ops-meta-ide
         - shared-states
         - download-caches
 
 - job-template:
-    name: 'openhalon-periodic-{platform}'
-    node: openhalon
+    name: 'ops-periodic-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -53,19 +53,19 @@
 
     builders:
         - revoke-sudo
-        - openhalon-distclean
+        - ops-distclean
         - branch-git-prep:
             branch: master
-        - openhalon-build:
+        - ops-build:
             platform: '{platform}'
-        - openhalon-meta-ide
+        - ops-meta-ide
         - shared-states
         - download-caches
 
 - job-group:
-    name: 'openhalon-default-builds'
+    name: 'ops-default-builds'
     jobs:
-      - 'openhalon-check-{platform}'
-      - 'openhalon-gate-{platform}'  
-      - 'openhalon-periodic-{platform}'
+      - 'ops-check-{platform}'
+      - 'ops-gate-{platform}'  
+      - 'ops-periodic-{platform}'
 

@@ -1,7 +1,7 @@
 - builder:
     name: gerrit-git-prep
     builders:
-      - shell: "/usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openhalon.io git://git.openhalon.io"
+      - shell: "/usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net"
 
 - builder:
     name: branch-git-prep
@@ -9,7 +9,7 @@
       - shell: |
           #!/bin/bash
           export BRANCH={branch}
-          /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openhalon.io git://git.openhalon.io
+          /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
 
 - builder:
     name: revoke-sudo
@@ -21,7 +21,7 @@
           ! sudo -n true
 
 - builder:
-    name: openhalon-distclean
+    name: ops-distclean
     builders:
       - shell: |
           #!/bin/bash -x
@@ -33,7 +33,7 @@
       - shell: /usr/local/jenkins/slave_scripts/yamllint.py {file}
 
 - builder:
-    name: openhalon-build
+    name: ops-build
     builders:
       - shell: |
           #!/bin/bash -x
@@ -45,7 +45,7 @@
           make
 
 - builder:
-    name: openhalon-meta-ide
+    name: ops-meta-ide
     builders:
       - shell: |
           make bake meta-ide-support
@@ -58,7 +58,7 @@
           #!/bin/bash -x
           echo "Synchronizing shared states"
           cd build/sstate-cache
-          rsync --ignore-existing --exclude='*.done' --size-only -avzL -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --progress ?? `lsb_release -s -i`-`lsb_release -s -r` static.openhalon.io:/srv/static/sstate || true
+          rsync --ignore-existing --exclude='*.done' --size-only -avzL -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --progress ?? `lsb_release -s -i`-`lsb_release -s -r` static.openswitch.net:/srv/static/sstate || true
 
 - builder:
     name: download-caches
@@ -68,7 +68,7 @@
           #!/bin/bash -x
           echo "Synchronizing download archive"
           cd build/downloads
-          rsync --size-only -avz -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --progress *.tar.* *.zip --exclude=*.done static.openhalon.io:/srv/static/archive || true
+          rsync --size-only -avz -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --progress *.tar.* *.zip --exclude=*.done static.openswitch.net:/srv/static/archive || true
 
 - builder:
     name: module-build
@@ -81,7 +81,7 @@
            if [[ ! -e .git ]]; then
              # Remove any content, otherwise the clone will fail
              rm -Rf *
-             git clone https://git.openhalon.io/openhalon/openhalon .
+             git clone https://git.openswitch.net/openswitch/ops-build .
            else
              git pull
            fi
@@ -97,7 +97,7 @@
            fi
            mkdir -p src/{module}
            cd src/{module}
-           /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openhalon.io git://git.openhalon.io
+           /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
            cd ../..
            # Trigger building of some basic recipe to get the recipe environment working, since devtool is not that good yet...
            make bake cmake-native
@@ -137,7 +137,7 @@
            if [[ ! -e .git ]]; then
              # Remove any content, otherwise the clone will fail
              rm -Rf *
-             git clone https://git.openhalon.io/openhalon/openhalon .
+             git clone https://git.openswitch.net/openswitch/ops-build .
            else
              git pull
            fi
@@ -773,7 +773,7 @@
     name: console-log
     publishers:
       - scp:
-          site: 'static.openhalon.io'
+          site: 'static.openswitch.net'
           files:
             - target: 'logs/$LOG_PATH'
               copy-console: true
@@ -784,7 +784,7 @@
     name: devstack-logs
     publishers:
       - scp:
-          site: 'static.openhalon.io'
+          site: 'static.openswitch.net'
           files:
             - target: 'logs/$LOG_PATH'
               source: 'logs/**'
@@ -796,7 +796,7 @@
     name: coverage-log
     publishers:
       - scp:
-          site: 'static.openhalon.io'
+          site: 'static.openswitch.net'
           files:
             - target: 'logs/$LOG_PATH'
               source: 'cover/**'
@@ -807,7 +807,7 @@
     name: coverage-log-ruby
     publishers:
       - scp:
-          site: 'static.openhalon.io'
+          site: 'static.openswitch.net'
           files:
             - target: 'logs/$LOG_PATH'
               source: 'coverage/**'
@@ -818,7 +818,7 @@
     name: test-results
     publishers:
       - scp:
-          site: 'static.openhalon.io'
+          site: 'static.openswitch.net'
           files:
             - target: 'logs/$LOG_PATH'
               source: '**/*nose_results.html'
@@ -845,7 +845,7 @@
     name: upload-sphinx-draft
     publishers:
       - scp:
-          site: 'static.openhalon.io'
+          site: 'static.openswitch.net'
           files:
             - target: 'docs-draft/$LOG_PATH'
               source: 'doc/build/html/**'
@@ -856,7 +856,7 @@
     name: upload-docs-draft
     publishers:
       - scp:
-          site: 'static.openhalon.io'
+          site: 'static.openswitch.net'
           files:
             - target: 'docs-draft/$LOG_PATH/'
               source: 'publish-docs/**'
@@ -877,7 +877,7 @@
     name: upload-doc-build-results
     publishers:
       - scp:
-          site: 'static.openhalon.io'
+          site: 'static.openswitch.net'
           files:
             - target: 'logs/$LOG_PATH'
               source: 'build-*.log.gz'

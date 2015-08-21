@@ -205,11 +205,11 @@ project-templates:
     gate:
       - noop
 
-  - name: openhalon-build
+  - name: ops-build
     check:
-      - 'openhalon-check-{platform}'
+      - 'ops-check-{platform}'
     gate:
-      - 'openhalon-gate-{platform}'
+      - 'ops-gate-{platform}'
 
   - name: module-build
     check:
@@ -226,266 +226,266 @@ projects:
     gate:
       - website-gate
 
-  - name: openhalon/openhalon
+  - name: openswitch/ops-build
     template:
       - name: merge-check
-      - name: openhalon-build
+      - name: ops-build
         platform: genericx86-64
-      - name: openhalon-build
+      - name: ops-build
         platform: as5712
     periodic:
-      - openhalon-periodic-genericx86-64
-      - openhalon-periodic-as5712
+      - ops-periodic-genericx86-64
+      - ops-periodic-as5712
 
-  - name: openhalon/halonutils
-    template:
-      - name: merge-check
-      - name: module-build
-        platform: genericx86-64
-        module: halonutils
-      - name: module-build
-        module: halonutils
-        platform: as5712
-
-  - name: openhalon/config-yaml
-    template:
-      - name: merge-check
-      - name: module-build
-        platform: genericx86-64
-        module: config-yaml
-
-  - name: openhalon/openvswitch
-    template:
-      - name: merge-check
-      - name: module-build
-        module: openvswitch
-        platform: genericx86-64
-      - name: module-build
-        module: openvswitch
-        platform: as5712
-
-  - name: openhalon/cfgd
-    template:
-      - name: merge-check
-      - name: module-build
-        module: cfgd
-        platform: genericx86-64
-
-  - name: openhalon/fand
-    template:
-      - name: merge-check
-      - name: module-build
-        module: fand
-        platform: genericx86-64
-      - name: module-build
-        module: fand
-        platform: as5712
-
-  - name: openhalon/intfd
-    template:
-      - name: merge-check
-      - name: module-build
-        module: intfd
-        platform: genericx86-64
-
-  - name: openhalon/lacpd
-    template:
-      - name: merge-check
-      - name: module-build
-        module: lacpd
-        platform: genericx86-64
-      - name: module-build
-        module: lacpd
-        platform: as5712
-
-  - name: openhalon/ledd
-    template:
-      - name: merge-check
-      - name: module-build
-        module: ledd
-        platform: genericx86-64
-      - name: module-build
-        module: ledd
-        platform: as5712
-
-  - name: openhalon/lldpd
-    template:
-      - name: merge-check
-      - name: module-build
-        module: lldpd
-        platform: genericx86-64
-
-  - name: openhalon/pmd
-    template:
-      - name: merge-check
-      - name: module-build
-        module: pmd
-        platform: genericx86-64
-      - name: module-build
-        module: pmd
-        platform: as5712
-
-  - name: openhalon/powerd
-    template:
-      - name: merge-check
-      - name: module-build
-        module: powerd
-        platform: genericx86-64
-      - name: module-build
-        module: powerd
-        platform: as5712
-
-  - name: openhalon/sysd
-    template:
-      - name: merge-check
-      - name: module-build
-        module: sysd
-        platform: genericx86-64
-      - name: module-build
-        module: sysd
-        platform: as5712
-
-  - name: openhalon/tempd
-    template:
-      - name: merge-check
-      - name: module-build
-        module: tempd
-        platform: genericx86-64
-      - name: module-build
-        module: tempd
-        platform: as5712
-
-  - name: openhalon/quagga
-    template:
-      - name: merge-check
-      - name: module-build
-        module: quagga
-        platform: genericx86-64
-
-  - name: openhalon/as5712-config
-    template:
-      - name: merge-check
-      - name: module-build
-        module: as5712-config
-        platform: as5712
-
-  - name: openhalon/ovs-sim-plugin
-    template:
-      - name: merge-check
-      - name: module-build
-        module: ovs-sim-plugin
-        platform: genericx86-64
-
-  - name: openhalon/aaa-utils
-    template:
-      - name: merge-check
-      - name: module-build
-        module: aaa-utils
-        platform: genericx86-64
-
-  - name: openhalon/simulator-config
-    template:
-      - name: merge-check
-      - name: module-build
-        module: simulator-config
-        platform: genericx86-64
-
-  - name: openhalon/governance
-    template:
-      - name: merge-check
-    check:
-      - gate-governance-docs
-    gate:
-      - gate-governance-docs
-    post:
-      - static-governance-publish
-
-  - name: openhalon/vland
-    template:
-      - name: merge-check
-      - name: module-build
-        module: vland
-        platform: genericx86-64
-      - name: module-build
-        module: vland
-        platform: as5712
-
-  - name: openhalon/arpmgrd
-    template:
-      - name: merge-check
-      - name: module-build
-        module: arpmgrd
-        platform: genericx86-64
-      - name: module-build
-        module: arpmgrd
-        platform: as5712
-
-  - name: openhalon/restd
-    template:
-      - name: merge-check
-      - name: module-build
-        module: restd
-        platform: genericx86-64
-      - name: module-build
-        module: restd
-        platform: as5712
-
-  - name: openhalon/vsi
-    template:
-      - name: merge-check
-      - name: module-build
-        module: vsi
-        platform: genericx86-64
-      - name: module-build
-        module: vsi
-        platform: as5712
-
-  - name: openhalon/cli
-    template:
-      - name: merge-check
-      - name: module-build
-        module: cli
-        platform: genericx86-64
-      - name: module-build
-        module: cli
-        platform: as5712
-
-  - name: openhalon/ft-framework
-    template:
-      - name: merge-check
-      - name: module-build
-        module: ft-framework
-        platform: genericx86-64
-      - name: module-build
-        module: ft-framework
-        platform: as5712
-
-  - name: openhalon/l3portd
-    template:
-      - name: merge-check
-      - name: module-build
-        module: l3portd
-        platform: genericx86-64
-      - name: module-build
-        module: l3portd
-        platform: as5712
-
-  - name: openswitch/webui
-    template:
-      - name: merge-check
-      - name: module-build
-        module: webui
-        platform: genericx86-64
-      - name: module-build
-        module: webui
-        platform: as5712
-
-  - name: openhalon/bufmond
-    template:
-      - name: merge-check
-      - name: module-build
-        module: bufmond
-        platform: genericx86-64
-      - name: module-build
-        module: bufmond
-        platform: as5712
+#  - name: openhalon/halonutils
+#    template:
+#      - name: merge-check
+#      - name: module-build
+#        platform: genericx86-64
+#        module: halonutils
+#      - name: module-build
+#        module: halonutils
+#        platform: as5712
+#
+#  - name: openhalon/config-yaml
+#    template:
+#      - name: merge-check
+#      - name: module-build
+#        platform: genericx86-64
+#        module: config-yaml
+#
+#  - name: openhalon/openvswitch
+#    template:
+#      - name: merge-check
+#      - name: module-build
+#        module: openvswitch
+#        platform: genericx86-64
+#      - name: module-build
+#        module: openvswitch
+#        platform: as5712
+#
+#  - name: openhalon/cfgd
+#    template:
+#      - name: merge-check
+#      - name: module-build
+#        module: cfgd
+#        platform: genericx86-64
+#
+#  - name: openhalon/fand
+#    template:
+#      - name: merge-check
+#      - name: module-build
+#        module: fand
+#        platform: genericx86-64
+#      - name: module-build
+#        module: fand
+#        platform: as5712
+#
+#  - name: openhalon/intfd
+#    template:
+#      - name: merge-check
+#      - name: module-build
+#        module: intfd
+#        platform: genericx86-64
+#
+#  - name: openhalon/lacpd
+#    template:
+#      - name: merge-check
+#      - name: module-build
+#        module: lacpd
+#        platform: genericx86-64
+#      - name: module-build
+#        module: lacpd
+#        platform: as5712
+#
+#  - name: openhalon/ledd
+#    template:
+#      - name: merge-check
+#      - name: module-build
+#        module: ledd
+#        platform: genericx86-64
+#      - name: module-build
+#        module: ledd
+#        platform: as5712
+#
+#  - name: openhalon/lldpd
+#    template:
+#      - name: merge-check
+#      - name: module-build
+#        module: lldpd
+#        platform: genericx86-64
+#
+#  - name: openhalon/pmd
+#    template:
+#      - name: merge-check
+#      - name: module-build
+#        module: pmd
+#        platform: genericx86-64
+#      - name: module-build
+#        module: pmd
+#        platform: as5712
+#
+#  - name: openhalon/powerd
+#    template:
+#      - name: merge-check
+#      - name: module-build
+#        module: powerd
+#        platform: genericx86-64
+#      - name: module-build
+#        module: powerd
+#        platform: as5712
+#
+#  - name: openhalon/sysd
+#    template:
+#      - name: merge-check
+#      - name: module-build
+#        module: sysd
+#        platform: genericx86-64
+#      - name: module-build
+#        module: sysd
+#        platform: as5712
+#
+#  - name: openhalon/tempd
+#    template:
+#      - name: merge-check
+#      - name: module-build
+#        module: tempd
+#        platform: genericx86-64
+#      - name: module-build
+#        module: tempd
+#        platform: as5712
+#
+#  - name: openhalon/quagga
+#    template:
+#      - name: merge-check
+#      - name: module-build
+#        module: quagga
+#        platform: genericx86-64
+#
+#  - name: openhalon/as5712-config
+#    template:
+#      - name: merge-check
+#      - name: module-build
+#        module: as5712-config
+#        platform: as5712
+#
+#  - name: openhalon/ovs-sim-plugin
+#    template:
+#      - name: merge-check
+#      - name: module-build
+#        module: ovs-sim-plugin
+#        platform: genericx86-64
+#
+#  - name: openhalon/aaa-utils
+#    template:
+#      - name: merge-check
+#      - name: module-build
+#        module: aaa-utils
+#        platform: genericx86-64
+#
+#  - name: openhalon/simulator-config
+#    template:
+#      - name: merge-check
+#      - name: module-build
+#        module: simulator-config
+#        platform: genericx86-64
+#
+#  - name: openhalon/governance
+#    template:
+#      - name: merge-check
+#    check:
+#      - gate-governance-docs
+#    gate:
+#      - gate-governance-docs
+#    post:
+#      - static-governance-publish
+#
+#  - name: openhalon/vland
+#    template:
+#      - name: merge-check
+#      - name: module-build
+#        module: vland
+#        platform: genericx86-64
+#      - name: module-build
+#        module: vland
+#        platform: as5712
+#
+#  - name: openhalon/arpmgrd
+#    template:
+#      - name: merge-check
+#      - name: module-build
+#        module: arpmgrd
+#        platform: genericx86-64
+#      - name: module-build
+#        module: arpmgrd
+#        platform: as5712
+#
+#  - name: openhalon/restd
+#    template:
+#      - name: merge-check
+#      - name: module-build
+#        module: restd
+#        platform: genericx86-64
+#      - name: module-build
+#        module: restd
+#        platform: as5712
+#
+#  - name: openhalon/vsi
+#    template:
+#      - name: merge-check
+#      - name: module-build
+#        module: vsi
+#        platform: genericx86-64
+#      - name: module-build
+#        module: vsi
+#        platform: as5712
+#
+#  - name: openhalon/cli
+#    template:
+#      - name: merge-check
+#      - name: module-build
+#        module: cli
+#        platform: genericx86-64
+#      - name: module-build
+#        module: cli
+#        platform: as5712
+#
+#  - name: openhalon/ft-framework
+#    template:
+#      - name: merge-check
+#      - name: module-build
+#        module: ft-framework
+#        platform: genericx86-64
+#      - name: module-build
+#        module: ft-framework
+#        platform: as5712
+#
+#  - name: openhalon/l3portd
+#    template:
+#      - name: merge-check
+#      - name: module-build
+#        module: l3portd
+#        platform: genericx86-64
+#      - name: module-build
+#        module: l3portd
+#        platform: as5712
+#
+#  - name: openswitch/webui
+#    template:
+#      - name: merge-check
+#      - name: module-build
+#        module: webui
+#        platform: genericx86-64
+#      - name: module-build
+#        module: webui
+#        platform: as5712
+#
+#  - name: openhalon/bufmond
+#    template:
+#      - name: merge-check
+#      - name: module-build
+#        module: bufmond
+#        platform: genericx86-64
+#      - name: module-build
+#        module: bufmond
+#        platform: as5712
