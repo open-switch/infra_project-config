@@ -152,7 +152,7 @@
            export PATH=$PWD/build/tmp/sysroots/x86_64-linux/usr/bin:$PATH
            mkdir website
            cd website
-           /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openhalon.io git://git.openhalon.io
+           /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
            npm install -g gulp
            npm install -g grommet
            npm install

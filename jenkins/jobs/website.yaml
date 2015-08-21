@@ -10,7 +10,6 @@
 
     builders:
         - revoke-sudo
-        - gerrit-git-prep
         - gulp-dist
 
 - job:
@@ -25,7 +24,6 @@
 
     builders:
         - revoke-sudo
-        - gerrit-git-prep
         - gulp-dist
 
     publishers:
