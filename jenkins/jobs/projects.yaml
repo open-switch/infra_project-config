@@ -2,260 +2,260 @@
 # alphabetical in each section.
 
   - project:
-      name: openhalon/openhalon
-      node: 'openhalon'
+      name: openswitch/ops-build
+      node: 'openswitch'
       platform:
         - genericx86-64
         - as5712
       jobs:
-        - 'openhalon-default-builds'
+        - 'ops-default-builds'
 
-  - project:
-      name: openhalon/halonutils
-      node: 'openhalon'
-      platform:
-        - genericx86-64
-        - as5712
-      jobs:
-        - 'halonutils-jobs'
-
-  - project:
-      name: openhalon/config-yaml
-      node: 'openhalon'
-      platform:
-        - genericx86-64
-      jobs:
-        - 'config-yaml-jobs'
-
-  - project:
-      name: governance
-      node: 'bare-precise || bare-trusty'
-      docroot: governance
-
-      jobs:
-        - 'gate-{name}-docs'
-        - 'static-{name}-publish'
-
-  - project:
-      name: openhalon/openvswitch
-      node: 'halon'
-      platform:
-        - genericx86-64
-        - as5712
-      jobs:
-        - 'openvswitch-jobs'
-
-  - project:
-      name: openhalon/cfgd
-      node: 'openhalon'
-      platform:
-        - genericx86-64
-        - as5712
-      jobs:
-        - 'cfgd-jobs'
-
-  - project:
-      name: openhalon/fand
-      node: 'openhalon'
-      platform:
-        - genericx86-64
-        - as5712
-      jobs:
-        - 'fand-jobs'
-
-  - project:
-      name: openhalon/intfd
-      node: 'openhalon'
-      platform:
-        - genericx86-64
-        - as5712
-      jobs:
-        - 'intfd-jobs'
-
-  - project:
-      name: openhalon/lacpd
-      node: 'openhalon'
-      platform:
-        - genericx86-64
-        - as5712
-      jobs:
-        - 'lacpd-jobs'
-
-  - project:
-      name: openhalon/ledd
-      node: 'openhalon'
-      platform:
-        - genericx86-64
-        - as5712
-      jobs:
-        - 'ledd-jobs'
-
-  - project:
-      name: openhalon/lldpd
-      node: 'openhalon'
-      platform:
-        - genericx86-64
-        - as5712
-      jobs:
-        - 'lldpd-jobs'
-
-  - project:
-      name: openhalon/pmd
-      node: 'openhalon'
-      platform:
-        - genericx86-64
-        - as5712
-      jobs:
-        - 'pmd-jobs'
-
-  - project:
-      name: openhalon/powerd
-      node: 'openhalon'
-      platform:
-        - genericx86-64
-        - as5712
-      jobs:
-        - 'powerd-jobs'
-
-  - project:
-      name: openhalon/quagga
-      node: 'openhalon'
-      platform:
-        - genericx86-64
-        - as5712
-      jobs:
-        - 'quagga-jobs'
-
-  - project:
-      name: openhalon/sysd
-      node: 'openhalon'
-      platform:
-        - genericx86-64
-        - as5712
-      jobs:
-        - 'sysd-jobs'
-
-  - project:
-      name: openhalon/tempd
-      node: 'openhalon'
-      platform:
-        - genericx86-64
-        - as5712
-      jobs:
-        - 'tempd-jobs'
-
-  - project:
-      name: openhalon/simulator-config
-      node: 'openhalon'
-      platform:
-        - genericx86-64
-      jobs:
-        - 'simulator-config-jobs'
-
-  - project:
-      name: openhalon/ovs-sim-plugin
-      node: 'openhalon'
-      platform:
-        - genericx86-64
-      jobs:
-        - 'ovs-sim-plugin-jobs'
-
-  - project:
-      name: openhalon/aaa-utils
-      node: 'openhalon'
-      platform:
-        - genericx86-64
-      jobs:
-        - 'aaa-utils-jobs'
-
-  - project:
-      name: openhalon/vland
-      node: 'openhalon'
-      platform:
-        - genericx86-64
-        - as5712
-      jobs:
-        - 'vland-jobs'
-
-  - project:
-      name: openhalon/arpmgrd
-      node: 'openhalon'
-      platform:
-        - genericx86-64
-        - as5712
-      jobs:
-        - 'arpmgrd-jobs'
-
-  - project:
-      name: openhalon/restd
-      node: 'openhalon'
-      platform:
-        - genericx86-64
-        - as5712
-      jobs:
-        - 'restd-jobs'
-
-  - project:
-      name: openhalon/vsi
-      node: 'halon'
-      platform:
-        - genericx86-64
-        - as5712
-      jobs:
-        - 'vsi-jobs'
-
-  - project:
-      name: openhalon/cli
-      node: 'halon'
-      platform:
-        - genericx86-64
-        - as5712
-      jobs:
-        - 'cli-jobs'
-
-  - project:
-      name: openhalon/as5712-config
-      node: 'openhalon'
-      platform:
-        - as5712
-      jobs:
-        - 'as5712-config-jobs'
-
-  - project:
-      name: openhalon/ft-framework
-      node: 'openhalon'
-      platform:
-        - as5712
-        - genericx86-64
-      jobs:
-        - 'ft-framework-jobs'
-
-  - project:
-      name: openhalon/l3portd
-      node: 'openhalon'
-      platform:
-        - as5712
-        - genericx86-64
-      jobs:
-        - 'l3portd-jobs'
-
-  - project:
-      name: openswitch/webui
-      node: 'openhalon'
-      platform:
-        - as5712
-        - genericx86-64
-      jobs:
-        - 'webui-jobs'
-
-  - project:
-      name: openswitch/bufmond
-      node: 'openhalon'
-      platform:
-        - as5712
-        - genericx86-64
-      jobs:
-        - 'bufmond-jobs'
+#  - project:
+#      name: openhalon/halonutils
+#      node: 'openhalon'
+#      platform:
+#        - genericx86-64
+#        - as5712
+#      jobs:
+#        - 'halonutils-jobs'
+#
+#  - project:
+#      name: openhalon/config-yaml
+#      node: 'openhalon'
+#      platform:
+#        - genericx86-64
+#      jobs:
+#        - 'config-yaml-jobs'
+#
+#  - project:
+#      name: governance
+#      node: 'bare-precise || bare-trusty'
+#      docroot: governance
+#
+#      jobs:
+#        - 'gate-{name}-docs'
+#        - 'static-{name}-publish'
+#
+#  - project:
+#      name: openhalon/openvswitch
+#      node: 'halon'
+#      platform:
+#        - genericx86-64
+#        - as5712
+#      jobs:
+#        - 'openvswitch-jobs'
+#
+#  - project:
+#      name: openhalon/cfgd
+#      node: 'openhalon'
+#      platform:
+#        - genericx86-64
+#        - as5712
+#      jobs:
+#        - 'cfgd-jobs'
+#
+#  - project:
+#      name: openhalon/fand
+#      node: 'openhalon'
+#      platform:
+#        - genericx86-64
+#        - as5712
+#      jobs:
+#        - 'fand-jobs'
+#
+#  - project:
+#      name: openhalon/intfd
+#      node: 'openhalon'
+#      platform:
+#        - genericx86-64
+#        - as5712
+#      jobs:
+#        - 'intfd-jobs'
+#
+#  - project:
+#      name: openhalon/lacpd
+#      node: 'openhalon'
+#      platform:
+#        - genericx86-64
+#        - as5712
+#      jobs:
+#        - 'lacpd-jobs'
+#
+#  - project:
+#      name: openhalon/ledd
+#      node: 'openhalon'
+#      platform:
+#        - genericx86-64
+#        - as5712
+#      jobs:
+#        - 'ledd-jobs'
+#
+#  - project:
+#      name: openhalon/lldpd
+#      node: 'openhalon'
+#      platform:
+#        - genericx86-64
+#        - as5712
+#      jobs:
+#        - 'lldpd-jobs'
+#
+#  - project:
+#      name: openhalon/pmd
+#      node: 'openhalon'
+#      platform:
+#        - genericx86-64
+#        - as5712
+#      jobs:
+#        - 'pmd-jobs'
+#
+#  - project:
+#      name: openhalon/powerd
+#      node: 'openhalon'
+#      platform:
+#        - genericx86-64
+#        - as5712
+#      jobs:
+#        - 'powerd-jobs'
+#
+#  - project:
+#      name: openhalon/quagga
+#      node: 'openhalon'
+#      platform:
+#        - genericx86-64
+#        - as5712
+#      jobs:
+#        - 'quagga-jobs'
+#
+#  - project:
+#      name: openhalon/sysd
+#      node: 'openhalon'
+#      platform:
+#        - genericx86-64
+#        - as5712
+#      jobs:
+#        - 'sysd-jobs'
+#
+#  - project:
+#      name: openhalon/tempd
+#      node: 'openhalon'
+#      platform:
+#        - genericx86-64
+#        - as5712
+#      jobs:
+#        - 'tempd-jobs'
+#
+#  - project:
+#      name: openhalon/simulator-config
+#      node: 'openhalon'
+#      platform:
+#        - genericx86-64
+#      jobs:
+#        - 'simulator-config-jobs'
+#
+#  - project:
+#      name: openhalon/ovs-sim-plugin
+#      node: 'openhalon'
+#      platform:
+#        - genericx86-64
+#      jobs:
+#        - 'ovs-sim-plugin-jobs'
+#
+#  - project:
+#      name: openhalon/aaa-utils
+#      node: 'openhalon'
+#      platform:
+#        - genericx86-64
+#      jobs:
+#        - 'aaa-utils-jobs'
+#
+#  - project:
+#      name: openhalon/vland
+#      node: 'openhalon'
+#      platform:
+#        - genericx86-64
+#        - as5712
+#      jobs:
+#        - 'vland-jobs'
+#
+#  - project:
+#      name: openhalon/arpmgrd
+#      node: 'openhalon'
+#      platform:
+#        - genericx86-64
+#        - as5712
+#      jobs:
+#        - 'arpmgrd-jobs'
+#
+#  - project:
+#      name: openhalon/restd
+#      node: 'openhalon'
+#      platform:
+#        - genericx86-64
+#        - as5712
+#      jobs:
+#        - 'restd-jobs'
+#
+#  - project:
+#      name: openhalon/vsi
+#      node: 'halon'
+#      platform:
+#        - genericx86-64
+#        - as5712
+#      jobs:
+#        - 'vsi-jobs'
+#
+#  - project:
+#      name: openhalon/cli
+#      node: 'halon'
+#      platform:
+#        - genericx86-64
+#        - as5712
+#      jobs:
+#        - 'cli-jobs'
+#
+#  - project:
+#      name: openhalon/as5712-config
+#      node: 'openhalon'
+#      platform:
+#        - as5712
+#      jobs:
+#        - 'as5712-config-jobs'
+#
+#  - project:
+#      name: openhalon/ft-framework
+#      node: 'openhalon'
+#      platform:
+#        - as5712
+#        - genericx86-64
+#      jobs:
+#        - 'ft-framework-jobs'
+#
+#  - project:
+#      name: openhalon/l3portd
+#      node: 'openhalon'
+#      platform:
+#        - as5712
+#        - genericx86-64
+#      jobs:
+#        - 'l3portd-jobs'
+#
+#  - project:
+#      name: openswitch/webui
+#      node: 'openhalon'
+#      platform:
+#        - as5712
+#        - genericx86-64
+#      jobs:
+#        - 'webui-jobs'
+#
+#  - project:
+#      name: openswitch/bufmond
+#      node: 'openhalon'
+#      platform:
+#        - as5712
+#        - genericx86-64
+#      jobs:
+#        - 'bufmond-jobs'
 
 ########################################################################
 # Section: OpenStack server projects
