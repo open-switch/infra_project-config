@@ -139,7 +139,7 @@
   upstream: https://git.openhalon.io/openhalon/restd
 
 # Web interface
-- project: openswitch/webui
+- project: openswitch/ops-webui
   description: OpenSwitch Web User Interface
   upstream: https://git.openhalon.io/openhalon/webui
 
