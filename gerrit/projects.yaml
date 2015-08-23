@@ -27,9 +27,12 @@
 # Documentation
 - project: openswitch/governance
   description: OpenSwitch Governance Documentation
-  upstream: https://git.openhalon.io/openhalon/governance
 
 # Build System
 - project: openswitch/ops-build
   description: OpenSwitch Build System
-  upstream: https://git.openhalon.io/openhalon/openhalon
+
+# OpenSwitch Daemons
+- project: openswitch/ops-sysd
+  description: OpenSwitch System Daemon
+  upstream: https://git.openhalon.io/openhalon/sysd

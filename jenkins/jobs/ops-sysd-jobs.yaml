@@ -1,6 +1,6 @@
 - job-template:
     name: 'sysd-check-{platform}'
-    node: openhalon
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -11,12 +11,12 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'sysd'
+            module: 'ops-sysd'
             platform: '{platform}'
 
 - job-template:
     name: 'sysd-gate-{platform}'
-    node: openhalon
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -27,11 +27,11 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'sysd'
+            module: 'ops-sysd'
             platform: '{platform}'
 
 - job-group:
-    name: 'sysd-jobs'
+    name: 'ops-sysd-jobs'
     jobs:
-      - 'sysd-check-{platform}'
-      - 'sysd-gate-{platform}'
+      - 'ops-sysd-check-{platform}'
+      - 'ops-sysd-gate-{platform}'

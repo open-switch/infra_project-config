@@ -10,6 +10,15 @@
       jobs:
         - 'ops-default-builds'
 
+  - project:
+      name: openswitch/ops-sysd
+      node: 'openswitch'
+      platform:
+        - genericx86-64
+        - as5712
+      jobs:
+        - 'ops-sysd-jobs'
+
 #  - project:
 #      name: openhalon/halonutils
 #      node: 'openhalon'

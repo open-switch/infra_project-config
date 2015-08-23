@@ -237,6 +237,16 @@ projects:
       - ops-periodic-genericx86-64
       - ops-periodic-as5712
 
+  - name: openswitch/ops-sysd
+    template:
+      - name: merge-check
+      - name: module-build
+        module: ops-sysd
+        platform: genericx86-64
+      - name: module-build
+        module: ops-sysd
+        platform: as5712
+
 #  - name: openhalon/halonutils
 #    template:
 #      - name: merge-check
