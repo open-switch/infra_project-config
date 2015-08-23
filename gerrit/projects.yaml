@@ -33,7 +33,7 @@
   description: OpenSwitch Build System
 
 # OpenSwitch Utils
-- project: openswitch/ops-outils
+- project: openswitch/ops-utils
   description: OpenSwitch Utils
   upstream: https://git.openhalon.io/openhalon/halonutils
 
