@@ -32,7 +32,122 @@
 - project: openswitch/ops-build
   description: OpenSwitch Build System
 
+# OpenSwitch Utils
+- project: openswitch/ops-outils
+  description: OpenSwitch Utils
+  upstream: https://git.openhalon.io/openhalon/halonutils
+
 # OpenSwitch Daemons
 - project: openswitch/ops-sysd
   description: OpenSwitch System Daemon
-  upstream: https://git.openhalon.io/openhalon/sysd
+
+- project: openswitch/ops-fand
+  description: OpenSwitch Fan Daemon
+  upstream: https://git.openhalon.io/openhalon/fand
+
+- project: openswitch/ops-ledd
+  description: OpenSwitch LED Daemon
+  upstream: https://git.openhalon.io/openhalon/ledd
+
+- project: openswitch/ops-powerd
+  description: OpenSwitch Power Daemon
+  upstream: https://git.openhalon.io/openhalon/powerd
+
+- project: openswitch/ops-pmd
+  description: OpenSwitch Pluggable Module Daemon
+  upstream: https://git.openhalon.io/openhalon/pmd
+
+- project: openswitch/ops-tempd
+  description: OpenSwitch Temperature Daemon
+  upstream: https://git.openhalon.io/openhalon/tempd
+
+- project: openswitch/ops-bufmond
+  description: OpenvSwitch Buffer Monitor Daemon
+  upstream: https://git.openhalon.io/openhalon/bufmond
+
+- project: openswitch/ops-openvswitch
+  description: OpenSwitch's OpenVswitch
+  upstream: https://git.openhalon.io/openhalon/openvswitch
+
+- project: openswitch/ops-switchd-sim-plugin
+  description: OpenSwitch Simulator OVS plugin
+  upstream: https://git.openhalon.io/openhalon/ovs-sim-plugin
+
+- project: openswitch/ops-config-as5712
+  description: Configuration files for AS5712 platform
+  upstream: https://git.openhalon.io/openhalon/as5712-config
+
+- project: openswitch/ops-config-simulator
+  description: Configuration files for Simulator platform
+  upstream: https://git.openhalon.io/openhalon/simulator-config
+
+- project: openswitch/ops-cfgd
+  description: OpenSwitch Configuration Daemon
+  upstream: https://git.openhalon.io/openhalon/cfgd
+
+- project: openswitch/ops-cli
+  description: OpenSwitch command line interface
+  upstream: https://git.openhalon.io/openhalon/cli
+
+- project: openswitch/ops-mgmt-intf
+  description: OpenSwitch Management Interface Daemon
+  upstream: https://git.openhalon.io/openhalon/mgmt-intf
+
+# L2 Daemons
+- project: openswitch/ops-vland
+  description: OpenSwitch VLAN Daemon
+  upstream: https://git.openhalon.io/openhalon/vland
+
+- project: openswitch/ops-intfd
+  description: OpenSwitch Interface Daemon
+  upstream: https://git.openhalon.io/openhalon/intfd
+
+- project: openswitch/ops-lacpd
+  description: OpenSwitch LACP Daemon
+  upstream: https://git.openhalon.io/openhalon/lacpd
+
+- project: openswitch/ops-lldpd
+  description: OpenSwitch LLDP Daemon
+  upstream: https://git.openhalon.io/openhalon/lldpd
+
+- project: openswitch/ops-arpmgrd
+  description: OpenSwitch ARP Manager Daemon
+  upstream: https://git.openhalon.io/openhalon/arpmgrd
+
+# L3 Daemons
+- project: openswitch/ops-quagga
+  description: Quagga
+  upstream: https://git.openhalon.io/openhalon/quagga
+
+- project: openswitch/ops-portd
+  description: OpenSwitch Port Manager Daemon
+  upstream: https://git.openhalon.io/openhalon/l3portd
+
+# Connectivity Deamons
+- project: openswitch/ops-aaa-utils
+  description: OpenSwitch Authentication, Authorization and Accounting Utils
+  upstream: https://git.openhalon.io/openhalon/aaa-utils
+
+# DHCP-TFTP-ovsdb
+- project: openswitch/ops-dhcp-tftp-ovsdb
+  description: Python daemon to integrate DHCP and TFTP to OVSDB
+  upstream: https://git.openhalon.io/openhalon/dhcp-tftp-ovsdb
+
+# REST interface
+- project: openswitch/ops-restd
+  description: OpenSwitch REST interface
+  upstream: https://git.openhalon.io/openhalon/restd
+
+# Web interface
+- project: openswitch/webui
+  description: OpenSwitch Web User Interface
+  upstream: https://git.openhalon.io/openhalon/webui
+
+# Testing
+- project: openswitch/ops-vsi
+  description: OpenSwitch Virtual Switch Image
+  upstream: https://git.openhalon.io/openhalon/vsi
+
+- project: openswitch/ops-ft-framework
+  description: OpenSwitch Feature Test Framework
+  upstream: https://git.openhalon.io/openhalon/ft-framework

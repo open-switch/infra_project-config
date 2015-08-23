@@ -1,6 +1,6 @@
 - job-template:
-    name: 'halonutils-check-{platform}'
-    node: openhalon
+    name: 'ops-utils-check-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -11,12 +11,12 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'halonutils'
+            module: 'ops-utils'
             platform: '{platform}'
 
 - job-template:
-    name: 'halonutils-gate-{platform}'
-    node: openhalon
+    name: 'ops-utils-gate-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -27,11 +27,11 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'halonutils'
+            module: 'ops-utils'
             platform: '{platform}'
 
 - job-group:
-    name: 'halonutils-jobs'
+    name: 'ops-utils-jobs'
     jobs:
-      - 'halonutils-check-{platform}'
-      - 'halonutils-gate-{platform}'
+      - 'ops-utils-check-{platform}'
+      - 'ops-utils-gate-{platform}'

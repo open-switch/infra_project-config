@@ -247,15 +247,15 @@ projects:
         module: ops-sysd
         platform: as5712
 
-#  - name: openhalon/halonutils
-#    template:
-#      - name: merge-check
-#      - name: module-build
-#        platform: genericx86-64
-#        module: halonutils
-#      - name: module-build
-#        module: halonutils
-#        platform: as5712
+  - name: openswitch/ops-utils
+    template:
+      - name: merge-check
+      - name: module-build
+        platform: genericx86-64
+        module: ops-utils
+      - name: module-build
+        module: ops-utils
+        platform: as5712
 #
 #  - name: openhalon/config-yaml
 #    template:

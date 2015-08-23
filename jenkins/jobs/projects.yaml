@@ -19,15 +19,15 @@
       jobs:
         - 'ops-sysd-jobs'
 
-#  - project:
-#      name: openhalon/halonutils
-#      node: 'openhalon'
-#      platform:
-#        - genericx86-64
-#        - as5712
-#      jobs:
-#        - 'halonutils-jobs'
-#
+  - project:
+      name: openswitch/ops-utils
+      node: 'openswitch'
+      platform:
+        - genericx86-64
+        - as5712
+      jobs:
+        - 'ops-utils-jobs'
+
 #  - project:
 #      name: openhalon/config-yaml
 #      node: 'openhalon'
