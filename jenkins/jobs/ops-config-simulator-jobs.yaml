@@ -1,5 +1,5 @@
 - job-template:
-    name: 'simulator-config-check-{platform}'
+    name: 'ops-config-simulator-check-{platform}'
     node: openhalon
 
     wrappers:
@@ -11,15 +11,15 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'halon-config-genericx86-64'
+            module: 'ops-config-simulator'
             platform: '{platform}'
         - yaml-lint:
             file:
-              - 'src/halon-config-genericx86-64/*.yaml'
+              - 'src/ops-config-simulator/*.yaml'
 
 - job-template:
-    name: 'simulator-config-gate-{platform}'
-    node: openhalon
+    name: 'ops-config-simulator-gate-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -30,14 +30,14 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'halon-config-genericx86-64'
+            module: 'ops-config-simulator'
             platform: '{platform}'
         - yaml-lint:
             file:
-              - 'src/halon-config-genericx86-64/*.yaml'
+              - 'src/ops-config-simulator/*.yaml'
 
 - job-group:
-    name: 'simulator-config-jobs'
+    name: 'ops-config-simulator-jobs'
     jobs:
-      - 'simulator-config-check-{platform}'
-      - 'simulator-config-gate-{platform}'
+      - 'ops-config-simulator-check-{platform}'
+      - 'ops-config-simulator-gate-{platform}'

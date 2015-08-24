@@ -1,6 +1,6 @@
 - job-template:
-    name: 'bufmond-check-{platform}'
-    node: openhalon
+    name: 'ops-ledd-check-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -11,12 +11,12 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'bufmond'
+            module: 'ops-ledd'
             platform: '{platform}'
 
 - job-template:
-    name: 'bufmond-gate-{platform}'
-    node: openhalon
+    name: 'ops-ledd-gate-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -27,11 +27,11 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'bufmond'
+            module: 'ops-ledd'
             platform: '{platform}'
 
 - job-group:
-    name: 'bufmond-jobs'
+    name: 'ops-ledd-jobs'
     jobs:
-      - 'bufmond-check-{platform}'
-      - 'bufmond-gate-{platform}'
+      - 'ops-ledd-check-{platform}'
+      - 'ops-ledd-gate-{platform}'

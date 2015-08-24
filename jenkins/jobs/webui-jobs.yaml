@@ -1,6 +1,6 @@
 - job-template:
     name: 'webui-check-{platform}'
-    node: openhalon
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -16,7 +16,7 @@
 
 - job-template:
     name: 'webui-gate-{platform}'
-    node: openhalon
+    node: openswitch
 
     wrappers:
         - build-timeout:

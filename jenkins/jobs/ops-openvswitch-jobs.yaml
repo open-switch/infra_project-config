@@ -1,0 +1,49 @@
+- job-template:
+    name: 'ops-openvswitch-check-{platform}'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'ops-openvswitch'
+            platform: '{platform}'
+
+- job-template:
+    name: 'ops-openvswitch-gate-{platform}'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'ops-openvswitch'
+            platform: '{platform}'
+        - build-openvswitch-docs:
+            module: 'ops-openvswitch'
+        - shell: "make"
+
+#    publishers:
+#        - scp:
+#            site: static.openswitch.net
+#            files:
+#              - target: 'docs/openswitch/schema'
+#                source: 'src/ops-openvswitch/build/dist-docs/ovs-vswitchd.conf.db.5*'
+#                keep-hierarchy: false
+#                copy-after-failure: false
+
+- job-group:
+    name: 'ops-openvswitch-jobs'
+    jobs:
+      - 'ops-openvswitch-check-{platform}'
+      - 'ops-openvswitch-gate-{platform}'

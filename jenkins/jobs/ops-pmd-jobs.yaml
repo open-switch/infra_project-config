@@ -1,6 +1,6 @@
 - job-template:
-    name: 'restd-check-{platform}'
-    node: openhalon
+    name: 'ops-pmd-check-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -11,12 +11,12 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'restd'
+            module: 'ops-pmd'
             platform: '{platform}'
 
 - job-template:
-    name: 'restd-gate-{platform}'
-    node: openhalon
+    name: 'ops-pmd-gate-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -27,11 +27,11 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'restd'
+            module: 'ops-pmd'
             platform: '{platform}'
 
 - job-group:
-    name: 'restd-jobs'
+    name: 'ops-pmd-jobs'
     jobs:
-      - 'restd-check-{platform}'
-      - 'restd-gate-{platform}'
+      - 'ops-pmd-check-{platform}'
+      - 'ops-pmd-gate-{platform}'

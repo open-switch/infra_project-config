@@ -1,6 +1,6 @@
 - job-template:
-    name: 'vland-check-{platform}'
-    node: openhalon
+    name: 'ops-lldpd-check-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -11,12 +11,12 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'vland'
+            module: 'ops-lldpd'
             platform: '{platform}'
 
 - job-template:
-    name: 'vland-gate-{platform}'
-    node: openhalon
+    name: 'ops-lldpd-gate-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -27,11 +27,11 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'vland'
+            module: 'ops-lldpd'
             platform: '{platform}'
 
 - job-group:
-    name: 'vland-jobs'
+    name: 'ops-lldpd-jobs'
     jobs:
-      - 'vland-check-{platform}'
-      - 'vland-gate-{platform}'
+      - 'ops-lldpd-check-{platform}'
+      - 'ops-lldpd-gate-{platform}'

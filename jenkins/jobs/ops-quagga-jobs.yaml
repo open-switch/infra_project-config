@@ -1,6 +1,6 @@
 - job-template:
-    name: 'quagga-check-{platform}'
-    node: openhalon
+    name: 'ops-quagga-check-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -11,12 +11,12 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'quagga'
+            module: 'ops-quagga'
             platform: '{platform}'
 
 - job-template:
-    name: 'quagga-gate-{platform}'
-    node: openhalon
+    name: 'ops-quagga-gate-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -27,11 +27,11 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'quagga'
+            module: 'ops-quagga'
             platform: '{platform}'
 
 - job-group:
-    name: 'quagga-jobs'
+    name: 'ops-quagga-jobs'
     jobs:
-      - 'quagga-check-{platform}'
-      - 'quagga-gate-{platform}'
+      - 'ops-quagga-check-{platform}'
+      - 'ops-quagga-gate-{platform}'
