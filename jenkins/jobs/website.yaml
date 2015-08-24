@@ -33,6 +33,6 @@
             site: static.openswitch.net
             files:
               - target: 'www'
-                source: 'website/dist/**'
+                source: 'www/**'
                 keep-hierarchy: true
                 copy-after-failure: false

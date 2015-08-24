@@ -158,6 +158,7 @@
            npm install -g grommet
            npm install
            gulp dist
+           mv dist ../www
 
 - builder:
     name: coverage
