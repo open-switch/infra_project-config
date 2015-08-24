@@ -51,7 +51,7 @@
       platform:
         - as5712
       jobs:
-       - 'ops-config-as5712'
+       - 'ops-config-as5712-jobs'
 
   - project:
       name: openswitch/ops-bufmond
