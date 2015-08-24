@@ -297,7 +297,7 @@ projects:
       - name: merge-check
       - name: module-build
         module: ops-cfgd
-         platform: genericx86-64
+        platform: genericx86-64
 
   - name: openswitch/ops-cli
     template:
