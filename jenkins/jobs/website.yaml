@@ -32,7 +32,7 @@
         - scp:
             site: static.openswitch.net
             files:
-              - target: 'www'
+              - target: ''
                 source: 'www/**'
                 keep-hierarchy: true
                 copy-after-failure: false
