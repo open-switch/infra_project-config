@@ -1,6 +1,6 @@
 - job-template:
-    name: 'tempd-check-{platform}'
-    node: openhalon
+    name: 'ops-vland-check-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -11,12 +11,12 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'tempd'
+            module: 'ops-vland'
             platform: '{platform}'
 
 - job-template:
-    name: 'tempd-gate-{platform}'
-    node: openhalon
+    name: 'ops-vland-gate-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -27,11 +27,11 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'tempd'
+            module: 'ops-vland'
             platform: '{platform}'
 
 - job-group:
-    name: 'tempd-jobs'
+    name: 'ops-vland-jobs'
     jobs:
-      - 'tempd-check-{platform}'
-      - 'tempd-gate-{platform}'
+      - 'ops-vland-check-{platform}'
+      - 'ops-vland-gate-{platform}'

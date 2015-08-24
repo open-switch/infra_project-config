@@ -1,5 +1,5 @@
 - job-template:
-    name: 'sysd-check-{platform}'
+    name: 'ops-sysd-check-{platform}'
     node: openswitch
 
     wrappers:
@@ -15,7 +15,7 @@
             platform: '{platform}'
 
 - job-template:
-    name: 'sysd-gate-{platform}'
+    name: 'ops-sysd-gate-{platform}'
     node: openswitch
 
     wrappers:

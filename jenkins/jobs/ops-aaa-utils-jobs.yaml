@@ -1,6 +1,6 @@
 - job-template:
-    name: 'pmd-check-{platform}'
-    node: openhalon
+    name: 'ops-aaa-utils-check-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -11,12 +11,12 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'pmd'
+            module: 'ops-aaa-utils'
             platform: '{platform}'
 
 - job-template:
-    name: 'pmd-gate-{platform}'
-    node: openhalon
+    name: 'ops-aaa-utils-gate-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -27,11 +27,11 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'pmd'
+            module: 'ops-aaa-utils'
             platform: '{platform}'
 
 - job-group:
-    name: 'pmd-jobs'
+    name: 'ops-aaa-utils-jobs'
     jobs:
-      - 'pmd-check-{platform}'
-      - 'pmd-gate-{platform}'
+      - 'ops-aaa-utils-check-{platform}'
+      - 'ops-aaa-utils-gate-{platform}'

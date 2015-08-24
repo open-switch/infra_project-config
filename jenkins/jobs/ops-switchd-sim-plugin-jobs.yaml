@@ -1,6 +1,6 @@
 - job-template:
-    name: 'ovs-sim-plugin-check-{platform}'
-    node: openhalon
+    name: 'ops-switchd-sim-plugin-check-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -11,12 +11,12 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'ovs-sim-plugin'
+            module: 'ops-switchd-sim-plugin'
             platform: '{platform}'
 
 - job-template:
-    name: 'ovs-sim-plugin-gate-{platform}'
-    node: openhalon
+    name: 'ops-switchd-sim-plugin-gate-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -27,11 +27,11 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'ovs-sim-plugin'
+            module: 'ops-switchd-sim-pluginn'
             platform: '{platform}'
 
 - job-group:
-    name: 'ovs-sim-plugin-jobs'
+    name: 'ops-switchd-sim-plugin-jobs'
     jobs:
-      - 'ovs-sim-plugin-check-{platform}'
-      - 'ovs-sim-plugin-gate-{platform}'
+      - 'ops-switchd-sim-plugin-check-{platform}'
+      - 'ops-switchd-sim-plugin-gate-{platform}'

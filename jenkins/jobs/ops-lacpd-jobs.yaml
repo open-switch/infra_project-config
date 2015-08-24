@@ -1,6 +1,6 @@
 - job-template:
-    name: 'config-yaml-check-{platform}'
-    node: openhalon
+    name: 'ops-lacpd-check-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -11,12 +11,12 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'config-yaml'
+            module: 'ops-lacpd'
             platform: '{platform}'
 
 - job-template:
-    name: 'config-yaml-gate-{platform}'
-    node: openhalon
+    name: 'ops-lacpd-gate-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -27,11 +27,11 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'config-yaml'
+            module: 'ops-lacpd'
             platform: '{platform}'
 
 - job-group:
-    name: 'config-yaml-jobs'
+    name: 'ops-lacpd-jobs'
     jobs:
-      - 'config-yaml-check-{platform}'
-      - 'config-yaml-gate-{platform}'
+      - 'ops-lacpd-check-{platform}'
+      - 'ops-lacpd-gate-{platform}'

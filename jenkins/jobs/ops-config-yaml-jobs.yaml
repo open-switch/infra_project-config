@@ -1,6 +1,6 @@
 - job-template:
-    name: 'cfgd-check-{platform}'
-    node: openhalon
+    name: 'ops-config-yaml-check-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -11,12 +11,12 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'cfgd'
+            module: 'ops-config-yaml'
             platform: '{platform}'
 
 - job-template:
-    name: 'cfgd-gate-{platform}'
-    node: openhalon
+    name: 'ops-config-yaml-gate-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -27,11 +27,11 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'cfgd'
+            module: 'ops-config-yaml'
             platform: '{platform}'
 
 - job-group:
-    name: 'cfgd-jobs'
+    name: 'ops-config-yaml-jobs'
     jobs:
-      - 'cfgd-check-{platform}'
-      - 'cfgd-gate-{platform}'
+      - 'ops-config-yaml-check-{platform}'
+      - 'ops-config-yaml-gate-{platform}'

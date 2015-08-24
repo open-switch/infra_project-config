@@ -1,6 +1,6 @@
 - job-template:
-    name: 'arpmgrd-check-{platform}'
-    node: openhalon
+    name: 'ops-bufmond-check-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -11,12 +11,12 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'arpmgrd'
+            module: 'ops-bufmond'
             platform: '{platform}'
 
 - job-template:
-    name: 'arpmgrd-gate-{platform}'
-    node: openhalon
+    name: 'bufmond-gate-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -27,11 +27,11 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'arpmgrd'
+            module: 'ops-bufmond'
             platform: '{platform}'
 
 - job-group:
-    name: 'arpmgrd-jobs'
+    name: 'ops-bufmond-jobs'
     jobs:
-      - 'arpmgrd-check-{platform}'
-      - 'arpmgrd-gate-{platform}'
+      - 'ops-bufmond-check-{platform}'
+      - 'ops-bufmond-gate-{platform}'

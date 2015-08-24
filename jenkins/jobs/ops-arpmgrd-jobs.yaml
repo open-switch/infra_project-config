@@ -1,6 +1,6 @@
 - job-template:
-    name: 'fand-check-{platform}'
-    node: openhalon
+    name: 'ops-arpmgrd-check-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -11,12 +11,12 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'fand'
+            module: 'ops-arpmgrd'
             platform: '{platform}'
 
 - job-template:
-    name: 'fand-gate-{platform}'
-    node: openhalon
+    name: 'ops-arpmgrd-gate-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -27,11 +27,11 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'fand'
+            module: 'ops-arpmgrd'
             platform: '{platform}'
 
 - job-group:
-    name: 'fand-jobs'
+    name: 'ops-arpmgrd-jobs'
     jobs:
-      - 'fand-check-{platform}'
-      - 'fand-gate-{platform}'
+      - 'ops-arpmgrd-check-{platform}'
+      - 'ops-arpmgrd-gate-{platform}'

@@ -1,6 +1,6 @@
 - job-template:
-    name: 'cli-check-{platform}'
-    node: openhalon
+    name: 'ops-restd-check-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -11,12 +11,12 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'cli'
+            module: 'ops-restd'
             platform: '{platform}'
 
 - job-template:
-    name: 'cli-gate-{platform}'
-    node: openhalon
+    name: 'ops-restd-gate-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -27,11 +27,11 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'cli'
+            module: 'ops-restd'
             platform: '{platform}'
 
 - job-group:
-    name: 'cli-jobs'
+    name: 'ops-restd-jobs'
     jobs:
-      - 'cli-check-{platform}'
-      - 'cli-gate-{platform}'
+      - 'ops-restd-check-{platform}'
+      - 'ops-restd-gate-{platform}'

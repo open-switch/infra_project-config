@@ -1,6 +1,6 @@
 - job-template:
-    name: 'l3portd-check-{platform}'
-    node: openhalon
+    name: 'ops-config-as5712-check-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -11,12 +11,12 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'l3portd'
+            module: 'ops-config-as5712'
             platform: '{platform}'
 
 - job-template:
-    name: 'l3portd-gate-{platform}'
-    node: openhalon
+    name: 'ops-config-as5712-gate-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -27,11 +27,11 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'l3portd'
+            module: 'ops-config-as5712'
             platform: '{platform}'
 
 - job-group:
-    name: 'l3portd-jobs'
+    name: 'ops-config-as5712-jobs'
     jobs:
-      - 'l3portd-check-{platform}'
-      - 'l3portd-gate-{platform}'
+      - 'ops-config-as5712-check-{platform}'
+      - 'ops-config-as5712-gate-{platform}'

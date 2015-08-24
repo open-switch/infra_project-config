@@ -1,6 +1,6 @@
 - job-template:
-    name: 'ft-framework-check-{platform}'
-    node: openhalon
+    name: 'ops-ft-framework-check-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -15,8 +15,8 @@
 #            platform: '{platform}'
 
 - job-template:
-    name: 'ft-framework-gate-{platform}'
-    node: openhalon
+    name: 'ops-ft-framework-gate-{platform}'
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -31,7 +31,7 @@
 #            platform: '{platform}'
 
 - job-group:
-    name: 'ft-framework-jobs'
+    name: 'ops-ft-framework-jobs'
     jobs:
-      - 'ft-framework-check-{platform}'
-      - 'ft-framework-gate-{platform}'
+      - 'ops-ft-framework-check-{platform}'
+      - 'ops-ft-framework-gate-{platform}'
