@@ -114,8 +114,7 @@
 - project: openswitch/ops-aaa-utils
   description: OpenSwitch Authentication, Authorization and Accounting Utils
 
-# DHCP-TFTP-ovsdb
-- project: openswitch/ops-dhcp-tftp-ovsdb
+- project: openswitch/ops-dhcp-tftp
   description: Python daemon to integrate DHCP and TFTP to OVSDB
 
 # REST interface
