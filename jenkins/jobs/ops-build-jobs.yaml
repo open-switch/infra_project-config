@@ -60,9 +60,6 @@
         - ops-distclean
         - branch-git-prep:
             branch: master
-        - shell: |
-            # Hack to enable webui on the periodic builds until we create a reliable recipe for it
-            sed -i -e 's/lighttpd/webui/' yocto/openswitch/meta-distro-openswitch/recipes-core/packagegroups/packagegroup-openswitch.bb
         - ops-build:
             platform: '{platform}'
         - ops-meta-ide
