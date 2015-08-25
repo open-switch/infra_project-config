@@ -470,3 +470,13 @@ projects:
       - name: module-build
         module: ops-vsi
         platform: as5712
+
+  - name: openswitch/ops-webui
+    template:
+      - name: merge-check
+      - name: module-build
+        module: ops-webui
+        platform: genericx86-64
+      - name: module-build
+        module: ops-webui
+        platform: as5712
