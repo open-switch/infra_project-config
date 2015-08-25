@@ -239,6 +239,15 @@
       jobs:
         - 'ops-vsi-jobs'
 
+  - project:
+      name: openswitch/ops-webui
+      node: 'openswitch'
+      platform:
+        - as5712
+        - genericx86-64
+      jobs:
+        - 'ops-webui-jobs'
+
 ########################################################################
 # Section: OpenStack server projects
 ########################################################################

@@ -1,0 +1,37 @@
+- job-template:
+    name: 'ops-webui-check-{platform}'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'ops-webui'
+            platform: '{platform}'
+
+- job-template:
+    name: 'ops-webui-gate-{platform}'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'ops-webui'
+            platform: '{platform}'
+
+- job-group:
+    name: 'ops-webui-jobs'
+    jobs:
+      - 'ops-webui-check-{platform}'
+      - 'ops-webui-gate-{platform}'
