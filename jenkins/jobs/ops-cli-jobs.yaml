@@ -27,7 +27,7 @@
     builders:
         - revoke-sudo
         - module-build:
-            module: 'cli'
+            module: 'ops-cli'
             platform: '{platform}'
 
 - job-group:
