@@ -480,3 +480,14 @@ projects:
       - name: module-build
         module: ops-webui
         platform: as5712
+
+  - name: openswitch/ops-mgmt-intf
+    template:
+      - name: merge-check
+      - name: module-build
+        module: ops-mgmt-intf
+        platform: genericx86-64
+      - name: module-build
+        module: ops-mgmt-intf
+        platform: as5712
+

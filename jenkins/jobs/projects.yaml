@@ -248,6 +248,15 @@
       jobs:
         - 'ops-webui-jobs'
 
+  - project:
+      name: openswitch/ops-mgmt-intf
+      node: 'openswitch'
+      platform:
+        - as5712
+        - genericx86-64
+      jobs:
+        - 'ops-mgmt-intf-jobs'
+
 ########################################################################
 # Section: OpenStack server projects
 ########################################################################

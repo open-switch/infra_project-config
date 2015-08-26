@@ -1,0 +1,37 @@
+- job-template:
+    name: 'ops-mgmt-intf-check-{platform}'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'ops-mgmt-intf'
+            platform: '{platform}'
+
+- job-template:
+    name: 'ops-mgmt-intf-gate-{platform}'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'ops-mgmt-intf'
+            platform: '{platform}'
+
+- job-group:
+    name: 'ops-mgmt-intf-jobs'
+    jobs:
+      - 'ops-mgmt-intf-check-{platform}'
+      - 'ops-mgmt-intf-gate-{platform}'
