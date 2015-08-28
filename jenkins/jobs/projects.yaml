@@ -2,6 +2,15 @@
 # alphabetical in each section.
 
   - project:
+      name: governance
+      node: 'bare-precise || bare-trusty'
+      docroot: governance
+
+      jobs:
+        - 'gate-{name}-docs'
+        - 'static-{name}-publish'
+
+  - project:
       name: openswitch/ops-build
       node: 'openswitch'
       platform:
