@@ -397,6 +397,13 @@ projects:
         module: ops-switchd-sim-plugin
         platform: genericx86-64
 
+  - name: openswitch/ops-switchd-bcm-plugin
+    template:
+      - name: merge-check
+      - name: module-build
+        module: ops-switchd-bcm-plugin
+        platform: as5712
+
   - name: openswitch/ops-pmd
     template:
       - name: merge-check

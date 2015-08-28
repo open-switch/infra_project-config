@@ -169,6 +169,14 @@
         - 'ops-switchd-sim-plugin-jobs'
 
   - project:
+      name: openswitch/ops-switchd-bcm-plugin
+      node: 'openswitch'
+      platform:
+        - as5712
+      jobs:
+        - 'ops-switchd-bcm-plugin-jobs'
+
+  - project:
       name: openswitch/ops-pmd
       node: 'openswitch'
       platform:

@@ -1,0 +1,37 @@
+- job-template:
+    name: 'ops-switchd-bcm-plugin-check-{platform}'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'ops-switchd-bcm-plugin'
+            platform: '{platform}'
+
+- job-template:
+    name: 'ops-switchd-bcm-plugin-gate-{platform}'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build:
+            module: 'ops-switchd-bcm-pluginn'
+            platform: '{platform}'
+
+- job-group:
+    name: 'ops-switchd-bcm-plugin-jobs'
+    jobs:
+      - 'ops-switchd-bcm-plugin-check-{platform}'
+      - 'ops-switchd-bcm-plugin-gate-{platform}'

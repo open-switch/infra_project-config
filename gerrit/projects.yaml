@@ -36,6 +36,9 @@
 - project: openswitch/ops-build
   description: OpenSwitch Build System
 
+- project: openswitch/ops
+  description: OpenSwitch Global Repository
+
 # OpenSwitch Utils
 - project: openswitch/ops-utils
   description: OpenSwitch Utils
