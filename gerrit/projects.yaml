@@ -72,6 +72,9 @@
 - project: openswitch/ops-switchd-sim-plugin
   description: OpenSwitch Simulator OVS plugin
 
+- project: openswitch/ops-switchd-bcm-plugin
+  description: OpenSwitch Broadcom OVS plugin
+
 - project: openswitch/ops-config-as5712
   description: Configuration files for AS5712 platform
 
