@@ -1,6 +1,6 @@
 - job-template:
     name: 'ops-config-simulator-check-{platform}'
-    node: openhalon
+    node: openswitch
 
     wrappers:
         - build-timeout:
