@@ -33,7 +33,6 @@
 
 - project: openswitch/ops-docs
   description: OpenSwitch Documentation
-  upstream: https://git.openhalon.io/openswitch/docs
 
 # Build System
 - project: openswitch/ops-build
@@ -48,7 +47,6 @@
 
 - project: openswitch/ops-config-yaml
   description: OpenSwitch Config Yaml
-  upstream: https://git.openhalon.io/openhalon/config-yaml
 
 # OpenSwitch Daemons
 - project: openswitch/ops-sysd
