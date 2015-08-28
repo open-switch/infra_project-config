@@ -226,6 +226,16 @@ projects:
     gate:
       - website-gate
 
+  - name: openswitch/governance
+    template:
+      - name: merge-check
+    check:
+      - gate-governance-docs
+    gate:
+      - gate-governance-docs
+    post:
+      - static-governance-publish
+
   - name: openswitch/ops-build
     template:
       - name: merge-check
