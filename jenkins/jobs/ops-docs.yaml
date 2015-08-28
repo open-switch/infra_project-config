@@ -1,0 +1,31 @@
+- job-template:
+    name: 'ops-docs-check-{platform}'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+
+- job-template:
+    name: 'ops-docs-gate-{platform}'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+
+- job-group:
+    name: 'ops-docs-jobs'
+    jobs:
+      - 'ops-docs-check-{platform}'
+      - 'ops-docs-gate-{platform}'
