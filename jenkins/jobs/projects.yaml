@@ -278,7 +278,7 @@
       name: openswitch/ops-docs
       node: 'openswitch'
       platform:
-        - generic
+        - genericx86-64
       jobs:
         - 'ops-docs-jobs'
 ########################################################################
