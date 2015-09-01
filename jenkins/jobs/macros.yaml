@@ -112,7 +112,7 @@
            #!/bin/bash -x
            set -e
              BRANCH=$ZUUL_BRANCH
-             rm -Rf *;rm -rf .git*
+             rm -fr .[^.]* *
              git clone -b $BRANCH https://git.openswitch.net/openswitch/ops-build .
 
            if [ ! -f .platform ] ; then
