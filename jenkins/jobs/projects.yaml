@@ -274,13 +274,13 @@
       jobs:
         - 'ops-mgmt-intf-jobs'
 
-   - project:
-       name: openswitch/ops-docs
-       node: 'openswitch'
-       platform:
-         - generic
-       jobs:
-         - 'ops-docs-jobs'
+  - project:
+      name: openswitch/ops-docs
+      node: 'openswitch'
+      platform:
+        - generic
+      jobs:
+        - 'ops-docs-jobs'
 ########################################################################
 # Section: OpenStack server projects
 ########################################################################
