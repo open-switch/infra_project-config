@@ -27,7 +27,7 @@
     builders:
         - revoke-sudo
         - module-build-branch:
-            module: 'ops-switchd-bcm-pluginn'
+            module: 'ops-switchd-bcm-plugin'
             platform: '{platform}'
 
 - job-group:
