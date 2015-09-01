@@ -29,6 +29,12 @@
         - module-build:
             module: 'ops-arpmgrd'
             platform: '{platform}'
+        - module-cttest:
+            module: 'ops-arpmgrd'
+
+    publishers:
+        - junit:
+            results: 'module-test-results.xml'
 
 - job-group:
     name: 'ops-arpmgrd-jobs'
