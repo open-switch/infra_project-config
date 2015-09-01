@@ -16,7 +16,7 @@
 
 - job-template:
     name: 'ops-arpmgrd-gate-{platform}'
-    node: openswitch
+    node: openswitch-slave-4.openswitch.net
 
     wrappers:
         - build-timeout:
@@ -25,7 +25,6 @@
         - ansicolor
 
     builders:
-        - revoke-sudo
         - module-build:
             module: 'ops-arpmgrd'
             platform: '{platform}'
