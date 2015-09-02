@@ -128,6 +128,8 @@
 
            # If we already have a git repo, avoid nuking them to save build time
            if [[ ! -e .git ]]; then
+           # I am temp adding this to resolve issue: fatal: A branch named 'feature/intervlan' already exists."
+             rm -fr .[^.]* *
              git clone -b $OPS_BUILD_BRANCH https://git.openswitch.net/openswitch/ops-build .
            else
              git reset --hard
