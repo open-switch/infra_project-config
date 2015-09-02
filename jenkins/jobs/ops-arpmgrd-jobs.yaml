@@ -30,6 +30,7 @@
             platform: '{platform}'
         - module-cttest:
             module: 'ops-arpmgrd'
+            platform: '{platform}'
 
     publishers:
         - junit:
