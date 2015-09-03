@@ -514,3 +514,11 @@ projects:
       - name: module-build
         module: ops-docs
         platform: genericx86-64
+
+  - name: openswitch/ops
+    template:
+      - name: merge-check
+    check:
+      - ops-check
+    gate:
+      - ops-gate

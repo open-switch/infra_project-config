@@ -1,0 +1,27 @@
+- job:
+    name: 'ops-check'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 10
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - gerrit-git-prep
+
+- job:
+    name: 'ops-gate'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 10
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - gerrit-git-prep
