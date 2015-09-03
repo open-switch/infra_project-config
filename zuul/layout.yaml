@@ -275,33 +275,15 @@ projects:
         platform: genericx86-64
 
 
-#  - name: openswitch/ops-arpmgrd
-#    template:
-#      - name: merge-check
-#      - name: module-build
-#        module: ops-arpmgrd
-#        platform: genericx86-64
-#      - name: module-build
-#        module: ops-arpmgrd
-#        platform: as5712
-
-
-  - name: openswitch/ops-arpmgrd-as5712
+  - name: openswitch/ops-arpmgrd
     template:
       - name: merge-check
-    check:
-      - ops-arpmgrd-check-as5712
-    gate:
-      - ops-arpmgrd-gate-as5712
-
-
-  - name: openswitch/ops-arpmgrd-genericx86-64
-    template:
-      - name: merge-check
-    check:
-      - ops-arpmgrd-check-genericx86-64
-    gate:
-      - ops-arpmgrd-gate-genericx86-64
+      - name: module-build
+        module: ops-arpmgrd
+        platform: genericx86-64
+      - name: module-build
+        module: ops-arpmgrd
+        platform: as5712
 
 
   - name: openswitch/ops-config-as5712
