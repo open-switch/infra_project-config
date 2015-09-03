@@ -34,7 +34,7 @@
 
     publishers:
         - junit:
-            results: 'module-test-results.xml'
+            results: '**/*.xml'
 
 - job-group:
     name: 'ops-arpmgrd-jobs'
