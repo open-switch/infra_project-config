@@ -171,10 +171,11 @@
              make devenv_ct_test PY_TEST_ARGS="src/{module} --exitfirst --junit-xml=build/module-test-results.xml"
              make devenv_ct_clean
              docker rmi -f $VSI_IMAGE_NAME
-             touch build/module-test-results.xml
              sudo chown jenkins.jenkins build/module-test-results.xml
            else
-             echo "Not a genericx86-64 platform, skip cttest."
+             echo "Not a genericx86-64 platform, skipping cttest"
+             touch build/module-test-results.xml
+             sudo chown jenkins.jenkins build/module-test-results.xml
            fi
 
 - builder:
