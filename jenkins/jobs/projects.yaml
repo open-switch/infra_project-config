@@ -45,14 +45,14 @@
       jobs:
         - 'ops-aaa-utils-jobs'
 
-  - project:
-      name: openswitch/ops-arpmgrd
-      node: 'openswitch'
-      platform:
-        - genericx86-64
-        - as5712
-      jobs:
-        - 'ops-arpmgrd-jobs'
+#  - project:
+#      name: openswitch/ops-arpmgrd
+#      node: 'openswitch'
+#      platform:
+#        - genericx86-64
+#        - as5712
+#      jobs:
+#        - 'ops-arpmgrd-jobs'
 
   - project:
       name: openswitch/ops-config-as5712

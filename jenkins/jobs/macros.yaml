@@ -174,8 +174,6 @@
              sudo chown jenkins.jenkins build/module-test-results.xml
            else
              echo "Not a genericx86-64 platform, skipping cttest"
-             touch build/module-test-results.xml
-             sudo chown jenkins.jenkins build/module-test-results.xml
            fi
 
 - builder:
