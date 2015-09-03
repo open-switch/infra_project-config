@@ -162,7 +162,8 @@
       - shell: |
            #!/bin/bash -x
            set -e
-           if [ {platform} == "genericx86-64" ] ; then
+           if [ {platform} == "genericx86-64" ]
+           then
              make fs
              make devenv_ct_init
              export VSI_IMAGE_NAME=$(uuidgen)
@@ -170,6 +171,8 @@
              make devenv_ct_test PY_TEST_ARGS="src/{module} --exitfirst --junit-xml=build/module-test-results.xml"
              make devenv_ct_clean
              docker rmi -f $VSI_IMAGE_NAME
+           else
+             echo "Not a genericx86-64 platform, skip cttest."
            fi
 
 - builder:
