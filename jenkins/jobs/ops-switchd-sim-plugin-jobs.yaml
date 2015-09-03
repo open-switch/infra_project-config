@@ -27,7 +27,7 @@
     builders:
         - revoke-sudo
         - module-build-branch:
-            module: 'ops-switchd-sim-pluginn'
+            module: 'ops-switchd-sim-plugin'
             platform: '{platform}'
 
 - job-group:
