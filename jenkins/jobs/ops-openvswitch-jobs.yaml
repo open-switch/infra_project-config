@@ -1,5 +1,5 @@
-- job-template:
-    name: 'ops-openvswitch-check-{platform}'
+- job:
+    name: 'ops-openvswitch-check-as5712'
     node: openswitch
 
     wrappers:
@@ -12,10 +12,10 @@
         - revoke-sudo
         - module-build:
             module: 'ops-openvswitch'
-            platform: '{platform}'
+            platform: 'as5712'
 
-- job-template:
-    name: 'ops-openvswitch-gate-{platform}'
+- job:
+    name: 'ops-openvswitch-check-genericx86-64'
     node: openswitch
 
     wrappers:
@@ -28,22 +28,41 @@
         - revoke-sudo
         - module-build:
             module: 'ops-openvswitch'
-            platform: '{platform}'
-        - build-openvswitch-docs:
+            platform: 'genericx86-64'
+
+- job:
+    name: 'ops-openvswitch-gate-as5712'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - module-build:
             module: 'ops-openvswitch'
-        - shell: "make"
+            platform: 'as5712'
 
-#    publishers:
-#        - scp:
-#            site: static.openswitch.net
-#            files:
-#              - target: 'docs/openswitch/schema'
-#                source: 'src/ops-openvswitch/build/dist-docs/ovs-vswitchd.conf.db.5*'
-#                keep-hierarchy: false
-#                copy-after-failure: false
+- job:
+    name: 'ops-openvswitch-gate-genericx86-64'
+    node: vsi
 
-- job-group:
-    name: 'ops-openvswitch-jobs'
-    jobs:
-      - 'ops-openvswitch-check-{platform}'
-      - 'ops-openvswitch-gate-{platform}'
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - module-build:
+            module: 'ops-openvswitch'
+            platform: 'genericx86-64'
+        - module-cttest:
+            module: 'ops-openvswitch'
+            platform: 'genericx86-64'
+
+    publishers:
+        - junit:
+            results: 'build/*test*.xml'

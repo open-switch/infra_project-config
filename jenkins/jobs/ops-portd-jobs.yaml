@@ -1,5 +1,5 @@
-- job-template:
-    name: 'ops-portd-check-{platform}'
+- job:
+    name: 'ops-portd-check-as5712'
     node: openswitch
 
     wrappers:
@@ -12,10 +12,10 @@
         - revoke-sudo
         - module-build-branch:
             module: 'ops-portd'
-            platform: '{platform}'
+            platform: 'as5712'
 
-- job-template:
-    name: 'ops-portd-gate-{platform}'
+- job:
+    name: 'ops-portd-check-genericx86-64'
     node: openswitch
 
     wrappers:
@@ -28,10 +28,41 @@
         - revoke-sudo
         - module-build-branch:
             module: 'ops-portd'
-            platform: '{platform}'
+            platform: 'genericx86-64'
 
-- job-group:
-    name: 'ops-portd-jobs'
-    jobs:
-      - 'ops-portd-check-{platform}'
-      - 'ops-portd-gate-{platform}'
+- job:
+    name: 'ops-portd-gate-as5712'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - module-build:
+            module: 'ops-portd'
+            platform: 'as5712'
+
+- job:
+    name: 'ops-portd-gate-genericx86-64'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - module-build:
+            module: 'ops-portd'
+            platform: 'genericx86-64'
+        - module-cttest:
+            module: 'ops-portd'
+            platform: 'genericx86-64'
+
+    publishers:
+        - junit:
+            results: 'build/*test*.xml'

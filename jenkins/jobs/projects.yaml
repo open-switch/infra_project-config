@@ -115,14 +115,14 @@
       jobs:
         - 'ops-ft-framework-jobs'
 
-  - project:
-      name: openswitch/ops-portd
-      node: 'openswitch'
-      platform:
-        - as5712
-        - genericx86-64
-      jobs:
-        - 'ops-portd-jobs'
+#  - project:
+#      name: openswitch/ops-portd
+#      node: 'openswitch'
+#      platform:
+#        - as5712
+#        - genericx86-64
+#      jobs:
+#        - 'ops-portd-jobs'
 
   - project:
       name: openswitch/ops-intfd
@@ -160,14 +160,14 @@
       jobs:
         - 'ops-lldpd-jobs'
 
-  - project:
-      name: openswitch/ops-openvswitch
-      node: 'openswitch'
-      platform:
-        - genericx86-64
-        - as5712
-      jobs:
-        - 'ops-openvswitch-jobs'
+#  - project:
+#      name: openswitch/ops-openvswitch
+#      node: 'openswitch'
+#      platform:
+#        - genericx86-64
+#        - as5712
+#      jobs:
+#        - 'ops-openvswitch-jobs'
 
   - project:
       name: openswitch/ops-switchd-sim-plugin
