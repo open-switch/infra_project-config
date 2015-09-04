@@ -65,4 +65,4 @@
 
     publishers:
         - junit:
-            results: '**/*.xml'
+            results: 'build/*test*.xml'
