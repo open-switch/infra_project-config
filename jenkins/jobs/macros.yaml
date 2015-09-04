@@ -132,8 +132,14 @@
              rm -fr .[^.]* *
              git clone -b $OPS_BUILD_BRANCH https://git.openswitch.net/openswitch/ops-build .
            else
+             # Move to master branch
              git reset --hard
+             git checkout master
              git pull
+             # If the branch already existed, remove it
+             if git branch | grep -wq $OPS_BUILD_BRANCH  ; then
+               git branch -D $OPS_BUILD_BRANCH
+             fi
              git checkout -b $OPS_BUILD_BRANCH --track origin/$OPS_BUILD_BRANCH
            fi
 
