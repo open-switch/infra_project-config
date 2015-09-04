@@ -32,7 +32,7 @@
 
 - job:
     name: 'ops-arpmgrd-gate-as5712'
-    node: openswitch-slave-4.openswitch.net
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -47,7 +47,7 @@
 
 - job:
     name: 'ops-arpmgrd-gate-genericx86-64'
-    node: openswitch-slave-4.openswitch.net
+    node: vsi
 
     wrappers:
         - build-timeout:
