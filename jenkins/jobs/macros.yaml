@@ -111,12 +111,12 @@
       - shell: |
            #!/bin/bash -x
            set -e
-           
+
            # Remove the devenv if previously existed, otherwise if the recipe change version we will have conflicts
            if grep -q {module} .devenv ; then
              make devenv_rm {module}
            fi
-           
+
            # Identify the branch to use for the build system
            if git ls-remote https://git.openswitch.net/openswitch/ops-build | grep -swq "$ZUUL_BRANCH" ; then
              echo "===================  Building ops-build on $BRANCH =================== "
@@ -151,7 +151,7 @@
            if [ ! -f .platform ] ; then
              make configure {platform}
            fi
-           
+
            # Import and build module
            mkdir -p src/{module}
            cd src/{module}
@@ -190,8 +190,40 @@
            set -e
            jekyll build
 
+#- builder:
+#    name: gulp-dist
+#    builders:
+#      - shell: |
+#           #!/bin/bash -x
+#           set -e
+#
+#           if [[ ! -e .git ]]; then
+#             # Remove any content, otherwise the clone will fail
+#             rm -Rf *
+#             git clone https://git.openswitch.net/openswitch/ops-build .
+#           else
+#             git pull
+#           fi
+#           if [ ! -f .platform ] ; then
+#             make configure {platform}
+#             make build/conf/local.conf
+#             mkdir -p /mnt/jenkins/workspace/sstate-cache
+#             rm -Rf build/sstate-cache
+#             ln -sf /mnt/jenkins/workspace/sstate-cache build/sstate-cache
+#           fi
+#           make bake node-native
+#           export PATH=$PWD/build/tmp/sysroots/x86_64-linux/usr/bin:$PATH
+#           if ! [ -d website ] ; then mkdir website ; fi
+#           rm -Rf www
+#           cd website
+#           /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
+#           npm install -g gulp
+#           npm install -g grommet
+#           gulp dist
+#           mv dist ../www
+
 - builder:
-    name: gulp-dist
+    name: gulp-prepare
     builders:
       - shell: |
            #!/bin/bash -x
@@ -212,14 +244,37 @@
              ln -sf /mnt/jenkins/workspace/sstate-cache build/sstate-cache
            fi
            make bake node-native
-           export PATH=$PWD/build/tmp/sysroots/x86_64-linux/usr/bin:$PATH
+
+- builder:
+    name: get-website-under-review
+    builders:
+      - shell: |
+           #!/bin/bash -x
            if ! [ -d website ] ; then mkdir website ; fi
-           rm -Rf www
            cd website
            /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
-           npm install -g gulp
-           npm install -g grommet
-           npm install
+
+- builder:
+    name: get-dev-docs-stable
+    builders:
+      - shell: |
+           #!/bin/bash -x
+           cd website/src/markdown/en-US/documents
+           if [[ ! -d dev ]]; then
+             git clone https://git.openswitch.net/openswitch/ops-docs dev/
+           else
+             cd dev
+             git pull
+           fi
+
+- builder:
+    name: gulp-dist
+    builders:
+      - shell: |
+           #!/bin/bash -x
+           export PATH=$PWD/build/tmp/sysroots/x86_64-linux/usr/bin:$PATH
+           rm -Rf www
+           cd website
            gulp dist
            mv dist ../www
 

@@ -10,8 +10,11 @@
 
     builders:
         - revoke-sudo
-        - gulp-dist:
+        - gulp-prepare:
             platform: genericx86-64
+        - get-website-under-review
+        - get-dev-docs-stable
+        - gulp-dist
 
 - job:
     name: 'website-gate'
@@ -25,9 +28,12 @@
 
     builders:
         - revoke-sudo
-        - gulp-dist:
+        - gulp-prepare:
             platform: genericx86-64
-
+        - get-website-under-review
+        - get-dev-docs-stable
+        - gulp-dist
+        
     publishers:
         - scp:
             site: static.openswitch.net
