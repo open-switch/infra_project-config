@@ -21,6 +21,9 @@
 - project: infra/puppet-jenkins
   description: Puppet jenkins module
 
+- project: infra/puppet-apache
+  description: Puppet apache module
+
 - project: infra/website
   description: OpenSwitch Website
 
