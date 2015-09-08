@@ -217,6 +217,7 @@
 #           rm -Rf www
 #           cd website
 #           /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
+#           npm install
 #           npm install -g gulp
 #           npm install -g grommet
 #           gulp dist
@@ -244,6 +245,9 @@
              ln -sf /mnt/jenkins/workspace/sstate-cache build/sstate-cache
            fi
            make bake node-native
+           export PATH=$PWD/build/tmp/sysroots/x86_64-linux/usr/bin:$PATH
+           npm install -g grommet
+           npm install -g gulp
 
 - builder:
     name: get-website-under-review
@@ -275,8 +279,7 @@
            export PATH=$PWD/build/tmp/sysroots/x86_64-linux/usr/bin:$PATH
            rm -Rf www
            cd website
-           npm install -g gulp
-           npm install -g grommet
+           npm install
            gulp dist
            mv dist ../www
 
