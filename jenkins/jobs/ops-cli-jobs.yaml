@@ -1,37 +1,47 @@
 - job-template:
     name: 'ops-cli-check-{platform}'
     node: openswitch
-
     wrappers:
         - build-timeout:
             timeout: 120
         - timestamps
         - ansicolor
-
     builders:
         - revoke-sudo
-        - module-build:
+        - module-build-branch:
             module: 'ops-cli'
             platform: '{platform}'
-
-- job-template:
-    name: 'ops-cli-gate-{platform}'
+- job:
+    name: 'ops-cli-gate-as5712'
     node: openswitch
-
     wrappers:
         - build-timeout:
             timeout: 120
         - timestamps
         - ansicolor
-
     builders:
-        - revoke-sudo
         - module-build:
             module: 'ops-cli'
-            platform: '{platform}'
-
+            platform: 'as5712'
+- job:
+    name: 'ops-cli-gate-genericx86-64'
+    node: vsi
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+    builders:
+        - module-build-branch:
+            module: 'ops-cli'
+            platform: 'genericx86-64'
+        - module-cttest:
+            module: 'ops-cli'
+            platform: 'genericx86-64'
+    publishers:
+        - junit:
+            results: 'build/*test*.xml'
 - job-group:
     name: 'ops-cli-jobs'
     jobs:
       - 'ops-cli-check-{platform}'
-      - 'ops-cli-gate-{platform}'
