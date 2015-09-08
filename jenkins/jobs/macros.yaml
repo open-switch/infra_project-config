@@ -244,6 +244,9 @@
              ln -sf /mnt/jenkins/workspace/sstate-cache build/sstate-cache
            fi
            make bake node-native
+           export PATH=$PWD/build/tmp/sysroots/x86_64-linux/usr/bin:$PATH
+           npm install -g gulp
+           npm install -g grommet
 
 - builder:
     name: get-website-under-review
