@@ -41,7 +41,7 @@
         - ansicolor
 
     builders:
-        - module-build:
+        - module-build-branch:
             module: 'ops-portd'
             platform: 'as5712'
 
@@ -56,7 +56,7 @@
         - ansicolor
 
     builders:
-        - module-build:
+        - module-build-branch:
             module: 'ops-portd'
             platform: 'genericx86-64'
         - module-cttest:

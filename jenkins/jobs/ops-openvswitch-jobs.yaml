@@ -10,7 +10,7 @@
 
     builders:
         - revoke-sudo
-        - module-build:
+        - module-build-branch:
             module: 'ops-openvswitch'
             platform: 'as5712'
 
@@ -26,7 +26,7 @@
 
     builders:
         - revoke-sudo
-        - module-build:
+        - module-build-branch:
             module: 'ops-openvswitch'
             platform: 'genericx86-64'
 
@@ -41,7 +41,7 @@
         - ansicolor
 
     builders:
-        - module-build:
+        - module-build-branch:
             module: 'ops-openvswitch'
             platform: 'as5712'
 
@@ -56,7 +56,7 @@
         - ansicolor
 
     builders:
-        - module-build:
+        - module-build-branch:
             module: 'ops-openvswitch'
             platform: 'genericx86-64'
         - module-cttest:
