@@ -23,6 +23,20 @@
 
     builders:
         - revoke-sudo
+        - gulp-prepare:
+            platform: genericx86-64
+        - get-website-stable
+        - get-dev-docs-underreview
+        - gulp-dist
+
+    publishers:
+        - scp:
+            site: static.openswitch.net
+            files:
+              - target: ''
+                source: 'www/**'
+                keep-hierarchy: true
+                copy-after-failure: false
 
 - job-group:
     name: 'ops-docs-jobs'

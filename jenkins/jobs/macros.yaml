@@ -269,6 +269,18 @@
            npm install -g gulp
 
 - builder:
+    name: get-website-stable
+    builders:
+      - shell: |
+           #!/bin/bash -x
+           if [[ ! -d website ]]; then
+             git clone https://git.openswitch.net/infra/website website/
+           else
+             cd website
+             git pull
+           fi
+
+- builder:
     name: get-website-under-review
     builders:
       - shell: |
@@ -289,6 +301,18 @@
              cd dev
              git pull
            fi
+
+- builder:
+    name: get-dev-docs-underreview
+    builders:
+      - shell: |
+           #!/bin/bash -x
+           cd website/src/markdown/en-US/documents
+           if [[ ! -d dev ]]; then
+             mkdir dev
+           fi
+           cd dev
+           /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
 
 - builder:
     name: gulp-dist
