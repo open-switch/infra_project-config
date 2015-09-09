@@ -523,3 +523,11 @@ projects:
       - ops-check
     gate:
       - ops-gate
+
+  - name: infra/project-config
+    template:
+      - name: merge-check
+    check:
+      - infra-project-config-check
+    gate:
+      - infra-project-config-gate

@@ -1,0 +1,44 @@
+- job:
+    name: 'infra-project-config-check'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 10
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - gerrit-git-prep
+        - shell : |
+            #!/bin/bash
+            cp -rf jenkins/scripts/yamllint.py .
+            chmod +x yamllint.py
+            for i in `find . -name *.yaml`; do
+              python yamllint.py $i > test
+              if grep -q FAIL test; then echo " === $i is bad ===";exit 1; fi
+            done
+
+- job:
+    name: 'infra-project-config-gate'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 10
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - gerrit-git-prep
+        - shell : |
+            #!/bin/bash
+            cp -rf jenkins/scripts/yamllint.py .
+            chmod +x yamllint.py
+            for i in `find . -name *.yaml`; do
+              python yamllint.py $i > test
+              if grep -q FAIL test; then echo " === $i is bad ===";exit 1; fi
+            done
+
