@@ -33,6 +33,23 @@
       - shell: /usr/local/jenkins/slave_scripts/yamllint.py {file}
 
 - builder:
+    name: yaml-verifyall
+    builders:
+      - shell: |
+          #!/bin/bash
+          cp -rf jenkins/scripts/yamllint.py .
+          chmod +x yamllint.py
+          for i in `find . -name *.yaml`; do
+            python yamllint.py $i > test
+            if grep -q FAIL test; then
+               echo " === $i is bad ==="
+               exit 1
+            else
+               cat test
+            fi
+          done
+
+- builder:
     name: ops-build
     builders:
       - shell: |
