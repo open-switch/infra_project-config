@@ -17,7 +17,12 @@
             chmod +x yamllint.py
             for i in `find . -name *.yaml`; do
               python yamllint.py $i > test
-              if grep -q FAIL test; then echo " === $i is bad ===";exit 1; fi
+              if grep -q FAIL test; then
+                 echo " === $i is bad ==="
+                 exit 1
+              else
+                 cat test
+              fi
             done
 
 - job:
