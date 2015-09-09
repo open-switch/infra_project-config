@@ -1,5 +1,5 @@
-- job-template:
-    name: 'ops-quagga-check-{platform}'
+- job:
+    name: 'ops-quagga-check-as5712'
     node: openswitch
 
     wrappers:
@@ -12,10 +12,10 @@
         - revoke-sudo
         - module-build:
             module: 'ops-quagga'
-            platform: '{platform}'
+            platform: 'as5712'
 
-- job-template:
-    name: 'ops-quagga-gate-{platform}'
+- job:
+    name: 'ops-quagga-check-genericx86-64'
     node: openswitch
 
     wrappers:
@@ -28,10 +28,41 @@
         - revoke-sudo
         - module-build:
             module: 'ops-quagga'
-            platform: '{platform}'
+            platform: 'genericx86-64'
 
-- job-group:
-    name: 'ops-quagga-jobs'
-    jobs:
-      - 'ops-quagga-check-{platform}'
-      - 'ops-quagga-gate-{platform}'
+- job:
+    name: 'ops-quagga-gate-as5712'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - module-build:
+            module: 'ops-quagga'
+            platform: 'as5712'
+
+- job:
+    name: 'ops-quagga-gate-genericx86-64'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - module-build:
+            module: 'ops-quagga'
+            platform: 'genericx86-64'
+        - module-cttest:
+            module: 'ops-quagga'
+            platform: 'genericx86-64'
+
+    publishers:
+        - junit:
+            results: 'build/*test*.xml'

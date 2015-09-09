@@ -203,14 +203,14 @@
       jobs:
         - 'ops-powerd-jobs'
 
-  - project:
-      name: openswitch/ops-quagga
-      node: 'openswitch'
-      platform:
-        - genericx86-64
-        - as5712
-      jobs:
-        - 'ops-quagga-jobs'
+#  - project:
+#      name: openswitch/ops-quagga
+#      node: 'openswitch'
+#      platform:
+#        - genericx86-64
+#        - as5712
+#      jobs:
+#        - 'ops-quagga-jobs'
 
   - project:
       name: openswitch/ops-restd
