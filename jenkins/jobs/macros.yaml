@@ -136,7 +136,7 @@
              git reset --hard
              git checkout master
              git pull
-             if [ "$OPS_BUILD_BRANCH" -ne "master" ] ; then
+             if [ "$OPS_BUILD_BRANCH" != "master" ] ; then
                # If the branch already existed, remove it
                if git branch | grep -wq $OPS_BUILD_BRANCH  ; then
                  git branch -D $OPS_BUILD_BRANCH
