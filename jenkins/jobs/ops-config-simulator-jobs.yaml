@@ -10,7 +10,7 @@
 
     builders:
         - revoke-sudo
-        - module-build:
+        - module-build-branch:
             module: 'ops-config-simulator'
             platform: '{platform}'
         - yaml-lint:
@@ -29,7 +29,7 @@
 
     builders:
         - revoke-sudo
-        - module-build:
+        - module-build-branch:
             module: 'ops-config-simulator'
             platform: '{platform}'
         - yaml-lint:

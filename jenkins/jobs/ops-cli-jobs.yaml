@@ -20,7 +20,7 @@
         - timestamps
         - ansicolor
     builders:
-        - module-build:
+        -module-build-branch:
             module: 'ops-cli'
             platform: 'as5712'
 - job:
