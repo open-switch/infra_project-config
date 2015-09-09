@@ -313,6 +313,38 @@
            cd dev
            /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
 
+
+- builder:
+    name: get-dev-ops-docs-stable
+    builders:
+      - shell: |
+           #!/bin/bash -x
+           cd website/src/markdown/en-US/documents
+           rm -Rf user
+           if [[ ! -d temp ]]; then
+             git clone https://git.openswitch.net/openswitch/ops temp/
+           else
+             git pull
+           fi
+           cd temp
+           cp -R ops/docs ../user
+           rm -rf temp
+
+- builder:
+    name: get-dev-ops-docs-underreview
+    builders:
+      - shell: |
+           #!/bin/bash -x
+           cd website/src/markdown/en-US/documents
+           rm -Rf user
+           if [[ ! -d temp ]]; then
+             mkdir temp
+           fi
+           rm -r temp/*
+           cd temp
+           /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
+           cp -R ops/docs ../user
+
 - builder:
     name: gulp-dist
     builders:

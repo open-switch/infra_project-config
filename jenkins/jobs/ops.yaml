@@ -11,6 +11,12 @@
     builders:
         - revoke-sudo
         - gerrit-git-prep
+        - gulp-prepare:
+            platform: genericx86-64
+        - get-website-stable
+        - get-dev-docs-stable
+        - get-dev-ops-docs-underreview
+        - gulp-dist
 
 - job:
     name: 'ops-gate'
@@ -25,3 +31,18 @@
     builders:
         - revoke-sudo
         - gerrit-git-prep
+        - gulp-prepare:
+            platform: genericx86-64
+        - get-website-stable
+        - get-dev-docs-stable
+        - get-dev-ops-docs-underreview
+        - gulp-dist
+
+    publishers:
+       - scp:
+           site: static.openswitch.net
+           files:
+             - target: ''
+               source: 'www/**'
+               keep-hierarchy: true
+               copy-after-failure: false
