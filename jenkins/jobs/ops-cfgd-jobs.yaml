@@ -14,8 +14,8 @@
             module: 'ops-cfgd'
             platform: '{platform}'
 
-- job-template:
-    name: 'ops-cfgd-gate-{platform}'
+- job:
+    name: 'ops-cfgd-gate-as5712'
     node: openswitch
 
     wrappers:
@@ -25,13 +25,33 @@
         - ansicolor
 
     builders:
-        - revoke-sudo
         - module-build-branch:
             module: 'ops-cfgd'
-            platform: '{platform}'
+            platform: 'as5712'
+
+- job:
+    name: 'ops-cfgd-gate-genericx86-64'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - module-build-branch:
+            module: 'ops-cfgd'
+            platform: 'genericx86-64'
+        - module-cttest:
+            module: 'ops-cfgd'
+            platform: 'genericx86-64'
+    publishers:
+        - junit:
+            results: 'build/*test*.xml'
+
 
 - job-group:
     name: 'ops-cfgd-jobs'
     jobs:
       - 'ops-cfgd-check-{platform}'
-      - 'ops-cfgd-gate-{platform}'
