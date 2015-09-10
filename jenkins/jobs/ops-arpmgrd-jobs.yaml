@@ -1,5 +1,5 @@
-- job:
-    name: 'ops-arpmgrd-check-as5712'
+- job-template:
+    name: 'ops-arpmgrd-check-{platform}'
     node: openswitch
 
     wrappers:
@@ -12,23 +12,7 @@
         - revoke-sudo
         - module-build-branch:
             module: 'ops-arpmgrd'
-            platform: 'as5712'
-
-- job:
-    name: 'ops-arpmgrd-check-genericx86-64'
-    node: openswitch
-
-    wrappers:
-        - build-timeout:
-            timeout: 120
-        - timestamps
-        - ansicolor
-
-    builders:
-        - revoke-sudo
-        - module-build-branch:
-            module: 'ops-arpmgrd'
-            platform: 'genericx86-64'
+            platform: '{platform}'
 
 - job:
     name: 'ops-arpmgrd-gate-as5712'
@@ -66,3 +50,8 @@
     publishers:
         - junit:
             results: 'build/*test*.xml'
+
+- job-group:
+    name: 'ops-arpmgrd-jobs'
+    jobs:
+      - 'ops-arpmgrd-check-{platform}'

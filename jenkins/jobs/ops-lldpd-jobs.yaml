@@ -1,32 +1,16 @@
-- job:
-    name: 'ops-lldpd-check-as5712'
+- job-template:
+    name: 'ops-lldpd-check-{platform}'
     node: openswitch
-
     wrappers:
         - build-timeout:
             timeout: 120
         - timestamps
         - ansicolor
-
     builders:
+        - revoke-sudo
         - module-build-branch:
             module: 'ops-lldpd'
-            platform: 'as5712'
-
-- job:
-    name: 'ops-lldpd-check-genericx86-64'
-    node: openswitch
-
-    wrappers:
-        - build-timeout:
-            timeout: 120
-        - timestamps
-        - ansicolor
-
-    builders:
-        - module-build-branch:
-            module: 'ops-lldpd'
-            platform: 'genericx86-64'
+            platform: '{platform}'
 
 - job:
     name: 'ops-lldpd-gate-as5712'
@@ -64,3 +48,8 @@
     publishers:
         - junit:
             results: 'build/*test*.xml'
+
+- job-group:
+    name: 'ops-lldpd-jobs'
+    jobs:
+      - 'ops-lldpd-check-{platform}'

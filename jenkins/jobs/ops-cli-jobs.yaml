@@ -11,6 +11,7 @@
         - module-build-branch:
             module: 'ops-cli'
             platform: '{platform}'
+
 - job:
     name: 'ops-cli-gate-as5712'
     node: openswitch
@@ -23,6 +24,7 @@
         - module-build-branch:
             module: 'ops-cli'
             platform: 'as5712'
+
 - job:
     name: 'ops-cli-gate-genericx86-64'
     node: vsi
@@ -41,6 +43,7 @@
     publishers:
         - junit:
             results: 'build/*test*.xml'
+
 - job-group:
     name: 'ops-cli-jobs'
     jobs:

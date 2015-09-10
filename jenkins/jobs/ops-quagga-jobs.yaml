@@ -1,34 +1,16 @@
-- job:
-    name: 'ops-quagga-check-as5712'
+- job-template:
+    name: 'ops-quagga-check-{platform}'
     node: openswitch
-
     wrappers:
         - build-timeout:
             timeout: 120
         - timestamps
         - ansicolor
-
     builders:
         - revoke-sudo
         - module-build-branch:
             module: 'ops-quagga'
-            platform: 'as5712'
-
-- job:
-    name: 'ops-quagga-check-genericx86-64'
-    node: openswitch
-
-    wrappers:
-        - build-timeout:
-            timeout: 120
-        - timestamps
-        - ansicolor
-
-    builders:
-        - revoke-sudo
-        - module-build-branch:
-            module: 'ops-quagga'
-            platform: 'genericx86-64'
+            platform: '{platform}'
 
 - job:
     name: 'ops-quagga-gate-as5712'
@@ -66,3 +48,8 @@
     publishers:
         - junit:
             results: 'build/*test*.xml'
+
+- job-group:
+    name: 'ops-quagga-jobs'
+    jobs:
+      - 'ops-quagga-check-{platform}'

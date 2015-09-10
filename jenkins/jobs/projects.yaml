@@ -45,14 +45,14 @@
       jobs:
         - 'ops-aaa-utils-jobs'
 
-#  - project:
-#      name: openswitch/ops-arpmgrd
-#      node: 'openswitch'
-#      platform:
-#        - genericx86-64
-#        - as5712
-#      jobs:
-#        - 'ops-arpmgrd-jobs'
+  - project:
+      name: openswitch/ops-arpmgrd
+      node: 'openswitch'
+      platform:
+        - genericx86-64
+        - as5712
+      jobs:
+        - 'ops-arpmgrd-jobs'
 
   - project:
       name: openswitch/ops-config-as5712
@@ -115,14 +115,14 @@
       jobs:
         - 'ops-ft-framework-jobs'
 
-#  - project:
-#      name: openswitch/ops-portd
-#      node: 'openswitch'
-#      platform:
-#        - as5712
-#        - genericx86-64
-#      jobs:
-#        - 'ops-portd-jobs'
+  - project:
+      name: openswitch/ops-portd
+      node: 'openswitch'
+      platform:
+        - as5712
+        - genericx86-64
+      jobs:
+        - 'ops-portd-jobs'
 
   - project:
       name: openswitch/ops-intfd
@@ -151,23 +151,23 @@
       jobs:
         - 'ops-ledd-jobs'
 
-#  - project:
-#      name: openswitch/ops-lldpd
-#      node: 'openswitch'
-#      platform:
-#        - genericx86-64
-#        - as5712
-#      jobs:
-#        - 'ops-lldpd-jobs'
+  - project:
+      name: openswitch/ops-lldpd
+      node: 'openswitch'
+      platform:
+        - genericx86-64
+        - as5712
+      jobs:
+        - 'ops-lldpd-jobs'
 
-#  - project:
-#      name: openswitch/ops-openvswitch
-#      node: 'openswitch'
-#      platform:
-#        - genericx86-64
-#        - as5712
-#      jobs:
-#        - 'ops-openvswitch-jobs'
+  - project:
+      name: openswitch/ops-openvswitch
+      node: 'openswitch'
+      platform:
+        - genericx86-64
+        - as5712
+      jobs:
+        - 'ops-openvswitch-jobs'
 
   - project:
       name: openswitch/ops-switchd-sim-plugin
@@ -203,14 +203,14 @@
       jobs:
         - 'ops-powerd-jobs'
 
-#  - project:
-#      name: openswitch/ops-quagga
-#      node: 'openswitch'
-#      platform:
-#        - genericx86-64
-#        - as5712
-#      jobs:
-#        - 'ops-quagga-jobs'
+  - project:
+      name: openswitch/ops-quagga
+      node: 'openswitch'
+      platform:
+        - genericx86-64
+        - as5712
+      jobs:
+        - 'ops-quagga-jobs'
 
   - project:
       name: openswitch/ops-restd
