@@ -156,8 +156,8 @@ pipelines:
         - time: '1 6 * * *'
     failure:
       smtp:
-        from: jenkins@openstack.org
-        to: openstack-stable-maint@lists.openstack.org
+        from: jenkins@openswitch.net
+        to: openswitch-stable-maint@lists.openswitch.net
         subject: 'Stable check of {change.project} failed'
 
   - name: periodic-qa
@@ -170,8 +170,8 @@ pipelines:
         - time: '2 6 * * *'
     failure:
       smtp:
-        from: jenkins@openstack.org
-        to: openstack-qa@lists.openstack.org
+        from: jenkins@openswitch.net
+        to: openswitch-qa@lists.openswitch.net
         subject: 'Periodic jobs for {change.project} failed'
 
   - name: merge-check

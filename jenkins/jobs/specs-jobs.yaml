@@ -18,7 +18,7 @@
 
     publishers:
       - scp:
-          site: 'static.openstack.org'
+          site: 'static.openswitch.net'
           files:
             - target: 'specs/'
               source: '$ZUUL_PROJECT/**'
@@ -63,7 +63,7 @@
 
     publishers:
       - scp:
-          site: 'static.openstack.org'
+          site: 'static.openswitch.net'
           files:
             - target: 'specs/'
               source: '**'
