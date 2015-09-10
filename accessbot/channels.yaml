@@ -1,4 +1,5 @@
 # Copyright 2014 OpenStack Foundation
+# Copyright 2015 Hewlett Packard Enterprise, L.P.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -33,130 +34,16 @@ access:
 # limited to the mask but otherwise left alone.
 global:
   masters:
-    - openstackinfra
+    - openswitchinfra
   operators:
-    - SergeyLukjanov
-    - clarkb
-    - fungi
-    - jeblair
-    - lifeless
-    - lyz
-    - maffulli
-    - mtaylor
-    - ttx
+    - mestery
   status:
-    - openstackstatus
+    - openswitchstatus
   mask:
     channel_op_mask
 
 # Individual channel configuration:
 channels:
-  - name: cloudkitty
-  - name: congress
-  - name: dox
-  - name: edeploy
-    mask: full_mask
-  - name: fuel-tracker
-    mask: full_mask
-  - name: git-upstream
-    mask: full_mask
-  - name: heat
-  - name: magnetodb
-    mask: full_mask
-  - name: murano
-    mask: full_mask
-  - name: nova-docker
-    mask: full_mask
-  - name: openstack
-  - name: openstack-101
-  - name: openstack-ansible
-  - name: openstack-anvil
-  - name: openstack-api
-  - name: openstack-bacon
-  - name: openstack-barbican
-  - name: openstack-blazar
-  - name: openstack-board
-  - name: openstack-ceilometer
-  - name: openstack-chef
-  - name: openstack-cinder
-  - name: openstack-cloudkeep
-  - name: openstack-community
-  - name: openstack-containers
-  - name: openstack-dev
-  - name: openstack-dns
-  - name: openstack-doc
-  - name: openstack-entropy
-  - name: openstack-foundation
-  - name: openstack-fr
-  - name: openstack-gantt
-  - name: openstack-gate
-  - name: openstack-gbp
-  - name: openstack-glance
-  - name: openstack-gsoc
-  - name: openstack-horizon
-  - name: openstack-hyper-v
-  - name: openstack-infra
-  - name: openstack-ironic
-  - name: openstack-keystone
-  - name: openstack-ko
-  - name: openstack-lbaas
-    mask: full_mask
-  - name: openstack-manila
-  - name: openstack-meeting
+  - name: openswitch
     meetbots:
-      - open_stack
-  - name: openstack-meeting-3
-    meetbots:
-      - open_stack
-  - name: openstack-meeting-4
-    meetbots:
-      - open_stack
-  - name: openstack-meeting-alt
-    meetbots:
-      - open_stack
-  - name: openstack-meniscus
-  - name: openstack-merges
-  - name: openstack-merlin
-  - name: openstack-metering
-  - name: openstack-mistral
-  - name: openstack-monasca
-  - name: openstack-neutron
-  - name: openstack-nfv
-  - name: openstack-nova
-  - name: openstack-operators
-  - name: openstack-opw
-  - name: openstack-oslo
-  - name: openstack-poppy
-  - name: openstack-qa
-  - name: openstack-raksha
-  - name: openstack-rally
-  - name: openstack-rating
-  - name: openstack-relmgr-office
-  - name: openstack-sahara
-  - name: openstack-satori
-    mask: full_mask
-  - name: openstack-sdks
-  - name: openstack-security
-  - name: openstack-sprint
-  - name: openstack-stable
-  - name: openstack-state-management
-  - name: openstack-swift
-  - name: openstack-translation
-  - name: openstack-trove
-  - name: openstack-zaqar
-  - name: packstack-dev
-  - name: pecanpy
-  - name: puppet-openstack
-  - name: refstack
-  - name: solum
-  - name: storyboard
-  - name: striker-dev
-  - name: surveil
-  - name: swiftonfile
-  - name: syscompass
-    mask: full_mask
-  - name: tacker
-    mask: full_mask
-  - name: tricircle
-    mask: full_mask
-  - name: tripleo
+      - open_switch
