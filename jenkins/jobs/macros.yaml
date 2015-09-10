@@ -127,8 +127,7 @@
     builders:
       - shell: |
            #!/bin/bash -x
-           set -e
-
+           set +x
            # Remove the devenv if previously existed, otherwise if the recipe change version we will have conflicts
            if grep -q {module} .devenv ; then
              make devenv_rm {module}
@@ -136,13 +135,13 @@
 
            # Identify the branch to use for the build system
            if git ls-remote https://git.openswitch.net/openswitch/ops-build | grep -swq "$ZUUL_BRANCH" ; then
-             echo "===================  Building ops-build on $BRANCH =================== "
              OPS_BUILD_BRANCH=$ZUUL_BRANCH
            else
-             echo "===================  Building ops-build on master =================== "
              OPS_BUILD_BRANCH=master
            fi
+           echo "===================  Building ops-build on $OPS_BUILD_BRANCH =================== "
 
+           set -e
            # If we already have a git repo, avoid nuking them to save build time
            if [[ ! -e .git ]]; then
            # I am temp adding this to resolve issue: fatal: A branch named 'feature/intervlan' already exists."
