@@ -151,14 +151,14 @@
       jobs:
         - 'ops-ledd-jobs'
 
-  - project:
-      name: openswitch/ops-lldpd
-      node: 'openswitch'
-      platform:
-        - genericx86-64
-        - as5712
-      jobs:
-        - 'ops-lldpd-jobs'
+#  - project:
+#      name: openswitch/ops-lldpd
+#      node: 'openswitch'
+#      platform:
+#        - genericx86-64
+#        - as5712
+#      jobs:
+#        - 'ops-lldpd-jobs'
 
 #  - project:
 #      name: openswitch/ops-openvswitch
