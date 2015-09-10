@@ -891,7 +891,25 @@
           cd src/{module}/build/
           make dist-docs
 
-# ======================================================================
+- builder:
+    name: swaager-api
+    builders:
+      - shell: |
+          #!/bin/bash -x
+          set -e
+          git clone https://git.openswitch.net/openswitch/{depended-repo} "$WORKSPACE/src/{depended-repo}"
+          cp /usr/local/jenkins/slave_scripts/inflect.py log.py "$WORKSPACE/src/ops-restd/halonlib/"
+          cd "$WORKSPACE/src/ops-restd"
+          mkdir -p "$WORKSPACE/scp"
+          PYTHONPATH=../ops-openvswitch/python python apidocgen.py ../ops-openvswitch/vswitchd/vswitch.extschema ../ops-openvswitch//vswitchd/vswitch.xml > "$WORKSPACE/scp/{files}"
+          if [[ $? -ne 0 ]]; then
+             exit 1
+          else
+             set +x
+             echo "========== api doc generator ran succesfully, {files} is genereted =========="
+          fi
+
+# =====================================================================
 
 - wrapper:
     name: build-timeout
@@ -1121,3 +1139,14 @@
     publishers:
       - zuul-swift-upload-logs-with-console:
           upload_source: '"**/*nose_results.html" "**/*testr_results.html.gz" ".testrepository/tmp*" "**/*subunit_log.txt.gz" ".tox/*/log/*"'
+
+- publisher:
+    name: simple-scp
+    publishers:
+      - scp:
+          site: 'static.openswitch.net'
+          files:
+            - target: '{dest}'
+              source: '$WORKSPACE/scp/{files}'
+              keep-hierarchy: true
+              copy-after-failure: false
