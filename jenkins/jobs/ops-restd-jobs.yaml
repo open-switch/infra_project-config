@@ -29,6 +29,14 @@
         - module-build-branch:
             module: 'ops-restd'
             platform: '{platform}'
+        - swagger-api:
+            depended-repo: 'ops-openvswitch'
+            files: 'halon.json'
+
+    publishers:
+        - simple-scp:
+            dest: 'api/rest/'
+            files: 'halon.json'
 
 - job-group:
     name: 'ops-restd-jobs'
