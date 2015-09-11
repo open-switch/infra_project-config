@@ -892,7 +892,7 @@
           make dist-docs
 
 - builder:
-    name: swaager-api
+    name: swagger-api
     builders:
       - shell: |
           #!/bin/bash -x
