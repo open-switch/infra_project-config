@@ -1182,3 +1182,14 @@
               source: '$WORKSPACE/scp/{files}'
               keep-hierarchy: true
               copy-after-failure: false
+
+- publisher:
+    name: governance-scp
+    publishers:
+      - scp:
+          site: 'static.openswitch.net'
+          files:
+            - target: '{docroot}/'
+              source: '**'
+              keep-hierarchy: true
+              copy-after-failure: false
