@@ -12,12 +12,15 @@
       - static-publish-prep:
           source: 'doc/build/html'
 
-    publishers:
-      - scp:
-          site: static.openswitch.net
-          files:
-            - target: '{docroot}/'
-              source: '**'
-              keep-hierarchy: true
-              copy-after-failure: false
+#    publishers:
+#      - scp:
+#          site: static.openswitch.net
+#          files:
+#            - target: '{docroot}/'
+#              source: '**'
+#              keep-hierarchy: true
+#              copy-after-failure: false
 #      - console-log
+
+    publishers:
+      - governance-scp
