@@ -1,21 +1,19 @@
 - job-template:
     name: 'ops-lacpd-check-{platform}'
     node: openswitch
-
     wrappers:
         - build-timeout:
             timeout: 120
         - timestamps
         - ansicolor
-
     builders:
         - revoke-sudo
         - module-build-branch:
             module: 'ops-lacpd'
             platform: '{platform}'
 
-- job-template:
-    name: 'ops-lacpd-gate-{platform}'
+- job:
+    name: 'ops-lacpd-gate-as5712'
     node: openswitch
 
     wrappers:
@@ -25,13 +23,33 @@
         - ansicolor
 
     builders:
-        - revoke-sudo
         - module-build-branch:
             module: 'ops-lacpd'
-            platform: '{platform}'
+            platform: 'as5712'
+
+- job:
+    name: 'ops-lacpd-gate-genericx86-64'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - module-build-branch:
+            module: 'ops-lacpd'
+            platform: 'genericx86-64'
+        - module-cttest:
+            module: 'ops-lacpd'
+            platform: 'genericx86-64'
+
+    publishers:
+        - junit:
+            results: 'build/*test*.xml'
 
 - job-group:
     name: 'ops-lacpd-jobs'
     jobs:
       - 'ops-lacpd-check-{platform}'
-      - 'ops-lacpd-gate-{platform}'

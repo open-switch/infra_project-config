@@ -1,21 +1,19 @@
 - job-template:
     name: 'ops-intfd-check-{platform}'
     node: openswitch
-
     wrappers:
         - build-timeout:
             timeout: 120
         - timestamps
         - ansicolor
-
     builders:
         - revoke-sudo
         - module-build-branch:
             module: 'ops-intfd'
             platform: '{platform}'
 
-- job-template:
-    name: 'ops-intfd-gate-{platform}'
+- job:
+    name: 'ops-intfd-gate-as5712'
     node: openswitch
 
     wrappers:
@@ -25,13 +23,33 @@
         - ansicolor
 
     builders:
-        - revoke-sudo
         - module-build-branch:
             module: 'ops-intfd'
-            platform: '{platform}'
+            platform: 'as5712'
+
+- job:
+    name: 'ops-intfd-gate-genericx86-64'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - module-build-branch:
+            module: 'ops-intfd'
+            platform: 'genericx86-64'
+        - module-cttest:
+            module: 'ops-intfd'
+            platform: 'genericx86-64'
+
+    publishers:
+        - junit:
+            results: 'build/*test*.xml'
 
 - job-group:
     name: 'ops-intfd-jobs'
     jobs:
       - 'ops-intfd-check-{platform}'
-      - 'ops-intfd-gate-{platform}'

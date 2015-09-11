@@ -1,21 +1,19 @@
 - job-template:
     name: 'ops-sysd-check-{platform}'
     node: openswitch
-
     wrappers:
         - build-timeout:
             timeout: 120
         - timestamps
         - ansicolor
-
     builders:
         - revoke-sudo
         - module-build-branch:
             module: 'ops-sysd'
             platform: '{platform}'
 
-- job-template:
-    name: 'ops-sysd-gate-{platform}'
+- job:
+    name: 'ops-sysd-gate-as5712'
     node: openswitch
 
     wrappers:
@@ -25,13 +23,33 @@
         - ansicolor
 
     builders:
-        - revoke-sudo
         - module-build-branch:
             module: 'ops-sysd'
-            platform: '{platform}'
+            platform: 'as5712'
+
+- job:
+    name: 'ops-sysd-gate-genericx86-64'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - module-build-branch:
+            module: 'ops-sysd'
+            platform: 'genericx86-64'
+        - module-cttest:
+            module: 'ops-sysd'
+            platform: 'genericx86-64'
+
+    publishers:
+        - junit:
+            results: 'build/*test*.xml'
 
 - job-group:
     name: 'ops-sysd-jobs'
     jobs:
       - 'ops-sysd-check-{platform}'
-      - 'ops-sysd-gate-{platform}'
