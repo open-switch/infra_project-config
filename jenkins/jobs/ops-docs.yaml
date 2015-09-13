@@ -26,6 +26,7 @@
         - gulp-prepare:
             platform: genericx86-64
         - get-website-stable
+        - get-dev-docs-stable
         - get-dev-docs-underreview
         - gulp-dist
 
