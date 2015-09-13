@@ -4,7 +4,6 @@
   - project:
       name: governance
       node: 'bare-precise || bare-trusty'
-      docroot: governance
 
       jobs:
         - 'gate-{name}-docs'
