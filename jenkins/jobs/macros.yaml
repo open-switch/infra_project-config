@@ -327,7 +327,8 @@
              git pull
            fi
            cd temp
-           cp -R ops/docs ../user
+           cp -R docs ../user
+           cd ..
            rm -rf temp
 
 - builder:
@@ -343,7 +344,7 @@
            rm -r temp/*
            cd temp
            /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
-           cp -R ops/docs ../user
+           cp -R docs ../user
 
 - builder:
     name: gulp-dist
