@@ -36,7 +36,6 @@
     publishers:
         - simple-scp:
             dest: 'api/rest/'
-            files: '*.json'
 
 - job-group:
     name: 'ops-restd-jobs'

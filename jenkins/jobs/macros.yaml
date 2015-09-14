@@ -1185,7 +1185,7 @@
           site: 'static.openswitch.net'
           files:
             - target: '{dest}'
-              source: '$WORKSPACE/scp/{files}'
+              source: 'scp/*.json'
               keep-hierarchy: true
               copy-after-failure: false
 
