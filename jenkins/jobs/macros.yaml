@@ -929,7 +929,7 @@
       - shell: |
           #!/bin/bash -x
           set -e
-          rm -rf $WORKSPACE/src/*
+          rm -rf $WORKSPACE/src/{depended-repo}
           git clone https://git.openswitch.net/openswitch/{depended-repo} $WORKSPACE/src/{depended-repo}
           cp /usr/local/jenkins/slave_scripts/inflect.py log.py $WORKSPACE/src/ops-restd/halonlib/
           cd $WORKSPACE/src/ops-restd
