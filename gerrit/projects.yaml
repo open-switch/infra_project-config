@@ -12,6 +12,10 @@
 - project: infra/puppet-ssh
   description: Puppet ssh module
 
+- project: infra/puppet-mailman
+  description: Puppet mailman module
+  upstream: https://git.openstack.org/openstack-infra/puppet-mailman
+
 - project: infra/puppet-module-puppetboard
   description: Puppet puppetboard module
 
