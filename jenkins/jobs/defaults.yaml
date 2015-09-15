@@ -7,8 +7,8 @@
 
       <p>If you would like to make changes to this job, please see:
 
-        <a href="https://git.openhalon.io/cgit/infra/project-config">
-          https://git.openhalon.io/cgit/infra/project-config
+        <a href="https://git.openswitch.net/cgit/infra/project-config">
+          https://git.openswitch.net/cgit/infra/project-config
         </a>
 
       In jenkins/jobs
