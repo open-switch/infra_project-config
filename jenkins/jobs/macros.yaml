@@ -181,6 +181,27 @@
            make bake {module}
 
 - builder:
+    name: module-cttest-on-master-only
+    builders:
+      - shell: |
+           #!/bin/bash -x
+           set -e
+           if [ {platform} == "genericx86-64" || $ZUUL_BRANCH == "master" ]
+           then
+             make fs
+             make devenv_ct_init
+             export VSI_IMAGE_NAME=$(uuidgen)
+             make export_docker_image $VSI_IMAGE_NAME
+             make devenv_ct_test PY_TEST_ARGS="src/{module} --exitfirst --junit-xml=build/module-test-results.xml"
+             make devenv_ct_clean
+             docker rmi -f $VSI_IMAGE_NAME
+             sudo chown jenkins.jenkins build/module-test-results.xml
+           else
+             touch build/dummy.xml
+             echo "Not a genericx86-64 platform, skipping cttest"
+           fi
+
+- builder:
     name: module-cttest
     builders:
       - shell: |
