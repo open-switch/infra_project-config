@@ -207,6 +207,11 @@
       - shell: |
            #!/bin/bash -x
            set -e
+           make fs
+           make devenv_ct_init
+           export VSI_IMAGE_NAME=$(uuidgen)
+           make export_docker_image $VSI_IMAGE_NAME
+
            function cleanup {
              echo "Cleaning up docker containers and images in case of errors"
              make devenv_ct_clean
@@ -215,17 +220,8 @@
            }
            trap cleanup INT TERM EXIT
 
-           if [ {platform} == "genericx86-64" ]
-           then
-             make fs
-             make devenv_ct_init
-             export VSI_IMAGE_NAME=$(uuidgen)
-             make export_docker_image $VSI_IMAGE_NAME
-             make devenv_ct_test PY_TEST_ARGS="src/{module} --exitfirst --junit-xml=build/module-test-results.xml"
-             sudo chown jenkins.jenkins build/module-test-results.xml
-           else
-             echo "Not a genericx86-64 platform, skipping cttest"
-           fi
+           make devenv_ct_test PY_TEST_ARGS="src/{module} --exitfirst --junit-xml=build/module-test-results.xml"
+           sudo chown jenkins.jenkins build/module-test-results.xml
 
 - builder:
     name: module-cttest
