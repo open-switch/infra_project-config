@@ -41,7 +41,7 @@
         - module-build-branch:
             module: 'ops-switchd-sim-plugin'
             platform: 'genericx86-64'
-        - module-cttest-trap:
+        - module-cttest:
             module: 'ops-switchd-sim-plugin'
             platform: 'genericx86-64'
 
