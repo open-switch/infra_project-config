@@ -186,7 +186,7 @@
       - shell: |
            #!/bin/bash -x
            set -e
-           if [ {platform} == "genericx86-64" || $ZUUL_BRANCH == "master" ]
+           if [ {platform} == "genericx86-64" ] && [ $ZUUL_BRANCH == "master" ]
            then
              make fs
              make devenv_ct_init
@@ -198,6 +198,32 @@
              sudo chown jenkins.jenkins build/module-test-results.xml
            else
              touch build/dummytest.xml
+             echo "Not a genericx86-64 platform, skipping cttest"
+           fi
+
+- builder:
+    name: module-cttest-trap
+    builders:
+      - shell: |
+           #!/bin/bash -x
+           set -e
+           function cleanup {
+             echo "Cleaning up docker containers and images in case of errors"
+             make devenv_ct_clean
+             docker rmi -f $VSI_IMAGE_NAME
+             echo `sudo docker ps -aq`
+           }
+           trap cleanup INT TERM EXIT
+
+           if [ {platform} == "genericx86-64" ]
+           then
+             make fs
+             make devenv_ct_init
+             export VSI_IMAGE_NAME=$(uuidgen)
+             make export_docker_image $VSI_IMAGE_NAME
+             make devenv_ct_test PY_TEST_ARGS="src/{module} --exitfirst --junit-xml=build/module-test-results.xml"
+             sudo chown jenkins.jenkins build/module-test-results.xml
+           else
              echo "Not a genericx86-64 platform, skipping cttest"
            fi
 
