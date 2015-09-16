@@ -315,7 +315,7 @@
 
 
 - builder:
-    name: get-dev-ops-docs-stable
+    name: get-user-docs-stable
     builders:
       - shell: |
            #!/bin/bash -x
@@ -332,7 +332,7 @@
            rm -rf temp
 
 - builder:
-    name: get-dev-ops-docs-underreview
+    name: get-user-docs-underreview
     builders:
       - shell: |
            #!/bin/bash -x
