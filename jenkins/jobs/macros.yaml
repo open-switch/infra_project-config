@@ -197,7 +197,7 @@
              docker rmi -f $VSI_IMAGE_NAME
              sudo chown jenkins.jenkins build/module-test-results.xml
            else
-             touch build/dummy.xml
+             touch build/dummytest.xml
              echo "Not a genericx86-64 platform, skipping cttest"
            fi
 
