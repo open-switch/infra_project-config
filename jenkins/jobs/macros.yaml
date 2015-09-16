@@ -205,14 +205,13 @@
     name: module-cttest-trap
     builders:
       - shell: |
-           #!/bin/bash -x
+           #!/bin/bash
            set -e
            make fs
            make devenv_ct_init
            export VSI_IMAGE_NAME=$(uuidgen)
            make export_docker_image $VSI_IMAGE_NAME
            function cleanup {
-             echo "Cleaning up docker containers and images in case of errors"
              make devenv_ct_clean
              docker rmi -f $VSI_IMAGE_NAME
            }
