@@ -19,6 +19,10 @@
 - project: infra/puppet-module-puppetboard
   description: Puppet puppetboard module
 
+- project: infra/puppet-module-test
+  description: Puppet module test
+  upstream: https://git.openswitch.net/infra/puppet-module-puppetboard
+
 - project: infra/puppet-iptables
   description: Puppet iptables module
 
