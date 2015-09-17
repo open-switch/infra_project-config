@@ -1235,3 +1235,14 @@
               source: '**'
               keep-hierarchy: true
               copy-after-failure: false
+
+- publisher:
+    name: cleanup-dockerimage
+    publishers:
+      - postbuildscript:
+          builders:
+            - shell: 'make devenv_ct_clean'
+            - shell: 'docker rmi -f $VSI_IMAGE_NAME'
+          script-only-if-succeeded: True
+          script-only-if-failed: True
+
