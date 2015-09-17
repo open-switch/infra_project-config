@@ -47,8 +47,13 @@
     #publishers:
     #    - cleanup-dockerimage
     publishers:
-        - junit:
-            results: 'build/*test*.xml'
+        - conditional-publisher:
+            - condition-kind: shell
+              condition-command: ls bin/module-test-results.xml
+              on-evaluation-failure: dont-run
+              action:
+                  - junit:
+                      results: 'build/*test*.xml'
 
 - job-group:
     name: 'ops-cli-jobs'
