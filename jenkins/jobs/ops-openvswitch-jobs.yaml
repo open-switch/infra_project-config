@@ -41,7 +41,7 @@
         - module-build-branch:
             module: 'ops-openvswitch'
             platform: 'genericx86-64'
-        - module-cttest:
+        - module-cttest-disable-on-bgp-only:
             module: 'ops-openvswitch'
             platform: 'genericx86-64'
 
