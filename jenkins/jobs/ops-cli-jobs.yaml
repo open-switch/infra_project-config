@@ -40,6 +40,12 @@
         - module-cttest-disable-on-bgp-only:
             module: 'ops-cli'
             platform: 'genericx86-64'
+    properties:
+        - inject:
+            properties-content: |
+              VSI_IMAGE_NAME=$VSI_IMAGE_NAME
+    publishers:
+        - cleanup-dockerimage
     publishers:
         - junit:
             results: 'build/*test*.xml'
