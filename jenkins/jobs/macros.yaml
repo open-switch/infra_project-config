@@ -217,7 +217,7 @@
              docker rmi -f $VSI_IMAGE_NAME
              sudo chown jenkins.jenkins build/module-test-results.xml
            else
-             echo "<?xml version="1.0" encoding="UTF-8"?><note>Dummy Junit Test file</note>" > build/module-test-results.xml
+             #echo "<?xml version="1.0" encoding="UTF-8"?><note>Dummy Junit Test file</note>" > build/module-test-results.xml
              echo "Not a genericx86-64 platform, skipping cttest"
            fi
 
