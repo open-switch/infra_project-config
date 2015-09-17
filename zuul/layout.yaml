@@ -226,6 +226,14 @@ projects:
     gate:
       - website-gate
 
+  - name: openswitch/ops-dhcp-tftp
+    template:
+      - name: merge-check
+    check:
+      - ops-dhcp-tftp-check
+    gate:
+      - ops-dhcp-tftp-gate
+
   - name: openswitch/governance
     template:
       - name: merge-check

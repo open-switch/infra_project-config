@@ -1,0 +1,25 @@
+- job:
+    name: 'ops-dhcp-tftp-check'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 60
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+
+- job:
+    name: 'ops-dhcp-tftp-gate'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 60
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
