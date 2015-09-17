@@ -14,7 +14,7 @@
             platform: genericx86-64
         - get-website-under-review
         - get-dev-docs-stable
-        - get-dev-ops-docs-stable
+#        - get-dev-ops-docs-stable
         - gulp-dist
 
 - job:
@@ -33,7 +33,7 @@
             platform: genericx86-64
         - get-website-under-review
         - get-dev-docs-stable
-        - get-dev-ops-docs-stable
+#        - get-dev-ops-docs-stable
         - gulp-dist
 
     publishers:
