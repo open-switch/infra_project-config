@@ -1,0 +1,55 @@
+- job-template:
+    name: 'ops-switchd-container-plugin-check-{platform}'
+    node: openswitch
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+    builders:
+        - revoke-sudo
+        - module-build-branch:
+            module: 'ops-switchd-container-plugin'
+            platform: '{platform}'
+
+- job:
+    name: 'ops-switchd-container-plugin-gate-as5712'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - module-build-branch:
+            module: 'ops-switchd-container-plugin'
+            platform: 'as5712'
+
+- job:
+    name: 'ops-switchd-container-plugin-gate-genericx86-64'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 240
+        - timestamps
+        - ansicolor
+
+    builders:
+        - module-build-branch:
+            module: 'ops-switchd-container-plugin'
+            platform: 'genericx86-64'
+        - module-cttest:
+            module: 'ops-switchd-container-plugin'
+            platform: 'genericx86-64'
+
+    publishers:
+        - junit:
+            results: 'build/*test*.xml'
+
+- job-group:
+    name: 'ops-switchd-container-plugin-jobs'
+    jobs:
+      - 'ops-switchd-container-plugin-check-{platform}'

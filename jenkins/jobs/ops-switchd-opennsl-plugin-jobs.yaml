@@ -1,0 +1,55 @@
+- job-template:
+    name: 'ops-switchd-opennsl-plugin-check-{platform}'
+    node: openswitch
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+    builders:
+        - revoke-sudo
+        - module-build-branch:
+            module: 'ops-switchd-opennsl-plugin'
+            platform: '{platform}'
+
+- job:
+    name: 'ops-switchd-opennsl-plugin-gate-as5712'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - module-build-branch:
+            module: 'ops-switchd-opennsl-plugin'
+            platform: 'as5712'
+
+- job:
+    name: 'ops-switchd-opennsl-plugin-gate-genericx86-64'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 240
+        - timestamps
+        - ansicolor
+
+    builders:
+        - module-build-branch:
+            module: 'ops-switchd-opennsl-plugin'
+            platform: 'genericx86-64'
+        - module-cttest:
+            module: 'ops-switchd-opennsl-plugin'
+            platform: 'genericx86-64'
+
+    publishers:
+        - junit:
+            results: 'build/*test*.xml'
+
+- job-group:
+    name: 'ops-switchd-opennsl-plugin-jobs'
+    jobs:
+      - 'ops-switchd-opennsl-plugin-check-{platform}'

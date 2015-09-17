@@ -416,11 +416,25 @@ projects:
         module: ops-switchd-sim-plugin
         platform: genericx86-64
 
+  - name: openswitch/ops-switchd-container-plugin
+    template:
+      - name: merge-check
+      - name: module-build
+        module: ops-switchd-container-plugin
+        platform: genericx86-64
+
   - name: openswitch/ops-switchd-bcm-plugin
     template:
       - name: merge-check
       - name: module-build
         module: ops-switchd-bcm-plugin
+        platform: as5712
+
+  - name: openswitch/ops-switchd-opennsl-plugin
+    template:
+      - name: merge-check
+      - name: module-build
+        module: ops-switchd-opennsl-plugin
         platform: as5712
 
   - name: openswitch/ops-pmd
@@ -465,6 +479,13 @@ projects:
       - name: merge-check
       - name: module-build
         module: ops-config-simulator
+        platform: genericx86-64
+
+  - name: openswitch/ops-config-container
+    template:
+      - name: merge-check
+      - name: module-build
+        module: ops-config-container
         platform: genericx86-64
 
   - name: openswitch/ops-tempd
