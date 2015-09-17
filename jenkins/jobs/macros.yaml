@@ -55,10 +55,15 @@
       - shell: |
           #!/bin/bash -x
           make configure {platform}
-          make build/conf/local.conf
+          BUILD_NUMBER=$(date -u +"%Y%m%d%H")
+          make header
           mkdir -p /mnt/jenkins/workspace/sstate-cache
           rm -Rf build/sstate-cache
           ln -sf /mnt/jenkins/workspace/sstate-cache build/sstate-cache
+          cd build
+          BUILD_VERSION=$(../yocto/poky/bitbake/bin/bitbake -e | grep DISTRO_VERSION= | cut -d\" -f 2)
+          cd ..
+          echo "$BUILD_VERSION+$BUILD_NUMBER" > .version_string
           make
 
 - builder:
@@ -425,6 +430,32 @@
            npm install
            gulp dist
            mv dist ../www
+
+- builder:
+    name: create-periodic-build-image
+
+    builders:
+      - shell: |
+          #!/bin/bash -x
+          VERSION_STRING=$(cat .version_string)
+          echo "BUILD_ID=\"$VERSION_STRING\"" > build/build_info.conf
+          make
+
+- builder:
+    name: create-build-artifacts
+
+    builders:
+      - shell: |
+          #!/bin/bash -x
+          VERSION_STRING=$(cat .version_string)
+          PLATFORM=$(cat .platform)
+          rm -Rf artifacts
+          mkdir -p artifacts/$VERSION_STRING/$PLATFORM
+          find images -name "onie-installer*" -exec bash -c "cp \"\$0\" artifacts/$VERSION_STRING/$PLATFORM/\$(basename \"\$0\")-$VERSION_STRING" {} \;
+          find images -name "*.ova" -exec bash -c "cp \"\$0\" artifacts/$VERSION_STRING/$PLATFORM/\$(basename -s .ova \"\$0\")-$VERSION_STRING.ova" {} \;
+          find images -name "*.tar.gz" -exec bash -c "cp \"\$0\" artifacts/$VERSION_STRING/$PLATFORM/\$(basename -s .tar.gz \"\$0\")-$VERSION_STRING.tar.gz" {} \;
+          find images -name "*.manifest" -exec bash -c "cp \"\$0\" artifacts/$VERSION_STRING/$PLATFORM/\$(basename -s .manifest \"\$0\")-$VERSION_STRING.manifest" {} \;
+          cd artifacts/$VERSION_STRING/$PLATFORM for file in $(ls) ; do sha256sum ${file} > ${file}.sha256sum ; done
 
 - builder:
     name: coverage
@@ -1273,4 +1304,3 @@
             - shell: 'docker rmi -f $VSI_IMAGE_NAME'
           script-only-if-succeeded: True
           script-only-if-failed: True
-

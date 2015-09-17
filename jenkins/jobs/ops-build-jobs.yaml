@@ -65,6 +65,18 @@
         - ops-meta-ide
         - shared-states
         - download-caches
+        - create-periodic-build-image
+        - create-build-artifacts
+
+    publishers:
+        - scp:
+            site: static.openswitch.net
+            files:
+              - target: 'archive'
+                source: 'artifacts/**/*'
+                copy-after-failure: false
+                keep-hierarchy: true
+
 
 - job-group:
     name: 'ops-default-builds'
