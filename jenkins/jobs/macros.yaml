@@ -214,6 +214,7 @@
       - shell: |
            #!/bin/bash -x
            #set -e
+           rm -rf build/module-test-results.xml
            if [ {platform} == "genericx86-64" ] && [ $ZUUL_BRANCH != "feature/bgp" ]
            then
              make fs
@@ -225,7 +226,6 @@
              #docker rmi -f $VSI_IMAGE_NAME
              sudo chown jenkins.jenkins build/module-test-results.xml
            else
-             rm -rf build/module-test-results.xml
              echo "Not a genericx86-64 platform or On feature/bgp branch, skipping cttest"
            fi
            cp /usr/local/jenkins/slave_scripts/docker_image_clean.sh .
