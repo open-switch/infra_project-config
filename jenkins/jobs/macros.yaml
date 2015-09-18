@@ -185,7 +185,7 @@
     builders:
       - shell: |
            #!/bin/bash -x
-           set -e
+           #set -e
            if [ {platform} == "genericx86-64" ] && [ $ZUUL_BRANCH == "master" ]
            then
              make fs
@@ -194,18 +194,21 @@
              make export_docker_image $VSI_IMAGE_NAME
              make devenv_ct_test PY_TEST_ARGS="src/{module} --exitfirst --junit-xml=build/module-test-results.xml"
              make devenv_ct_clean
-             docker rmi -f $VSI_IMAGE_NAME
+             #docker rmi -f $VSI_IMAGE_NAME
              sudo chown jenkins.jenkins build/module-test-results.xml
            else
              touch build/dummytest.xml
              echo "Not a genericx86-64 platform, skipping cttest"
            fi
+           cp /usr/local/jenkins/slave_scripts/docker_image_clean.sh .
+           sh docker_image_clean.sh $VSI_IMAGE_NAME
+
 - builder:
     name: module-cttest-disable-on-bgp-only
     builders:
       - shell: |
            #!/bin/bash -x
-           set -e
+           #set -e
            if [ {platform} == "genericx86-64" ] && [ $ZUUL_BRANCH != "feature/bgp" ]
            then
              make fs
@@ -214,12 +217,14 @@
              make export_docker_image $VSI_IMAGE_NAME
              make devenv_ct_test PY_TEST_ARGS="src/{module} --exitfirst --junit-xml=build/module-test-results.xml"
              make devenv_ct_clean
-             docker rmi -f $VSI_IMAGE_NAME
+             #docker rmi -f $VSI_IMAGE_NAME
              sudo chown jenkins.jenkins build/module-test-results.xml
            else
              #echo "<?xml version="1.0" encoding="UTF-8"?><note>Dummy Junit Test file</note>" > build/module-test-results.xml
              echo "Not a genericx86-64 platform, skipping cttest"
            fi
+           cp /usr/local/jenkins/slave_scripts/docker_image_clean.sh .
+           sh docker_image_clean.sh $VSI_IMAGE_NAME
 
 
 #- builder:
@@ -246,7 +251,7 @@
     builders:
       - shell: |
            #!/bin/bash -x
-           set -e
+           #set -e
            if [ {platform} == "genericx86-64" ]
            then
              make fs
@@ -255,11 +260,13 @@
              make export_docker_image $VSI_IMAGE_NAME
              make devenv_ct_test PY_TEST_ARGS="src/{module} --exitfirst --junit-xml=build/module-test-results.xml"
              make devenv_ct_clean
-             docker rmi -f $VSI_IMAGE_NAME
+             #docker rmi -f $VSI_IMAGE_NAME
              sudo chown jenkins.jenkins build/module-test-results.xml
            else
              echo "Not a genericx86-64 platform, skipping cttest"
            fi
+           cp /usr/local/jenkins/slave_scripts/docker_image_clean.sh .
+           sh docker_image_clean.sh $VSI_IMAGE_NAME
 
 - builder:
     name: jekyll-build
