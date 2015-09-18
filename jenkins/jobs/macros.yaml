@@ -198,8 +198,13 @@
              export VSI_IMAGE_NAME=$(uuidgen)
              make export_docker_image $VSI_IMAGE_NAME
              make devenv_ct_test PY_TEST_ARGS="src/{module} --exitfirst --junit-xml=build/module-test-results.xml" || ( make devenv_ct_clean && docker rmi -f $VSI_IMAGE_NAME )
-             #make devenv_ct_clean
-             #docker rmi -f $VSI_IMAGE_NAME
+             make devenv_ct_clean
+             docker images | grep $VSI_IMAGE_NAME
+             image_code=$?
+             if [ $image_code = "0" ]; then
+               docker rmi -f $VSI_IMAGE_NAME
+               echo " removed image :$VSI_IMAGE_NAME"
+             fi
              sudo chown jenkins.jenkins build/module-test-results.xml
            else
              touch build/dummytest.xml
@@ -220,8 +225,13 @@
              export VSI_IMAGE_NAME=$(uuidgen)
              make export_docker_image $VSI_IMAGE_NAME
              make devenv_ct_test PY_TEST_ARGS="src/{module} --exitfirst --junit-xml=build/module-test-results.xml" || ( make devenv_ct_clean && docker rmi -f $VSI_IMAGE_NAME )
-             #make devenv_ct_clean
-             #docker rmi -f $VSI_IMAGE_NAME
+             make devenv_ct_clean
+             docker images | grep $VSI_IMAGE_NAME
+             image_code=$?
+             if [ $image_code = "0" ]; then
+               docker rmi -f $VSI_IMAGE_NAME
+               echo " removed image :$VSI_IMAGE_NAME"
+             fi
              sudo chown jenkins.jenkins build/module-test-results.xml
            else
              echo "Not a genericx86-64 platform or On feature/bgp branch, skipping cttest"
@@ -240,8 +250,13 @@
              export VSI_IMAGE_NAME=$(uuidgen)
              make export_docker_image $VSI_IMAGE_NAME
              make devenv_ct_test PY_TEST_ARGS="src/{module} --exitfirst --junit-xml=build/module-test-results.xml" || ( make devenv_ct_clean && docker rmi -f $VSI_IMAGE_NAME )
-             #make devenv_ct_clean
-             #docker rmi -f $VSI_IMAGE_NAME
+             make devenv_ct_clean
+             docker images | grep $VSI_IMAGE_NAME
+             image_code=$?
+             if [ $image_code = "0" ]; then
+               docker rmi -f $VSI_IMAGE_NAME
+               echo " removed image :$VSI_IMAGE_NAME"
+             fi
              sudo chown jenkins.jenkins build/module-test-results.xml
            else
              echo "Not a genericx86-64 platform, skipping cttest"
