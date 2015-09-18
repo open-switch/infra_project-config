@@ -225,31 +225,11 @@
              #docker rmi -f $VSI_IMAGE_NAME
              sudo chown jenkins.jenkins build/module-test-results.xml
            else
-             #echo "<?xml version="1.0" encoding="UTF-8"?><note>Dummy Junit Test file</note>" > build/module-test-results.xml
              echo "Not a genericx86-64 platform, skipping cttest"
            fi
            cp /usr/local/jenkins/slave_scripts/docker_image_clean.sh .
            sh docker_image_clean.sh $VSI_IMAGE_NAME
 
-
-#- builder:
-#    name: module-cttest-trap
-#    builders:
-#      - shell: |
-#           #!/bin/bash
-#           set -e
-#           make fs
-#           make devenv_ct_init
-#           export VSI_IMAGE_NAME=$(uuidgen)
-#           make export_docker_image $VSI_IMAGE_NAME
-#           function cleanup {
-#             echo "Cleaning up docker containers and images in case of errors"
-#             make devenv_ct_clean
-#             docker rmi -f $VSI_IMAGE_NAME
-#           }
-#           trap cleanup EXIT
-#           make devenv_ct_test PY_TEST_ARGS="src/{module} --exitfirst --junit-xml=build/module-test-results.xml"
-#           sudo chown jenkins.jenkins build/module-test-results.xml
 
 - builder:
     name: module-cttest
@@ -1304,3 +1284,14 @@
             - shell: 'docker rmi -f $VSI_IMAGE_NAME'
           script-only-if-succeeded: True
           script-only-if-failed: True
+
+- publisher:
+    name: conditional-junit
+    publishers:
+      - conditional-publisher:
+          - condition-kind: shell
+            condition-command: ls build/module-test-results.xml
+            on-evaluation-failure: dont-run
+            action:
+                - junit:
+                    results: 'build/*test*.xml'
