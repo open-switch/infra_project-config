@@ -225,7 +225,8 @@
              #docker rmi -f $VSI_IMAGE_NAME
              sudo chown jenkins.jenkins build/module-test-results.xml
            else
-             echo "Not a genericx86-64 platform, skipping cttest"
+             rm -rf build/module-test-results.xml
+             echo "Not a genericx86-64 platform or On feature/bgp branch, skipping cttest"
            fi
            cp /usr/local/jenkins/slave_scripts/docker_image_clean.sh .
            sh docker_image_clean.sh $VSI_IMAGE_NAME
