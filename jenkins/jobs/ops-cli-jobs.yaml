@@ -46,16 +46,16 @@
     #          VSI_IMAGE_NAME=$VSI_IMAGE_NAME
     #publishers:
     #    - cleanup-dockerimage
-    #publishers:
-    #    - conditional-publisher:
-    #        - condition-kind: always
-    #          on-evaluation-failure: run
-    #          action:
-    #              - junit:
-    #                  results: 'build/*test*.xml'
     publishers:
-        - junit:
-            results: 'build/*test*.xml'
+        - conditional-publisher:
+            - condition-kind: always
+              on-evaluation-failure: run
+              action:
+                  - junit:
+                      results: 'build/*test*.xml'
+    #publishers:
+    #    - junit:
+    #        results: 'build/*test*.xml'
 
 - job-group:
     name: 'ops-cli-jobs'
