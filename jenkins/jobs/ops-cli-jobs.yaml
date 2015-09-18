@@ -48,8 +48,9 @@
     #    - cleanup-dockerimage
     publishers:
         - conditional-publisher:
-            - condition-kind: always
-              on-evaluation-failure: run
+            - condition-kind: shell
+              condition-command: ls build/module-test-results.xml
+              on-evaluation-failure: dont-run
               action:
                   - junit:
                       results: 'build/*test*.xml'
