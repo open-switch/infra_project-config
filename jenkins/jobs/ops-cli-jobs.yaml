@@ -41,13 +41,7 @@
             module: 'ops-cli'
             platform: 'genericx86-64'
     publishers:
-        - conditional-publisher:
-            - condition-kind: shell
-              condition-command: ls build/module-test-results.xml
-              on-evaluation-failure: dont-run
-              action:
-                  - junit:
-                      results: 'build/*test*.xml'
+        - conditional-junit
 
 - job-group:
     name: 'ops-cli-jobs'
