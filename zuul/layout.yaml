@@ -303,13 +303,6 @@ projects:
         module: ops-hw-config
         platform: as5712
 
-  - name: openswitch/ops-config-as5712
-    template:
-      - name: merge-check
-      - name: module-build
-        module: ops-config-as5712
-        platform: as5712
-
   - name: openswitch/ops-bufmond
     template:
       - name: merge-check
@@ -468,13 +461,6 @@ projects:
       - name: module-build
         module: ops-restd
         platform: as5712
-
-  - name: openswitch/ops-config-container
-    template:
-      - name: merge-check
-      - name: module-build
-        module: ops-config-container
-        platform: genericx86-64
 
   - name: openswitch/ops-tempd
     template:

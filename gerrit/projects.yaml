@@ -82,12 +82,6 @@
 - project: openswitch/ops-switchd-opennsl-plugin
   description: OpenSwitch Broadcom OVS plugin
 
-- project: openswitch/ops-config-as5712
-  description: Configuration files for AS5712 platform
-
-- project: openswitch/ops-config-container
-  description: Configuration files for Simulator platform
-
 - project: openswitch/ops-hw-config
   description: Configuration files repository for all the platforms
 
