@@ -55,7 +55,7 @@
         - scp:
             site: static.openswitch.net
             files:
-              - target: 'docs'
+              - target: 'docs/openswitch/schema'
                 source: 'src/ops-openvswitch/build/dist-docs/ovs-vswitchd.conf.db.5*'
                 keep-hierarchy: false
                 copy-after-failure: false
