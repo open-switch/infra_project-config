@@ -72,7 +72,7 @@
         - scp:
             site: static.openswitch.net
             files:
-              - target: 'archive'
+              - target: 'archive/periodic'
                 source: 'artifacts/**/*'
                 copy-after-failure: false
                 keep-hierarchy: true
