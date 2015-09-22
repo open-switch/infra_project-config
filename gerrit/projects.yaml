@@ -14,14 +14,9 @@
 
 - project: infra/puppet-mailman
   description: Puppet mailman module
-  upstream: https://git.openstack.org/openstack-infra/puppet-mailman
 
 - project: infra/puppet-module-puppetboard
   description: Puppet puppetboard module
-
-- project: infra/puppet-module-test
-  description: Puppet module test
-  upstream: https://git.openswitch.net/infra/puppet-module-puppetboard
 
 - project: infra/puppet-iptables
   description: Puppet iptables module
@@ -81,29 +76,17 @@
 - project: openswitch/ops-openvswitch
   description: OpenSwitch OpenVswitch
 
-- project: openswitch/ops-switchd-sim-plugin
-  description: OpenSwitch Simulator OVS plugin
-
 - project: openswitch/ops-switchd-container-plugin
   description: OpenSwitch Simulator OVS plugin
-  upstream: https://git.openswitch.net/openswitch/ops-switchd-sim-plugin
-
-- project: openswitch/ops-switchd-bcm-plugin
-  description: OpenSwitch Broadcom OVS plugin
 
 - project: openswitch/ops-switchd-opennsl-plugin
   description: OpenSwitch Broadcom OVS plugin
-  upstream: https://git.openswitch.net/openswitch/ops-switchd-bcm-plugin
 
 - project: openswitch/ops-config-as5712
   description: Configuration files for AS5712 platform
 
-- project: openswitch/ops-config-simulator
-  description: Configuration files for Simulator platform
-
 - project: openswitch/ops-config-container
   description: Configuration files for Simulator platform
-  upstream: https://git.openswitch.net/openswitch/ops-config-simulator
 
 - project: openswitch/ops-cfgd
   description: OpenSwitch Configuration Daemon
