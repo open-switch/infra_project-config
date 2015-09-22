@@ -237,6 +237,16 @@
       jobs:
         - 'ops-config-container-jobs'
 
+
+  - project:
+      name: openswitch/ops-dhcp-tftp
+      node: 'openswitch'
+      platform:
+        - genericx86-64
+        - as5712
+      jobs:
+        - 'ops-dhcp-tftp-jobs'
+
   - project:
       name: openswitch/ops-tempd
       node: 'openswitch'
