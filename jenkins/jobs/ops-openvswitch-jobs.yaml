@@ -44,9 +44,21 @@
         - module-cttest-disable-on-bgp-only:
             module: 'ops-openvswitch'
             platform: 'genericx86-64'
+        - shell: |
+            #!/bin/bash -x
+            set -e
+            cd src/ops-openvswitch/build
+            make dist-docs
 
     publishers:
         - conditional-junit
+        - scp:
+            site: static.openswitch.net
+            files:
+              - target: 'docs'
+                source: 'src/ops-openvswitch/build/dist-docs/ovs-vswitchd.conf.db.5*'
+                keep-hierarchy: false
+                copy-after-failure: false
 
 - job-group:
     name: 'ops-openvswitch-jobs'
