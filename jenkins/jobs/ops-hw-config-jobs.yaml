@@ -1,0 +1,37 @@
+- job-template:
+    name: 'ops-hw-config-check-{platform}'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build-branch:
+            module: 'ops-hw-config'
+            platform: '{platform}'
+
+- job-template:
+    name: 'ops-hw-config-gate-{platform}'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build-branch:
+            module: 'ops-hw-config'
+            platform: '{platform}'
+
+- job-group:
+    name: 'ops-hw-config-jobs'
+    jobs:
+      - 'ops-hw-config-check-{platform}'
+      - 'ops-hw-config-gate-{platform}'

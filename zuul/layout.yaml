@@ -293,6 +293,15 @@ projects:
         module: ops-arpmgrd
         platform: as5712
 
+  - name: openswitch/ops-hw-config
+    template:
+      - name: merge-check
+      - name: module-build
+        module: ops-hw-config
+        platform: genericx86-64
+      - name: module-build
+        module: ops-hw-config
+        platform: as5712
 
   - name: openswitch/ops-config-as5712
     template:

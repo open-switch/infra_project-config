@@ -88,6 +88,9 @@
 - project: openswitch/ops-config-container
   description: Configuration files for Simulator platform
 
+- project: openswitch/ops-hw-config
+  description: Configuration files repository for all the platforms
+
 - project: openswitch/ops-cfgd
   description: OpenSwitch Configuration Daemon
 
