@@ -19,7 +19,7 @@
 
 - job:
     name: 'ops-gate'
-    node: openswitch
+    node: vsi
 
     wrappers:
         - build-timeout:
@@ -28,15 +28,20 @@
         - ansicolor
 
     builders:
-        - revoke-sudo
-        - gulp-prepare:
-            platform: genericx86-64
+        - module-build-branch:
+            module: 'ops'
+            platform: 'genericx86-64'
+        - module-cttest:
+            module: 'ops'
+            platform: 'genericx86-64'
+        - gulp-install
         - get-website-stable
         - get-dev-docs-stable
         - get-user-docs-underreview
         - gulp-dist
 
     publishers:
+       - conditional-junit
        - scp:
            site: static.openswitch.net
            files:
