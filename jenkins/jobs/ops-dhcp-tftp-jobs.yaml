@@ -1,25 +1,55 @@
+- job-template:
+    name: 'ops-dhcp-tftp-check-{platform}'
+    node: openswitch
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+    builders:
+        - revoke-sudo
+        - module-build-branch:
+            module: 'ops-dhcp-tftp'
+            platform: '{platform}'
+
 - job:
-    name: 'ops-dhcp-tftp-check'
+    name: 'ops-dhcp-tftp-gate-as5712'
     node: openswitch
 
     wrappers:
         - build-timeout:
-            timeout: 60
+            timeout: 120
         - timestamps
         - ansicolor
 
     builders:
-        - revoke-sudo
+        - module-build-branch:
+            module: 'ops-dhcp-tftp'
+            platform: 'as5712'
 
 - job:
-    name: 'ops-dhcp-tftp-gate'
-    node: openswitch
+    name: 'ops-dhcp-tftp-gate-genericx86-64'
+    node: vsi
 
     wrappers:
         - build-timeout:
-            timeout: 60
+            timeout: 120
         - timestamps
         - ansicolor
 
     builders:
-        - revoke-sudo
+        - module-build-branch:
+            module: 'ops-dhcp-tftp'
+            platform: 'genericx86-64'
+        - module-cttest:
+            module: 'ops-dhcp-tftp'
+            platform: 'genericx86-64'
+
+    publishers:
+        - junit:
+            results: 'build/*test*.xml'
+
+- job-group:
+    name: 'ops-dhcp-tftp-jobs'
+    jobs:
+      - 'ops-dhcp-tftp-check-{platform}'
