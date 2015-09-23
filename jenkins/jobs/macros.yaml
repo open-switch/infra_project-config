@@ -330,6 +330,17 @@
            npm install -g gulp
 
 - builder:
+    name: gulp-install
+    builders:
+      - shell: |
+           #!/bin/bash -x
+           set -e
+           make bake node-native
+           export PATH=$PWD/build/tmp/sysroots/x86_64-linux/usr/bin:$PATH
+           npm install -g grommet
+           npm install -g gulp
+
+- builder:
     name: get-website-stable
     builders:
       - shell: |
