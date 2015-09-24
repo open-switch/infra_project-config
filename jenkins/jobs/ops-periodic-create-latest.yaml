@@ -1,5 +1,5 @@
 - job:
-    name: 'ops-check'
+    name: 'ops-periodic-create-latest'
     node: vsi
 
     wrappers:
@@ -24,4 +24,5 @@
             #retrieve the latest folder
             export build_v=`ssh static.openswitch.net "cd $dir ;ls -tr | tail -1"`
             ssh static.openswitch.net "ln -s $dir/$build_v $dir/latest"
+            ssh static.openswitch.net "cp -rf $dir/$build_v/genericx86-64/changelog.manifest $dir/latest/"
             ssh static.openswitch.net "echo $build_v > $dir/latest/build_v"
