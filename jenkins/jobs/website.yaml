@@ -10,12 +10,6 @@
 
     builders:
         - revoke-sudo
-        - gulp-prepare:
-            platform: genericx86-64
-        - get-website-under-review
-        - get-dev-docs-stable
-        - get-user-docs-stable
-        - gulp-dist
 
 - job:
     name: 'website-gate'
@@ -29,18 +23,41 @@
 
     builders:
         - revoke-sudo
-#        - gulp-prepare:
-#            platform: genericx86-64
-#        - get-website-under-review
-#        - get-dev-docs-stable
-#        - get-user-docs-stable
-#        - gulp-dist
 
-#    publishers:
-#        - scp:
-#            site: static.openswitch.net
-#            files:
-#              - target: ''
-#                source: 'www/**'
-#                keep-hierarchy: true
-#                copy-after-failure: false
+- job:
+    name: 'website-hourly'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 60
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - shell: |
+            #!/bin/bash -x
+            set -e
+
+            # Remove any content, otherwise the clone will fail
+            rm -Rf *
+            git clone https://git.openswitch.net/openswitch/ops-build .
+            mkdir -p /mnt/jenkins/workspace/sstate-cache
+            export SSTATE_DIR=/mnt/jenkins/workspace/sstate-cache
+            make configure genericx86-64
+            make devenv_init
+            make devenv_add ops-website
+            make ops-website-build
+            make ops-website-setup
+            make ops-website-dist
+            cp src/ops-website/dist www
+
+    publishers:
+        - scp:
+            site: static.openswitch.net
+            files:
+              - target: ''
+                source: 'www/**'
+                keep-hierarchy: true
+                copy-after-failure: false
