@@ -1,0 +1,27 @@
+- job:
+    name: 'ops-check'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+        - ssh-agent-credentials:
+            users:
+                - '0f99f00f-a5c0-460d-97b5-9b3dbdfd0773'
+                - 'ffc18805-a3da-4771-918a-eaaa6a1a0c70'
+    triggers:
+        - reverse:
+            jobs: 'pd-ops-gate'
+            result: 'success'
+
+    builders:
+        - shell: | 
+            #!/bin/bash
+            export dir=/srv/static/archive/artifacts/periodic
+            ssh static.openswitch.net "rm -rf $dir/latest"
+            #retrieve the latest folder
+            export build_v=`ssh static.openswitch.net "cd $dir ;ls -tr | tail -1"`
+            ssh static.openswitch.net "ln -s $dir/$build_v $dir/latest"
+            ssh static.openswitch.net "echo $build_v > $dir/latest/build_v"
