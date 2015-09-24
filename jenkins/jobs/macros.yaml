@@ -450,8 +450,8 @@
           #!/bin/bash -x
           VERSION_STRING=$(cat .version_string)
           PLATFORM=$(cat .platform)
-          rm -Rf artifacts
-          mkdir -p artifacts/$VERSION_STRING/$PLATFORM
+          rm -Rf periodic
+          mkdir -p periodic/$VERSION_STRING/$PLATFORM
           find images -name "onie-installer*" -exec bash -c "cp \"\$0\" artifacts/$VERSION_STRING/$PLATFORM/\$(basename \"\$0\")-$VERSION_STRING" {} \;
           find images -name "*.ova" -exec bash -c "cp \"\$0\" artifacts/$VERSION_STRING/$PLATFORM/\$(basename -s .ova \"\$0\")-$VERSION_STRING.ova" {} \;
           find images -name "*.tar.gz" -exec bash -c "cp \"\$0\" artifacts/$VERSION_STRING/$PLATFORM/\$(basename -s .tar.gz \"\$0\")-$VERSION_STRING.tar.gz" {} \;
