@@ -41,7 +41,7 @@
             set -e
 
             # Remove any content, otherwise the clone will fail
-            rm -Rf *
+            rm -Rf .
             git clone https://git.openswitch.net/openswitch/ops-build .
             mkdir -p /mnt/jenkins/workspace/sstate-cache
             export SSTATE_DIR=/mnt/jenkins/workspace/sstate-cache
