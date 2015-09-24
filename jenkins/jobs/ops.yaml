@@ -17,35 +17,35 @@
         - get-user-docs-underreview
         - gulp-dist
 
-- job:
-    name: 'ops-gate'
-    node: vsi
+#- job:
+#    name: 'ops-gate'
+#    node: vsi
 
-    wrappers:
-        - build-timeout:
-            timeout: 120
-        - timestamps
-        - ansicolor
+#    wrappers:
+#        - build-timeout:
+#            timeout: 120
+#        - timestamps
+#        - ansicolor
 
-    builders:
-        - module-build-branch:
-            module: 'ops'
-            platform: 'genericx86-64'
-        - module-cttest:
-            module: 'ops'
-            platform: 'genericx86-64'
-        - gulp-install
-        - get-website-stable
-        - get-dev-docs-stable
-        - get-user-docs-underreview
-        - gulp-dist
+#    builders:
+#        - module-build-branch:
+#            module: 'ops'
+#            platform: 'genericx86-64'
+#        - module-cttest:
+#            module: 'ops'
+#            platform: 'genericx86-64'
+#        - gulp-install
+#        - get-website-stable
+#        - get-dev-docs-stable
+#        - get-user-docs-underreview
+#        - gulp-dist
 
-    publishers:
-       - conditional-junit
-       - scp:
-           site: static.openswitch.net
-           files:
-             - target: ''
-               source: 'www/**'
-               keep-hierarchy: true
-               copy-after-failure: false
+#    publishers:
+#       - conditional-junit
+#       - scp:
+#           site: static.openswitch.net
+#           files:
+#             - target: ''
+#               source: 'www/**'
+#               keep-hierarchy: true
+#               copy-after-failure: false

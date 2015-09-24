@@ -17,30 +17,30 @@
         - get-user-docs-stable
         - gulp-dist
 
-- job:
-    name: 'website-gate'
-    node: openswitch
+#- job:
+#    name: 'website-gate'
+#    node: openswitch
 
-    wrappers:
-        - build-timeout:
-            timeout: 60
-        - timestamps
-        - ansicolor
+#    wrappers:
+#        - build-timeout:
+#            timeout: 60
+#        - timestamps
+#        - ansicolor
 
-    builders:
-        - revoke-sudo
-        - gulp-prepare:
-            platform: genericx86-64
-        - get-website-under-review
-        - get-dev-docs-stable
-        - get-user-docs-stable
-        - gulp-dist
+#    builders:
+#        - revoke-sudo
+#        - gulp-prepare:
+#            platform: genericx86-64
+#        - get-website-under-review
+#        - get-dev-docs-stable
+#        - get-user-docs-stable
+#        - gulp-dist
 
-    publishers:
-        - scp:
-            site: static.openswitch.net
-            files:
-              - target: ''
-                source: 'www/**'
-                keep-hierarchy: true
-                copy-after-failure: false
+#    publishers:
+#        - scp:
+#            site: static.openswitch.net
+#            files:
+#              - target: ''
+#                source: 'www/**'
+#                keep-hierarchy: true
+#                copy-after-failure: false
