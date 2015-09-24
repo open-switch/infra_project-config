@@ -63,14 +63,6 @@
        - 'ops-hw-config-jobs'
 
   - project:
-      name: openswitch/ops-config-as5712
-      node: 'openswitch'
-      platform:
-        - as5712
-      jobs:
-       - 'ops-config-as5712-jobs'
-
-  - project:
       name: openswitch/ops-bufmond
       node: 'openswitch'
       platform:
@@ -228,15 +220,6 @@
         - as5712
       jobs:
         - 'ops-restd-jobs'
-
-  - project:
-      name: openswitch/ops-config-container
-      node: 'openswitch'
-      platform:
-        - genericx86-64
-      jobs:
-        - 'ops-config-container-jobs'
-
 
   - project:
       name: openswitch/ops-dhcp-tftp
