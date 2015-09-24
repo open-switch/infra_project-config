@@ -46,7 +46,7 @@
             mkdir -p /mnt/jenkins/workspace/sstate-cache
             export SSTATE_DIR=/mnt/jenkins/workspace/sstate-cache
             make configure genericx86-64
-            make devenv_init
+            touch .devenv # hack to enable devenv
             make devenv_add ops-website
             make ops-website-build
             make ops-website-setup
