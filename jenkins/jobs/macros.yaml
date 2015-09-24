@@ -1313,7 +1313,7 @@
     publishers:
       - conditional-publisher:
           - condition-kind: shell
-            condition-command: ls build/module-test-results.xml
+            condition-command: ls build/*test-results.xml
             on-evaluation-failure: dont-run
             action:
                 - junit:
