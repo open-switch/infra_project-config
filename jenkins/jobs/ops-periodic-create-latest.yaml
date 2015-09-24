@@ -26,3 +26,10 @@
             ssh static.openswitch.net "ln -s $dir/$build_v $dir/latest"
             ssh static.openswitch.net "cp -rf $dir/$build_v/genericx86-64/changelog.manifest $dir/latest/"
             ssh static.openswitch.net "echo $build_v > $dir/latest/build_v"
+
+    publishers:
+        - downstream-ext:
+            projects:
+                - ops-gate
+            criteria: success
+            condition: equal
