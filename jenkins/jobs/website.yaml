@@ -17,18 +17,18 @@
         - get-user-docs-stable
         - gulp-dist
 
-#- job:
-#    name: 'website-gate'
-#    node: openswitch
+- job:
+    name: 'website-gate'
+    node: openswitch
 
-#    wrappers:
-#        - build-timeout:
-#            timeout: 60
-#        - timestamps
-#        - ansicolor
+    wrappers:
+        - build-timeout:
+            timeout: 60
+        - timestamps
+        - ansicolor
 
-#    builders:
-#        - revoke-sudo
+    builders:
+        - revoke-sudo
 #        - gulp-prepare:
 #            platform: genericx86-64
 #        - get-website-under-review
