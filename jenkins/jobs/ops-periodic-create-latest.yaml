@@ -10,10 +10,9 @@
         - ssh-agent-credentials:
             users:
                 - '0f99f00f-a5c0-460d-97b5-9b3dbdfd0773'
-                - 'ffc18805-a3da-4771-918a-eaaa6a1a0c70'
     triggers:
         - reverse:
-            jobs: 'pd-ops-gate'
+            jobs: 'ops-periodic-genericx86-64'
             result: 'success'
 
     builders:
@@ -26,10 +25,3 @@
             ssh static.openswitch.net "ln -s $dir/$build_v $dir/latest"
             ssh static.openswitch.net "cp -rf $dir/$build_v/genericx86-64/changelog.manifest $dir/latest/"
             ssh static.openswitch.net "echo $build_v > $dir/latest/build_v"
-
-    publishers:
-        - downstream-ext:
-            projects:
-                - ops-gate
-            criteria: success
-            condition: equal
