@@ -31,7 +31,7 @@
             platform: '{platform}'
         - swagger-api:
             depended-repo: 'ops-openvswitch'
-            files: 'halon.json'
+            files: 'ops-restapi.json'
 
     publishers:
         - simple-scp:
