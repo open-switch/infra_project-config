@@ -58,8 +58,8 @@
             else
                 cd src/ops-website
                 git pull
-                cd ../..
                 rm -Rf src/markdown/en-US/documents/dev src/markdown/en-US/documents/user
+                cd ../..
             fi
             make ops-website-build
             make ops-website-setup
