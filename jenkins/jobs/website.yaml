@@ -64,7 +64,8 @@
             make ops-website-build
             make ops-website-setup
             make ops-website-dist
-            cp src/ops-website/dist www
+            rm -Rf www
+            cp -R src/ops-website/dist www
 
     publishers:
         - scp:
