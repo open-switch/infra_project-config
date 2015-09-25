@@ -124,9 +124,13 @@
 - project: openswitch/ops-dhcp-tftp
   description: Python daemon to integrate DHCP and TFTP to OVSDB
 
-# REST interface
+# REST API rendering
+- project: openswitch/ops-restapi
+  description: OpenSwitch REST API rendering
+
+# REST service daemon
 - project: openswitch/ops-restd
-  description: OpenSwitch REST interface
+  description: OpenSwitch REST service daemon
 
 # Web interface
 - project: openswitch/ops-webui
