@@ -53,7 +53,7 @@
                 make configure genericx86-64
             fi
             touch .devenv # hack to enable devenv
-            if [ ! -f src/ops-website ] ; then
+            if [ ! -d src/ops-website ] ; then
                 make devenv_add ops-website
             else
                 cd src/ops-website
