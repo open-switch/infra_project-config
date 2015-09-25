@@ -240,10 +240,12 @@ projects:
   - name: openswitch/ops-dhcp-tftp
     template:
       - name: merge-check
-    check:
-      - ops-dhcp-tftp-check
-    gate:
-      - ops-dhcp-tftp-gate
+      - name: module-build
+        module: ops-dhcp-tftp
+        platform: genericx86-64
+      - name: module-build
+        module: ops-dhcp-tftp
+        platform: as5712
 
   - name: openswitch/governance
     template:
