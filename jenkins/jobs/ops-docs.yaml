@@ -17,36 +17,21 @@
         - get-dev-docs-underreview
         - gulp-dist
 
-#- job-template:
-#    name: 'ops-docs-gate-{platform}'
-#    node: openswitch
+- job-template:
+    name: 'ops-docs-gate-{platform}'
+    node: openswitch
 
-#    wrappers:
-#        - build-timeout:
-#            timeout: 120
-#        - timestamps
-#        - ansicolor
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
 
-#    builders:
-#        - revoke-sudo
-#        - gulp-prepare:
-#            platform: genericx86-64
-#        - get-website-stable
-#        - get-user-docs-stable
-#        - get-dev-docs-underreview
-#        - gulp-dist
-
-#    publishers:
-#        - scp:
-#            site: static.openswitch.net
-#            files:
-#              - target: ''
-#                source: 'www/**'
-#                keep-hierarchy: true
-#                copy-after-failure: false
+    builders:
+        - revoke-sudo
 
 - job-group:
     name: 'ops-docs-jobs'
     jobs:
       - 'ops-docs-check-{platform}'
-      #- 'ops-docs-gate-{platform}'
+      - 'ops-docs-gate-{platform}'
