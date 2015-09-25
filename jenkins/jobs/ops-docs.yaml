@@ -10,12 +10,6 @@
 
     builders:
         - revoke-sudo
-        - gulp-prepare:
-            platform: genericx86-64
-        - get-website-stable
-        - get-user-docs-stable
-        - get-dev-docs-underreview
-        - gulp-dist
 
 - job-template:
     name: 'ops-docs-gate-{platform}'
