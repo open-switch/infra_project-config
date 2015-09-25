@@ -1,0 +1,27 @@
+- job:
+    name: 'ops-restapi-check'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - gerrit-git-prep
+
+- job:
+    name: 'ops-restapi-gate'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - gerrit-git-prep

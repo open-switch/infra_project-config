@@ -548,6 +548,14 @@ projects:
     gate:
       - ops-checkmk-agent-gate
 
+  - name: openswitch/ops-restapi
+    template:
+      - name: merge-check
+    check:
+      - ops-restapi-check
+    gate:
+      - ops-restapi-gate
+
   - name: infra/project-config
     template:
       - name: merge-check
