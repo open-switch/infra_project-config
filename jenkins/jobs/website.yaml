@@ -40,14 +40,27 @@
             #!/bin/bash -x
             set -e
 
-            # Remove any content, otherwise the clone will fail
-            rm -Rf .
-            git clone https://git.openswitch.net/openswitch/ops-build .
+            if [[ ! -e .git ]]; then
+              # Remove any content, otherwise the clone will fail
+              rm -Rf *
+              git clone https://git.openswitch.net/openswitch/ops-build .
+            else
+              git pull
+            fi
             mkdir -p /mnt/jenkins/workspace/sstate-cache
             export SSTATE_DIR=/mnt/jenkins/workspace/sstate-cache
-            make configure genericx86-64
+            if [ ! -f .platform ] ; then
+                make configure genericx86-64
+            fi
             touch .devenv # hack to enable devenv
-            make devenv_add ops-website
+            if [ ! -f src/ops-website ] ; then
+                make devenv_add ops-website
+            else
+                cd src/ops-website
+                git pull
+                cd ../..
+                rm -Rf src/markdown/en-US/documents/dev src/markdown/en-US/documents/user
+            fi
             make ops-website-build
             make ops-website-setup
             make ops-website-dist
