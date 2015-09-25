@@ -1,44 +1,47 @@
 - job-template:
     name: 'ops-restd-check-{platform}'
     node: openswitch
-
     wrappers:
         - build-timeout:
             timeout: 120
         - timestamps
         - ansicolor
-
     builders:
         - revoke-sudo
         - module-build-branch:
             module: 'ops-restd'
             platform: '{platform}'
-
-- job-template:
-    name: 'ops-restd-gate-{platform}'
+- job:
+    name: 'ops-restd-gate-as5712'
     node: openswitch
-
     wrappers:
         - build-timeout:
             timeout: 120
         - timestamps
         - ansicolor
-
     builders:
-        - revoke-sudo
         - module-build-branch:
             module: 'ops-restd'
-            platform: '{platform}'
-        - swagger-api:
-            depended-repo: 'ops-openvswitch'
-            files: 'ops-restapi.json'
-
+            platform: 'as5712'
+- job:
+    name: 'ops-restd-gate-genericx86-64'
+    node: vsi
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+    builders:
+        - module-build-branch:
+            module: 'ops-restd'
+            platform: 'genericx86-64'
+        - module-cttest:
+            module: 'ops-restd'
+            platform: 'genericx86-64'
     publishers:
-        - simple-scp:
-            dest: 'api/rest/'
-
+        - junit:
+            results: 'build/*test*.xml'
 - job-group:
     name: 'ops-restd-jobs'
     jobs:
       - 'ops-restd-check-{platform}'
-      - 'ops-restd-gate-{platform}'
