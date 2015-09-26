@@ -212,7 +212,7 @@
                docker rmi -f $VSI_IMAGE_NAME
                echo " removed image :$VSI_IMAGE_NAME"
              fi
-             sudo chown jenkins.jenkins build/module-test-results.xml
+             sudo chown jenkins.jenkins build/*-test-results.xml
            else
              touch build/dummytest.xml
              echo "Not a genericx86-64 platform, skipping cttest"
@@ -244,7 +244,7 @@
                docker rmi -f $VSI_IMAGE_NAME
                echo " removed image :$VSI_IMAGE_NAME"
              fi
-             sudo chown jenkins.jenkins build/module-test-results.xml
+             sudo chown jenkins.jenkins build/*-test-results.xml
            else
              echo "Not a genericx86-64 platform or On feature/bgp branch, skipping cttest"
            fi
