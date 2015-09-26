@@ -230,6 +230,8 @@
            rm -rf build/module-test-results.xml
            if [ {platform} == "genericx86-64" ] && [ $ZUUL_BRANCH != "feature/bgp" ]
            then
+             rm -rf src/ops
+             git clone https://git.openswitch.net/openswitch/ops src/ops
              make fs
              make devenv_ct_init
              export VSI_IMAGE_NAME=$(uuidgen)
@@ -240,7 +242,10 @@
                 make devenv_ct_clean && docker rmi -f $VSI_IMAGE_NAME
                 continue
              fi
+             # Disable error checking while cleaning
+             set +e
              test -e .sandbox_uuid && make devenv_ct_clean
+             set -e
              docker images | grep $VSI_IMAGE_NAME
              image_code=$?
              if [ $image_code = "0" ]; then
@@ -297,7 +302,10 @@
                make devenv_ct_clean && docker rmi -f $VSI_IMAGE_NAME
                continue
              fi
+             # Disable error checking while cleaning
+             set +e
              test -e .sandbox_uuid && make devenv_ct_clean
+             set -e
              docker images | grep $VSI_IMAGE_NAME
              image_code=$?
              if [ $image_code = "0" ]; then
