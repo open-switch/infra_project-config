@@ -193,11 +193,18 @@
            set -e
            if [ {platform} == "genericx86-64" ] && [ $ZUUL_BRANCH == "master" ]
            then
+             rm -rf src/ops
+             git clone https://git.openswitch.net/openswitch/ops src/ops
              make fs
              make devenv_ct_init
              export VSI_IMAGE_NAME=$(uuidgen)
              make export_docker_image $VSI_IMAGE_NAME
-             make devenv_ct_test PY_TEST_ARGS="src/{module} --exitfirst --junit-xml=build/module-test-results.xml" || ( make devenv_ct_clean && docker rmi -f $VSI_IMAGE_NAME )
+             make devenv_ct_test PY_TEST_ARGS="src/{module} --exitfirst --junit-xml=build/module-test-results.xml" && make devenv_ct_test PY_TEST_ARGS="src/ops --exitfirst --junit-xml=build/feature-test-results.xml"
+             my_status=$?
+             if [ $my_status -ne 0 ]; then
+                make devenv_ct_clean && docker rmi -f $VSI_IMAGE_NAME
+                continue
+             fi
              test -e .sandbox_uuid && make devenv_ct_clean
              docker images | grep $VSI_IMAGE_NAME
              image_code=$?
@@ -224,7 +231,12 @@
              make devenv_ct_init
              export VSI_IMAGE_NAME=$(uuidgen)
              make export_docker_image $VSI_IMAGE_NAME
-             make devenv_ct_test PY_TEST_ARGS="src/{module} --exitfirst --junit-xml=build/module-test-results.xml" || ( make devenv_ct_clean && docker rmi -f $VSI_IMAGE_NAME )
+             make devenv_ct_test PY_TEST_ARGS="src/{module} --exitfirst --junit-xml=build/module-test-results.xml" && make devenv_ct_test PY_TEST_ARGS="src/ops --exitfirst --junit-xml=build/feature-test-results.xml"
+             my_status=$?
+             if [ $my_status -ne 0 ]; then
+                make devenv_ct_clean && docker rmi -f $VSI_IMAGE_NAME
+                continue
+             fi
              test -e .sandbox_uuid && make devenv_ct_clean
              docker images | grep $VSI_IMAGE_NAME
              image_code=$?
@@ -238,7 +250,7 @@
            fi
 
 - builder:
-    name: module-cttest
+    name: module-cttest-orig
     builders:
       - shell: |
            #!/bin/bash -x
@@ -263,7 +275,7 @@
            fi
 
 - builder:
-    name: module-cttest-featuretest
+    name: module-cttest
     builders:
       - shell: |
            #!/bin/bash -x
