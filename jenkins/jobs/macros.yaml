@@ -209,9 +209,7 @@
              set +e
              test -e .sandbox_uuid && make devenv_ct_clean
              set -e
-             docker images | grep $VSI_IMAGE_NAME
-             image_code=$?
-             if [ $image_code = "0" ]; then
+             if docker images | grep $VSI_IMAGE_NAME; then
                docker rmi -f $VSI_IMAGE_NAME
                echo " removed image :$VSI_IMAGE_NAME"
              fi
@@ -246,9 +244,7 @@
              set +e
              test -e .sandbox_uuid && make devenv_ct_clean
              set -e
-             docker images | grep $VSI_IMAGE_NAME
-             image_code=$?
-             if [ $image_code = "0" ]; then
+             if docker images | grep $VSI_IMAGE_NAME; then
                docker rmi -f $VSI_IMAGE_NAME
                echo " removed image :$VSI_IMAGE_NAME"
              fi
@@ -271,9 +267,7 @@
              make export_docker_image $VSI_IMAGE_NAME
              make devenv_ct_test PY_TEST_ARGS="src/{module} --exitfirst --junit-xml=build/module-test-results.xml" || ( make devenv_ct_clean && docker rmi -f $VSI_IMAGE_NAME )
              test -e .sandbox_uuid && make devenv_ct_clean
-             docker images | grep $VSI_IMAGE_NAME
-             image_code=$?
-             if [ $image_code = "0" ]; then
+             if docker images | grep $VSI_IMAGE_NAME; then
                docker rmi -f $VSI_IMAGE_NAME
                echo " removed image :$VSI_IMAGE_NAME"
              fi
