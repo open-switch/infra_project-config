@@ -205,7 +205,10 @@
                 make devenv_ct_clean && docker rmi -f $VSI_IMAGE_NAME
                 continue
              fi
+             # Disable error checking while cleaning
+             set +e
              test -e .sandbox_uuid && make devenv_ct_clean
+             set -e
              docker images | grep $VSI_IMAGE_NAME
              image_code=$?
              if [ $image_code = "0" ]; then
