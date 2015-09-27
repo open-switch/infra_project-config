@@ -12,7 +12,7 @@
                 - 'ffc18805-a3da-4771-918a-eaaa6a1a0c70'
     triggers:
         - reverse:
-            jobs: 'ops-periodic-genericx86-64'
+            jobs: 'ops-periodic-as5712'
             result: 'success'
 
     builders:
@@ -23,5 +23,5 @@
             #retrieve the latest folder
             export build_v=`ssh static.openswitch.net "cd $dir ;ls -tr | tail -1"`
             ssh static.openswitch.net "ln -s $dir/$build_v $dir/latest"
-            ssh static.openswitch.net "cp -rf $dir/$build_v/genericx86-64/changelog.manifest $dir/latest/"
+            ssh static.openswitch.net "cp -rf $dir/$build_v/as5712/changelog.manifest $dir/latest/"
             ssh static.openswitch.net "echo $build_v > $dir/latest/build_v"
