@@ -76,7 +76,7 @@
             site: static.openswitch.net
             files:
               - target: 'archive/artifacts'
-                source: periodic/**/*'
+                source: 'periodic/**/*'
                 copy-after-failure: false
                 keep-hierarchy: true
 
