@@ -1086,7 +1086,7 @@
           cp /usr/local/jenkins/slave_scripts/inflect.py $WORKSPACE/src/ops-restd/opslib/
           cd $WORKSPACE/src/ops-restd/opslib
           mkdir -p $WORKSPACE/scp
-          PYTHONPATH=../../ops-openvswitch/python python apidocgen.py ../../ops-openvswitch/vswitchd/vswitch.extschema ../../ops-openvswitch//vswitchd/vswitch.xml > $WORKSPACE/scp/{files}
+          PYTHONPATH=../../ops-openvswitch/python python apidocgen.py ../../{depended-repo}/schema/vswitch.extschema ../../{depended-repo}/schema/vswitch.xml > $WORKSPACE/scp/{files}
           if [[ $? -ne 0 ]]; then
              exit 1
           else

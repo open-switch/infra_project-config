@@ -30,7 +30,7 @@
             module: 'ops-restd'
             platform: '{platform}'
         - swagger-api:
-            depended-repo: 'ops-openvswitch'
+            depended-repo: 'ops'
             files: 'ops-restapi.json'
 
     publishers:
