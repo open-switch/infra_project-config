@@ -3,8 +3,6 @@
     node: vsi
 
     wrappers:
-        - build-timeout:
-            timeout: 120
         - timestamps
         - ansicolor
         - ssh-agent-credentials:
