@@ -29,5 +29,6 @@
             module: 'ops'
             platform: 'genericx86-64'
 
+
     publishers:
-       - conditional-junit
+        - conditional-junit
