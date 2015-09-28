@@ -1065,6 +1065,8 @@
           set -e
           rm -rf $WORKSPACE/src/{depended-repo}
           git clone https://git.openswitch.net/openswitch/{depended-repo} $WORKSPACE/src/{depended-repo}
+          rm -rf $WORKSPACE/src/ops-openvswitch
+          git clone https://git.openswitch.net/openswitch/ops-openvswitch $WORKSPACE/src/ops-openvswitch
           cp /usr/local/jenkins/slave_scripts/inflect.py $WORKSPACE/src/ops-restd/opslib/
           cd $WORKSPACE/src/ops-restd/opslib
           mkdir -p $WORKSPACE/scp
