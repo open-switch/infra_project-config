@@ -25,7 +25,7 @@
         - module-build-branch:
             module: 'ops'
             platform: 'genericx86-64'
-        - module-cttest:
+        - module-cttest-orig:
             module: 'ops'
             platform: 'genericx86-64'
 
