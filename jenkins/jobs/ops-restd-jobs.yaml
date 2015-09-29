@@ -14,8 +14,8 @@
             module: 'ops-restd'
             platform: '{platform}'
 
-- job-template:
-    name: 'ops-restd-gate-{platform}'
+- job:
+    name: 'ops-restd-gate-as5712'
     node: openswitch
 
     wrappers:
@@ -28,7 +28,7 @@
         - revoke-sudo
         - module-build-branch:
             module: 'ops-restd'
-            platform: '{platform}'
+            platform: 'as5712'
         - swagger-api:
             depended-repo: 'ops'
             files: 'ops-restapi.json'
@@ -37,8 +37,33 @@
         - simple-scp:
             dest: 'api/rest/'
 
+- job:
+    name: 'ops-restd-gate-genericx86-64'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - module-build-branch:
+            module: 'ops-restd'
+            platform: 'genericx86-64'
+        - module-cttest:
+            module: 'ops-restd'
+            platform: 'genericx86-64'
+        - swagger-api:
+            depended-repo: 'ops'
+            files: 'ops-restapi.json'
+
+    publishers:
+        - simple-scp:
+            dest: 'api/rest/'
+        - conditional-junit
+
 - job-group:
     name: 'ops-restd-jobs'
     jobs:
       - 'ops-restd-check-{platform}'
-      - 'ops-restd-gate-{platform}'
