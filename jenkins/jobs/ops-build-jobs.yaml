@@ -80,7 +80,7 @@
                 source: 'periodic/**/*'
                 copy-after-failure: false
                 keep-hierarchy: true
-
+        - conditional-junit
 
 - job-group:
     name: 'ops-default-builds'
