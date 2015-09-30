@@ -199,14 +199,11 @@
              make devenv_ct_init
              export VSI_IMAGE_NAME=$(uuidgen)
              make export_docker_image $VSI_IMAGE_NAME
-             make devenv_ct_test PY_TEST_ARGS="src/{module} --exitfirst --junit-xml=build/module-test-results.xml" || docker rmi -f $VSI_IMAGE_NAME
-             make devenv_ct_test PY_TEST_ARGS="src/ops --exitfirst --junit-xml=build/feature-test-results.xml" || (make devenv_ct_clean && docker rmi -f $VSI_IMAGE_NAME)
+             make devenv_ct_test PY_TEST_ARGS="src/{module} --exitfirst --junit-xml=build/module-test-results.xml" || (make devenv_ct_clean; docker rmi -f $VSI_IMAGE_NAME; exit 1)
+             make devenv_ct_test PY_TEST_ARGS="src/ops --exitfirst --junit-xml=build/feature-test-results.xml" || (make devenv_ct_clean; docker rmi -f $VSI_IMAGE_NAME)
 
              test -e .sandbox_uuid && make devenv_ct_clean
-             if docker images | grep $VSI_IMAGE_NAME; then
-               docker rmi -f $VSI_IMAGE_NAME
-               echo " removed image :$VSI_IMAGE_NAME"
-             fi
+             docker images | grep $VSI_IMAGE_NAME && docker rmi -f $VSI_IMAGE_NAME
              sudo chown jenkins.jenkins build/*-test-results.xml
            else
              touch build/dummytest.xml
@@ -228,14 +225,11 @@
              make devenv_ct_init
              export VSI_IMAGE_NAME=$(uuidgen)
              make export_docker_image $VSI_IMAGE_NAME
-             make devenv_ct_test PY_TEST_ARGS="src/{module} --exitfirst --junit-xml=build/module-test-results.xml" || docker rmi -f $VSI_IMAGE_NAME
-             make devenv_ct_test PY_TEST_ARGS="src/ops --exitfirst --junit-xml=build/feature-test-results.xml" || (make devenv_ct_clean && docker rmi -f $VSI_IMAGE_NAME)
+             make devenv_ct_test PY_TEST_ARGS="src/{module} --exitfirst --junit-xml=build/module-test-results.xml" || (make devenv_ct_clean; docker rmi -f $VSI_IMAGE_NAME; eixt 1)
+             make devenv_ct_test PY_TEST_ARGS="src/ops --exitfirst --junit-xml=build/feature-test-results.xml" || (make devenv_ct_clean; docker rmi -f $VSI_IMAGE_NAME)
 
              test -e .sandbox_uuid && make devenv_ct_clean
-             if docker images | grep $VSI_IMAGE_NAME; then
-               docker rmi -f $VSI_IMAGE_NAME
-               echo " removed image :$VSI_IMAGE_NAME"
-             fi
+             docker images | grep $VSI_IMAGE_NAME && docker rmi -f $VSI_IMAGE_NAME
              sudo chown jenkins.jenkins build/*-test-results.xml
            else
              echo "Not a genericx86-64 platform or On feature/bgp branch, skipping cttest"
@@ -255,10 +249,7 @@
              make export_docker_image $VSI_IMAGE_NAME
              make devenv_ct_test PY_TEST_ARGS="src/{module} --exitfirst --junit-xml=build/module-test-results.xml" || ( make devenv_ct_clean && docker rmi -f $VSI_IMAGE_NAME )
              test -e .sandbox_uuid && make devenv_ct_clean
-             if docker images | grep $VSI_IMAGE_NAME; then
-               docker rmi -f $VSI_IMAGE_NAME
-               echo " removed image :$VSI_IMAGE_NAME"
-             fi
+             docker images | grep $VSI_IMAGE_NAME && docker rmi -f $VSI_IMAGE_NAME
              sudo chown jenkins.jenkins build/module-test-results.xml
            else
              echo "Not a genericx86-64 platform, skipping cttest"
@@ -303,16 +294,11 @@
              make devenv_ct_init
              export VSI_IMAGE_NAME=$(uuidgen)
              make export_docker_image $VSI_IMAGE_NAME
-             make devenv_ct_test PY_TEST_ARGS="src/{module} --exitfirst --junit-xml=build/module-test-results.xml" || docker rmi -f $VSI_IMAGE_NAME
-             make devenv_ct_test PY_TEST_ARGS="src/ops --exitfirst --junit-xml=build/feature-test-results.xml" || (make devenv_ct_clean && docker rmi -f $VSI_IMAGE_NAME)
+             make devenv_ct_test PY_TEST_ARGS="src/{module} --exitfirst --junit-xml=build/module-test-results.xml" || (make devenv_ct_clean; docker rmi -f $VSI_IMAGE_NAME; exit 1)
+             make devenv_ct_test PY_TEST_ARGS="src/ops --exitfirst --junit-xml=build/feature-test-results.xml" || (make devenv_ct_clean; docker rmi -f $VSI_IMAGE_NAME)
 
              test -e .sandbox_uuid && make devenv_ct_clean
-             docker images | grep $VSI_IMAGE_NAME
-             image_code=$?
-             if [ $image_code = "0" ]; then
-               docker rmi -f $VSI_IMAGE_NAME
-               echo " removed image :$VSI_IMAGE_NAME"
-             fi
+             docker images | grep $VSI_IMAGE_NAME && docker rmi -f $VSI_IMAGE_NAME
              sudo chown jenkins.jenkins build/*-test-results.xml
            else
              echo "Not a genericx86-64 platform, skipping cttest"
