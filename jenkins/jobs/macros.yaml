@@ -265,6 +265,31 @@
            fi
 
 - builder:
+    name: fttest-for-image
+    builders:
+      - shell: |
+           #!/bin/bash -x
+           set -e
+           if [ {platform} == "genericx86-64" ]
+           then
+             rm -rf src/ops
+             git clone https://git.openswitch.net/openswitch/ops src/ops
+             make bake cmake-native
+             make devenv_import ops $PWD/src/ops
+             make bake ops
+
+             make fs
+             make devenv_ct_init
+             export VSI_IMAGE_NAME=$(uuidgen)
+             make export_docker_image $VSI_IMAGE_NAME
+             make devenv_ct_test PY_TEST_ARGS="src/{module} --exitfirst --junit-xml=build/feature-test-results.xml" || ( make devenv_ct_clean && docker rmi -f $VSI_IMAGE_NAME )
+             test -e .sandbox_uuid && make devenv_ct_clean
+             docker images | grep $VSI_IMAGE_NAME && docker rmi -f $VSI_IMAGE_NAME
+           else
+             echo "Not a genericx86-64 platform, skipping fttest"
+           fi
+
+- builder:
     name: module-cttest
     builders:
       - shell: |
@@ -488,6 +513,7 @@
           find images -name "*.tar.gz" -exec bash -c "cp \"\$0\" periodic/$VERSION_STRING/$PLATFORM/\$(basename -s .tar.gz \"\$0\")-$VERSION_STRING.tar.gz" {} \;
           find images -name "*.manifest" -exec bash -c "cp \"\$0\" periodic/$VERSION_STRING/$PLATFORM/\$(basename -s .manifest \"\$0\")-$VERSION_STRING.manifest" {} \;
           cp build/changelog.manifest periodic/$VERSION_STRING/$PLATFORM/changelog.manifest
+          test -e .version_string && cp -rf .version_string periodic/$VERSION_STRING/$PLATFORM/build_v
           cd periodic/$VERSION_STRING/$PLATFORM
           for file in $(ls) ; do sha256sum $file > $file.sha256sum ; done
 
