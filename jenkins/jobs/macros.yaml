@@ -242,6 +242,7 @@
       - shell: |
            #!/bin/bash -x
            set -e
+           rm -rf build/*-test-results.xml
            cd src/{module}
            git diff-tree --no-commit-id --name-only -r HEAD > extension.txt
            cat extension.txt
