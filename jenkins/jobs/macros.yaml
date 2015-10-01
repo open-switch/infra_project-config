@@ -216,7 +216,10 @@
            #!/bin/bash -x
            set -e
            rm -rf build/*-test-results.xml
-           if [ {platform} == "genericx86-64" ] && [ $ZUUL_BRANCH != "feature/bgp" ]
+           cd src/{module}
+           git diff-tree --no-commit-id --name-only -r HEAD > extension.txt
+           cat extension.txt
+           if [ {platform} == "genericx86-64" ] && [ $ZUUL_BRANCH != "feature/bgp" ] && [ "$(wc -l < extension.txt | bc)" != "$(grep -c ".md" extension.txt)" ]
            then
              rm -rf src/ops
              git clone https://git.openswitch.net/openswitch/ops src/ops
