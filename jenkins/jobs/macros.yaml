@@ -201,7 +201,6 @@
              make export_docker_image $VSI_IMAGE_NAME
              make devenv_ct_test PY_TEST_ARGS="src/{module} --exitfirst --junit-xml=build/module-test-results.xml" || (make devenv_ct_clean; docker rmi -f $VSI_IMAGE_NAME; exit 1)
              make devenv_ct_test PY_TEST_ARGS="src/ops --exitfirst --junit-xml=build/feature-test-results.xml" || (make devenv_ct_clean; docker rmi -f $VSI_IMAGE_NAME)
-
              test -e .sandbox_uuid && make devenv_ct_clean
              docker images | grep $VSI_IMAGE_NAME && docker rmi -f $VSI_IMAGE_NAME
              sudo chown jenkins.jenkins build/*-test-results.xml
@@ -216,7 +215,7 @@
       - shell: |
            #!/bin/bash -x
            set -e
-           rm -rf build/module-test-results.xml
+           rm -rf build/*-test-results.xml
            if [ {platform} == "genericx86-64" ] && [ $ZUUL_BRANCH != "feature/bgp" ]
            then
              rm -rf src/ops
@@ -227,7 +226,6 @@
              make export_docker_image $VSI_IMAGE_NAME
              make devenv_ct_test PY_TEST_ARGS="src/{module} --exitfirst --junit-xml=build/module-test-results.xml" || (make devenv_ct_clean; docker rmi -f $VSI_IMAGE_NAME; eixt 1)
              make devenv_ct_test PY_TEST_ARGS="src/ops --exitfirst --junit-xml=build/feature-test-results.xml" || (make devenv_ct_clean; docker rmi -f $VSI_IMAGE_NAME)
-
              test -e .sandbox_uuid && make devenv_ct_clean
              docker images | grep $VSI_IMAGE_NAME && docker rmi -f $VSI_IMAGE_NAME
              sudo chown jenkins.jenkins build/*-test-results.xml
@@ -268,7 +266,6 @@
              make bake cmake-native
              make devenv_import ops $PWD/src/ops
              make bake ops
-
              make fs
              make devenv_ct_init
              export VSI_IMAGE_NAME=$(uuidgen)
@@ -296,7 +293,6 @@
              make export_docker_image $VSI_IMAGE_NAME
              make devenv_ct_test PY_TEST_ARGS="src/{module} --exitfirst --junit-xml=build/module-test-results.xml" || (make devenv_ct_clean; docker rmi -f $VSI_IMAGE_NAME; exit 1)
              make devenv_ct_test PY_TEST_ARGS="src/ops --exitfirst --junit-xml=build/feature-test-results.xml" || (make devenv_ct_clean; docker rmi -f $VSI_IMAGE_NAME)
-
              test -e .sandbox_uuid && make devenv_ct_clean
              docker images | grep $VSI_IMAGE_NAME && docker rmi -f $VSI_IMAGE_NAME
              sudo chown jenkins.jenkins build/*-test-results.xml
