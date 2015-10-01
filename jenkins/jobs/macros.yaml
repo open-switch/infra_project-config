@@ -246,7 +246,7 @@
            cd src/{module}
            git diff-tree --no-commit-id --name-only -r HEAD > extension.txt
            cat extension.txt
-           if [ {platform} == "genericx86-64" ] && [ "$(wc -l < extension.txt | bc)" != "$(grep -c ".md" extension.txt)" ] && [ "$(wc -l < extension.txt | bc)" != " 0 " ]
+           if [ {platform} == "genericx86-64" ] && ([ "$(wc -l < extension.txt | bc)" != "$(grep -c ".md" extension.txt)" ] || [ ! -s extension.txt ])
            then
              make fs
              make devenv_ct_init
