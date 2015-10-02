@@ -221,9 +221,9 @@
            cat extension.txt
            if [ {platform} == "genericx86-64" ] && [ $ZUUL_BRANCH != "feature/bgp" ] && ([ "$(wc -l < extension.txt | bc)" != "$(grep -c ".md" extension.txt)" ] || [ ! -s extension.txt ])
            then
+             cd $WORKSPACE
              rm -rf src/ops
              git clone https://git.openswitch.net/openswitch/ops src/ops
-             cd $WORKSPACE
              make fs
              make devenv_ct_init
              export VSI_IMAGE_NAME=$(uuidgen)
