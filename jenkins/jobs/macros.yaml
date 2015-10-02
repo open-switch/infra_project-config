@@ -243,10 +243,11 @@
            #!/bin/bash -x
            set -e
            rm -rf build/*-test-results.xml
-           cd src/{module}
-           git diff-tree --no-commit-id --name-only -r HEAD > extension.txt
-           cat extension.txt
-           if [ {platform} == "genericx86-64" ] && ([ "$(wc -l < extension.txt | bc)" != "$(grep -c ".md" extension.txt)" ] || [ ! -s extension.txt ])
+           #cd src/{module}
+           #git diff-tree --no-commit-id --name-only -r HEAD > extension.txt
+           #cat extension.txt
+           #if [ {platform} == "genericx86-64" ] && ([ "$(wc -l < extension.txt | bc)" != "$(grep -c ".md" extension.txt)" ] || [ ! -s extension.txt ])
+           if [ {platform} == "genericx86-64" ]
            then
              make fs
              make devenv_ct_init
@@ -257,7 +258,7 @@
              docker images | grep $VSI_IMAGE_NAME && docker rmi -f $VSI_IMAGE_NAME
              sudo chown jenkins.jenkins build/module-test-results.xml
            else
-             echo "Skipping cttest because of one of reasons: 1. Not a genericx86-64 platform; 2. Commit files are all in .md extension"
+             echo "Skipping cttest because of not a genericx86-64 platform"
            fi
 
 - builder:
