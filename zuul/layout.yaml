@@ -234,8 +234,8 @@ projects:
       - website-check
     gate:
       - website-gate
-    hourly:
-      - website-hourly
+#    hourly:
+#      - website-hourly
 
   - name: openswitch/ops-dhcp-tftp
     template:
