@@ -55,14 +55,9 @@
             touch .devenv # hack to enable devenv
             if [ ! -d src/ops-website ] ; then
                 make devenv_add ops-website
-            else
-                cd src/ops-website
-                git pull
-                rm -Rf src/markdown/en-US/documents/dev src/markdown/en-US/documents/user
-                cd ../..
+                make ops-website-setup
             fi
-            make ops-website-build
-            make ops-website-setup
+            make ops-website-update
             make ops-website-dist
             rm -Rf www
             cp -R src/ops-website/dist www
