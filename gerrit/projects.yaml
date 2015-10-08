@@ -110,6 +110,9 @@
 - project: openswitch/ops-arpmgrd
   description: OpenSwitch ARP Manager Daemon
 
+- project: openswitch/ops-stpd
+  description: OpenSwitch STP Daemon
+
 # L3 Daemons
 - project: openswitch/ops-quagga
   description: Quagga
