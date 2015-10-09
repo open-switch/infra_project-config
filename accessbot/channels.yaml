@@ -36,7 +36,8 @@ global:
   masters:
     - openswitchinfra
   operators:
-    - mestery
+    - ddompe
+    - paul
   status:
     - openswitchstatus
   mask:
@@ -46,4 +47,4 @@ global:
 channels:
   - name: openswitch
     meetbots:
-      - open_switch
+      - openswitch
