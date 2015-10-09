@@ -38,6 +38,7 @@ global:
   operators:
     - ddompe
     - paul
+    - bigalh
   status:
     - openswitchstatus
   mask:
