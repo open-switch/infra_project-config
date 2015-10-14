@@ -35,6 +35,7 @@ access:
 global:
   masters:
     - openswitchinfra
+    - ddompe
   operators:
     - ddompe
     - paul
