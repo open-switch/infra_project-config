@@ -34,10 +34,9 @@ access:
 # limited to the mask but otherwise left alone.
 global:
   masters:
-    - openswitchinfra
+    - ops_accessbot
     - ddompe
   operators:
-    - ddompe
     - paul
     - bigalh
   status:
