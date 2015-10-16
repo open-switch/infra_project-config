@@ -121,3 +121,39 @@
                 source: 'egats/**'
                 keep-hierarchy: true
                 copy-after-failure: false
+
+- job:
+    name: 'website-deploy-to-prod'
+    node: openswitch
+
+    parameters:
+        - choice:
+            name: action
+            choices:
+               - ============
+               - deploy_to_prod
+               - rollback_to_last
+
+    wrappers:
+        - build-timeout:
+            timeout: 60
+        - timestamps
+        - ansicolor
+        - ssh-agent-credentials:
+             users:
+                - 'ffc18805-a3da-4771-918a-eaaa6a1a0c70'
+
+    builders:
+        - revoke-sudo
+        - shell: |
+            #!/bin/bash -x
+            export ws=/srv/static
+            if [ "$action" = "deploy_to_prod" ]; then
+               echo "backup www/ to www-last and switch stage to prodution"
+               ssh static.openswitch.net "rm -rf $ws/www-last/* && mkdir -p $ws/www-last && rsync -rv $ws/www/. $ws/www-last && rsync -rv $ws/egats/.
+            elif [ "$action" = "rollback_to_last" ]; then
+               echo "rolling back www-last to www"
+               ssh static.openswitch.net "rsync -rv $ws/www-last/. $ws/www"
+            fi
+
+
