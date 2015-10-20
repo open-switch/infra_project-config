@@ -298,6 +298,7 @@
            cat extension.txt
            if [ {platform} == "genericx86-64" ] && ([ "$(wc -l < extension.txt | bc)" != "$(grep -c ".md" extension.txt)" ] || [ ! -s extension.txt ])
            then
+             cd $WORKSPACE
              rm -rf src/ops
              git clone https://git.openswitch.net/openswitch/ops src/ops
              make fs
@@ -310,7 +311,7 @@
              docker images | grep $VSI_IMAGE_NAME && docker rmi -f $VSI_IMAGE_NAME
              sudo chown jenkins.jenkins build/*-test-results.xml
            else
-             echo "Not a genericx86-64 platform, skipping cttest"
+             echo "Skipping cttest because of one of reasons: 1. Not a genericx86-64 platform; 2. Commit files are all in .md extension"
            fi
 
 - builder:
