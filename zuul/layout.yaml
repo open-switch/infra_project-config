@@ -226,6 +226,31 @@ project-templates:
     gate:
       - '{module}-gate-{platform}'
 
+# Jobs definitions are not required, but help us filter unrequired check jobs
+# We still run the jobs during gate
+jobs:
+  - name: ops-check-as5712
+    files:
+      - ^yocto/openswitch/meta-platform-openswitch-as5712/.*$
+      - ^yocto/openswitch/.*grub.*$
+      - ^yocto/openswitch/.*ops-hw-config.*$
+      - ^yocto/openswitch/.*linux-ops.*$
+      - ^yocto/openswitch/.*opennsl-cdp.*$
+      - ^yocto/openswitch/.*onie-installer.*$
+      - ^yocto/openswitch/meta-distro-openswitch/conf/.*$
+      - ^yocto/poky/.*$
+
+  - name: ops-check-as6712
+    files:
+      - ^yocto/openswitch/meta-platform-openswitch-as6712/.*$
+      - ^yocto/openswitch/.*grub.*$
+      - ^yocto/openswitch/.*ops-hw-config.*$
+      - ^yocto/openswitch/.*linux-ops.*$
+      - ^yocto/openswitch/.*opennsl-cdp.*$
+      - ^yocto/openswitch/.*onie-installer.*$
+      - ^yocto/openswitch/meta-distro-openswitch/conf/.*$
+      - ^yocto/poky/.*$
+
 projects:
   - name: infra/website
     template:
@@ -264,9 +289,12 @@ projects:
         platform: genericx86-64
       - name: ops-build
         platform: as5712
+      - name: ops-build
+        platform: as6712
     periodic:
       - ops-periodic-genericx86-64
       - ops-periodic-as5712
+      - ops-periodic-as6712
 
   - name: openswitch/ops-sysd
     template:
