@@ -37,7 +37,7 @@
         - module-build-branch:
             module: 'ops-cli'
             platform: 'genericx86-64'
-        - module-cttest-disable-on-bgp-only:
+        - module-cttest:
             module: 'ops-cli'
             platform: 'genericx86-64'
     publishers:

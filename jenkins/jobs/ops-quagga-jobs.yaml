@@ -41,7 +41,7 @@
         - module-build-branch:
             module: 'ops-quagga'
             platform: 'genericx86-64'
-        - module-cttest-disable-on-bgp-only:
+        - module-cttest:
             module: 'ops-quagga'
             platform: 'genericx86-64'
 
