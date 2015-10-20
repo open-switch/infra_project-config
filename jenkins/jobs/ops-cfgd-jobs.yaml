@@ -47,8 +47,7 @@
             module: 'ops-cfgd'
             platform: 'genericx86-64'
     publishers:
-        - junit:
-            results: 'build/*test*.xml'
+        - conditional-junit
 
 
 - job-group:
