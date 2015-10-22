@@ -15,6 +15,7 @@
       platform:
         - genericx86-64
         - as5712
+        - as6712
       jobs:
         - 'ops-default-builds'
 
