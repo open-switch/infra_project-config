@@ -150,7 +150,7 @@
             export ws=/srv/static
             if [ "$action" = "deploy_to_prod" ]; then
                echo "backup www/ to www-last and switch stage to prodution"
-               ssh static.openswitch.net "rm -rf $ws/www-last/* && mkdir -p $ws/www-last && rsync -rv $ws/www/. $ws/www-last && rsync -rv $ws/egats/.
+               ssh static.openswitch.net "rm -rf $ws/www-last/* && mkdir -p $ws/www-last && rsync -rv $ws/www/. $ws/www-last && rsync -rv $ws/egats/. $ws/www"
             elif [ "$action" = "rollback_to_last" ]; then
                echo "rolling back www-last to www"
                ssh static.openswitch.net "rsync -rv $ws/www-last/. $ws/www"
