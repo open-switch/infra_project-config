@@ -219,7 +219,7 @@
            cd src/{module}
            git diff-tree --no-commit-id --name-only -r HEAD > extension.txt
            cat extension.txt
-           if [ {platform} == "genericx86-64" ] && [ $ZUUL_BRANCH != "feature/bgp" ] && ([ "$(wc -l < extension.txt | bc)" != "$(grep -c ".md" extension.txt)" ] || [ ! -s extension.txt ])
+           if [ {platform} == "genericx86-64" ] && [ $ZUUL_BRANCH != "feature/bgp" ] && ([ "$(wc -l < extension.txt | bc)" != "$(grep -c "\.md" extension.txt)" ] || [ ! -s extension.txt ])
            then
              cd $WORKSPACE
              rm -rf src/ops
