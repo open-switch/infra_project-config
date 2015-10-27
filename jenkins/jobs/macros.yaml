@@ -514,6 +514,13 @@
           for file in $(ls) ; do sha256sum $file > $file.sha256sum ; done
 
 - builder:
+    name: cp-opsTest-results
+    builders:
+      - shell: |
+          rm -rf opsTest-results
+          cp -rf /tmp/opsTest-results/. opsTest-results
+
+- builder:
     name: coverage
     builders:
       - shell: "/usr/local/jenkins/slave_scripts/run-cover.sh"
@@ -1362,6 +1369,18 @@
             - shell: 'docker rmi -f $VSI_IMAGE_NAME'
           script-only-if-succeeded: True
           script-only-if-failed: True
+
+- publisher:
+    name: publish-opsTest-results
+    publishers:
+      - conditional-publisher:
+          - condition-kind: shell
+            condition-command: ls opsTest-results > /dev/null
+            on-evaluation-failure: dont-run
+            action:
+                - archive:
+                    artifacts: 'opsTest-results/**/*.log'
+                    allow-empty: 'true'
 
 - publisher:
     name: conditional-junit

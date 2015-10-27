@@ -71,6 +71,7 @@
         - download-caches
         - create-periodic-build-image
         - create-build-artifacts
+        - cp-opsTest-results
 
     publishers:
         - scp:
@@ -81,6 +82,7 @@
                 copy-after-failure: false
                 keep-hierarchy: true
         - conditional-junit
+        - publish-opsTest-results
 
 - job-group:
     name: 'ops-default-builds'
