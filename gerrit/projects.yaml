@@ -105,6 +105,9 @@
 - project: openswitch/ops-mgmt-intf
   description: OpenSwitch Management Interface Daemon
 
+- project: openswitch/ops-ntpd
+  description: OpenSwitch Network Time Protocol(NTP) Daemon
+
 # L2 Daemons
 - project: openswitch/ops-vland
   description: OpenSwitch VLAN Daemon
