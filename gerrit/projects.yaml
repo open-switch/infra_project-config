@@ -153,6 +153,10 @@
 - project: openswitch/ops-webui
   description: OpenSwitch Web User Interface
 
+# OpenSwitch management components
+- project: openswitch/ops-ansible
+  description: OpenSwitch ansible modules/playbooks
+
 # Testing
 - project: openswitch/ops-vsi
   description: OpenSwitch Virtual Switch Image
