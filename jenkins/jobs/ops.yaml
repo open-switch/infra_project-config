@@ -21,6 +21,10 @@
         - timestamps
         - ansicolor
 
+    logrotate:
+        daysToKeep: 14
+        numToKeep: 20
+
     builders:
         - module-build-branch:
             module: 'ops'
