@@ -13,7 +13,7 @@
 
 - job:
     name: 'ops-gate'
-    node: vsi
+    node: test
 
     wrappers:
         - build-timeout:
