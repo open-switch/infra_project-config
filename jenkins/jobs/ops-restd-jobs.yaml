@@ -39,7 +39,7 @@
 
 - job:
     name: 'ops-restd-gate-genericx86-64'
-    node: vsi
+    node: test
 
     wrappers:
         - build-timeout:
