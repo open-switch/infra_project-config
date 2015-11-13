@@ -49,6 +49,7 @@
 
     publishers:
         - conditional-junit
+        - post-docker-clean
 
 - job-group:
     name: 'ops-arpmgrd-jobs'
