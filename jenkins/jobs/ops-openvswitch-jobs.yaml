@@ -52,6 +52,7 @@
 
     publishers:
         - conditional-junit
+        - post-docker-clean
         - scp:
             site: static.openswitch.net
             files:
