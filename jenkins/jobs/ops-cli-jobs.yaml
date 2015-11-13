@@ -42,6 +42,7 @@
             platform: 'genericx86-64'
     publishers:
         - conditional-junit
+        - post-docker-clean
 
 - job-group:
     name: 'ops-cli-jobs'
