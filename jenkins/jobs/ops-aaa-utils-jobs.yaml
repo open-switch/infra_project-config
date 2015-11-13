@@ -48,6 +48,7 @@
             platform: 'genericx86-64'
     publishers:
         - conditional-junit
+        - post-dockerimage-clean
 
 - job-group:
     name: 'ops-aaa-utils-jobs'
