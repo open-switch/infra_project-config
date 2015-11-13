@@ -1367,14 +1367,13 @@
               copy-after-failure: false
 
 - publisher:
-    name: post-dockerimage-clean
+    name: post-docker-clean
     publishers:
       - postbuildscript:
           builders:
             - shell: |
                  test -e .sandbox_uuid && export VSI_IMAGE_NAME=`cat .sandbox_uuid` && make devenv_ct_clean
                  docker images | grep $VSI_IMAGE_NAME && docker rmi -f $VSI_IMAGE_NAME
-          script-only-if-succeeded: True
           script-only-if-failed: True
 
 - publisher:
