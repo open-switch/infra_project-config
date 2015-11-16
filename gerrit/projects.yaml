@@ -127,6 +127,9 @@
 - project: openswitch/ops-stpd
   description: OpenSwitch STP Daemon
 
+- project: openswitch/ops-chef
+  description: OpenSwitch Chef
+
 # L3 Daemons
 - project: openswitch/ops-quagga
   description: Quagga
