@@ -524,7 +524,7 @@
     builders:
       - shell: |
           rm -rf opsTest-results
-          cp -rf /tmp/opsTest-results/. opsTest-results
+          cp -rf /tmp/opsTest-results/. opsTest-results || true
 
 - builder:
     name: coverage
