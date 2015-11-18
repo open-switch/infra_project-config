@@ -15,7 +15,7 @@
             platform: '{platform}'
 
 - job-template:
-    name: 'bufmond-gate-{platform}'
+    name: 'ops-bufmond-gate-{platform}'
     node: openswitch
 
     wrappers:
