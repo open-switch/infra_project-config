@@ -108,6 +108,9 @@
 - project: openswitch/ops-ntpd
   description: OpenSwitch Network Time Protocol(NTP) Daemon
 
+- project: openswitch/ops-p4factory
+  description: OpenSwitch port of P4 behavioral model daemon
+
 # L2 Daemons
 - project: openswitch/ops-vland
   description: OpenSwitch VLAN Daemon
