@@ -1373,6 +1373,10 @@
           builders:
             - shell: |
                  test -e .sandbox_uuid && export VSI_IMAGE_NAME=`cat .sandbox_uuid` && make devenv_ct_clean
+                 sudo docker ps | grep $VSI_IMAGE_NAME
+                 if [ $? = "0" ]; then
+                   sudo docker ps | grep $VSI_IMAGE_NAME | cut -d' ' -f1 | xargs sudo docker rm -f
+                 fi
                  docker images | grep $VSI_IMAGE_NAME && docker rmi -f $VSI_IMAGE_NAME
           script-only-if-succeeded: False
           script-only-if-failed: True
