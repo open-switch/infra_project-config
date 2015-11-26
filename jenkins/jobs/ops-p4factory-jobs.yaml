@@ -1,0 +1,55 @@
+- job-template:
+    name: 'ops-p4factory-check-{platform}'
+    node: openswitch
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+    builders:
+        - revoke-sudo
+        - module-build-branch:
+            module: 'ops-p4factory'
+            platform: '{platform}'
+
+- job:
+    name: 'ops-p4factory-gate-as5712'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - module-build-branch:
+            module: 'ops-p4factory'
+            platform: 'as5712'
+
+- job:
+    name: 'ops-p4factory-gate-genericx86-64'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - module-build-branch:
+            module: 'ops-p4factory'
+            platform: 'genericx86-64'
+        - module-cttest:
+            module: 'ops-p4factory'
+            platform: 'genericx86-64'
+
+    publishers:
+        - conditional-junit
+        - post-docker-clean
+
+- job-group:
+    name: 'ops-p4factory-jobs'
+    jobs:
+      - 'ops-p4factory-check-{platform}'

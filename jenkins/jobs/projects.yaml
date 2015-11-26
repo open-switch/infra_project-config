@@ -187,6 +187,14 @@
         - 'ops-switchd-opennsl-plugin-jobs'
 
   - project:
+      name: openswitch/ops-p4factory
+      node: 'openswitch'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'ops-p4factory-jobs'
+
+  - project:
       name: openswitch/ops-pmd
       node: 'openswitch'
       platform:
