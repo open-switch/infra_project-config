@@ -253,8 +253,8 @@
              cd $WORKSPACE
              make fs
              make devenv_ct_init
-             y=`echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]'`
-             export VSI_IMAGE_NAME=$y
+             #y=`echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]'`
+             export VSI_IMAGE_NAME=$(uuidgen)
              echo $VSI_IMAGE_NAME > .sandbox_uuid
              echo $VSI_IMAGE_NAME > .image_name
              make export_docker_image $VSI_IMAGE_NAME
@@ -281,8 +281,8 @@
              make bake ops
              make fs
              make devenv_ct_init
-             #y=`echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]'`
-             export VSI_IMAGE_NAME=$(uuidgen)
+             y=`echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]'`
+             export VSI_IMAGE_NAME=$y
              echo $VSI_IMAGE_NAME > .sandbox_uuid
              echo $VSI_IMAGE_NAME > .image_name
              make export_docker_image $VSI_IMAGE_NAME
