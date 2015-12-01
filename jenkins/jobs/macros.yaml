@@ -120,6 +120,7 @@
            mkdir -p src/{module}
            cd src/{module}
            /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
+           git diff-tree --no-commit-id --name-only -r refs/heads/master > extension.txt
            cd ../..
            # Trigger building of some basic recipe to get the recipe environment working, since devtool is not that good yet...
            make bake cmake-native
@@ -179,6 +180,7 @@
            mkdir -p src/{module}
            cd src/{module}
            /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
+           git diff-tree --no-commit-id --name-only -r refs/heads/master > extension.txt
            cd ../..
            # Trigger building of some basic recipe to get the recipe environment working, since devtool is not that good yet...
            make bake cmake-native
@@ -218,7 +220,6 @@
            set -e
            rm -rf build/*-test-results.xml
            cd src/{module}
-           git diff-tree --no-commit-id --name-only -r refs/heads/master > extension.txt
            cat extension.txt
            if [ {platform} == "genericx86-64" ] && [ $ZUUL_BRANCH != "feature/bgp" ] && ([ "$(wc -l < extension.txt | bc)" != "$(grep -c "\.md" extension.txt)" ] || [ ! -s extension.txt ])
            then
@@ -246,7 +247,6 @@
            set -e
            rm -rf build/*-test-results.xml
            cd src/{module}
-           git diff-tree --no-commit-id --name-only -r refs/heads/master > extension.txt
            cat extension.txt
            if [ {platform} == "genericx86-64" ] && ([ "$(wc -l < extension.txt | bc)" != "$(grep -c "\.md" extension.txt)" ] || [ ! -s extension.txt ])
            then
@@ -301,7 +301,6 @@
            set -e
            rm -rf build/*-test-results.xml
            cd src/{module}
-           git diff-tree --no-commit-id --name-only -r refs/heads/master > extension.txt
            cat extension.txt
            if [ {platform} == "genericx86-64" ] && ([ "$(wc -l < extension.txt | bc)" != "$(grep -c "\.md" extension.txt)" ] || [ ! -s extension.txt ])
            then
