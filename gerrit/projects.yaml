@@ -87,6 +87,12 @@
 - project: openswitch/ops-openvswitch
   description: OpenSwitch OpenVswitch
 
+- project: openswitch/ops-ovs
+  description: OpenSwitch OpenVswitch Libraries
+
+- project: openswitch/ops-switchd
+  description: OpenSwitch Switchd Daemon
+
 - project: openswitch/ops-switchd-container-plugin
   description: OpenSwitch Simulator OVS plugin
 
