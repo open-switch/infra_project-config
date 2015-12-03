@@ -1,0 +1,55 @@
+- job-template:
+    name: 'ops-switchd-check-{platform}'
+    node: openswitch
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+    builders:
+        - revoke-sudo
+        - module-build-branch:
+            module: 'ops-switchd'
+            platform: '{platform}'
+
+- job:
+    name: 'ops-switchd-gate-as5712'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - module-build-branch:
+            module: 'ops-switchd'
+            platform: 'as5712'
+
+- job:
+    name: 'ops-switchd-gate-genericx86-64'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - module-build-branch:
+            module: 'ops-switchd'
+            platform: 'genericx86-64'
+        - module-cttest:
+            module: 'ops-switchd'
+            platform: 'genericx86-64'
+
+    publishers:
+        - conditional-junit
+        - post-docker-clean
+
+- job-group:
+    name: 'ops-switchd-jobs'
+    jobs:
+      - 'ops-switchd-check-{platform}'

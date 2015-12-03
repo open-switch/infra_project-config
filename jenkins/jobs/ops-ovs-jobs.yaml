@@ -1,0 +1,55 @@
+- job-template:
+    name: 'ops-ovs-check-{platform}'
+    node: openswitch
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+    builders:
+        - revoke-sudo
+        - module-build-branch:
+            module: 'ops-ovs'
+            platform: '{platform}'
+
+- job:
+    name: 'ops-ovs-gate-as5712'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - module-build-branch:
+            module: 'ops-ovs'
+            platform: 'as5712'
+
+- job:
+    name: 'ops-ovs-gate-genericx86-64'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - module-build-branch:
+            module: 'ops-ovs'
+            platform: 'genericx86-64'
+        - module-cttest:
+            module: 'ops-ovs'
+            platform: 'genericx86-64'
+
+    publishers:
+        - conditional-junit
+        - post-docker-clean
+
+- job-group:
+    name: 'ops-ovs-jobs'
+    jobs:
+      - 'ops-ovs-check-{platform}'
