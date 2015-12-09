@@ -171,24 +171,6 @@
         - 'ops-openvswitch-jobs'
 
   - project:
-      name: openswitch/ops-ovs
-      node: 'openswitch'
-      platform:
-        - genericx86-64
-        - as5712
-      jobs:
-        - 'ops-ovs-jobs'
-
-  - project:
-      name: openswitch/ops-switchd
-      node: 'openswitch'
-      platform:
-        - genericx86-64
-        - as5712
-      jobs:
-        - 'ops-switchd-jobs'
-
-  - project:
       name: openswitch/ops-switchd-container-plugin
       node: 'openswitch'
       platform:

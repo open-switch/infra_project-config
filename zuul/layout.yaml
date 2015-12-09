@@ -454,22 +454,18 @@ projects:
   - name: openswitch/ops-ovs
     template:
       - name: merge-check
-      - name: module-build
-        module: ops-ovs
-        platform: genericx86-64
-      - name: module-build
-        module: ops-ovs
-        platform: as5712
+    check:
+      - ops-ovs-check
+    gate:
+      - ops-ovs-gate
 
   - name: openswitch/ops-switchd
     template:
       - name: merge-check
-      - name: module-build
-        module: ops-switchd
-        platform: genericx86-64
-      - name: module-build
-        module: ops-switchd
-        platform: as5712
+    check:
+      - ops-switchd-check
+    gate:
+      - ops-switchd-gate
 
   - name: openswitch/ops-switchd-container-plugin
     template:
