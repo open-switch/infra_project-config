@@ -495,6 +495,13 @@ projects:
         module: ops-p4dp
         platform: genericx86-64
 
+  - name: openswitch/ops-switchd-p4switch-plugin
+    template:
+      - name: merge-check
+      - name: module-build
+        module: ops-switchd-p4switch-plugin
+        platform: genericx86-64
+
   - name: openswitch/ops-pmd
     template:
       - name: merge-check
