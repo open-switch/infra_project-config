@@ -488,6 +488,13 @@ projects:
         module: ops-p4factory
         platform: genericx86-64
 
+  - name: openswitch/ops-p4dp
+    template:
+      - name: merge-check
+      - name: module-build
+        module: ops-p4dp
+        platform: genericx86-64
+
   - name: openswitch/ops-pmd
     template:
       - name: merge-check

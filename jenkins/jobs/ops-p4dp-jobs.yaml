@@ -1,0 +1,37 @@
+- job-template:
+   name: 'ops-p4dp-check-{platform}'
+   node: openswitch
+
+   wrappers:
+       - build-timeout:
+           timeout: 120
+       - timestamps
+       - ansicolor
+
+   builders:
+       - revoke-sudo
+       - module-build-branch:
+           module: 'ops-p4dp'
+           platform: '{platform}'
+
+- job-template:
+   name: 'ops-p4dp-gate-{platform}'
+   node: openswitch
+
+   wrappers:
+       - build-timeout:
+           timeout: 120
+       - timestamps
+       - ansicolor
+
+   builders:
+       - revoke-sudo
+       - module-build-branch:
+           module: 'ops-p4dp'
+           platform: '{platform}'
+
+- job-group:
+   name: 'ops-p4dp-jobs'
+   jobs:
+     - 'ops-p4dp-check-{platform}'
+     - 'ops-p4dp-gate-{platform}'
