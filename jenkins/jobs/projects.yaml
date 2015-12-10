@@ -213,6 +213,14 @@
         - 'ops-p4factory-jobs'
 
   - project:
+      name: openswitch/ops-p4dp
+      node: 'openswitch'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'ops-p4dp-jobs'
+
+  - project:
       name: openswitch/ops-pmd
       node: 'openswitch'
       platform:

@@ -117,6 +117,9 @@
 - project: openswitch/ops-p4factory
   description: OpenSwitch port of P4 behavioral model daemon
 
+- project: openswitch/ops-p4dp
+  description: OpenSwitch port of P4 dataplane simulator
+
 # L2 Daemons
 - project: openswitch/ops-vland
   description: OpenSwitch VLAN Daemon
