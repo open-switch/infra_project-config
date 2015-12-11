@@ -1,5 +1,5 @@
-- job-template:
-    name: 'ops-switchd-check-{platform}'
+- job:
+    name: 'ops-switchd-check'
     node: openswitch
 
     wrappers:
@@ -10,12 +10,10 @@
 
     builders:
         - revoke-sudo
-        - module-build-branch:
-            module: 'ops-switchd'
-            platform: '{platform}'
+        - gerrit-git-prep
 
-- job-template:
-    name: 'ops-switchd-gate-{platform}'
+- job:
+    name: 'ops-switchd-gate'
     node: openswitch
 
     wrappers:
@@ -26,12 +24,4 @@
 
     builders:
         - revoke-sudo
-        - module-build-branch:
-            module: 'ops-switchd'
-            platform: '{platform}'
-
-- job-group:
-    name: 'ops-switchd-jobs'
-    jobs:
-      - 'ops-switchd-check-{platform}'
-      - 'ops-switchd-gate-{platform}'
+        - gerrit-git-prep
