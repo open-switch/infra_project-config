@@ -27,7 +27,7 @@
 
 - job:
     name: 'ops-cli-gate-genericx86-64'
-    node: test
+    node: vsi
     wrappers:
         - build-timeout:
             timeout: 120

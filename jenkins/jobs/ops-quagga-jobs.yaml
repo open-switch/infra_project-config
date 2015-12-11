@@ -29,7 +29,7 @@
 
 - job:
     name: 'ops-quagga-gate-genericx86-64'
-    node: test
+    node: vsi
 
     wrappers:
         - build-timeout:
