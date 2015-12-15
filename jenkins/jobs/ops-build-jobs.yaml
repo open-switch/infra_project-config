@@ -15,8 +15,8 @@
         - ops-build:
             platform: '{platform}'
 
-- job-template:
-    name: 'ops-gate-{platform}'
+- job:
+    name: 'ops-gate-as5712'
     node: openswitch
 
     wrappers:
@@ -35,10 +35,66 @@
         - ops-distclean
         - gerrit-git-prep
         - ops-build:
-            platform: '{platform}'
+            platform: 'as5712'
         - ops-meta-ide
         - shared-states
         - download-caches
+
+- job:
+    name: 'ops-gate-as6712'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 1240
+        - timestamps
+        - ansicolor:
+            colormap: xterm
+        - ssh-agent-credentials:
+              users:
+                  - '0f99f00f-a5c0-460d-97b5-9b3dbdfd0773'
+                  - 'ffc18805-a3da-4771-918a-eaaa6a1a0c70'
+
+    builders:
+        - revoke-sudo
+        - ops-distclean
+        - gerrit-git-prep
+        - ops-build:
+            platform: 'as6712'
+        - ops-meta-ide
+        - shared-states
+        - download-caches
+
+- job:
+    name: 'ops-gate-genericx86-64'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 1240
+        - timestamps
+        - ansicolor:
+            colormap: xterm
+        - ssh-agent-credentials:
+              users:
+                  - '0f99f00f-a5c0-460d-97b5-9b3dbdfd0773'
+                  - 'ffc18805-a3da-4771-918a-eaaa6a1a0c70'
+
+    builders:
+        - revoke-sudo
+        - ops-distclean
+        - gerrit-git-prep
+        - ops-build:
+            platform: 'genericx86-64'
+        - ops-meta-ide
+        - feature-cttest-for-ops-build:
+            platform: 'genericx86-64'
+        - shared-states
+        - download-caches
+
+    publishers:
+        - conditional-junit
+        - post-docker-clean
 
 - job-template:
     name: 'ops-periodic-{platform}'
@@ -89,5 +145,7 @@
     name: 'ops-default-builds'
     jobs:
       - 'ops-check-{platform}'
-      - 'ops-gate-{platform}'
+      - 'ops-gate-as5712'
+      - 'ops-gate-as6712'
+      - 'ops-gate-genericx86-64'
       - 'ops-periodic-{platform}'

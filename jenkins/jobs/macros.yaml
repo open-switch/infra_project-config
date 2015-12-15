@@ -213,6 +213,37 @@
            fi
 
 - builder:
+    name: feature-cttest-for-ops-build
+    builders:
+      - shell: |
+           #!/bin/bash -x
+           set -e
+           rm -rf build/*-test-results.xml
+           #cd src/{module}
+           #cat extension.txt
+           #if [ {platform} == "genericx86-64" ] && ([ "$(wc -l < extension.txt | bc)" != "$(grep -c "\.md" extension.txt)" ] || [ ! -s extension.txt ])
+           if [ {platform} == "genericx86-64" ]
+           then
+             cd $WORKSPACE
+             rm -rf src/ops
+             git clone https://git.openswitch.net/openswitch/ops src/ops
+             make devenv_import ops src/ops
+             make fs
+             make devenv_ct_init
+             y=`echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]'`
+             export VSI_IMAGE_NAME=$y
+             #echo $VSI_IMAGE_NAME > .sandbox_uuid
+             echo $VSI_IMAGE_NAME > .image_name
+             make export_docker_image $VSI_IMAGE_NAME
+             make devenv_ct_test PY_TEST_ARGS="src/ops --exitfirst --junit-xml=build/feature-test-results.xml" || (make devenv_ct_clean; docker rmi -f $VSI_IMAGE_NAME)
+             test -e .sandbox_uuid && make devenv_ct_clean
+             docker images | grep $VSI_IMAGE_NAME && docker rmi -f $VSI_IMAGE_NAME
+             sudo chown jenkins.jenkins build/*-test-results.xml
+           else
+             echo "Skipping cttest because of one of reasons: 1. Not a genericx86-64 platform; 2. Commit files are all in .md extension"
+           fi
+
+- builder:
     name: feature-cttest
     builders:
       - shell: |
