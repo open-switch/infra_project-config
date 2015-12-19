@@ -123,6 +123,10 @@
 - project: openswitch/ops-switchd-p4switch-plugin
   description: OpenSwitch P4 switch OVS plugin
 
+- project: openswitch/ops-hw-vtep
+  description: OpenSwitch Hardware VTEP (Virtual Tunnel Endpoint)
+
+
 # L2 Daemons
 - project: openswitch/ops-vland
   description: OpenSwitch VLAN Daemon
