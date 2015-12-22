@@ -1414,3 +1414,20 @@
             action:
                 - junit:
                     results: 'build/*test*.xml'
+
+- publisher:
+    name: mail-on-fail
+    publishers:
+       - email:
+           recipients: '{email-by-space-when-fail}'
+
+- publisher:
+    name: mail-on-success
+    publishers:
+        - email-ext:
+             recipients: '{email-by-comma-when-success}'
+             content-type: html
+             subject: "$PROJECT_DEFAULT_SUBJECT"
+             body: "$PROJECT_DEFAULT_CONTENT"
+             failure: false
+             success: true
