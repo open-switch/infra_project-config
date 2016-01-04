@@ -1,0 +1,31 @@
+- job-template:
+    name: 'ops-hw-vtep-check-{platform}'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+
+- job-template:
+    name: 'ops-hw-vtep-gate-{platform}'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+
+- job-group:
+    name: 'ops-hw-vtep-jobs'
+    jobs:
+      - 'ops-hw-vtep-check-{platform}'
+      - 'ops-hw-vtep-gate-{platform}'

@@ -589,6 +589,16 @@ projects:
         module: ops-mgmt-intf
         platform: as5712
 
+  - name: openswitch/ops-hw-vtep
+    template:
+      - name: merge-check
+      - name: module-build
+        module: ops-hw-vtep
+        platform: genericx86-64
+      - name: module-build
+        module: ops-hw-vtep
+        platform: as5712
+
   - name: openswitch/ops-docs
     template:
       - name: merge-check
