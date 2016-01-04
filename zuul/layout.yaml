@@ -600,10 +600,9 @@ projects:
   - name: openswitch/ops-checkmk-agent
     template:
       - name: merge-check
-    check:
-      - ops-checkmk-agent-check
-    gate:
-      - ops-checkmk-agent-gate
+      - name: module-build
+        module: ops-checkmk-agent
+        platform: genericx86-64
 
   - name: openswitch/ops-restapi
     template:

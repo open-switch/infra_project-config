@@ -15,7 +15,6 @@
 - job:
     name: 'ops-checkmk-agent-as5712'
     node: openswitch
-
     wrappers:
         - build-timeout:
             timeout: 120
@@ -30,13 +29,11 @@
 - job:
     name: 'ops-checkmk-agent-gate-genericx86-64'
     node: vsi
-
     wrappers:
         - build-timeout:
             timeout: 240
         - timestamps
         - ansicolor
-
     builders:
         - module-build-branch:
             module: 'ops-checkmk-agent'
@@ -44,7 +41,6 @@
         - module-cttest:
             module: 'ops-checkmk-agent'
             platform: 'genericx86-64'
-
     publishers:
         - conditional-junit
         - post-docker-clean
