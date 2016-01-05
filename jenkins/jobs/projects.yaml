@@ -217,7 +217,7 @@
       platform:
         - genericx86-64
       jobs:
-        - 'ops-switchd-p4switch-plugin'
+        - 'ops-switchd-p4switch-plugin-jobs'
 
   - project:
       name: openswitch/ops-pmd

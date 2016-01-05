@@ -505,6 +505,7 @@ projects:
         module: ops-p4dp
         platform: genericx86-64
 
+
   - name: openswitch/ops-switchd-p4switch-plugin
     template:
       - name: merge-check
