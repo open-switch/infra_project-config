@@ -3,7 +3,7 @@
     node: openswitch
     wrappers:
         - build-timeout:
-            timeout: 120
+            timeout: 100
         - timestamps
         - ansicolor
     builders:

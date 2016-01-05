@@ -12,6 +12,7 @@
             module: 'ops-ntpd'
             platform: '{platform}'
 
+
 - job:
     name: 'ops-ntpd-gate-as5712'
     node: openswitch
