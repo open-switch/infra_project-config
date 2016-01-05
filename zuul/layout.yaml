@@ -353,6 +353,16 @@ projects:
         module: ops-bufmond
         platform: as5712
 
+  - name: openswitch/ops-broadview
+    template:
+      - name: merge-check
+      - name: module-build
+        module: ops-broadview
+        platform: genericx86-64
+      - name: module-build
+        module: ops-broadview
+        platform: as5712
+
   - name: openswitch/ops-cfgd
     template:
       - name: merge-check

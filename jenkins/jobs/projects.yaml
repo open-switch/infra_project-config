@@ -73,6 +73,15 @@
         - 'ops-bufmond-jobs'
 
   - project:
+      name: openswitch/ops-broadview
+      node: 'openswitch'
+      platform:
+        - as5712
+        - genericx86-64
+      jobs:
+        - 'ops-broadview-jobs'
+
+  - project:
       name: openswitch/ops-cfgd
       node: 'openswitch'
       platform:

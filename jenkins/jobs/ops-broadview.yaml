@@ -1,0 +1,37 @@
+- job-template:
+    name: 'ops-broadview-check-{platform}'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build-branch:
+            module: 'ops-broadview'
+            platform: '{platform}'
+
+- job-template:
+    name: 'ops-broadview-gate-{platform}'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build-branch:
+            module: 'ops-broadview'
+            platform: '{platform}'
+
+- job-group:
+    name: 'ops-broadview-jobs'
+    jobs:
+      - 'ops-broadview-check-{platform}'
+      - 'ops-broadview-gate-{platform}'
