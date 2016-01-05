@@ -627,3 +627,13 @@ projects:
       - infra-project-config-check
     gate:
       - infra-project-config-gate
+
+  - name: openswitch/ops-ntpd
+    template:
+      - name: merge-check
+      - name: module-build
+        module: ops-ntpd
+        platform: genericx86-64
+      - name: module-build
+        module: ops-ntpd
+        platform: as5712

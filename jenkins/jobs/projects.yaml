@@ -307,3 +307,12 @@
         - genericx86-64
       jobs:
         - 'ops-docs-jobs'
+
+  - project:
+      name: openswitch/ops-ntpd
+      node: 'openswitch'
+      platform:
+        - genericx86-64
+        - as5712
+      jobs:
+        - 'ops-ntpd-jobs'
