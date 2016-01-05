@@ -46,6 +46,14 @@
         - 'ops-aaa-utils-jobs'
 
   - project:
+      name: openswitch/ops-checkmk-agent
+      node: 'openswitch'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'ops-checkmk-agent-jobs'
+
+  - project:
       name: openswitch/ops-arpmgrd
       node: 'openswitch'
       platform:
