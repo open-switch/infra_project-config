@@ -225,7 +225,7 @@
              rm -rf src/ops
              git clone https://git.openswitch.net/openswitch/ops src/ops
              make bake cmake-native
-             make devenv_import ops src/ops
+             make devenv_import ops $PWD/src/ops
              make bake ops
              make fs
              make devenv_ct_init
