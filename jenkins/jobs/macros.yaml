@@ -224,7 +224,9 @@
              cd $WORKSPACE
              rm -rf src/ops
              git clone https://git.openswitch.net/openswitch/ops src/ops
+             make bake cmake-native
              make devenv_import ops src/ops
+             make bake ops
              make fs
              make devenv_ct_init
              y=`echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]'`
