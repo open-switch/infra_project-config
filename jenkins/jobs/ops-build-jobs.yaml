@@ -81,7 +81,6 @@
                   - 'ffc18805-a3da-4771-918a-eaaa6a1a0c70'
 
     builders:
-        - revoke-sudo
         - ops-distclean
         - gerrit-git-prep
         - ops-build:
