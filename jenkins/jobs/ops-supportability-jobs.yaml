@@ -1,0 +1,31 @@
+- job-template:
+    name: 'ops-supportability-check-{platform}'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+
+- job-template:
+    name: 'ops-supportability-gate-{platform}'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+
+- job-group:
+   name: 'ops-supportability-jobs'
+   jobs:
+    - 'ops-supportability-check-{platform}'
+    - 'ops-supportability-gate-{platform}'

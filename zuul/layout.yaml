@@ -610,6 +610,16 @@ projects:
         module: ops-hw-vtep
         platform: as5712
 
+  - name: openswitch/ops-supportability
+    template:
+      - name: merge-check
+      - name: module-build
+        module: ops-supportability
+        platform: genericx86-64
+      - name: module-build
+        module: ops-supportability
+        platform: as5712
+
   - name: openswitch/ops-docs
     template:
       - name: merge-check
