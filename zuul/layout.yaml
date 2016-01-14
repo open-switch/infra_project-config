@@ -262,6 +262,16 @@ projects:
 #    hourly:
 #      - website-hourly
 
+  - name: openswitch/ops-benchmark
+    template:
+      - name: merge-check
+      - name: module-build
+        module: ops-benchmark
+        platform: as5712
+      - name: module-build
+        module: ops-benchmark
+        platform: genericx86-64
+
   - name: openswitch/ops-dhcp-tftp
     template:
       - name: merge-check

@@ -1,0 +1,38 @@
+- job-template:
+    name: 'ops-benchmark-check-{platform}'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build-branch:
+            module: 'ops-benchmark-config'
+            platform: '{platform}'
+
+- job-template:
+    name: 'ops-benchmark-gate-{platform}'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build-branch:
+            module: 'ops-benchmark'
+            platform: '{platform}'
+
+
+- job-group:
+    name: 'ops-benchmark-jobs'
+    jobs:
+      - 'ops-benchmark-check-{platform}'
+      - 'ops-benchmark-gate-{platform}'
