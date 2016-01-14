@@ -53,6 +53,9 @@
   description: OpenSwitch Global Repository
 
 # OpenSwitch Utils
+- project: openswitch/ops-benchmark
+  description: OVSDB and Datapath benchmark
+
 - project: openswitch/ops-utils
   description: OpenSwitch Utils
 
