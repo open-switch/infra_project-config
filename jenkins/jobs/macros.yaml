@@ -218,12 +218,18 @@
       - shell: |
            #!/bin/bash -x
            set -e
+           if git ls-remote https://git.openswitch.net/openswitch/ops | grep -swq "$ZUUL_BRANCH" ; then
+             OPS_BRANCH=$ZUUL_BRANCH
+           else
+             OPS_BRANCH=master
+           fi
            rm -rf build/*-test-results.xml
            if [ {platform} == "genericx86-64" ]
            then
              cd $WORKSPACE
              rm -rf src/ops
-             git clone https://git.openswitch.net/openswitch/ops src/ops
+             echo "===================  Building Feature Tests from ops:$OPS_BUILD_BRANCH =================== "
+             git clone -b $OPS_BRANCH https://git.openswitch.net/openswitch/ops src/ops
              make bake cmake-native
              make devenv_import ops $PWD/src/ops
              make bake ops
@@ -302,20 +308,24 @@
       - shell: |
            #!/bin/bash -x
            set -e
+           if git ls-remote https://git.openswitch.net/openswitch/ops | grep -swq "$ZUUL_BRANCH" ; then
+             OPS_BRANCH=$ZUUL_BRANCH
+           else
+             OPS_BRANCH=master
+           fi
            rm -rf build/*-test-results.xml
            cd src/{module}
            cat extension.txt
-           #if [ {platform} == "genericx86-64" ] && ([ "$(wc -l < extension.txt | bc)" != "$(grep -c "\.md" extension.txt)" ] || [ ! -s extension.txt ])
            if [ {platform} == "genericx86-64" ]
            then
              cd $WORKSPACE
              rm -rf src/ops
-             git clone https://git.openswitch.net/openswitch/ops src/ops
+             echo "===================  Building Feature Tests from ops:$OPS_BUILD_BRANCH =================== "
+             git clone -b $OPS_BRANCH https://git.openswitch.net/openswitch/ops src/ops
              make fs
              make devenv_ct_init
              y=`echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]'`
              export VSI_IMAGE_NAME=$y
-             #echo $VSI_IMAGE_NAME > .sandbox_uuid
              echo $VSI_IMAGE_NAME > .image_name
              make export_docker_image $VSI_IMAGE_NAME
              make devenv_ct_test PY_TEST_ARGS="src/{module} --exitfirst --junit-xml=build/module-test-results.xml" || (make devenv_ct_clean; docker rmi -f $VSI_IMAGE_NAME; exit 1)
