@@ -25,7 +25,7 @@
 
 - project: infra/openstack-ansible
   description: Puppet ansible module
-  upstream: https://git.openstack.org/openstack/openstack-ansible
+  upstream: https://git.openstack.org/openstack-infra/puppet-ansible
 
 - project: infra/puppet-module-puppetboard
   description: Puppet puppetboard module
