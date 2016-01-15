@@ -23,6 +23,10 @@
   description: Puppet meetbot module
   upstream: https://git.openstack.org/openstack-infra/puppet-meetbot
 
+- project: infra/openstack-ansible
+  description: Puppet ansible module
+  upstream: https://git.openstack.org/openstack/openstack-ansible
+
 - project: infra/puppet-module-puppetboard
   description: Puppet puppetboard module
 
