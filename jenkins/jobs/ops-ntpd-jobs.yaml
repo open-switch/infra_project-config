@@ -31,7 +31,7 @@
 
 - job:
     name: 'ops-ntpd-gate-genericx86-64'
-    node: vsi
+    node: openswitch
 
     wrappers:
         - build-timeout:
