@@ -125,7 +125,8 @@
         - shared-states
         - download-caches
         - create-periodic-build-image
-        - create-build-artifacts
+        - create-build-artifacts:
+            type: periodic
         - cp-opsTest-results
 
     publishers:
