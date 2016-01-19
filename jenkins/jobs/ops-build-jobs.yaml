@@ -143,6 +143,55 @@
         - mail-on-fail:
              email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
 
+- job-template:
+    name: 'ops-release-{platform}'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 1240
+        - timestamps
+        - ansicolor:
+            colormap: xterm
+        - ssh-agent-credentials:
+              users:
+                  - '0f99f00f-a5c0-460d-97b5-9b3dbdfd0773'
+                  - 'ffc18805-a3da-4771-918a-eaaa6a1a0c70'
+
+    builders:
+        - ops-distclean
+        - branch-git-prep:
+            branch: release
+        - shell: |
+            # Hack to enable webui on the periodic builds until we create a reliable recipe for it
+            sed -i -e 's/lighttpd/ops-webui/' yocto/openswitch/meta-distro-openswitch/recipes-core/packagegroups/packagegroup-openswitch.bb
+        - ops-build:
+            platform: '{platform}'
+        - ops-meta-ide
+        - fttest-for-image:
+            platform: '{platform}'
+        - shared-states
+        - download-caches
+        - create-periodic-build-image
+        - create-build-artifacts:
+            type: release
+        - cp-opsTest-results
+
+    publishers:
+        - scp:
+            site: static.openswitch.net
+            files:
+              - target: 'archive/artifacts'
+                source: 'release/**/*'
+                copy-after-failure: false
+                keep-hierarchy: true
+        - conditional-junit
+        - post-docker-clean
+        - publish-opsTest-results
+        - mail-on-fail:
+             email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
+
+
 - job-group:
     name: 'ops-default-builds'
     jobs:
@@ -151,3 +200,4 @@
       - 'ops-gate-as6712'
       - 'ops-gate-genericx86-64'
       - 'ops-periodic-{platform}'
+      - 'ops-release-{platform}'
