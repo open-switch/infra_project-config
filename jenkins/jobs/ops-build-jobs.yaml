@@ -97,6 +97,12 @@
 
 - job-template:
     name: 'ops-periodic-{platform}'
+    parameters:
+       - choice:
+           name: TYPE
+           choices:
+             - periodic
+
     node: vsi
 
     wrappers:
@@ -125,8 +131,7 @@
         - shared-states
         - download-caches
         - create-periodic-build-image
-        - create-build-artifacts:
-            type: periodic
+        - create-build-artifacts
         - cp-opsTest-results
 
     publishers:
@@ -145,6 +150,11 @@
 
 - job-template:
     name: 'ops-release-{platform}'
+    parameters:
+       - choice:
+           name: TYPE
+           choices:
+             - release
     node: vsi
 
     wrappers:
@@ -173,8 +183,7 @@
         - shared-states
         - download-caches
         - create-periodic-build-image
-        - create-build-artifacts:
-            type: release
+        - create-build-artifacts
         - cp-opsTest-results
 
     publishers:

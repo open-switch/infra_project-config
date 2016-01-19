@@ -525,7 +525,6 @@
           #!/bin/bash -x
           VERSION_STRING=$(cat .version_string)
           PLATFORM=$(cat .platform)
-          export TYPE={type}
           rm -Rf $TYPE
           mkdir -p $TYPE/$VERSION_STRING/$PLATFORM
           find images -name "onie-installer*" -exec bash -c "cp \"\$0\" $TYPE/$VERSION_STRING/$PLATFORM/\$(basename \"\$0\")-$VERSION_STRING" {} \;
