@@ -136,6 +136,9 @@
 - project: openswitch/ops-supportability
   description: OpenSwitch Supportability Features
 
+- project: openswitch/ops-ipsecd
+  description: OpenSwitch IPsec Configurator Daemon
+
 
 # L2 Daemons
 - project: openswitch/ops-vland
