@@ -670,3 +670,13 @@ projects:
       - name: module-build
         module: ops-ntpd
         platform: as5712
+
+  - name: openswitch/ops-ipsecd
+    template:
+      - name: merge-check
+      - name: module-build
+        module: ops-ipsecd
+        platform: genericx86-64
+      - name: module-build
+        module: ops-ipsecd
+        platform: as5712

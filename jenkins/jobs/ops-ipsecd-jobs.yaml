@@ -1,0 +1,37 @@
+- job-template:
+    name: 'ops-ipsecd-check-{platform}'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build-branch:
+            module: 'ops-ipsecd-config'
+            platform: '{platform}'
+
+- job-template:
+    name: 'ops-ipsecd-gate-{platform}'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build-branch:
+            module: 'ops-ipsecd'
+            platform: '{platform}'
+
+- job-group:
+    name: 'ops-ipsecd-jobs'
+    jobs:
+      - 'ops-ipsecd-check-{platform}'
+      - 'ops-ipsecd-gate-{platform}'
