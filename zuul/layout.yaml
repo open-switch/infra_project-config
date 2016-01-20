@@ -287,8 +287,8 @@ projects:
       - name: merge-check
       - name: ops-build
         platform: genericx86-64
-      - name: ops-build
-        platform: appliance
+      # - name: ops-build
+      #   platform: appliance
       - name: ops-build
         platform: as5712
       - name: ops-build
@@ -296,7 +296,7 @@ projects:
     periodic:
       - ops-periodic-genericx86-64
       - ops-periodic-as5712
-      - ops-periodic-appliance
+      #- ops-periodic-appliance
 
   - name: openswitch/ops-sysd
     template:
