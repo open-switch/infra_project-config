@@ -199,6 +199,10 @@
 - project: openswitch/ops-ft-framework
   description: OpenSwitch Feature Test Framework
 
+- project: openswitch/ops-topology-lib-vtysh
+  description: OpenSwitch Topology Modular Framework Vtysh Module
+  upstream:  https://github-sc-p.corp.hp.com/hpe-networking/topology_lib_vtysh.git
+
 #Checkmk-agent
 - project: openswitch/ops-checkmk-agent
   description: Check_mk Agent
