@@ -97,14 +97,11 @@
 
 - job-template:
     name: 'ops-periodic-{platform}'
-    parameters:
-       - choice:
-           name: TYPE
-           choices:
-             - periodic
-
     node: vsi
-
+    properties:
+      - inject:
+          properties-content: |
+            TYPE=periodic
     wrappers:
         - build-timeout:
             timeout: 1240
@@ -150,12 +147,12 @@
 
 - job-template:
     name: 'ops-release-{platform}'
-    parameters:
-       - choice:
-           name: TYPE
-           choices:
-             - release
     node: vsi
+
+    properties:
+      - inject:
+          properties-content: |
+            TYPE=release
 
     wrappers:
         - build-timeout:
