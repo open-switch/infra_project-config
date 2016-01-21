@@ -20,6 +20,8 @@
       - build-timeout:
           timeout: 30
       - timestamps
+      - ansicolor:
+          colormap: xterm
 
     logrotate:
       daysToKeep: 7

@@ -5,8 +5,6 @@
     wrappers:
         - build-timeout:
             timeout: 1240
-        - timestamps
-        - ansicolor
 
     builders:
         - revoke-sudo
@@ -20,11 +18,9 @@
     node: openswitch
 
     wrappers:
+        - workspace-cleanup
         - build-timeout:
             timeout: 1240
-        - timestamps
-        - ansicolor:
-            colormap: xterm
         - ssh-agent-credentials:
               users:
                   - '0f99f00f-a5c0-460d-97b5-9b3dbdfd0773'
@@ -45,11 +41,9 @@
     node: openswitch
 
     wrappers:
+        - workspace-cleanup
         - build-timeout:
             timeout: 1240
-        - timestamps
-        - ansicolor:
-            colormap: xterm
         - ssh-agent-credentials:
               users:
                   - '0f99f00f-a5c0-460d-97b5-9b3dbdfd0773'
@@ -70,11 +64,9 @@
     node: vsi
 
     wrappers:
+        - workspace-cleanup
         - build-timeout:
             timeout: 1240
-        - timestamps
-        - ansicolor:
-            colormap: xterm
         - ssh-agent-credentials:
               users:
                   - '0f99f00f-a5c0-460d-97b5-9b3dbdfd0773'
@@ -105,9 +97,6 @@
     wrappers:
         - build-timeout:
             timeout: 1240
-        - timestamps
-        - ansicolor:
-            colormap: xterm
         - ssh-agent-credentials:
               users:
                   - '0f99f00f-a5c0-460d-97b5-9b3dbdfd0773'
@@ -157,9 +146,6 @@
     wrappers:
         - build-timeout:
             timeout: 1240
-        - timestamps
-        - ansicolor:
-            colormap: xterm
         - ssh-agent-credentials:
               users:
                   - '0f99f00f-a5c0-460d-97b5-9b3dbdfd0773'
