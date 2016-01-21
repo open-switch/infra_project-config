@@ -11,7 +11,7 @@
     builders:
         - revoke-sudo
         - module-build-branch:
-            module: 'ops-ipsecd-config'
+            module: 'ops-ipsecd'
             platform: '{platform}'
 
 - job-template:
