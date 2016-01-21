@@ -5,8 +5,6 @@
    wrappers:
        - build-timeout:
            timeout: 120
-       - timestamps
-       - ansicolor
 
    builders:
        - revoke-sudo
@@ -21,8 +19,6 @@
    wrappers:
        - build-timeout:
            timeout: 120
-       - timestamps
-       - ansicolor
 
    builders:
        - revoke-sudo

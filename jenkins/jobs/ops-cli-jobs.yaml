@@ -4,8 +4,6 @@
     wrappers:
         - build-timeout:
             timeout: 120
-        - timestamps
-        - ansicolor
     builders:
         - revoke-sudo
         - module-build-branch:
@@ -18,8 +16,6 @@
     wrappers:
         - build-timeout:
             timeout: 120
-        - timestamps
-        - ansicolor
     builders:
         - module-build-branch:
             module: 'ops-cli'
@@ -31,8 +27,6 @@
     wrappers:
         - build-timeout:
             timeout: 120
-        - timestamps
-        - ansicolor
     builders:
         - module-build-branch:
             module: 'ops-cli'

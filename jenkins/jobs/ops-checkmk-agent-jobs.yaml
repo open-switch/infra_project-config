@@ -4,8 +4,6 @@
     wrappers:
         - build-timeout:
             timeout: 100
-        - timestamps
-        - ansicolor
     builders:
         - revoke-sudo
         - module-build-branch:
@@ -18,8 +16,6 @@
     wrappers:
         - build-timeout:
             timeout: 120
-        - timestamps
-        - ansicolor
 
     builders:
         - module-build-branch:
@@ -32,8 +28,6 @@
     wrappers:
         - build-timeout:
             timeout: 240
-        - timestamps
-        - ansicolor
     builders:
         - module-build-branch:
             module: 'ops-checkmk-agent'
