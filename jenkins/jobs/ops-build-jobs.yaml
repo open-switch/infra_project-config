@@ -140,7 +140,7 @@
 
     scm:
        - git:
-          url: http://git.openswitch.net/openswitch.net/ops-build
+          url: http://git.openswitch.net/openswitch/ops-build
           branches:
             - origin/release
 
