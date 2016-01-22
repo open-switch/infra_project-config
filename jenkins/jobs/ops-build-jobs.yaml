@@ -138,6 +138,12 @@
     name: 'ops-release-{platform}'
     node: vsi
 
+    scm:
+       - git:
+          url: http://git.openswitch.net/openswitch.net/ops-build
+          branches:
+            - origin/release
+
     properties:
       - inject:
           properties-content: |
@@ -155,9 +161,6 @@
         - timed: 'H */6 * * *'
 
     builders:
-        - ops-distclean
-        - branch-git-prep:
-            branch: release
         - shell: |
             # Hack to enable webui on the periodic builds until we create a reliable recipe for it
             sed -i -e 's/lighttpd/ops-webui/' yocto/openswitch/meta-distro-openswitch/recipes-core/packagegroups/packagegroup-openswitch.bb
