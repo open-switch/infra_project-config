@@ -10,6 +10,15 @@
         - 'static-{name}-publish'
 
   - project:
+      name: openswitch/ops-benchmark
+      node: 'openswitch'
+      platform:
+        - genericx86-64
+        - as5712
+      jobs:
+        - 'ops-benchmark-builds'
+
+  - project:
       name: openswitch/ops-build
       node: 'openswitch'
       platform:
