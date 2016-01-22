@@ -18,7 +18,6 @@ pipelines:
         - event: change-restored
         - event: comment-added
           comment: (?i)^(Patch Set [0-9]+:)?( [\w\\+-]*)*(\n\n)?\s*(recheck|reverify)
-          ref: ^(?!.*feature).*$
         - event: comment-added
           require-approval:
             - verified: [-1, -2]
@@ -492,6 +491,7 @@ projects:
       - ops-switchd-gate
 
   - name: openswitch/ops-switchd-container-plugin
+    branch: ^(?!.*feature).*$
     template:
       - name: merge-check
       - name: module-build
