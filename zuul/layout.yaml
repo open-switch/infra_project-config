@@ -491,7 +491,6 @@ projects:
       - ops-switchd-gate
 
   - name: openswitch/ops-switchd-container-plugin
-    branch: ^(?!.*feature).*$
     template:
       - name: merge-check
       - name: module-build
