@@ -229,7 +229,7 @@ project-templates:
 # Jobs definitions are not required, but help us filter unrequired check jobs
 # We still run the jobs during gate
 jobs:
-  - name: ^ops-*(check|gate)*$
+  - name: ^ops-.*(check|gate).*$
     skip-if:
       - project: ^openswitch/
         branch: ^feature/
