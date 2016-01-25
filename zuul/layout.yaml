@@ -229,6 +229,11 @@ project-templates:
 # Jobs definitions are not required, but help us filter unrequired check jobs
 # We still run the jobs during gate
 jobs:
+  - name: ^ops-*(check|gate)*$
+    skip-if:
+      - project: ^openswitch/
+        branch: ^feature/
+
   - name: ops-check-as5712
     files:
       - ^yocto/openswitch/meta-platform-openswitch-as5712/.*$
