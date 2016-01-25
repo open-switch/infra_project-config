@@ -16,7 +16,7 @@
         - genericx86-64
         - as5712
       jobs:
-        - 'ops-benchmark-builds'
+        - 'ops-benchmark-jobs'
 
   - project:
       name: openswitch/ops-build
