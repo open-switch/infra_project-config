@@ -1,0 +1,37 @@
+- job-template:
+   name: 'ops-p4c-check-{platform}'
+   node: openswitch
+
+   wrappers:
+       - build-timeout:
+           timeout: 120
+       - timestamps
+       - ansicolor
+
+   builders:
+       - revoke-sudo
+       - module-build-branch:
+           module: 'ops-p4c'
+           platform: '{platform}'
+
+- job-template:
+   name: 'ops-p4c-gate-{platform}'
+   node: openswitch
+
+   wrappers:
+       - build-timeout:
+           timeout: 120
+       - timestamps
+       - ansicolor
+
+   builders:
+       - revoke-sudo
+       - module-build-branch:
+           module: 'ops-p4c'
+           platform: '{platform}'
+
+- job-group:
+   name: 'ops-p4c-jobs'
+   jobs:
+     - 'ops-p4c-check-{platform}'
+     - 'ops-p4c-gate-{platform}'

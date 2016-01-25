@@ -127,6 +127,9 @@
 - project: openswitch/ops-p4dp
   description: OpenSwitch port of P4 dataplane simulator
 
+- project: openswitch/ops-p4c
+  description: OpenSwitch P4 compiler
+
 - project: openswitch/ops-switchd-p4switch-plugin
   description: OpenSwitch P4 switch OVS plugin
 
