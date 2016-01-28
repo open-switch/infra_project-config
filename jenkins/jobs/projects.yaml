@@ -309,6 +309,15 @@
         - 'ops-tempd-jobs'
 
   - project:
+      name: openswitch/ops-topology-lib-vtysh
+      node: 'openswitch'
+      platform:
+        - genericx86-64
+        - as5712
+      jobs:
+        - 'ops-topology-lib-vtysh-jobs'
+
+  - project:
       name: openswitch/ops-vland
       node: 'openswitch'
       platform:

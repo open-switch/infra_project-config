@@ -1,0 +1,37 @@
+- job-template:
+   name: 'ops-topology-lib-vtysh-check-{platform}'
+   node: openswitch
+
+   wrappers:
+       - build-timeout:
+           timeout: 120
+       - timestamps
+       - ansicolor
+
+   builders:
+       - revoke-sudo
+       - module-build-branch:
+           module: 'ops-topology-lib-vtysh'
+           platform: '{platform}'
+
+- job-template:
+   name: 'ops-topology-lib-vtysh-gate-{platform}'
+   node: openswitch
+
+   wrappers:
+       - build-timeout:
+           timeout: 120
+       - timestamps
+       - ansicolor
+
+   builders:
+       - revoke-sudo
+       - module-build-branch:
+           module: 'ops-topology-lib-vtysh'
+           platform: '{platform}'
+
+- job-group:
+   name: 'ops-topology-lib-vtysh-jobs'
+   jobs:
+     - 'ops-topology-lib-vtysh-check-{platform}'
+     - 'ops-topology-lib-vtysh-gate-{platform}'

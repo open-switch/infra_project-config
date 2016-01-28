@@ -594,6 +594,16 @@ projects:
         module: ops-tempd
         platform: as5712
 
+  - name: openswitch/ops-topology-lib-vtysh
+    template:
+      - name: merge-check
+      - name: module-build
+        module: ops-topology-lib-vtysh
+        platform: genericx86-64
+      - name: module-build
+        module: ops-topology-lib-vtysh
+        platform: as5712
+
   - name: openswitch/ops-vland
     template:
       - name: merge-check
