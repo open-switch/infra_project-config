@@ -1,0 +1,37 @@
+- job-template:
+    name: 'ops-ipapps-check-{platform}'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build-branch:
+            module: 'ops-ipapps'
+            platform: '{platform}'
+
+- job-template:
+    name: 'ops-ipapps-gate-{platform}'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build-branch:
+            module: 'ops-ipapps'
+            platform: '{platform}'
+
+- job-group:
+   name: 'ops-ipapps-jobs'
+   jobs:
+    - 'ops-ipapps-check-{platform}'
+    - 'ops-ipapps-gate-{platform}'

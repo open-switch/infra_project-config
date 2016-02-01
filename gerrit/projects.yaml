@@ -142,6 +142,8 @@
 - project: openswitch/ops-ipsecd
   description: OpenSwitch IPsec Configurator Daemon
 
+- project: openswitch/ops-ipapps
+  description: OpenSwitch IP Applications
 
 # L2 Daemons
 - project: openswitch/ops-vland
