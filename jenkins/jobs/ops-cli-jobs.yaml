@@ -9,6 +9,8 @@
         - module-build-branch:
             module: 'ops-cli'
             platform: '{platform}'
+    publishers:
+        - post-ws-clean
 
 - job:
     name: 'ops-cli-gate-as5712'
@@ -20,6 +22,8 @@
         - module-build-branch:
             module: 'ops-cli'
             platform: 'as5712'
+    publishers:
+        - post-ws-clean
 
 - job:
     name: 'ops-cli-gate-genericx86-64'
@@ -37,6 +41,7 @@
     publishers:
         - conditional-junit
         - post-docker-clean
+        - post-ws-clean
 
 - job-group:
     name: 'ops-cli-jobs'
