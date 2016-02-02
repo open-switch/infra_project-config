@@ -9,7 +9,8 @@
         - module-build-branch:
             module: 'ops-ntpd'
             platform: '{platform}'
-
+    publishers:
+        - post-ws-clean
 
 - job:
     name: 'ops-ntpd-gate-as5712'
@@ -24,6 +25,8 @@
         - module-build-branch:
             module: 'ops-ntpd'
             platform: 'as5712'
+    publishers:
+        - post-ws-clean
 
 - job:
     name: 'ops-ntpd-gate-genericx86-64'
@@ -45,6 +48,7 @@
     publishers:
         - conditional-junit
         - post-docker-clean
+        - post-ws-clean
 
 - job-group:
     name: 'ops-ntpd-jobs'

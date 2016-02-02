@@ -11,6 +11,8 @@
         - module-build-branch:
             module: 'ops-restd'
             platform: '{platform}'
+    publishers:
+        - post-ws-clean
 
 - job:
     name: 'ops-restd-gate-as5712'
@@ -32,6 +34,7 @@
     publishers:
         - simple-scp:
             dest: 'api/rest/'
+        - post-ws-clean
 
 - job:
     name: 'ops-restd-gate-genericx86-64'
@@ -57,6 +60,7 @@
             dest: 'api/rest/'
         - conditional-junit
         - post-docker-clean
+        - post-ws-clean
 
 - job-group:
     name: 'ops-restd-jobs'

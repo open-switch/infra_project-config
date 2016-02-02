@@ -13,6 +13,8 @@
         - module-build-branch:
             module: 'ops-mgmt-intf'
             platform: '{platform}'
+    publishers:
+        - post-ws-clean
 
 - job:
     name: 'ops-mgmt-intf-gate-as5712'
@@ -28,6 +30,8 @@
         - module-build-branch:
             module: 'ops-mgmt-intf'
             platform: 'as5712'
+    publishers:
+        - post-ws-clean
 
 - job:
     name: 'ops-mgmt-intf-gate-genericx86-64'
@@ -49,6 +53,7 @@
     publishers:
         - conditional-junit
         - post-docker-clean
+        - post-ws-clean
 
 
 - job-group:

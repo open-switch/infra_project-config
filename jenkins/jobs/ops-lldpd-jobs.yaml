@@ -9,6 +9,8 @@
         - module-build-branch:
             module: 'ops-lldpd'
             platform: '{platform}'
+    publishers:
+        - post-ws-clean
 
 - job:
     name: 'ops-lldpd-gate-as5712'
@@ -22,6 +24,8 @@
         - module-build-branch:
             module: 'ops-lldpd'
             platform: 'as5712'
+    publishers:
+        - post-ws-clean
 
 - job:
     name: 'ops-lldpd-gate-genericx86-64'
@@ -42,6 +46,7 @@
     publishers:
         - conditional-junit
         - post-docker-clean
+        - post-ws-clean
 
 - job-group:
     name: 'ops-lldpd-jobs'

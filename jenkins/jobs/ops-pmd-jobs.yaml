@@ -9,6 +9,8 @@
         - module-build-branch:
             module: 'ops-pmd'
             platform: '{platform}'
+    publishers:
+        - post-ws-clean
 
 - job:
     name: 'ops-pmd-gate-as5712'
@@ -22,6 +24,8 @@
         - module-build-branch:
             module: 'ops-pmd'
             platform: 'as5712'
+    publishers:
+        - post-ws-clean
 
 - job:
     name: 'ops-pmd-gate-genericx86-64'
@@ -42,6 +46,7 @@
     publishers:
         - conditional-junit
         - post-docker-clean
+        - post-ws-clean
 
 - job-group:
     name: 'ops-pmd-jobs'

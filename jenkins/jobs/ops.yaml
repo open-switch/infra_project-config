@@ -37,3 +37,4 @@
     publishers:
         - conditional-junit
         - post-docker-clean
+        - post-ws-clean
