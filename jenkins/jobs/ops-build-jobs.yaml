@@ -12,6 +12,8 @@
         - gerrit-git-prep
         - ops-build:
             platform: '{platform}'
+    publishers:
+        - post-ws-clean
 
 - job:
     name: 'ops-gate-as5712'
@@ -36,6 +38,9 @@
         - shared-states
         - download-caches
 
+    publishers:
+        - post-ws-clean
+
 - job:
     name: 'ops-gate-as6712'
     node: openswitch
@@ -58,6 +63,9 @@
         - ops-meta-ide
         - shared-states
         - download-caches
+
+    publishers:
+        - post-ws-clean
 
 - job:
     name: 'ops-gate-genericx86-64'
@@ -86,6 +94,7 @@
     publishers:
         - conditional-junit
         - post-docker-clean
+        - post-ws-clean
 
 - job-template:
     name: 'ops-periodic-{platform}'

@@ -9,6 +9,8 @@
         - module-build-branch:
             module: 'ops-openvswitch'
             platform: '{platform}'
+    publishers:
+        - post-ws-clean
 
 - job:
     name: 'ops-openvswitch-gate-as5712'
@@ -22,6 +24,8 @@
         - module-build-branch:
             module: 'ops-openvswitch'
             platform: 'as5712'
+    publishers:
+        - post-ws-clean
 
 - job:
     name: 'ops-openvswitch-gate-genericx86-64'
@@ -47,6 +51,7 @@
     publishers:
         - conditional-junit
         - post-docker-clean
+        - post-ws-clean
         - scp:
             site: static.openswitch.net
             files:

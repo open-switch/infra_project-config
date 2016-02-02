@@ -1401,6 +1401,22 @@
           script-only-if-failed: True
 
 - publisher:
+    name: post-ws-clean
+    publishers:
+      - workspace-cleanup:
+         dirmatch: true
+         include:
+            - "*.*"
+            - "*"
+         clean-if:
+            - success: false
+            - unstable: false
+            - not-built: false
+            - aborted: true
+            - failure: true
+         fail-build: false
+
+- publisher:
     name: publish-opsTest-results
     publishers:
       - conditional-publisher:
