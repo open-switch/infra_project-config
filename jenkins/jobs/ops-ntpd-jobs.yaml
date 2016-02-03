@@ -21,7 +21,6 @@
             timeout: 120
 
     builders:
-        - revoke-sudo
         - module-build-branch:
             module: 'ops-ntpd'
             platform: 'as5712'
@@ -30,14 +29,13 @@
 
 - job:
     name: 'ops-ntpd-gate-genericx86-64'
-    node: openswitch
+    node: vsi
 
     wrappers:
         - build-timeout:
             timeout: 120
 
     builders:
-        - revoke-sudo
         - module-build-branch:
             module: 'ops-ntpd'
             platform: 'genericx86-64'
