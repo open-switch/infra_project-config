@@ -395,3 +395,12 @@
         - genericx86-64
       jobs:
         - 'ops-ipapps-jobs'
+
+  - project:
+      name: openswitch/ops-classifierd
+      node: 'openswitch'
+      platform:
+        - as5712
+        - genericx86-64
+      jobs:
+        - 'ops-classifierd-jobs'

@@ -718,3 +718,13 @@ projects:
       - name: module-build
         module: ops-ipapps
         platform: as5712
+
+  - name: openswitch/ops-classifierd
+    template:
+      - name: merge-check
+      - name: module-build
+        module: ops-classifierd
+        platform: genericx86-64
+      - name: module-build
+        module: ops-classifierd
+        platform: as5712
