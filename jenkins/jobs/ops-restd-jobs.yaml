@@ -33,7 +33,7 @@
 
     publishers:
         - simple-scp:
-            dest: 'api/restapi/'
+            dest: 'api/rest/'
         - post-ws-clean
 
 - job:
@@ -57,7 +57,7 @@
 
     publishers:
         - simple-scp:
-            dest: 'api/restapi/'
+            dest: 'api/rest/'
         - conditional-junit
         - post-docker-clean
         - post-ws-clean
