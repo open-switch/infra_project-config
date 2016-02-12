@@ -535,6 +535,7 @@
           test -e .version_string && cp -rf .version_string $TYPE/$VERSION_STRING/$PLATFORM/build_v
           cd $TYPE/$VERSION_STRING/$PLATFORM
           for file in $(ls) ; do sha256sum $file > $file.sha256sum ; done
+          rename 's/onie-installer/openswitch-onie-installer/' *
 
 - builder:
     name: cp-opsTest-results
