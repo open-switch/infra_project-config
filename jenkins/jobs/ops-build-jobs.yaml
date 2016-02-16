@@ -4,7 +4,7 @@
 
     wrappers:
         - build-timeout:
-            timeout: 1240
+            timeout: 120
 
     builders:
         - revoke-sudo
@@ -22,7 +22,7 @@
     wrappers:
         - workspace-cleanup
         - build-timeout:
-            timeout: 1240
+            timeout: 120
         - ssh-agent-credentials:
               users:
                   - '0f99f00f-a5c0-460d-97b5-9b3dbdfd0773'
@@ -48,7 +48,7 @@
     wrappers:
         - workspace-cleanup
         - build-timeout:
-            timeout: 1240
+            timeout: 120
         - ssh-agent-credentials:
               users:
                   - '0f99f00f-a5c0-460d-97b5-9b3dbdfd0773'
@@ -74,7 +74,7 @@
     wrappers:
         - workspace-cleanup
         - build-timeout:
-            timeout: 1240
+            timeout: 120
         - ssh-agent-credentials:
               users:
                   - '0f99f00f-a5c0-460d-97b5-9b3dbdfd0773'
@@ -105,7 +105,7 @@
             TYPE=periodic
     wrappers:
         - build-timeout:
-            timeout: 1240
+            timeout: 120
         - ssh-agent-credentials:
               users:
                   - '0f99f00f-a5c0-460d-97b5-9b3dbdfd0773'
@@ -160,7 +160,7 @@
 
     wrappers:
         - build-timeout:
-            timeout: 1240
+            timeout: 120
         - ssh-agent-credentials:
               users:
                   - '0f99f00f-a5c0-460d-97b5-9b3dbdfd0773'
