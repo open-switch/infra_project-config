@@ -1393,7 +1393,7 @@
                  export VSI_IMAGE_NAME=`cat .image_name`
                  sudo docker ps | grep $VSI_IMAGE_NAME
                  if [ $? = "0" ]; then
-                   sudo docker ps | grep $VSI_IMAGE_NAME | cut -d' ' -f1 | xargs sudo docker rm -f
+                   sudo docker ps | grep $VSI_IMAGE_NAME | cut -d' ' -f1 | xargs sudo docker rm -vf
                  fi
                  test -e .sandbox_uuid && make devenv_ct_clean
                  docker rmi -f $VSI_IMAGE_NAME 2>/dev/null
