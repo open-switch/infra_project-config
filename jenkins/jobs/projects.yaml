@@ -240,30 +240,6 @@
         - 'ops-switchd-xpliant-plugin-jobs'
 
   - project:
-      name: openswitch/ops-p4factory
-      node: 'openswitch'
-      platform:
-        - genericx86-64
-      jobs:
-        - 'ops-p4factory-jobs'
-
-  - project:
-      name: openswitch/ops-p4dp
-      node: 'openswitch'
-      platform:
-        - genericx86-64
-      jobs:
-        - 'ops-p4dp-jobs'
-
-  - project:
-      name: openswitch/ops-p4c
-      node: 'openswitch'
-      platform:
-        - genericx86-64
-      jobs:
-        - 'ops-p4c-jobs'
-
-  - project:
       name: openswitch/ops-switchd-p4switch-plugin
       node: 'openswitch'
       platform:
