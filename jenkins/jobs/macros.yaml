@@ -1391,6 +1391,8 @@
           builders:
             - shell: |
                  export VSI_IMAGE_NAME=`cat .image_name`
+                 export SYSLOG="${VSI_IMAGE_NAME}_syslog.txt"
+                 sudo tail -n 2000 /var/log/syslog > build/$SYSLOG
                  sudo docker ps | grep $VSI_IMAGE_NAME
                  if [ $? = "0" ]; then
                    sudo docker ps | grep $VSI_IMAGE_NAME | cut -d' ' -f1 | xargs sudo docker rm -vf
@@ -1400,6 +1402,14 @@
                  #docker images | grep $VSI_IMAGE_NAME && docker rmi -f $VSI_IMAGE_NAME
           script-only-if-succeeded: False
           script-only-if-failed: True
+      - conditional-publisher:
+          - condition-kind: shell
+            condition-command: ls build/*_syslog.txt
+            on-evaluation-failure: dont-run
+            action:
+                - archive:
+                    artifacts: 'build/*_syslog.txt'
+                    allow-empty: 'true'
 
 - publisher:
     name: post-ws-clean
