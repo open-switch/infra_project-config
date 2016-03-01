@@ -188,31 +188,6 @@
            make bake {module}
 
 - builder:
-    name: module-cttest-on-master-only
-    builders:
-      - shell: |
-           #!/bin/bash -x
-           set -e
-           if [ {platform} == "genericx86-64" ] && [ $ZUUL_BRANCH == "master" ]
-           then
-             rm -rf src/ops
-             git clone https://git.openswitch.net/openswitch/ops src/ops
-             make fs
-             make devenv_ct_init
-             y=`echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]'`
-             export VSI_IMAGE_NAME=$y
-             make export_docker_image $VSI_IMAGE_NAME
-             make devenv_ct_test PY_TEST_ARGS="src/{module} --exitfirst --junit-xml=build/module-test-results.xml" || (make devenv_ct_clean; docker rmi -f $VSI_IMAGE_NAME; exit 1)
-             make devenv_ct_test PY_TEST_ARGS="src/ops --exitfirst --junit-xml=build/feature-test-results.xml" || (make devenv_ct_clean; docker rmi -f $VSI_IMAGE_NAME; exit 1)
-             test -e .sandbox_uuid && make devenv_ct_clean
-             docker images | grep $VSI_IMAGE_NAME && docker rmi -f $VSI_IMAGE_NAME
-             sudo chown jenkins.jenkins build/*-test-results.xml
-           else
-             touch build/dummytest.xml
-             echo "Not a genericx86-64 platform, skipping cttest"
-           fi
-
-- builder:
     name: feature-cttest-for-ops-build
     builders:
       - shell: |
@@ -335,6 +310,122 @@
              sudo chown jenkins.jenkins build/*-test-results.xml
            else
              echo "Skipping cttest because of one of reasons: 1. Not a genericx86-64 platform; 2. Commit files are all in .md extension"
+           fi
+
+- builder:
+    name: module-cttest-codecoverage
+    builders:
+      - shell: |
+           #!/bin/bash -x
+           set -e
+           COV_CONF_FILE="src/{module}/ft_ct_coverage"        # Configuration file. If it exists then CT/FT coverage will be performed.
+           COV_MINIMUM=80                                        # Minimum default of coverage.
+           COV_REPORT_DIR="coverage"                             # Location where the coverage report data will be placed
+           COV_DATA_DIR="src/{module}/"                       # Repo directory where coverage data will be stored (gcda && gcno)
+
+           if git ls-remote https://git.openswitch.net/openswitch/ops | grep -swq "$ZUUL_BRANCH" ; then
+             OPS_BRANCH=$ZUUL_BRANCH
+           else
+             OPS_BRANCH=master
+           fi
+           rm -rf build/*-test-results.xml
+           cd src/{module}
+           cat extension.txt
+           if [ {platform} == "genericx86-64" ]
+           then
+             cd $WORKSPACE
+             rm -rf src/ops
+             echo "===================  Building Feature Tests from ops:$OPS_BUILD_BRANCH =================== "
+             git clone -b $OPS_BRANCH https://git.openswitch.net/openswitch/ops src/ops
+             make fs
+             make devenv_ct_init
+             y=`echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]'`
+             export VSI_IMAGE_NAME=$y
+             echo $VSI_IMAGE_NAME > .image_name
+             make export_docker_image $VSI_IMAGE_NAME
+
+             if [ -f $COV_CONF_FILE ]
+             then
+                export VSI_COV_DATA_DIR=$PWD/$COV_DATA_DIR
+                rm -rf $COV_REPORT_DIR
+                mkdir -p $COV_REPORT_DIR
+                lcov --zerocounters --directory $COV_DATA_DIR       # Clear all coverage counters before running the tests
+                lcov --initial --capture --directory $COV_DATA_DIR --output-file $COV_REPORT_DIR/app_base.info
+             fi
+
+             make devenv_ct_test PY_TEST_ARGS="src/{module} --exitfirst --junit-xml=build/module-test-results.xml" || (make devenv_ct_clean; docker rmi -f $VSI_IMAGE_NAME; exit 1)
+             make devenv_ct_test PY_TEST_ARGS="src/ops --exitfirst --junit-xml=build/feature-test-results.xml" || (make devenv_ct_clean; docker rmi -f $VSI_IMAGE_NAME; exit 1)
+             test -e .sandbox_uuid && make devenv_ct_clean
+             docker images | grep $VSI_IMAGE_NAME && docker rmi -f $VSI_IMAGE_NAME
+             sudo chown jenkins.jenkins build/*-test-results.xml
+
+             if [ -f $COV_CONF_FILE ]
+             then
+                 # TODO: Implement Branch Analysis
+                 LCOV_NO_BRANCH="--rc lcov_branch_coverage=0"
+                 # Capture the coverage raw data
+                 lcov $LCOV_NO_BRANCH --capture --directory $COV_DATA_DIR --output-file $COV_REPORT_DIR/app_test.info
+                 LCOV_COV_FILE="app_total.info"        # The file where the coverage data will be placed
+                 # Read the configured minimum coverage percentage and exclude patterns from the repo conf file
+                 # Configure exclude patterns using wildcars and separated by spaces, e.g to remove gtest and openvswitch files use:
+                 # Exclude_pattern=*gtest* *openvswitch*
+                 while read -r line
+                 do
+                   tmp=`echo "$line" | sed -rn 's/^Minimum_coverage=([0-9]+)$/\1/p'`
+                   if [ ! -z "$tmp" ]
+                   then
+                       COV_MINIMUM=$tmp
+                   fi
+                   tmp=`echo "$line" | sed -rn 's/^Exclude_pattern=(.*)$/\1/p'`
+                   if [ ! -z "$tmp" ]
+                   then
+                     COV_EXCLUDE_PATTERN=$tmp
+                   fi
+                 done < "$COV_CONF_FILE"
+
+                 # Check if exclusion pattern is configured and apply it.
+                 if [ ! -z "$COV_EXCLUDE_PATTERN" ]
+                 then
+                   lcov --remove $COV_REPORT_DIR/app_base.info $COV_EXCLUDE_PATTERN --output-file $COV_REPORT_DIR/data_base.info
+                   lcov --remove $COV_REPORT_DIR/app_test.info $COV_EXCLUDE_PATTERN --output-file $COV_REPORT_DIR/data_test.info
+                   COV_RESULT=`lcov $LCOV_NO_BRANCH --add-tracefile $COV_REPORT_DIR/data_base.info --add-tracefile $COV_REPORT_DIR/data_test.info --output-file $COV_REPORT_DIR/$LCOV_COV_FILE`
+                 else
+                   COV_RESULT=`lcov $LCOV_NO_BRANCH --add-tracefile $COV_REPORT_DIR/app_base.info --add-tracefile $COV_REPORT_DIR/app_test.info --output-file $COV_REPORT_DIR/$LCOV_COV_FILE`
+                 fi
+
+                 # Get actual coverage from command output
+                 COV_REPORTED=`echo "$COV_RESULT" | sed -rn 's/lines\.\.\.\.\.\.:[[:space:]]([[:digit:]]+).*/\1/p'`
+                 if [ -z "$COV_REPORTED" ]
+                 then
+                    COV_REPORTED=0
+                 fi
+
+                 # Generate the HTML report
+                 mkdir -p $COV_REPORT_DIR/html
+                 cd $COV_REPORT_DIR/html
+                 # TODO: Implement Branch Analysis
+                 genhtml --no-branch-coverage ../$LCOV_COV_FILE
+                 cd ../..
+
+                 echo "The configuration file is: $COV_CONF_FILE"
+                 echo "The configured coverage threshold is: $COV_MINIMUM"
+                 echo "The configured FT/CT code coverage exclude pattern is $COV_EXCLUDE_PATTERN"
+                 echo "The result of the data coverage command is $COV_RESULT"
+                 echo "The actual reported coverage is:"
+                 echo $COV_REPORTED
+
+                 if [ "$COV_MINIMUM" -gt "$COV_REPORTED" ]
+                 then
+                      echo "The code does not have enough coverage"
+                      echo "The location of the coverage report is: $PWD/$COV_REPORT_DIR/html."
+                      exit 1
+                 else
+                      exit 0
+                 fi
+             fi
+
+           else
+             echo "Skipping cttest"
            fi
 
 - builder:
