@@ -731,3 +731,13 @@ projects:
       - name: module-build
         module: ops-classifierd
         platform: as5712
+
+  - name: openswitch/ops-passwd-srv
+    template:
+      - name: merge-check
+      - name: module-build
+        module: ops-passwd-srv
+        platform: genericx86-64
+      - name: module-build
+        module: ops-passwd-srv
+        platform: as5712
