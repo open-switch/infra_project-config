@@ -148,6 +148,9 @@
 - project: openswitch/ops-classifierd
   description: Openswitch Classifier Daemon
 
+- project: openswitch/ops-passwd-srv
+  description: Openswitch Password Server Daemon
+
 # L2 Daemons
 - project: openswitch/ops-vland
   description: OpenSwitch VLAN Daemon
