@@ -340,6 +340,13 @@ projects:
         module: ops-aaa-utils
         platform: genericx86-64
 
+  - name: openswitch/ops-ansible
+    template:
+      - name: merge-check
+    check:
+      - ops-ansible-check
+    gate:
+      - ops-ansible-gate
 
   - name: openswitch/ops-arpmgrd
     template:
