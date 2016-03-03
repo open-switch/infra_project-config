@@ -16,7 +16,7 @@
     builders:
         - shell: | 
             #!/bin/bash
-            export dir=/srv/static/archive/artifacts/periodic
+            export dir=/srv/static/archive/artifacts/periodic/master
             ssh static.openswitch.net "rm -rf $dir/latest"
             #retrieve the latest folder
             export build_v=`ssh static.openswitch.net "cd $dir ;ls -tr | tail -1"`
