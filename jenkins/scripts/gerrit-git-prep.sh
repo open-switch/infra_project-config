@@ -80,6 +80,6 @@ fi
 
 if [ -f .gitmodules ]; then
     git submodule init
-    git submodule sync
-    git submodule update --init
+    git submodule sync --recursive
+    git submodule update --init --recursive
 fi
