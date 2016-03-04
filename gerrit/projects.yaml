@@ -106,6 +106,9 @@
 - project: openswitch/ops-switchd-opennsl-plugin
   description: OpenSwitch Broadcom OVS plugin
 
+- project: openswitch/ops-switchd-xpliant-plugin
+  description: OpenSwitch XPliant OVS plugin
+
 - project: openswitch/ops-hw-config
   description: Configuration files repository for all the platforms
 
