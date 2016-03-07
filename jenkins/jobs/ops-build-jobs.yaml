@@ -121,12 +121,12 @@
         - ops-build:
             platform: '{platform}'
         - ops-meta-ide
-        - fttest-for-image:
-            platform: '{platform}'
         - shared-states
         - download-caches
         - create-periodic-build-image
         - create-build-artifacts
+        - fttest-for-image:
+            platform: '{platform}'
         - cp-opsTest-results
 
     publishers:
