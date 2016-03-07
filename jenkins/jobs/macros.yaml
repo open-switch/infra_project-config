@@ -1549,11 +1549,13 @@
             condition-command: ls build/feature-test-results.xml
             on-evaluation-failure: dont-run
             action:
-                - shell:
-                    VERSION_STRING=$(cat .version_string)
-                    rm -rf genericx86-64_autotestJunitResults/*; mkdir -p genericx86-64_autotestJunitResults
-                    cp build/feature-test-results.xml genericx86-64_autotestJunitResults/
-                    scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -r genericx86-64_autotestJunitResults static.openswitch.net:/srv/static/archive/artifacts/$TYPE/$VERSION_STRING/.
+                - postbuildscript:
+                    builders:
+                        - shell: |
+                            VERSION_STRING=$(cat .version_string)
+                            rm -rf genericx86-64_autotestJunitResults/*; mkdir -p genericx86-64_autotestJunitResults
+                            cp build/feature-test-results.xml genericx86-64_autotestJunitResults/
+                            scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -r genericx86-64_autotestJunitResults static.openswitch.net:/srv/static/archive/artifacts/$TYPE/$VERSION_STRING/.
 
 - publisher:
     name: mail-on-fail

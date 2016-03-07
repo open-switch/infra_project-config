@@ -93,7 +93,6 @@
 
     publishers:
         - conditional-junit
-        - conditional-image-junit-to-archive
         - post-docker-clean
         - post-ws-clean
 
@@ -139,6 +138,7 @@
                 copy-after-failure: false
                 keep-hierarchy: true
         - conditional-junit
+        - conditional-image-junit-to-archive
         - post-docker-clean
         - publish-opsTest-results
         - mail-on-fail:
