@@ -93,6 +93,7 @@
 
     publishers:
         - conditional-junit
+        - conditional-image-junit-to-archive
         - post-docker-clean
         - post-ws-clean
 
