@@ -17,7 +17,7 @@
     node: openswitch
     wrappers:
         - build-timeout:
-            timeout: 120
+            timeout: 180
     builders:
         - module-build-branch:
             module: 'ops-cli'
@@ -30,7 +30,7 @@
     node: vsi
     wrappers:
         - build-timeout:
-            timeout: 120
+            timeout: 180
     builders:
         - module-build-branch:
             module: 'ops-cli'

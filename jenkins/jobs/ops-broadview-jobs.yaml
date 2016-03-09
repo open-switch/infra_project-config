@@ -21,7 +21,7 @@
     node: vsi
     wrappers:
         - build-timeout:
-            timeout: 120
+            timeout: 180
     builders:
         - module-build-branch:
             module: 'ops-broadview'
@@ -39,7 +39,7 @@
     node: vsi
     wrappers:
         - build-timeout:
-            timeout: 120
+            timeout: 180
     builders:
         - module-build-branch:
             module: 'ops-broadview'

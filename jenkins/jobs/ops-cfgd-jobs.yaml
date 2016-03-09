@@ -20,7 +20,7 @@
 
     wrappers:
         - build-timeout:
-            timeout: 120
+            timeout: 180
 
     builders:
         - module-build-branch:
@@ -35,7 +35,7 @@
 
     wrappers:
         - build-timeout:
-            timeout: 120
+            timeout: 180
 
     builders:
         - module-build-branch:

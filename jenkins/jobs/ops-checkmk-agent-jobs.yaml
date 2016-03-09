@@ -3,7 +3,7 @@
     node: openswitch
     wrappers:
         - build-timeout:
-            timeout: 100
+            timeout: 120
     builders:
         - revoke-sudo
         - module-build-branch:
@@ -17,7 +17,7 @@
     node: openswitch
     wrappers:
         - build-timeout:
-            timeout: 120
+            timeout: 180
 
     builders:
         - module-build-branch:
