@@ -278,6 +278,24 @@
            fi
 
 - builder:
+    name: copy-autotestJunitResults
+    builders:
+      - conditional-step:
+          condition-kind: and
+          condition-operand:
+          condition-kind: file-exists
+          condition-filename: build/feature-test-results.xml
+          condition-basedir: workspace
+          steps:
+            - shell: |
+                 VERSION_STRING=$(cat .version_string)
+                 mkdir -p genericx86-64_autotestJunitResults
+                 cp build/feature-test-results.xml genericx86-64_autotestJunitResults/
+                 echo https://jenkins.openswitch.net/job/ops-periodic-genericx86-64/${BUILD_NUMBER}/testReport/ > genericx86-64_autotestJunitResults/README.txt
+                 cp -rf genericx86-64_autotestJunitResults $TYPE/$VERSION_STRING/
+
+
+- builder:
     name: module-cttest
     builders:
       - shell: |
