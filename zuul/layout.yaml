@@ -528,6 +528,13 @@ projects:
         module: ops-switchd-opennsl-plugin
         platform: as5712
 
+  - name: openswitch/ops-switchd-xpliant-plugin
+    template:
+      - name: merge-check
+      - name: module-build
+        module: ops-switchd-xpliant-plugin
+        platform: genericx86-64
+
   - name: openswitch/ops-p4factory
     template:
       - name: merge-check
