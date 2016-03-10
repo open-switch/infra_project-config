@@ -291,7 +291,9 @@
                  VERSION_STRING=$(cat .version_string)
                  mkdir -p genericx86-64_autotestJunitResults
                  cp build/feature-test-results.xml genericx86-64_autotestJunitResults/
-                 echo https://jenkins.openswitch.net/job/ops-periodic-genericx86-64/${BUILD_NUMBER}/testReport/ > genericx86-64_autotestJunitResults/README.txt
+                 echo "<html>" > genericx86-64_autotestJunitResults/Readme.html
+                 echo "<a href="${BUILD_URL}/${BUILD_NUMBER}/testReport/">${BUILD_URL}/${BUILD_NUMBER/testReport/</a>" >> genericx86-64_autotestJunitResults/Readme.html
+                 echo "</html>" >> genericx86-64_autotestJunitResults/Readme.html
                  cp -rf genericx86-64_autotestJunitResults $TYPE/$VERSION_STRING/
 
 
