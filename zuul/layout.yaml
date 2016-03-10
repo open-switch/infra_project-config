@@ -311,6 +311,7 @@ projects:
     periodic:
       - ops-periodic-genericx86-64
       - ops-periodic-as5712
+      - ops-periodic-as6712
       - ops-periodic-appliance
 
   - name: openswitch/ops-sysd
