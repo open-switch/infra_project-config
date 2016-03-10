@@ -431,3 +431,12 @@
         - genericx86-64
       jobs:
           - 'ops-passwd-srv-jobs'
+
+  - project:
+      name: openswitch/ops-stpd
+      node: 'openswitch'
+      platform:
+        - genericx86-64
+        - as5712
+      jobs:
+        - 'ops-stpd-jobs'

@@ -1,0 +1,54 @@
+- job-template:
+    name: 'ops-stpd-check-{platform}'
+    node: openswitch
+    wrappers:
+        - build-timeout:
+            timeout: 120
+    builders:
+        - revoke-sudo
+        - module-build-branch:
+            module: 'ops-stpd'
+            platform: '{platform}'
+    publishers:
+        - post-ws-clean
+
+- job:
+    name: 'ops-stpd-gate-as5712'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 180
+
+    builders:
+        - module-build-branch:
+            module: 'ops-stpd'
+            platform: 'as5712'
+    publishers:
+        - post-ws-clean
+
+- job:
+    name: 'ops-stpd-gate-genericx86-64'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 180
+
+    builders:
+        - module-build-branch:
+            module: 'ops-stpd'
+            platform: 'genericx86-64'
+        - module-cttest:
+            module: 'ops-stpd'
+            platform: 'genericx86-64'
+
+    publishers:
+        - conditional-junit
+        - post-docker-clean
+        - post-ws-clean
+
+- job-group:
+    name: 'ops-stpd-jobs'
+    jobs:
+      - 'ops-stpd-check-{platform}'
