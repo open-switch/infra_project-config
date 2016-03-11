@@ -288,7 +288,7 @@
           condition-basedir: workspace
           steps:
             - shell: |
-                 VERSION_STRING=$(cat .version_string)
+                 VERSION_STRING=ops-$BRANCH-$(cat .version_string)
                  mkdir -p genericx86-64_autotestJunitResults
                  cp build/feature-test-results.xml genericx86-64_autotestJunitResults/
                  echo "<html>" > genericx86-64_autotestJunitResults/Readme.html
