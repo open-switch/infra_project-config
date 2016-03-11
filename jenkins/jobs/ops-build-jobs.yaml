@@ -125,7 +125,8 @@
         - shared-states
         - download-caches
         - create-periodic-build-image
-        - create-build-artifacts
+        - create-build-artifacts:
+            branch: 'master'
         - fttest-for-image:
             platform: '{platform}'
         - copy-autotestJunitResults
@@ -183,7 +184,8 @@
         - shared-states
         - download-caches
         - create-periodic-build-image
-        - create-build-artifacts
+        - create-build-artifacts:
+            branch: 'release'
         - cp-opsTest-results
 
     publishers:
@@ -238,7 +240,8 @@
         - shared-states
         - download-caches
         - create-periodic-build-image
-        - create-build-artifacts
+        - create-build-artifacts:
+            branch: 'release'
         - cp-opsTest-results
 
     publishers:
