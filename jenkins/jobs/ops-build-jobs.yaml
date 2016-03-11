@@ -103,6 +103,7 @@
       - inject:
           properties-content: |
             TYPE=periodic/master
+            BRANCH=master
     wrappers:
         - build-timeout:
             timeout: 120
@@ -125,8 +126,7 @@
         - shared-states
         - download-caches
         - create-periodic-build-image
-        - create-build-artifacts:
-            branch: 'master'
+        - create-build-artifacts
         - fttest-for-image:
             platform: '{platform}'
         - copy-autotestJunitResults
@@ -160,6 +160,7 @@
       - inject:
           properties-content: |
             TYPE=periodic/release
+            BRANCH=release
 
     wrappers:
         - build-timeout:
@@ -184,8 +185,7 @@
         - shared-states
         - download-caches
         - create-periodic-build-image
-        - create-build-artifacts:
-            branch: 'release'
+        - create-build-artifacts
         - cp-opsTest-results
 
     publishers:
@@ -216,6 +216,7 @@
       - inject:
           properties-content: |
             TYPE=periodic/release
+            BRANCH=release
 
     wrappers:
         - build-timeout:
@@ -240,8 +241,7 @@
         - shared-states
         - download-caches
         - create-periodic-build-image
-        - create-build-artifacts:
-            branch: 'release'
+        - create-build-artifacts
         - cp-opsTest-results
 
     publishers:

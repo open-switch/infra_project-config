@@ -634,7 +634,7 @@
     builders:
       - shell: |
           #!/bin/bash -x
-          VERSION_STRING=ops-{branch}-$(cat .version_string)
+          VERSION_STRING=ops-$BRANCH-$(cat .version_string)
           PLATFORM=$(cat .platform)
           rm -Rf $TYPE
           mkdir -p $TYPE/$VERSION_STRING/$PLATFORM
