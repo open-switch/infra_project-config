@@ -234,6 +234,13 @@ jobs:
       - project: ^openswitch/
         branch: ^feature/
 
+jobs:
+  - name: ^ops-.*gate.*$
+    skip-if:
+      - project: ^openswitch/ops$
+        all-files-match-any:
+          - ^.*\.md
+
   - name: ops-check-as5712
     files:
       - ^yocto/openswitch/meta-platform-openswitch-as5712/.*$
@@ -664,6 +671,7 @@ projects:
       - ops-check
     gate:
       - ops-gate
+      - md-gate
 
   - name: openswitch/ops-checkmk-agent
     template:
