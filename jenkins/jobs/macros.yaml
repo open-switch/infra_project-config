@@ -63,7 +63,21 @@
           cd build
           BUILD_VERSION=$(../yocto/poky/bitbake/bin/bitbake -e | grep DISTRO_VERSION= | cut -d\" -f 2)
           cd ..
-          echo "$BUILD_VERSION+$BUILD_NUMBER" > .version_string
+          echo "ops-$BRANCH-$BUILD_VERSION+$BUILD_NUMBER" > .version_string
+          make
+
+- builder:
+    name: ops-build-tag
+    builders:
+      - shell: |
+          #!/bin/bash -x
+          make configure {platform}
+          BUILD_NUMBER=$(date -u +"%Y%m%d%H")
+          make header
+          mkdir -p /mnt/jenkins/workspace/sstate-cache
+          rm -Rf build/sstate-cache
+          ln -sf /mnt/jenkins/workspace/sstate-cache build/sstate-cache
+          echo "ops-$BRANCH-$tag_v" > .version_string
           make
 
 - builder:
@@ -627,24 +641,12 @@
           make
 
 - builder:
-    name: create-tag-build-image
-
-    builders:
-      - shell: |
-          #!/bin/bash -x
-          echo $tag_v > .version_string
-          VERSION_STRING=$(cat .version_string)
-          echo "BUILD_ID=\"$tag_v\"" > build/build_info.conf
-          make changelog_manifest
-          make
-
-- builder:
     name: create-build-artifacts
 
     builders:
       - shell: |
           #!/bin/bash -x
-          VERSION_STRING=ops-$BRANCH-$(cat .version_string)
+          VERSION_STRING=$(cat .version_string)
           PLATFORM=$(cat .platform)
           rm -Rf $TYPE
           mkdir -p $TYPE/$VERSION_STRING/$PLATFORM

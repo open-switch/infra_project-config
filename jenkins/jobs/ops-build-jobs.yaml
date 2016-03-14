@@ -274,12 +274,12 @@
         - shell: |
             # Hack to enable webui on the periodic builds until we create a reliable recipe for it
             sed -i -e 's/lighttpd/ops-webui/' yocto/openswitch/meta-distro-openswitch/recipes-core/packagegroups/packagegroup-openswitch.bb
-        - ops-build:
+        - ops-build-tag:
             platform: 'as5712'
         - ops-meta-ide
         - shared-states
         - download-caches
-        - create-tag-build-image
+        - create-periodic-build-image
         - create-build-artifacts
         - scp-artifacts
 
@@ -322,12 +322,12 @@
         - shell: |
             # Hack to enable webui on the periodic builds until we create a reliable recipe for it
             sed -i -e 's/lighttpd/ops-webui/' yocto/openswitch/meta-distro-openswitch/recipes-core/packagegroups/packagegroup-openswitch.bb
-        - ops-build:
+        - ops-build-tag:
             platform: 'genericx86-64'
         - ops-meta-ide
         - shared-states
         - download-caches
-        - create-tag-build-image
+        - create-periodic-build-image
         - create-build-artifacts
         - scp-artifacts
         - fttest-for-image:
