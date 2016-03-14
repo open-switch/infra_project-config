@@ -127,15 +127,6 @@
 - project: openswitch/ops-ntpd
   description: OpenSwitch Network Time Protocol(NTP) Daemon
 
-- project: openswitch/ops-p4factory
-  description: OpenSwitch port of P4 behavioral model daemon
-
-- project: openswitch/ops-p4dp
-  description: OpenSwitch port of P4 dataplane simulator
-
-- project: openswitch/ops-p4c
-  description: OpenSwitch P4 compiler
-
 - project: openswitch/ops-switchd-p4switch-plugin
   description: OpenSwitch P4 switch OVS plugin
 
