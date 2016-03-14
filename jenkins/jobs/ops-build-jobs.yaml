@@ -277,8 +277,6 @@
         - ops-build:
             platform: 'as5712'
         - ops-meta-ide
-        - fttest-for-image:
-            platform: 'as5712'
         - shared-states
         - download-caches
         - create-tag-build-image
@@ -327,8 +325,6 @@
         - ops-build:
             platform: 'genericx86-64'
         - ops-meta-ide
-        - fttest-for-image:
-            platform: 'genericx86-64'
         - shared-states
         - download-caches
         - create-tag-build-image
