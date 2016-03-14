@@ -627,6 +627,18 @@
           make
 
 - builder:
+    name: create-tag-build-image
+
+    builders:
+      - shell: |
+          #!/bin/bash -x
+          echo $tag_v > .version_string
+          VERSION_STRING=$(cat .version_string)
+          echo "BUILD_ID=\"$tag_v\"" > build/build_info.conf
+          make changelog_manifest
+          make
+
+- builder:
     name: create-build-artifacts
 
     builders:
@@ -652,6 +664,28 @@
       - shell: |
           rm -rf opsTest-results
           cp -rf /tmp/opsTest-results/. opsTest-results || true
+
+- builder:
+    name: scp-artifacts
+    builders:
+      - shell: |
+          VERSION_STRING=ops-$BRANCH-$(cat .version_string)
+          cd $TYPE; scp -r $VERSION_STRING static.openswitch.net:/srv/static/archive/artifacts/$TYPE/.
+
+- builder:
+    name: scp-artifacts-junit
+    builders:
+      - conditional-step:
+          condition-kind: file-exists
+          condition-filename: build/feature-test-results.xml
+          on-evaluation-failure: dont-run
+          steps:
+             - shell: |
+                 VERSION_STRING=ops-$BRANCH-$(cat .version_string)
+                 mkdir -p genericx86-64_autotestJunitResults
+                 cp build/feature-test-results.xml genericx86-64_autotestJunitResults/
+                 echo ${BUILD_URL}/${BUILD_NUMBER/testReport/ > genericx86-64_autotestJunitResults/Readme.txt
+                 scp -r genericx86-64_autotestJunitResults static.openswitch.net:/srv/static/archive/artifacts/$TYPE/$VERSION_STRING/.
 
 - builder:
     name: coverage

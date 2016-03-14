@@ -127,19 +127,13 @@
         - download-caches
         - create-periodic-build-image
         - create-build-artifacts
+        - scp-artifacts
         - fttest-for-image:
             platform: '{platform}'
-        - copy-autotestJunitResults
+        - scp-artifacts-junit
         - cp-opsTest-results
 
     publishers:
-        - scp:
-            site: static.openswitch.net
-            files:
-              - target: 'archive/artifacts'
-                source: 'periodic/**/*'
-                copy-after-failure: false
-                keep-hierarchy: true
         - conditional-junit
         - post-docker-clean
         - publish-opsTest-results
@@ -186,16 +180,9 @@
         - download-caches
         - create-periodic-build-image
         - create-build-artifacts
-        - cp-opsTest-results
+        - scp-artifacts
 
     publishers:
-        - scp:
-            site: static.openswitch.net
-            files:
-              - target: 'archive/artifacts'
-                source: 'periodic/**/*'
-                copy-after-failure: false
-                keep-hierarchy: true
         - conditional-junit
         - post-docker-clean
         - publish-opsTest-results
@@ -242,22 +229,122 @@
         - download-caches
         - create-periodic-build-image
         - create-build-artifacts
+        - scp-artifacts
+        - fttest-for-image:
+            platform: 'genericx86-64'
+        - scp-artifacts-junit
         - cp-opsTest-results
 
     publishers:
-        - scp:
-            site: static.openswitch.net
-            files:
-              - target: 'archive/artifacts'
-                source: 'periodic/**/*'
-                copy-after-failure: false
-                keep-hierarchy: true
         - conditional-junit
         - post-docker-clean
         - publish-opsTest-results
         - mail-on-fail:
              email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
 
+
+- job:
+    name: 'ops-tag-as5712'
+    node: vsi
+    parameters:
+      - string:
+          name: tag_v
+    scm:
+      - git:
+          url: http://git.openswitch.net/openswitch/ops-build
+          Refspec: +refs/heads/*:refs/remotes/origin/*
+          branches:
+            - refs/tags/$tag_v
+
+    properties:
+      - inject:
+          properties-content: |
+            TYPE=release
+            BRANCH=release
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - ssh-agent-credentials:
+              users:
+                  - '0f99f00f-a5c0-460d-97b5-9b3dbdfd0773'
+                  - 'ffc18805-a3da-4771-918a-eaaa6a1a0c70'
+
+    builders:
+        - shell: |
+            # Hack to enable webui on the periodic builds until we create a reliable recipe for it
+            sed -i -e 's/lighttpd/ops-webui/' yocto/openswitch/meta-distro-openswitch/recipes-core/packagegroups/packagegroup-openswitch.bb
+        - ops-build:
+            platform: 'as5712'
+        - ops-meta-ide
+        - fttest-for-image:
+            platform: 'as5712'
+        - shared-states
+        - download-caches
+        - create-tag-build-image
+        - create-build-artifacts
+        - scp-artifacts
+
+    publishers:
+        - conditional-junit
+        - post-docker-clean
+        - publish-opsTest-results
+        - mail-on-fail:
+             email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
+
+
+- job:
+    name: 'ops-tag-genericx86-64'
+    node: vsi
+    parameters:
+      - string:
+          name: tag_v
+    scm:
+      - git:
+          url: http://git.openswitch.net/openswitch/ops-build
+          Refspec: +refs/heads/*:refs/remotes/origin/*
+          branches:
+            - refs/tags/$tag_v
+
+    properties:
+      - inject:
+          properties-content: |
+            TYPE=release
+            BRANCH=release
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - ssh-agent-credentials:
+              users:
+                  - '0f99f00f-a5c0-460d-97b5-9b3dbdfd0773'
+                  - 'ffc18805-a3da-4771-918a-eaaa6a1a0c70'
+
+    builders:
+        - shell: |
+            # Hack to enable webui on the periodic builds until we create a reliable recipe for it
+            sed -i -e 's/lighttpd/ops-webui/' yocto/openswitch/meta-distro-openswitch/recipes-core/packagegroups/packagegroup-openswitch.bb
+        - ops-build:
+            platform: 'genericx86-64'
+        - ops-meta-ide
+        - fttest-for-image:
+            platform: 'genericx86-64'
+        - shared-states
+        - download-caches
+        - create-tag-build-image
+        - create-build-artifacts
+        - scp-artifacts
+        - fttest-for-image:
+            platform: 'genericx86-64'
+        - scp-artifacts-junit
+        - cp-opsTest-results
+
+    publishers:
+        - conditional-junit
+        - post-docker-clean
+        - publish-opsTest-results
+        - mail-on-fail:
+             email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
 
 - job-group:
     name: 'ops-default-builds'
@@ -269,3 +356,5 @@
       - 'ops-periodic-{platform}'
       - 'ops-release-as5712'
       - 'ops-release-genericx86-64'
+      - 'ops-tag-as5712'
+      - 'ops-tag-genericx86-64'
