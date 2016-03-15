@@ -747,3 +747,14 @@ projects:
       - name: module-build
         module: ops-stpd
         platform: as5712
+
+  - name: openswitch/ops-snmpd
+    template:
+      - name: merge-check
+      - name: module-build
+        module: ops-snmpd
+        platform: genericx86-64
+      - name: module-build
+        module: ops-snmpd
+        platform: as5712
+

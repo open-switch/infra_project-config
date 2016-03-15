@@ -211,3 +211,7 @@
 #Checkmk-agent
 - project: openswitch/ops-checkmk-agent
   description: Check_mk Agent
+
+#SNMP
+- project: openswitch/ops-snmpd
+  description: OpenSwitch SNMP service daemon
