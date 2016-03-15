@@ -14,7 +14,7 @@
 
 - job:
     name: 'ops-sysd-gate-as5712'
-    node: sysd
+    node: sysd-vsi
 
     wrappers:
         - build-timeout:
