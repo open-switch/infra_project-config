@@ -302,7 +302,7 @@
           condition-basedir: workspace
           steps:
             - shell: |
-                 VERSION_STRING=ops-$BRANCH-$(cat .version_string)
+                 VERSION_STRING=$(cat .version_string)
                  mkdir -p genericx86-64_autotestJunitResults
                  cp build/feature-test-results.xml genericx86-64_autotestJunitResults/
                  echo ${BUILD_URL}/${BUILD_NUMBER/testReport/ > genericx86-64_autotestJunitResults/Readme.txt
@@ -671,7 +671,7 @@
     name: scp-artifacts
     builders:
       - shell: |
-          VERSION_STRING=ops-$BRANCH-$(cat .version_string)
+          VERSION_STRING=$(cat .version_string)
           cd $TYPE; scp -r $VERSION_STRING static.openswitch.net:/srv/static/archive/artifacts/$TYPE/.
 
 - builder:
@@ -683,7 +683,7 @@
           on-evaluation-failure: dont-run
           steps:
              - shell: |
-                 VERSION_STRING=ops-$BRANCH-$(cat .version_string)
+                 VERSION_STRING=$(cat .version_string)
                  mkdir -p genericx86-64_autotestJunitResults
                  cp build/feature-test-results.xml genericx86-64_autotestJunitResults/
                  echo ${BUILD_URL}/${BUILD_NUMBER/testReport/ > genericx86-64_autotestJunitResults/Readme.txt
