@@ -321,6 +321,8 @@
              OPS_BRANCH=master
            fi
            rm -rf build/*-test-results.xml
+           # clear test execution logs from previous run
+           rm -rf /tmp/opsTest-results/
            cd src/{module}
            cat extension.txt
            if [ {platform} == "genericx86-64" ]
@@ -1532,6 +1534,16 @@
 - publisher:
     name: post-docker-clean
     publishers:
+      # Publish logs from tests if it is present
+      - conditional-publisher:
+          - condition-kind: shell
+            condition-command: ls /tmp/opsTest-results > /dev/null
+            on-evaluation-failure: dont-run
+            action:
+                - archive:
+                    artifacts: '/tmp/opsTest-results/**/*.log'
+                    allow-empty: 'true'
+                    fingerprint: 'true'
       - postbuildscript:
           builders:
             - shell: |
