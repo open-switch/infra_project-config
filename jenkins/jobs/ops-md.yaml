@@ -1,0 +1,9 @@
+
+- job:
+    name: 'md-gate'
+    node: openswitch
+
+    builders:
+        - shell: |
+            ls
+
