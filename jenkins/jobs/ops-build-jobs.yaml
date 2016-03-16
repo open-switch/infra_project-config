@@ -106,7 +106,7 @@
             BRANCH=master
     wrappers:
         - build-timeout:
-            timeout: 120
+            timeout: 180
         - ssh-agent-credentials:
               users:
                   - '0f99f00f-a5c0-460d-97b5-9b3dbdfd0773'
@@ -207,7 +207,7 @@
 
     wrappers:
         - build-timeout:
-            timeout: 120
+            timeout: 180
         - ssh-agent-credentials:
               users:
                   - '0f99f00f-a5c0-460d-97b5-9b3dbdfd0773'
@@ -312,7 +312,7 @@
 
     wrappers:
         - build-timeout:
-            timeout: 120
+            timeout: 180
         - ssh-agent-credentials:
               users:
                   - '0f99f00f-a5c0-460d-97b5-9b3dbdfd0773'
