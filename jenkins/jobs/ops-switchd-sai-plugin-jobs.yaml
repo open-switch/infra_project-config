@@ -1,0 +1,35 @@
+- job-template:
+    name: 'ops-switchd-sai-plugin-check-{platform}'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+    publishers:
+        - post-ws-clean
+
+- job-template:
+    name: 'ops-switchd-sai-plugin-gate-{platform}'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+    publishers:
+        - post-ws-clean
+
+- job-group:
+    name: 'ops-switchd-sai-plugin-jobs'
+    jobs:
+        - 'ops-switchd-sai-plugin-check-{platform}'
+        - 'ops-switchd-sai-plugin-gate-{platform}'

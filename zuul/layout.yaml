@@ -543,6 +543,13 @@ projects:
         module: ops-switchd-p4switch-plugin
         platform: genericx86-64
 
+  - name: openswitch/ops-switchd-sai-plugin
+    template:
+      - name: merge-check
+      - name: module-build
+        module: ops-switchd-sai-plugin
+        platform: genericx86-64
+
   - name: openswitch/ops-pmd
     template:
       - name: merge-check
