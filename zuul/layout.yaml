@@ -315,11 +315,14 @@ projects:
         platform: as5712
       - name: ops-build
         platform: as6712
+      - name: ops-build
+        platform: p4
     periodic:
       - ops-periodic-genericx86-64
       - ops-periodic-as5712
       - ops-periodic-as6712
       - ops-periodic-appliance
+      - ops-periodic-p4
 
   - name: openswitch/ops-sysd
     template:
