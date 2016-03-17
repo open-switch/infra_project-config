@@ -60,7 +60,6 @@
           else
               make configure {platform}
           fi
-          make configure {platform}
           BUILD_NUMBER=$(date -u +"%Y%m%d%H")
           make header
           mkdir -p /mnt/jenkins/workspace/sstate-cache
