@@ -248,6 +248,14 @@
         - 'ops-switchd-p4switch-plugin-jobs'
 
   - project:
+      name: openswitch/ops-switchd-sai-plugin
+      node: 'openswitch'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'ops-switchd-sai-plugin-jobs'
+
+  - project:
       name: openswitch/ops-pmd
       node: 'openswitch'
       platform:
