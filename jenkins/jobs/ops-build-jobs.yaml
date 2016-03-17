@@ -189,7 +189,7 @@
         - mail-on-fail:
              email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
 
-- job-template:
+- job:
     name: 'ops-periodic-p4'
     node: vsi
     properties:
