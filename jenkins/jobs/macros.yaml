@@ -321,9 +321,6 @@
              OPS_BRANCH=master
            fi
            rm -rf build/*-test-results.xml
-           # clear test execution logs from previous run
-           sudo chown -R jenkins.jenkins /tmp/opsTest-results
-           sudo rm -rf /tmp/opsTest-results/
            cd src/{module}
            cat extension.txt
            if [ {platform} == "genericx86-64" ]
