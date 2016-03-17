@@ -189,6 +189,50 @@
         - mail-on-fail:
              email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
 
+- job-template:
+    name: 'ops-periodic-p4'
+    node: vsi
+    properties:
+      - inject:
+          properties-content: |
+            TYPE=periodic/master
+            BRANCH=master
+    wrappers:
+        - build-timeout:
+            timeout: 180
+        - ssh-agent-credentials:
+              users:
+                  - '0f99f00f-a5c0-460d-97b5-9b3dbdfd0773'
+                  - 'ffc18805-a3da-4771-918a-eaaa6a1a0c70'
+                  - 'cac4b49c-deb6-4254-b092-c687ecc95fdb'
+
+    builders:
+        - ops-distclean
+        - branch-git-prep:
+            branch: master
+        - shell: |
+            # Hack to enable webui on the periodic builds until we create a reliable recipe for it
+            sed -i -e 's/lighttpd/ops-webui/' yocto/openswitch/meta-distro-openswitch/recipes-core/packagegroups/packagegroup-openswitch.bb
+        - ops-build:
+            platform: 'p4'
+        - ops-meta-ide
+        - shared-states
+        - download-caches
+        - create-periodic-build-image
+        - create-build-artifacts
+        - scp-artifacts
+        - fttest-for-image:
+            platform: 'p4'
+        - scp-artifacts-junit
+        - cp-opsTest-results
+
+    publishers:
+        - conditional-junit
+        - post-docker-clean
+        - publish-opsTest-results
+        - mail-on-fail:
+             email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
+
 - job:
     name: 'ops-release-genericx86-64'
     node: vsi
