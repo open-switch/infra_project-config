@@ -234,7 +234,6 @@ jobs:
       - project: ^openswitch/
         branch: ^feature/
 
-jobs:
   - name: ^ops-.*gate.*$
     skip-if:
       - project: ^openswitch/ops$
