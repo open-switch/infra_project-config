@@ -24,7 +24,7 @@
           colormap: xterm
 
     logrotate:
-      daysToKeep: 15
-      numToKeep: 1000
+      daysToKeep: 30
+      numToKeep: 2000
       artifactDaysToKeep: -1
       artifactNumToKeep: -1
