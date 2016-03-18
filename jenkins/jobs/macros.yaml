@@ -472,6 +472,21 @@
            fi
 
 - builder:
+    name: topology_test
+    builders:
+      - shell: |
+           #!/bin/bash -x
+           set -e
+           if [ {platform} == "genericx86-64" ]
+           then
+             cd $WORKSPACE
+             make testenv_init
+             make testenv_run {test} {module}
+           else
+             echo "Skipping topology test component because of one of reasons: 1. Not a genericx86-64 platform; 2. Commit files are all in .md extension"
+           fi
+
+- builder:
     name: jekyll-build
     builders:
       - shell: |
@@ -1592,6 +1607,18 @@
             - aborted: true
             - failure: true
          fail-build: false
+
+- publisher:
+    name: publish-topologyTest-results
+    publishers:
+      - conditional-publisher:
+          - condition-kind: shell
+            condition-command: test -f builds/tests/{test}/test-results.xml
+            on-evaluation-failure: dont-run
+            action:
+                - archive:
+                    artifacts: 'builds/tests/{test}/test-results.xml'
+                    allow-empty: 'true'
 
 - publisher:
     name: publish-opsTest-results
