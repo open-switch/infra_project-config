@@ -1586,9 +1586,9 @@
             - "*.*"
             - "*"
          clean-if:
-            - success: false
-            - unstable: false
-            - not-built: false
+            - success: true
+            - unstable: true
+            - not-built: true
             - aborted: true
             - failure: true
          fail-build: false
