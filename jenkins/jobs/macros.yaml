@@ -316,7 +316,7 @@
                  VERSION_STRING=$(cat .version_string)
                  mkdir -p genericx86-64_autotestJunitResults
                  cp build/feature-test-results.xml genericx86-64_autotestJunitResults/
-                 echo ${BUILD_URL}/${BUILD_NUMBER/testReport/ > genericx86-64_autotestJunitResults/Readme.txt
+                 echo ${BUILD_URL}/${BUILD_NUMBER}/testReport/ > genericx86-64_autotestJunitResults/Readme.txt
                  cp -rf genericx86-64_autotestJunitResults $TYPE/$VERSION_STRING/
 
 - builder:
