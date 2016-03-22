@@ -1559,15 +1559,6 @@
     name: post-docker-clean
     publishers:
       # Publish logs from tests if it is present
-      - conditional-publisher:
-          - condition-kind: shell
-            condition-command: ls /tmp/opsTest-results > /dev/null
-            on-evaluation-failure: dont-run
-            action:
-                - archive:
-                    artifacts: '/tmp/opsTest-results/**/*.log'
-                    allow-empty: 'true'
-                    fingerprint: 'true'
       - postbuildscript:
           builders:
             - shell: |
