@@ -326,6 +326,8 @@
           #!/bin/bash -x
           # Clone and build the $COV_MODULE repo with coverage flags
           # Currently this is hardcoded to use the $COV_MODULE repo and the $COV_BRANCH branch
+          COV_MODULE={module}
+          COV_BRANCH=master
           rm -fr .[^.]* *
           # Clone OpenSwitch
           git clone -b master https://git.openswitch.net/openswitch/ops-build .
