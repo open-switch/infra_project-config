@@ -1,0 +1,63 @@
+- job-template:
+    name: 'ops-snmpd-check-{platform}'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build-branch:
+            module: 'ops-snmpd'
+            platform: '{platform}'
+    publishers:
+        - post-ws-clean
+
+- job:
+    name: 'ops-snmpd-gate-as5712'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 180
+        - timestamps
+        - ansicolor
+
+    builders:
+        - module-build-branch:
+            module: 'ops-snmpd'
+            platform: 'as5712'
+    publishers:
+        - post-ws-clean
+
+- job:
+    name: 'ops-snmpd-gate-genericx86-64'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 180
+        - timestamps
+        - ansicolor
+
+    builders:
+        - module-build-branch:
+            module: 'ops-snmpd'
+            platform: 'genericx86-64'
+        - module-cttest:
+            module: 'ops-snmpd'
+            platform: 'genericx86-64'
+    publishers:
+        - conditional-junit
+        - post-docker-clean
+        - post-ws-clean
+
+
+- job-group:
+    name: 'ops-snmpd-jobs'
+    jobs:
+      - 'ops-snmpd-check-{platform}'
+

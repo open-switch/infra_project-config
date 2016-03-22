@@ -424,3 +424,12 @@
         - as5712
       jobs:
         - 'ops-stpd-jobs'
+
+  - project:
+      name: openswitch/ops-snmpd
+      node: 'openswitch'
+      platform:
+        - genericx86-64
+        - as5712
+      jobs:
+        - 'ops-snmpd-jobs'
