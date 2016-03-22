@@ -1765,7 +1765,18 @@
             action:
                 - junit:
                     results: 'build/*test*.xml'
-
+- publisher:
+    name: conditional-htmlreports
+    publishers:
+      - conditional-publisher:
+          - condition-kind: shell
+            condition-command: ls coverage/html/index.html
+            on-evaluation-failure: dont-run
+            action:
+                - html-publisher:
+                    name: "Code Coverage Report"
+                    dir: "coverage/html"
+                    files: "index.html"
 - publisher:
     name: conditional-image-junit-to-archive
     publishers:

@@ -15,7 +15,6 @@
 - job:
     name: 'ops-lacpd-gate-as5712'
     node: openswitch
-
     wrappers:
         - build-timeout:
             timeout: 180
@@ -30,11 +29,14 @@
 - job:
     name: 'ops-lacpd-gate-genericx86-64'
     node: vsi
-
+    properties:
+      - inject:
+          properties-content: |
+            COV_MODULE=ops-lacpd
+            COV_BRANCH=feature/code_cov
     wrappers:
         - build-timeout:
             timeout: 180
-
     builders:
         - module-build-branch:
             module: 'ops-lacpd'
@@ -42,9 +44,11 @@
         - module-cttest:
             module: 'ops-lacpd'
             platform: 'genericx86-64'
-
+        - lcov-compile
+        - lcov-coverage-run
     publishers:
         - conditional-junit
+        - conditional-htmlreports
         - post-docker-clean
         - post-ws-clean
 
