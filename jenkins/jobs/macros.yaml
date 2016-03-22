@@ -319,6 +319,137 @@
                  echo ${BUILD_URL}/${BUILD_NUMBER/testReport/ > genericx86-64_autotestJunitResults/Readme.txt
                  cp -rf genericx86-64_autotestJunitResults $TYPE/$VERSION_STRING/
 
+- builder:
+    name: lcov-compile
+    builders:
+      - shell: |
+          #!/bin/bash -x
+          # Clone and build the $COV_MODULE repo with coverage flags
+          # Currently this is hardcoded to use the $COV_MODULE repo and the $COV_BRANCH branch
+          rm -fr .[^.]* *
+          # Clone OpenSwitch
+          git clone -b master https://git.openswitch.net/openswitch/ops-build .
+          # Setup the shared state local cache
+          export SSTATE_DIR=/mnt/jenkins/workspace/sstate-cache
+          mkdir -p /mnt/jenkins/workspace/sstate-cache
+          # Check if we need to configure
+          if [ ! -f .platform ] ; then
+            make configure genericx86-64
+          fi
+          # Clone the module under test
+          rm -rf src/$COV_MODULE
+          git clone -b $COV_BRANCH http://git.openswitch.net/openswitch/$COV_MODULE src/$COV_MODULE
+          # Trigger building of some basic recipe to get the recipe environment working, since devtool is not that good yet...
+          make bake cmake-native
+          make devenv_import $COV_MODULE $PWD/src/$COV_MODULE
+          # Configure the Build System to build the module with the coverage flags. CMake only.
+          # TODO: Add support for Make based repos and for Python.
+          touch build/devenv-coverage-enabled
+          # Compile the module under test, it compiles with the coverage flags
+          make bake $COV_MODULE
+          # Clone the OPS repo for Feature Tests
+          rm -rf src/ops
+          git clone -b $COV_BRANCH https://git.openswitch.net/openswitch/ops src/ops
+
+- builder:
+    name: lcov-coverage-run
+    builders:
+      - shell: |
+          #!/bin/bash -x
+          # Configuration
+          COV_CONF_FILE="src/$COV_MODULE/ft_ct_coverage"        # Configuration file. If it exists then CT/FT coverage will be performed.
+          COV_MINIMUM=80                                        # Minimum default of coverage.
+          COV_REPORT_DIR="coverage"                             # Location where the coverage report data will be placed
+          COV_DATA_DIR="src/$COV_MODULE/"                       # Repo directory where coverage data will be stored (gcda && gcno)
+          # If the COV_CONF_FILE does not exist, do not continue, i.e no coverage enabled at the repo.
+          if [ -f $COV_CONF_FILE ]
+          then
+            make fs
+            make devenv_ct_init
+            # Export the location where the coverage data has to be placed (.gcda and .gcno files).
+            export VSI_COV_DATA_DIR=$PWD/$COV_DATA_DIR
+            DOCKER_IMAGE_NAME=`echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]'`
+            export VSI_IMAGE_NAME=$DOCKER_IMAGE_NAME
+            make export_docker_image $VSI_IMAGE_NAME
+            # Create coverage data baseline
+            rm -rf $COV_REPORT_DIR
+            mkdir -p $COV_REPORT_DIR
+            lcov --zerocounters --directory $COV_DATA_DIR       # Clear all coverage counters before running the tests
+            lcov --initial --capture --directory $COV_DATA_DIR --output-file $COV_REPORT_DIR/app_base.info
+            # Run the Component and Feature Tests
+            # TODO: Determine if tests can be run in parallel or must definitely be sequential (multiple Docker images may write to the same gcda concurrently)
+            # TODO: It has been configured to NOT exit on first failure. We want all tests to run to get most possible coverage.
+            make devenv_ct_test PY_TEST_ARGS="src/$COV_MODULE --junit-xml=build/component-test-results.xml"
+            # TODO: Enable FT
+            # make devenv_ct_test PY_TEST_ARGS="src/ops --junit-xml=build/feature-test-results.xml"
+            test -e .sandbox_uuid && make devenv_ct_clean
+            docker images | grep $VSI_IMAGE_NAME && docker rmi -f $VSI_IMAGE_NAME
+            # Stop debugging to make report output clearer
+            set +x
+            # Capture the coverage raw data
+            lcov --capture --directory $COV_DATA_DIR --output-file $COV_REPORT_DIR/app_test.info > /dev/null 2>&1
+            LCOV_COV_FILE="app_total.info"        # The file where the coverage data will be placed
+            # Read the configured minimum coverage percentage and exclude patterns from the repo conf file
+            # Configure exclude patterns using wildcars and separated by spaces, e.g to remove gtest and openvswitch files use:
+            # Exclude_pattern=*gtest* *openvswitch*
+            while read -r line
+            do
+                tmp=`echo "$line" | sed -rn 's/^Minimum_coverage=([0-9]+)$/\1/p'`
+                if [ ! -z "$tmp" ]
+                then
+                  COV_MINIMUM=$tmp
+                fi
+                tmp=`echo "$line" | sed -rn 's/^Exclude_pattern=(.*)$/\1/p'`
+                if [ ! -z "$tmp" ]
+                then
+                  COV_EXCLUDE_PATTERN=$tmp
+                fi
+              done < "$COV_CONF_FILE"
+              # Check if exclusion pattern is configured and apply it.
+              if [ ! -z "$COV_EXCLUDE_PATTERN" ]
+              then
+                echo "The configured FT/CT code coverage exclude pattern is: $COV_EXCLUDE_PATTERN"
+                echo "Going to exclude files from report:"
+                lcov --remove $COV_REPORT_DIR/app_base.info $COV_EXCLUDE_PATTERN --output-file $COV_REPORT_DIR/data_base.info
+                lcov --remove $COV_REPORT_DIR/app_test.info $COV_EXCLUDE_PATTERN --output-file $COV_REPORT_DIR/data_test.info
+                COV_RESULT=`lcov --add-tracefile $COV_REPORT_DIR/data_base.info --add-tracefile $COV_REPORT_DIR/data_test.info --output-file $COV_REPORT_DIR/$LCOV_COV_FILE`
+              else
+                COV_RESULT=`lcov --add-tracefile $COV_REPORT_DIR/app_base.info --add-tracefile $COV_REPORT_DIR/app_test.info --output-file $COV_REPORT_DIR/$LCOV_COV_FILE`
+              fi
+              echo "*** Going to merge baseline data with raw coverage data. ***"
+              echo "Coverage result after merging with baseline data:"
+              echo $COV_RESULT
+              # Get actual coverage from command output
+              COV_REPORTED=`echo "$COV_RESULT" | sed -rn 's/lines\.\.\.\.\.\.:[[:space:]]([[:digit:]]+).*/\1/p'`
+              if [ -z "$COV_REPORTED" ]
+              then
+                COV_REPORTED=0
+              fi
+              # Generate the HTML report
+              mkdir -p $COV_REPORT_DIR/html
+              cd $COV_REPORT_DIR/html
+              # TODO: Implement Branch Analysis
+              echo "Creating HTML report"
+              genhtml --no-branch-coverage ../$LCOV_COV_FILE > /dev/null 2>&1
+                cd ../..
+                echo ""
+                echo "**** Configuration and result info: ****"
+                echo ""
+                echo "The configured coverage threshold is: $COV_MINIMUM"
+                echo "The configured FT/CT code coverage exclude pattern is: $COV_EXCLUDE_PATTERN"
+                echo "The actual reported coverage is: $COV_REPORTED"
+                echo ""
+                if [ "$COV_MINIMUM" -gt "$COV_REPORTED" ]
+                then
+                  echo "The code does not have enough coverage"
+                  exit 1
+                else
+                  exit 0
+                fi
+              else
+                touch build/dummytest.xml
+                echo "Code coverage not enabled or unsupported platform, skipping..."
+              fi
 
 - builder:
     name: module-cttest
