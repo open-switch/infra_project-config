@@ -1,6 +1,6 @@
 - job-template:
     name: 'ops-cli-check-{platform}'
-    node: openswitch
+    node: vsi
     wrappers:
         - build-timeout:
             timeout: 120
@@ -9,7 +9,13 @@
         - module-build-branch:
             module: 'ops-cli'
             platform: '{platform}'
+        - topology_test:
+            platform: '{platform}'
+            test: 'component'
+            module: 'ops-cli'
     publishers:
+        - publish-topologyTest-results:
+           test: 'feature'
         - post-ws-clean
 
 - job:

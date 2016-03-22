@@ -1,24 +1,18 @@
 - job-template:
     name: 'ops-tempd-check-{platform}'
-    node: vsi
+    node: openswitch
 
     wrappers:
         - build-timeout:
             timeout: 120
 
     builders:
+        - revoke-sudo
         - module-build-branch:
             module: 'ops-tempd'
             platform: '{platform}'
-        - topology_test:
-            platform: '{platform}'
-            test: 'feature'
-            module: 'ops-tempd'
-
     publishers:
         - post-ws-clean
-        - publish-topologyTest-results:
-            test: 'feature'
 
 - job-template:
     name: 'ops-tempd-gate-{platform}'
