@@ -358,7 +358,7 @@
           #!/bin/bash -x
           # Configuration
           COV_CONF_FILE="src/$COV_MODULE/ft_ct_coverage"        # Configuration file. If it exists then CT/FT coverage will be performed.
-          COV_MINIMUM=80                                        # Minimum default of coverage.
+          COV_MINIMUM=-1                                        # Minimum default of coverage.
           COV_REPORT_DIR="coverage"                             # Location where the coverage report data will be placed
           COV_DATA_DIR="src/$COV_MODULE/"                       # Repo directory where coverage data will be stored (gcda && gcno)
           # If the COV_CONF_FILE does not exist, do not continue, i.e no coverage enabled at the repo.
