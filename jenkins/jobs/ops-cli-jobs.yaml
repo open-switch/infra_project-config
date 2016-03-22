@@ -5,7 +5,6 @@
         - build-timeout:
             timeout: 120
     builders:
-        - revoke-sudo
         - module-build-branch:
             module: 'ops-cli'
             platform: '{platform}'
