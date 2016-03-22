@@ -27,7 +27,13 @@
         - module-build-branch:
             module: 'ops-tempd'
             platform: '{platform}'
+        - lcov-compile:
+            module: 'ops-tempd'
+        - lcov-coverage-run:
+            module: 'ops-tempd'
     publishers:
+        - conditional-junit
+        - conditional-htmlreports
         - post-ws-clean
 
 - job-group:

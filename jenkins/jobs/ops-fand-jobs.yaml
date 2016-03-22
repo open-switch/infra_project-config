@@ -27,7 +27,13 @@
         - module-build-branch:
             module: 'ops-fand'
             platform: '{platform}'
+        - lcov-compile:
+            module: 'ops-fand'
+        - lcov-coverage-run:
+            module: 'ops-fand'
     publishers:
+        - conditional-junit
+        - conditional-htmlreports
         - post-ws-clean
 
 - job-group:

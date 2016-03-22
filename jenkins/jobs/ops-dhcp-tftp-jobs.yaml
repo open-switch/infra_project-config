@@ -42,9 +42,14 @@
         - module-cttest:
             module: 'ops-dhcp-tftp'
             platform: 'genericx86-64'
+        - lcov-compile:
+            module: 'ops-dhcp-tftp'
+        - lcov-coverage-run:
+            module: 'ops-dhcp-tftp'
 
     publishers:
         - conditional-junit
+        - conditional-htmlreports
         - post-docker-clean
         - post-ws-clean
 

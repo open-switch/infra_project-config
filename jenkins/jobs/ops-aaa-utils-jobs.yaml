@@ -45,8 +45,13 @@
         - module-cttest:
             module: 'ops-aaa-utils'
             platform: 'genericx86-64'
+        - lcov-compile:
+            module: 'ops-aaa-utils'
+        - lcov-coverage-run:
+            module: 'ops-aaa-utils'
     publishers:
         - conditional-junit
+        - conditional-htmlreports
         - post-docker-clean
         - post-ws-clean
 
