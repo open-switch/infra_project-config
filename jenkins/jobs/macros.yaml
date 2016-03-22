@@ -619,6 +619,22 @@
            fi
 
 - builder:
+    name: topology_test_rerun
+    builders:
+      - shell: |
+           #!/bin/bash -x
+           set -e
+           if [ {platform} == "genericx86-64" ]
+           then
+             echo "===================  Building Topology $test Tests from ops:$module =================== "
+             cd $WORKSPACE
+             make testenv_init
+             make testenv_rerun {test} {module}
+           else
+             echo "Skipping topology test component because of one of reasons: 1. Not a genericx86-64 platform; 2. Commit files are all in .md extension"
+           fi
+
+- builder:
     name: jekyll-build
     builders:
       - shell: |
