@@ -1,6 +1,6 @@
 - job-template:
     name: 'ops-tempd-check-{platform}'
-    node: openswitch
+    node: vsi
 
     wrappers:
         - build-timeout:

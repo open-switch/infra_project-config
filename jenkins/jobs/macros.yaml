@@ -479,6 +479,7 @@
            set -e
            if [ {platform} == "genericx86-64" ]
            then
+             echo "===================  Building Topology $test Tests from ops:$module =================== "
              cd $WORKSPACE
              make testenv_init
              make testenv_run {test} {module}
