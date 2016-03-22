@@ -7,7 +7,6 @@
             timeout: 120
 
     builders:
-        - revoke-sudo
         - module-build-branch:
             module: 'ops-tempd'
             platform: '{platform}'
