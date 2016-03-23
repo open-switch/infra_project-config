@@ -433,3 +433,12 @@
         - as5712
       jobs:
         - 'ops-snmpd-jobs'
+
+  - project:
+      name: openswitch/ops-vrfmgrd
+      node: 'openswitch'
+      platform:
+        - genericx86-64
+        - as5712
+      jobs:
+        - 'ops-vrfmgrd-jobs'

@@ -771,3 +771,13 @@ projects:
         module: ops-snmpd
         platform: as5712
 
+  - name: openswitch/ops-vrfmgrd
+    template:
+      - name: merge-check
+      - name: module-build
+        module: ops-vrfmgrd
+        platform: genericx86-64
+      - name: module-build
+        module: ops-vrfmgrd
+        platform: as5712
+

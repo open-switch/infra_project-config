@@ -177,6 +177,9 @@
 - project: openswitch/ops-portd
   description: OpenSwitch Port Manager Daemon
 
+- project: openswitch/ops-vrfmgrd
+  description: OpenSwitch VRF Manager Daemon
+
 # Connectivity Deamons
 - project: openswitch/ops-aaa-utils
   description: OpenSwitch Authentication, Authorization and Accounting Utils
