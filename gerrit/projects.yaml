@@ -63,6 +63,9 @@
 - project: openswitch/ops-utils
   description: OpenSwitch Utils
 
+- project: openswitch/ops-rbac
+  description: OpenSwitch RBAC Libraries
+
 - project: openswitch/ops-config-yaml
   description: OpenSwitch Config Yaml
 
