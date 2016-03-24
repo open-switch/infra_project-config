@@ -1,6 +1,6 @@
 - job-template:
    name: 'ops-switchd-p4switch-plugin-check-{platform}'
-   node: openswitch
+   node: test
 
    wrappers:
        - build-timeout:
@@ -16,7 +16,7 @@
 
 - job-template:
    name: 'ops-switchd-p4switch-plugin-gate-{platform}'
-   node: vsi
+   node: test
 
    wrappers:
        - build-timeout:
