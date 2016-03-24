@@ -359,6 +359,8 @@
       - shell: |
           #!/bin/bash -x
           # Configuration
+          COV_MODULE={module}
+          COV_BRANCH=master
           COV_CONF_FILE="src/$COV_MODULE/ft_ct_coverage"        # Configuration file. If it exists then CT/FT coverage will be performed.
           COV_MINIMUM=-1                                        # Minimum default of coverage.
           COV_REPORT_DIR="coverage"                             # Location where the coverage report data will be placed
