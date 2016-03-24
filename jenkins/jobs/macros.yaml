@@ -463,6 +463,31 @@
               fi
 
 - builder:
+    name: check-docker-state
+    builders:
+      - shell: |
+           # Check docker containers and images before starting test
+           #!/bin/bash -x
+           docker version
+           command_status=$(echo $?)
+           if [ $command_status != '0' ]
+           then
+             echo "Docker command failed. Check if docker daemon is running."
+           else
+             docker ps -a
+             docker images
+           fi
+
+- builder:
+    name: clear-opsTest-results
+    builders:
+      - shell: |
+           # clear test execution logs from previous run
+           #!/bin/bash -x
+           sudo chown -R jenkins.jenkins /tmp/opsTest-results
+           sudo rm -rf /tmp/opsTest-results/
+
+- builder:
     name: module-cttest
     builders:
       - shell: |
@@ -494,7 +519,7 @@
              docker images | grep $VSI_IMAGE_NAME && docker rmi -f $VSI_IMAGE_NAME
              sudo chown jenkins.jenkins build/*-test-results.xml
            else
-             echo "Skipping cttest because of one of reasons: 1. Not a genericx86-64 platform; 2. Commit files are all in .md extension"
+             echo "Skipping cttest because it is not a genericx86-64 platform"
            fi
 
 - builder:
