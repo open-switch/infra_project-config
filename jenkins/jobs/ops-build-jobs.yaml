@@ -86,14 +86,18 @@
         - ops-build:
             platform: 'genericx86-64'
         - ops-meta-ide
+        - check-docker-state
+        - clear-opsTest-results
         - feature-cttest-for-ops-build:
             platform: 'genericx86-64'
         - shared-states
         - download-caches
+        - cp-opsTest-results
 
     publishers:
         - conditional-junit
         - post-docker-clean
+        - publish-opsTest-results
         - post-ws-clean
 
 - job-template:
