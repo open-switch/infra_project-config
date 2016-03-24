@@ -484,8 +484,15 @@
       - shell: |
            # clear test execution logs from previous run
            #!/bin/bash -x
-           sudo chown -R jenkins.jenkins /tmp/opsTest-results
-           sudo rm -rf /tmp/opsTest-results/
+           ls /tmp/opsTest-results
+           command_status=$(echo $?)
+           if [ $command_status != '0' ]
+           then
+             echo "No previous test logs."
+           else
+             sudo chown -R jenkins.jenkins /tmp/opsTest-results
+             sudo rm -rf /tmp/opsTest-results/
+           fi
 
 - builder:
     name: module-cttest
