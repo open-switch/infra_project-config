@@ -76,6 +76,34 @@
               echo ""
           fi
           make
+         
+- builder:
+    name: ops-build-ondemand
+    builders:
+      - shell: |
+          #!/bin/bash -x
+          if [ {platform} == "p4" ]
+          then
+              make configure genericx86-64
+          else
+              make configure {platform}
+          fi
+          BUILD_NUMBER=$(date -u +"%Y%m%d%H")
+          make header
+          mkdir -p /mnt/jenkins/workspace/sstate-cache
+          rm -Rf build/sstate-cache
+          ln -sf /mnt/jenkins/workspace/sstate-cache build/sstate-cache
+          cd build
+          BUILD_VERSION=$(../yocto/poky/bitbake/bin/bitbake -e | grep DISTRO_VERSION= | cut -d\" -f 2)
+          cd ..
+          echo "ops-$BUILD_VERSION-$BRANCH+$BUILD_NUMBER" > .version_string
+          if [ {platform} == "p4" ]
+          then
+              echo "EXTRA_IMAGE_FEATURES += \"ops-p4\"" >> build/conf/local.conf
+          else
+              echo ""
+          fi
+          make
 
 - builder:
     name: ops-build-tag
@@ -246,6 +274,42 @@
            else
              echo "Skipping cttest because of one of reasons: 1. Not a genericx86-64 platform; 2. Commit files are all in .md extension"
            fi
+
+- builder:
+    name: feature-cttest-ondemand
+    builders:
+      - shell: |
+           #!/bin/bash -x
+           set -e
+           #if git ls-remote https://git.openswitch.net/openswitch/ops | grep -swq "$ZUUL_BRANCH" ; then
+           #  OPS_BRANCH=$ZUUL_BRANCH
+           #else
+           #  OPS_BRANCH=master
+           #fi
+           rm -rf build/*-test-results.xml
+           if [ {platform} == "genericx86-64" ] || [ {platform} == "p4" ]
+           then
+             cd $WORKSPACE
+             rm -rf src/ops
+             echo "===================  Building Feature Tests from ops:$OPS_BUILD_BRANCH =================== "
+             git clone -b $OPS_BRANCH https://git.openswitch.net/openswitch/ops src/ops
+             make bake cmake-native
+             make devenv_import ops $PWD/src/ops
+             make bake ops
+             make fs
+             make devenv_ct_init
+             y=`echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]'`
+             export VSI_IMAGE_NAME=$y
+             echo $VSI_IMAGE_NAME > .image_name
+             make export_docker_image $VSI_IMAGE_NAME
+             make devenv_ct_test PY_TEST_ARGS="src/ops/tests --exitfirst --junit-xml=build/feature-test-results.xml" || (make devenv_ct_clean; docker rmi -f $VSI_IMAGE_NAME)
+             test -e .sandbox_uuid && make devenv_ct_clean
+             docker images | grep $VSI_IMAGE_NAME && docker rmi -f $VSI_IMAGE_NAME
+             sudo chown jenkins.jenkins build/*-test-results.xml
+           else
+             echo "Skipping cttest because of one of reasons: 1. Not a genericx86-64 platform; 2. Commit files are all in .md extension"
+           fi
+
 
 - builder:
     name: feature-cttest
