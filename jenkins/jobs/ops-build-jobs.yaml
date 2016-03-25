@@ -97,7 +97,7 @@
     publishers:
         - conditional-junit
         - post-docker-clean
-        - publish-opsTest-results
+        - publish-opsTest-results-on-failure
         - post-ws-clean
 
 - job-template:
@@ -132,6 +132,8 @@
         - create-periodic-build-image
         - create-build-artifacts
         - scp-artifacts
+        - check-docker-state
+        - clear-opsTest-results
         - fttest-for-image:
             platform: '{platform}'
         - scp-artifacts-junit
@@ -225,6 +227,8 @@
         - create-periodic-build-image
         - create-build-artifacts
         - scp-artifacts
+        - check-docker-state
+        - clear-opsTest-results
         - fttest-for-image:
             platform: 'p4'
         - scp-artifacts-junit
@@ -278,6 +282,8 @@
         - create-periodic-build-image
         - create-build-artifacts
         - scp-artifacts
+        - check-docker-state
+        - clear-opsTest-results
         - fttest-for-image:
             platform: 'genericx86-64'
         - scp-artifacts-junit
@@ -378,6 +384,8 @@
         - create-periodic-build-image
         - create-build-artifacts
         - scp-artifacts
+        - check-docker-state
+        - clear-opsTest-results
         - fttest-for-image:
             platform: 'genericx86-64'
         - scp-artifacts-junit

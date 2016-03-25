@@ -1815,6 +1815,18 @@
                     allow-empty: 'true'
 
 - publisher:
+    name: publish-opsTest-results-on-failure
+    publishers:
+      - conditional-publisher:
+          - condition-kind: current-status
+            condition-worst: FAILURE
+            condition-best: UNSTABLE
+            action:
+                - archive:
+                    artifacts: 'opsTest-results/**/*.log'
+                    allow-empty: 'true'
+
+- publisher:
     name: conditional-junit
     publishers:
       - conditional-publisher:
