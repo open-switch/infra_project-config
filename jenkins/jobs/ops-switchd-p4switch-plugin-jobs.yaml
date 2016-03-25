@@ -23,7 +23,6 @@
            timeout: 180
 
    builders:
-       - revoke-sudo
        - module-build-branch:
            module: 'ops-switchd-p4switch-plugin'
            platform: '{platform}'
