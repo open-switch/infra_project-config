@@ -224,3 +224,7 @@
 #SNMP
 - project: openswitch/ops-snmpd
   description: OpenSwitch SNMP service daemon
+
+#Sysmond
+- project: openswitch/ops-symondd
+  description: OpenSwitch System Monitoring Daemon
