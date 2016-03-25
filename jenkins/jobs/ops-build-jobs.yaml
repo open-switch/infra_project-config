@@ -100,6 +100,47 @@
         - publish-opsTest-results
         - post-ws-clean
 
+- job:
+    name: 'ops-selfservice-cit'
+    node: vsi
+    parameters:
+       - string:
+            name: Feature_BranchName
+            default:
+            description: "Please give the name of feature branch that you want us to run CIT for"
+       - string:
+            name: Repositories_List
+            default:
+            description: "Please give the list of repositories to fetch the above given Feature Branch in comma separated values, for example: ops-aaa-utils,ops-portd,ops-cli "
+       - string:
+            name: PY_TEST_ARGS
+            default:
+            description: "Please provide your Test Args"
+    wrappers:
+        - workspace-cleanup
+        - build-timeout:
+            timeout: 180
+
+    builders:
+        - ops-distclean
+        - gerrit-git-prep
+        - ops-build:
+            platform: 'genericx86-64'
+        - ops-meta-ide
+        - check-docker-state
+        - clear-opsTest-results
+        - feature-cttest-ondemand:
+            platform: 'genericx86-64'
+        - shared-states
+        - download-caches
+        - cp-opsTest-results
+
+    publishers:
+        - conditional-junit
+        - post-docker-clean
+        - publish-opsTest-results
+        - post-ws-clean
+
 - job-template:
     name: 'ops-periodic-{platform}'
     node: vsi
