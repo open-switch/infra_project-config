@@ -468,9 +468,9 @@
       - shell: |
            # Check docker containers and images before starting test
            #!/bin/bash -x
+           set +e
            docker version
-           command_status=$(echo $?)
-           if [ $command_status != '0' ]
+           if [ $? != 0 ]
            then
              echo "Docker command failed. Check if docker daemon is running."
            else
@@ -484,9 +484,9 @@
       - shell: |
            # clear test execution logs from previous run
            #!/bin/bash -x
+           set +e
            ls /tmp/opsTest-results
-           command_status=$(echo $?)
-           if [ $command_status != '0' ]
+           if [ $? != 0 ]
            then
              echo "No previous test logs."
            else
