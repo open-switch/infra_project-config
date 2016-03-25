@@ -1,6 +1,6 @@
 - job-template:
     name: 'ops-sysd-check-{platform}'
-    node: sysd
+    node: openswitch
     wrappers:
         - build-timeout:
             timeout: 120
@@ -14,7 +14,7 @@
 
 - job:
     name: 'ops-sysd-gate-as5712'
-    node: sysd-vsi
+    node: vsi
 
     wrappers:
         - build-timeout:
