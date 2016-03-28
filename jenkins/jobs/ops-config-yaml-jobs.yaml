@@ -42,9 +42,14 @@
         - module-cttest:
             module: 'ops-config-yaml'
             platform: 'genericx86-64'
+        - lcov-compile:
+            module: 'ops-config-yaml'
+        - lcov-coverage-run:
+            module: 'ops-config-yaml'
 
     publishers:
         - conditional-junit
+        - conditional-htmlreports
         - post-docker-clean
         - post-ws-clean
 

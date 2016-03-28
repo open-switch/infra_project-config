@@ -42,9 +42,14 @@
         - module-cttest:
             module: 'ops-switchd'
             platform: 'genericx86-64'
+        - lcov-compile:
+            module: 'ops-switchd'
+        - lcov-coverage-run:
+            module: 'ops-switchd'
 
     publishers:
         - conditional-junit
+        - conditional-htmlreports
         - post-docker-clean
         - post-ws-clean
 

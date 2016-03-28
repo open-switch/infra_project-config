@@ -42,9 +42,14 @@
         - module-cttest:
             module: 'ops-portd'
             platform: 'genericx86-64'
+        - lcov-compile:
+            module: 'ops-portd'
+        - lcov-coverage-run:
+            module: 'ops-portd'
 
     publishers:
         - conditional-junit
+        - conditional-htmlreports
         - post-docker-clean
         - post-ws-clean
 

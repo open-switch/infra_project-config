@@ -31,7 +31,13 @@
         - module-build-branch:
             module: 'ops-ipsecd'
             platform: '{platform}'
+        - lcov-compile:
+            module: 'ops-ipsecd'
+        - lcov-coverage-run:
+            module: 'ops-ipsecd'
     publishers:
+        - conditional-junit
+        - conditional-htmlreports
         - post-ws-clean
 
 - job-group:

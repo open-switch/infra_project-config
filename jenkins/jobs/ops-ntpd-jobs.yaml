@@ -42,9 +42,14 @@
         - module-cttest:
             module: 'ops-ntpd'
             platform: 'genericx86-64'
+        - lcov-compile:
+            module: 'ops-ntpd'
+        - lcov-coverage-run:
+            module: 'ops-ntpd'
 
     publishers:
         - conditional-junit
+        - conditional-htmlreports
         - post-docker-clean
         - post-ws-clean
 

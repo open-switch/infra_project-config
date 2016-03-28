@@ -50,9 +50,14 @@
         - module-cttest:
             module: 'ops-supportability'
             platform: 'genericx86-64'
+        - lcov-compile:
+            module: 'ops-supportability'
+        - lcov-coverage-run:
+            module: 'ops-supportability'
 
     publishers:
         - conditional-junit
+        - conditional-htmlreports
         - post-docker-clean
         - post-ws-clean
 

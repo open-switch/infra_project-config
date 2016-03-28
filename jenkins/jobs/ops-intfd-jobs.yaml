@@ -42,9 +42,14 @@
         - module-cttest:
             module: 'ops-intfd'
             platform: 'genericx86-64'
+        - lcov-compile:
+            module: 'ops-intfd'
+        - lcov-coverage-run:
+            module: 'ops-intfd'
 
     publishers:
         - conditional-junit
+        - conditional-htmlreports
         - post-docker-clean
         - post-ws-clean
 

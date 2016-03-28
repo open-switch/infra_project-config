@@ -27,7 +27,13 @@
         - module-build-branch:
             module: 'ops-powerd'
             platform: '{platform}'
+        - lcov-compile:
+            module: 'ops-powerd'
+        - lcov-coverage-run:
+            module: 'ops-powerd'
     publishers:
+        - conditional-junit
+        - conditional-htmlreports
         - post-ws-clean
 
 - job-group:

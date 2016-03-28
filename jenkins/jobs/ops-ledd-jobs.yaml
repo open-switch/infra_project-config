@@ -27,9 +27,14 @@
         - module-build-branch:
             module: 'ops-ledd'
             platform: '{platform}'
+        - lcov-compile:
+            module: 'ops-ledd'
+        - lcov-coverage-run:
+            module: 'ops-ledd'
     publishers:
+        - conditional-junit
+        - conditional-htmlreports
         - post-ws-clean
-
 - job-group:
     name: 'ops-ledd-jobs'
     jobs:
