@@ -121,9 +121,6 @@
         - ops-distclean
         - branch-git-prep:
             branch: master
-        - shell: |
-            # Hack to enable webui on the periodic builds until we create a reliable recipe for it
-            sed -i -e 's/lighttpd/ops-webui/' yocto/openswitch/meta-distro-openswitch/recipes-core/packagegroups/packagegroup-openswitch.bb
         - ops-build:
             platform: '{platform}'
         - ops-meta-ide
@@ -175,9 +172,6 @@
         - timed: 'H */6 * * *'
 
     builders:
-        - shell: |
-            # Hack to enable webui on the periodic builds until we create a reliable recipe for it
-            sed -i -e 's/lighttpd/ops-webui/' yocto/openswitch/meta-distro-openswitch/recipes-core/packagegroups/packagegroup-openswitch.bb
         - ops-build:
             platform: 'as5712'
         - ops-meta-ide
@@ -218,9 +212,6 @@
         - ops-distclean
         - branch-git-prep:
             branch: master
-        - shell: |
-            # Hack to enable webui on the periodic builds until we create a reliable recipe for it
-            sed -i -e 's/lighttpd/ops-webui/' yocto/openswitch/meta-distro-openswitch/recipes-core/packagegroups/packagegroup-openswitch.bb
         - ops-build:
             platform: 'p4'
         - ops-meta-ide
@@ -272,9 +263,6 @@
         - timed: 'H */6 * * *'
 
     builders:
-        - shell: |
-            # Hack to enable webui on the periodic builds until we create a reliable recipe for it
-            sed -i -e 's/lighttpd/ops-webui/' yocto/openswitch/meta-distro-openswitch/recipes-core/packagegroups/packagegroup-openswitch.bb
         - ops-build:
             platform: 'genericx86-64'
         - ops-meta-ide
@@ -329,9 +317,6 @@
                   - 'ffc18805-a3da-4771-918a-eaaa6a1a0c70'
 
     builders:
-        - shell: |
-            # Hack to enable webui on the periodic builds until we create a reliable recipe for it
-            sed -i -e 's/lighttpd/ops-webui/' yocto/openswitch/meta-distro-openswitch/recipes-core/packagegroups/packagegroup-openswitch.bb
         - ops-build-tag:
             platform: 'as5712'
         - ops-meta-ide
@@ -378,9 +363,6 @@
                   - 'ffc18805-a3da-4771-918a-eaaa6a1a0c70'
 
     builders:
-        - shell: |
-            # Hack to enable webui on the periodic builds until we create a reliable recipe for it
-            sed -i -e 's/lighttpd/ops-webui/' yocto/openswitch/meta-distro-openswitch/recipes-core/packagegroups/packagegroup-openswitch.bb
         - ops-build-tag:
             platform: 'genericx86-64'
         - ops-meta-ide

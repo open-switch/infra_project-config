@@ -255,18 +255,16 @@
            if [ {platform} == "genericx86-64" ] || [ {platform} == "p4" ]
            then
              cd $WORKSPACE
-             rm -rf src/ops
-             echo "===================  Building Feature Tests from ops:$OPS_BUILD_BRANCH =================== "
-             git clone -b $OPS_BRANCH https://git.openswitch.net/openswitch/ops src/ops
-             make bake cmake-native
-             make devenv_import ops $PWD/src/ops
-             make bake ops
-             make fs
              make devenv_ct_init
              y=`echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]'`
              export VSI_IMAGE_NAME=$y
              echo $VSI_IMAGE_NAME > .image_name
              make export_docker_image $VSI_IMAGE_NAME
+             rm -rf src/ops
+             echo "===================  Building Feature Tests from ops:$OPS_BUILD_BRANCH =================== "
+             git clone -b $OPS_BRANCH https://git.openswitch.net/openswitch/ops src/ops
+             make devenv_import ops $PWD/src/ops
+             y=`echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]'`
              make devenv_ct_test PY_TEST_ARGS="src/ops/tests --exitfirst --junit-xml=build/feature-test-results.xml" || (make devenv_ct_clean; docker rmi -f $VSI_IMAGE_NAME)
              test -e .sandbox_uuid && make devenv_ct_clean
              docker images | grep $VSI_IMAGE_NAME && docker rmi -f $VSI_IMAGE_NAME
