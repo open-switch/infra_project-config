@@ -82,6 +82,7 @@
     builders:
       - shell: |
           #!/bin/bash -x
+          git clone -b $Feature_BranchName https://git.openswitch.net/openswitch/ops-build .
           if [ {platform} == "p4" ]
           then
               make configure genericx86-64
@@ -281,18 +282,17 @@
       - shell: |
            #!/bin/bash -x
            set -e
-           #if git ls-remote https://git.openswitch.net/openswitch/ops | grep -swq "$ZUUL_BRANCH" ; then
-           #  OPS_BRANCH=$ZUUL_BRANCH
-           #else
-           #  OPS_BRANCH=master
-           #fi
            rm -rf build/*-test-results.xml
            if [ {platform} == "genericx86-64" ] || [ {platform} == "p4" ]
            then
              cd $WORKSPACE
              rm -rf src/ops
-             echo "===================  Building Feature Tests from ops:$OPS_BUILD_BRANCH =================== "
-             git clone -b $OPS_BRANCH https://git.openswitch.net/openswitch/ops src/ops
+             echo "===================  Cloning Repositories given as input Feature Tests from ops:$Repositories_List =================== "
+             for i in $(echo $Repositories_List | sed "s/,/ /g")
+             do
+             echo "$i"
+             git clone -b $Feature_BranchName https://git.openswitch.net/openswitch/$i src/ops/$i
+             done
              make bake cmake-native
              make devenv_import ops $PWD/src/ops
              make bake ops
