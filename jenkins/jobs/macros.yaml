@@ -1917,6 +1917,9 @@
                     name: "Code Coverage Report"
                     dir: "coverage/html"
                     files: "index.html"
+                    keep-all: true
+                    allow-missing: true
+                    link-to-last-build: true
 - publisher:
     name: conditional-image-junit-to-archive
     publishers:
