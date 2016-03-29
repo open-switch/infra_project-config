@@ -127,8 +127,7 @@
         - shared-states
         - download-caches
         - create-periodic-build-image
-        - create-build-artifacts:
-            platform: '{platform}'
+        - create-build-artifacts
         - scp-artifacts
         - check-docker-state
         - clear-opsTest-results
@@ -180,8 +179,7 @@
         - shared-states
         - download-caches
         - create-periodic-build-image
-        - create-build-artifacts:
-            platform: 'as5712'
+        - create-build-artifacts
         - scp-artifacts
 
     publishers:
@@ -218,8 +216,7 @@
         - shared-states
         - download-caches
         - create-periodic-build-image
-        - create-build-artifacts:
-            platform: 'p4'
+        - create-build-artifacts
         - scp-artifacts
         - check-docker-state
         - clear-opsTest-results
@@ -271,8 +268,7 @@
         - shared-states
         - download-caches
         - create-periodic-build-image
-        - create-build-artifacts:
-            platform: 'genericx86-64'
+        - create-build-artifacts
         - scp-artifacts
         - check-docker-state
         - clear-opsTest-results
@@ -323,8 +319,7 @@
         - shared-states
         - download-caches
         - create-periodic-build-image
-        - create-build-artifacts:
-            platform: 'as5712'
+        - create-build-artifacts
         - scp-artifacts
 
     publishers:
@@ -369,8 +364,7 @@
         - shared-states
         - download-caches
         - create-periodic-build-image
-        - create-build-artifacts:
-            platform: 'genericx86-64'
+        - create-build-artifacts
         - scp-artifacts
         - check-docker-state
         - clear-opsTest-results

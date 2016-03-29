@@ -56,9 +56,11 @@
           #!/bin/bash -x
           if [ {platform} == "p4" ]
           then
+              echo "p4" > .platform_in_archive
               make configure genericx86-64
           else
               make configure {platform}
+              echo {platform} > .platform_in_archive
           fi
           BUILD_NUMBER=$(date -u +"%Y%m%d%H")
           make header
@@ -929,12 +931,7 @@
       - shell: |
           #!/bin/bash -x
           VERSION_STRING=$(cat .version_string)
-          if [ {platform} == "p4" ]
-          then
-              PLATFORM=p4
-          else
-              PLATFORM=$(cat .platform)
-          fi
+          PLATFORM=$(cat .platform_in_archive)
           rm -Rf $TYPE
           mkdir -p $TYPE/$VERSION_STRING/$PLATFORM
           find images -name "onie-installer*" -exec bash -c "cp \"\$0\" $TYPE/$VERSION_STRING/$PLATFORM/\$(basename \"\$0\")-$VERSION_STRING" {} \;
