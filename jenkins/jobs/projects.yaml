@@ -442,3 +442,12 @@
         - as5712
       jobs:
         - 'ops-vrfmgrd-jobs'
+
+  - project:
+      name: openswitch/ops-rbac
+      node: 'openswitch'
+      platform:
+        - genericx86-64
+        - as5712
+      jobs:
+        - 'ops-rbac-jobs'

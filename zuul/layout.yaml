@@ -781,3 +781,13 @@ projects:
         module: ops-vrfmgrd
         platform: as5712
 
+  - name: openswitch/ops-rbac
+    template:
+      - name: merge-check
+      - name: module-build
+        module: ops-rbac
+        platform: genericx86-64
+      - name: module-build
+        module: ops-rbac
+        platform: as5712
+

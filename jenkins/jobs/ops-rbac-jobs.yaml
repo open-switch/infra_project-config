@@ -1,0 +1,37 @@
+- job-template:
+    name: 'ops-rbac-check-{platform}'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build-branch:
+            module: 'ops-rbac-config'
+            platform: '{platform}'
+
+- job-template:
+    name: 'ops-rbac-gate-{platform}'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build-branch:
+            module: 'ops-rbac'
+            platform: '{platform}'
+
+- job-group:
+    name: 'ops-rbac-jobs'
+    jobs:
+        - 'ops-rbac-check-{platform}'
+        - 'ops-rbac-gate-{platform}'
