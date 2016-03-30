@@ -47,12 +47,17 @@
         - module-build-branch:
             module: 'ops-snmpd'
             platform: 'genericx86-64'
+        - check-docker-state
+        - clear-test-results
         - module-cttest:
             module: 'ops-snmpd'
             platform: 'genericx86-64'
+        - cp-test-results
+
     publishers:
         - conditional-junit
         - post-docker-clean
+        - publish-test-results-on-failure
         - post-ws-clean
 
 
@@ -60,4 +65,3 @@
     name: 'ops-snmpd-jobs'
     jobs:
       - 'ops-snmpd-check-{platform}'
-

@@ -39,9 +39,12 @@
         - module-build-branch:
             module: 'ops-intfd'
             platform: 'genericx86-64'
+        - check-docker-state
+        - clear-test-results
         - module-cttest:
             module: 'ops-intfd'
             platform: 'genericx86-64'
+        - cp-test-results
         - lcov-compile:
             module: 'ops-intfd'
         - lcov-coverage-run:
@@ -51,6 +54,7 @@
         - conditional-junit
         - conditional-htmlreports
         - post-docker-clean
+        - publish-test-results-on-failure
         - post-ws-clean
 
 - job-group:

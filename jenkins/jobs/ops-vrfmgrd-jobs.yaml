@@ -47,12 +47,16 @@
         - module-build-branch:
             module: 'ops-vrfmgrd'
             platform: 'genericx86-64'
+        - check-docker-state
+        - clear-test-results
         - module-cttest:
             module: 'ops-vrfmgrd'
             platform: 'genericx86-64'
+        - cp-test-results
     publishers:
         - conditional-junit
         - post-docker-clean
+        - publish-test-results-on-failure
         - post-ws-clean
 
 
