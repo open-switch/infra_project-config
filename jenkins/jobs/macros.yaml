@@ -959,7 +959,7 @@
           PLATFORM=$(cat .platform_in_archive)
 
           if  [ "$PLATFORM" == "p4" ]
-          the
+          then
             cd $TYPE; scp -r $VERSION_STRING static.openswitch.net:/srv/static/archive/experimental/$TYPE/.
           else
             cd $TYPE; scp -r $VERSION_STRING static.openswitch.net:/srv/static/archive/artifacts/$TYPE/.
