@@ -47,9 +47,12 @@
         - module-build-branch:
             module: 'ops-mgmt-intf'
             platform: 'genericx86-64'
+        - check-docker-state
+        - clear-test-results
         - module-cttest:
             module: 'ops-mgmt-intf'
             platform: 'genericx86-64'
+        - cp-test-results
         - lcov-compile:
             module: 'ops-mgmt-intf'
         - lcov-coverage-run:
@@ -58,6 +61,7 @@
         - conditional-junit
         - conditional-htmlreports
         - post-docker-clean
+        - publish-test-results-on-failure
         - post-ws-clean
 
 

@@ -39,6 +39,8 @@
         - module-build-branch:
             module: 'ops-ntpd'
             platform: 'genericx86-64'
+        - check-docker-state
+        - clear-test-results
         - module-cttest:
             module: 'ops-ntpd'
             platform: 'genericx86-64'
@@ -46,11 +48,13 @@
             module: 'ops-ntpd'
         - lcov-coverage-run:
             module: 'ops-ntpd'
+        - cp-test-results
 
     publishers:
         - conditional-junit
         - conditional-htmlreports
         - post-docker-clean
+        - publish-test-results-on-failure
         - post-ws-clean
 
 - job-group:

@@ -48,9 +48,12 @@
         - module-build-branch:
             module: 'ops-restd'
             platform: 'genericx86-64'
+        - check-docker-state
+        - clear-test-results
         - module-cttest:
             module: 'ops-restd'
             platform: 'genericx86-64'
+        - cp-test-results
         - swagger-api:
             depended-repo: 'ops'
             files: 'ops-restapi.json'
@@ -60,6 +63,7 @@
             dest: 'api/rest/'
         - conditional-junit
         - post-docker-clean
+        - publish-test-results-on-failure
         - post-ws-clean
 
 - job-group:

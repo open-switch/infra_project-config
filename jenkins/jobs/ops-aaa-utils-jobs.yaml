@@ -42,9 +42,12 @@
         - module-build-branch:
             module: 'ops-aaa-utils'
             platform: 'genericx86-64'
+        - check-docker-state
+        - clear-test-results
         - module-cttest:
             module: 'ops-aaa-utils'
             platform: 'genericx86-64'
+        - cp-test-results
         - lcov-compile:
             module: 'ops-aaa-utils'
         - lcov-coverage-run:
@@ -53,6 +56,7 @@
         - conditional-junit
         - conditional-htmlreports
         - post-docker-clean
+        - publish-test-results-on-failure
         - post-ws-clean
 
 - job-group:

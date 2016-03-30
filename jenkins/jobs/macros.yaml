@@ -546,16 +546,24 @@
            fi
 
 - builder:
-    name: clear-opsTest-results
+    name: clear-test-results
     builders:
       - shell: |
-           # clear test execution logs from previous run
            #!/bin/bash -x
            set +e
+           # Clear test execution logs from previous runs
+           ls /tmp/openswitch-test
+           if [ $? != 0 ]
+           then
+             echo "No previous test logs from ops-vsi."
+           else
+             sudo chown -R jenkins.jenkins /tmp/openswitch-test
+             sudo rm -rf /tmp/openswitch-test/
+           fi
            ls /tmp/opsTest-results
            if [ $? != 0 ]
            then
-             echo "No previous test logs."
+             echo "No previous test logs from ops-ft-framework."
            else
              sudo chown -R jenkins.jenkins /tmp/opsTest-results
              sudo rm -rf /tmp/opsTest-results/
@@ -948,6 +956,17 @@
     name: cp-opsTest-results
     builders:
       - shell: |
+          rm -rf opsTest-results
+          cp -rf /tmp/opsTest-results/. opsTest-results || true
+
+- builder:
+    name: cp-test-results
+    builders:
+      - shell: |
+          # Copy ops-vsi test results
+          rm -rf openswitch-test
+          cp -rf /tmp/openswitch-test/. openswitch-test || true
+          # Copy ops-ft-framework test results
           rm -rf opsTest-results
           cp -rf /tmp/opsTest-results/. opsTest-results || true
 
@@ -1889,7 +1908,19 @@
                     allow-empty: 'true'
 
 - publisher:
-    name: publish-opsTest-results-on-failure
+    name: publish-vsiTest-results
+    publishers:
+      - conditional-publisher:
+          - condition-kind: shell
+            condition-command: ls openswitch-test > /dev/null
+            on-evaluation-failure: dont-run
+            action:
+                - archive:
+                    artifacts: 'openswitch-test/**'
+                    allow-empty: 'true'
+
+- publisher:
+    name: publish-test-results-on-failure
     publishers:
       - conditional-publisher:
           - condition-kind: current-status
@@ -1898,6 +1929,9 @@
             action:
                 - archive:
                     artifacts: 'opsTest-results/**/*.log'
+                    allow-empty: 'true'
+                - archive:
+                    artifacts: 'openswitch-test/**'
                     allow-empty: 'true'
 
 - publisher:
