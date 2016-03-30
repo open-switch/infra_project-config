@@ -1,0 +1,25 @@
+- job:
+    name: 'ops-periodic-experimental-create-latest'
+    node: vsi
+
+    wrappers:
+        - timestamps
+        - ansicolor
+        - ssh-agent-credentials:
+            users:
+                - 'ffc18805-a3da-4771-918a-eaaa6a1a0c70'
+    triggers:
+        - reverse:
+            jobs: 'ops-periodic-p4'
+            result: 'success'
+
+    builders:
+        - shell: |
+            #!/bin/bash
+            export dir=/srv/static/archive/experimental/periodic/master
+            ssh static.openswitch.net "rm -rf $dir/latest_p4"
+            #retrieve the latest folder
+            export build_v=`ssh static.openswitch.net "cd $dir ;ls -tr | tail -1"`
+            ssh static.openswitch.net "ln -s $dir/$build_v $dir/latest_p4"
+            #ssh static.openswitch.net "cp -rf $dir/$build_v/as5712/changelog.manifest $dir/latest_p4/"
+            ssh static.openswitch.net "echo $build_v > $dir/latest_p4/build_v"
