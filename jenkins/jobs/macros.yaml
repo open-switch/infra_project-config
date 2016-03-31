@@ -450,7 +450,7 @@
             # Run the Component and Feature Tests
             # TODO: Determine if tests can be run in parallel or must definitely be sequential (multiple Docker images may write to the same gcda concurrently)
             # TODO: It has been configured to NOT exit on first failure. We want all tests to run to get most possible coverage.
-            make devenv_ct_test PY_TEST_ARGS="src/$COV_MODULE --junit-xml=build/component-test-results.xml"
+            make devenv_ct_test PY_TEST_ARGS="src/$COV_MODULE/tests --junit-xml=build/component-test-results.xml"
             # TODO: Enable FT
             # make devenv_ct_test PY_TEST_ARGS="src/ops --junit-xml=build/feature-test-results.xml"
             test -e .sandbox_uuid && make devenv_ct_clean
