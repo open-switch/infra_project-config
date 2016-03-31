@@ -17,13 +17,13 @@
 
     wrappers:
         - build-timeout:
-            timeout: 180
+            timeout: 360
         - timestamps
         - ansicolor
 
     logrotate:
-        daysToKeep: 14
-        numToKeep: 20
+        daysToKeep: 30
+        numToKeep: 2000
 
     builders:
         - module-build-branch:
