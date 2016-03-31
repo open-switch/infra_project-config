@@ -928,7 +928,8 @@
       - shell: |
           #!/bin/bash -x
           VERSION_STRING=$(cat .version_string)
-          echo "BUILD_ID=\"$VERSION_STRING\"" > build/build_info.conf
+          PLATFORM=$(cat .platform_in_archive)
+          echo "BUILD_ID=\"$PLATFORM-$VERSION_STRING\"" > build/build_info.conf
           make changelog_manifest
           make
 
