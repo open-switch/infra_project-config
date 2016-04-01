@@ -1,0 +1,28 @@
+- job:
+    name: 'ops-selfservice-cit'
+    node: vsi
+    parameters:
+       - string:
+            name: Feature_BranchName
+            default:
+            description: "Please give the name of feature branch that you want us to run CIT for"
+       - string:
+            name: Repositories_List
+            default:
+            description: "Please give the list of repositories to fetch the above given Feature Branch in comma separated values, for example: ops-aaa-utils,ops-portd,ops-cli "
+    wrappers:
+        - workspace-cleanup
+        - build-timeout:
+            timeout: 180
+    properties:
+        - authorization:
+            authenticated:
+               - job-build
+    builders:
+        - ops-selfservice-cit-ondemand
+    publishers:
+        - conditional-junit
+        - post-docker-clean
+        - publish-opsTest-results
+        - publish-vsiTest-results
+        - post-ws-clean
