@@ -1,5 +1,5 @@
 - job:
-    name: 'ops-selfservice-cit'
+    name: 'self-service-tier1-test'
     node: vsi
     parameters:
        - string:
