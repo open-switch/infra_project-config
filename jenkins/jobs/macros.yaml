@@ -454,8 +454,12 @@
             docker images | grep $VSI_IMAGE_NAME && docker rmi -f $VSI_IMAGE_NAME
             # Stop debugging to make report output clearer
             set +x
-            # Capture the coverage raw data
-            lcov --capture --directory $COV_DATA_DIR --output-file $COV_REPORT_DIR/app_test.info > /dev/null 2>&1
+            # Capture the coverage raw data and check that coverage data was generated
+            COV_RAW_DATA=`lcov --capture --directory $COV_DATA_DIR --output-file $COV_REPORT_DIR/app_test.info 2>&1`
+            if grep -q "ERROR: no \.gcda files found" <<< $COV_RAW_DATA; then
+                echo "WARNING: No coverage data was generated during test run. Exiting now with no coverage report"
+                exit 0
+            fi
             LCOV_COV_FILE="app_total.info"        # The file where the coverage data will be placed
             # Read the configured minimum coverage percentage and exclude patterns from the repo conf file
             # Configure exclude patterns using wildcars and separated by spaces, e.g to remove gtest and openvswitch files use:
