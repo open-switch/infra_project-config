@@ -78,7 +78,7 @@
               echo ""
           fi
           make
-          
+
 - builder:
     name: ops-build-tag
     builders:
@@ -328,7 +328,8 @@
            export VSI_IMAGE_NAME=$y
            echo $VSI_IMAGE_NAME > .image_name
            make export_docker_image $VSI_IMAGE_NAME
-           Repositories_List=`echo $REPOS | sed -e 's#,# #'`
+           #Repositories_List=`echo $REPOS | sed -e 's#,# #'`
+           Repositories_List=`echo $Repositories_List | sed -e 's#,# #'`
            for i in $Repositories_List
            do
             echo "*************************************** Testing $i repo ***************************************"
@@ -337,7 +338,7 @@
            test -e .sandbox_uuid && make devenv_ct_clean
            docker images | grep $VSI_IMAGE_NAME && docker rmi -f $VSI_IMAGE_NAME
            sudo chown jenkins.jenkins build/*-test-results.xml
-           
+
 - builder:
     name: fttest-for-image
     builders:
