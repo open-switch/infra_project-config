@@ -34,9 +34,6 @@
         - gerrit-git-prep
         - ops-build:
             platform: 'as5712'
-        - ops-meta-ide
-        - shared-states
-        - download-caches
 
     publishers:
         - post-ws-clean
@@ -60,9 +57,6 @@
         - gerrit-git-prep
         - ops-build:
             platform: 'as6712'
-        - ops-meta-ide
-        - shared-states
-        - download-caches
 
     publishers:
         - post-ws-clean
@@ -85,13 +79,10 @@
         - gerrit-git-prep
         - ops-build:
             platform: 'genericx86-64'
-        - ops-meta-ide
         - check-docker-state
         - clear-test-results
         - feature-cttest-for-ops-build:
             platform: 'genericx86-64'
-        - shared-states
-        - download-caches
         - cp-test-results
 
     publishers:
