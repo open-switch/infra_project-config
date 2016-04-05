@@ -288,7 +288,7 @@
            else
               echo "****************************************************************************************"
               echo "WARNING: cannot find $Feature_BranchName in ops-build"
-              echo "Please provide a Feature Branch name that exists and try again.
+              echo "Please provide a Feature Branch name that exists and try again."
               echo "****************************************************************************************"
               echo "Here are the list of Feature Branches available"
               git ls-remote https://git.openswitch.net/openswitch/ops-build | grep -i "Feature"
@@ -341,7 +341,7 @@
            for i in $Repositories_List
            do
             if [ "$i" == "ops-build" ]; then
-            echo"No need to provide ops-build in List of repositories, skipping this step"
+            echo "No need to provide ops-build in List of repositories, skipping this step"
             continue
             else
               if [ -d "$WORKSPACE/src/$i/tests" ]; then
