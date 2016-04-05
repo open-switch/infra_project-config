@@ -63,10 +63,8 @@
               echo {platform} > .platform_in_archive
           fi
           BUILD_NUMBER=$(date -u +"%Y%m%d%H")
-          make header
+          export SSTATE_DIR=/mnt/jenkins/workspace/sstate-cache
           mkdir -p /mnt/jenkins/workspace/sstate-cache
-          rm -Rf build/sstate-cache
-          ln -sf /mnt/jenkins/workspace/sstate-cache build/sstate-cache
           cd build
           BUILD_VERSION=$(../yocto/poky/bitbake/bin/bitbake -e | grep DISTRO_VERSION= | cut -d\" -f 2)
           cd ..
@@ -86,10 +84,8 @@
           #!/bin/bash -x
           make configure {platform}
           BUILD_NUMBER=$(date -u +"%Y%m%d%H")
-          make header
+          export SSTATE_DIR=/mnt/jenkins/workspace/sstate-cache
           mkdir -p /mnt/jenkins/workspace/sstate-cache
-          rm -Rf build/sstate-cache
-          ln -sf /mnt/jenkins/workspace/sstate-cache build/sstate-cache
           echo "ops-$tag_v-$BRANCH" > .version_string
           make
 
@@ -106,7 +102,7 @@
       - shell: |
           #!/bin/bash -x
           echo "Synchronizing shared states"
-          cd build/sstate-cache
+          cd /mnt/jenkins/workspace/sstate-cache
           rsync --ignore-existing --exclude='*.done' --size-only -avzL -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --progress ?? `lsb_release -s -i`-`lsb_release -s -r` static.openswitch.net:/srv/static/sstate || true
 
 - builder:
@@ -136,10 +132,8 @@
            fi
            if [ ! -f .platform ] ; then
              make configure {platform}
-             make build/conf/local.conf
+             export SSTATE_DIR=/mnt/jenkins/workspace/sstate-cache
              mkdir -p /mnt/jenkins/workspace/sstate-cache
-             rm -Rf build/sstate-cache
-             ln -sf /mnt/jenkins/workspace/sstate-cache build/sstate-cache
            fi
            if grep -q {module} .devenv ; then
              make devenv_rm {module}
@@ -829,10 +823,8 @@
            fi
            if [ ! -f .platform ] ; then
              make configure {platform}
-             make build/conf/local.conf
+             SSTATE_DIR=/mnt/jenkins/workspace/sstate-cache
              mkdir -p /mnt/jenkins/workspace/sstate-cache
-             rm -Rf build/sstate-cache
-             ln -sf /mnt/jenkins/workspace/sstate-cache build/sstate-cache
            fi
            make bake node-native
            export PATH=$PWD/build/tmp/sysroots/x86_64-linux/usr/bin:$PATH
