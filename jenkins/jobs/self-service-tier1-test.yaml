@@ -21,7 +21,8 @@
     builders:
         - ops-selfservice-cit-ondemand
     publishers:
-        - conditional-junit
+        - conditional-gather-test-results:
+             test: legacy
         - archive-syslog
         - publish-opsTest-results
         - publish-vsiTest-results

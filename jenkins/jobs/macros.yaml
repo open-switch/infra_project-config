@@ -286,7 +286,6 @@
               git ls-remote https://git.openswitch.net/openswitch/ops-build | grep -i "Feature"
               exit 1
            fi
-           if [ $? -eq 0 ] ; then
            echo "===================  Building ops-build on $OPS_BUILD_BRANCH =================== "
            rm -fr .[^.]* *
            git clone -b $OPS_BUILD_BRANCH https://git.openswitch.net/openswitch/ops-build .
@@ -294,61 +293,24 @@
            export SSTATE_DIR=/mnt/jenkins/workspace/sstate-cache
            mkdir -p /mnt/jenkins/workspace/sstate-cache
            # Check if we need to configure
-              if [ ! -f .platform ] ; then
-                make configure genericx86-64
-              fi
-           Repositories_List=`echo $Repositories_List | sed -e 's#,# #'`
-           # Chect out all repo
-           rm -rf src/*
-           for i in $Repositories_List
-            do
-                if git ls-remote https://git.openswitch.net/openswitch/$i | grep -swq "$Feature_BranchName" ; then
-                    echo "Checking if $Feature_BranchName exists in $i repository"
-                    OPS_BUILD_BRANCH=$Feature_BranchName
-                else
-                    echo "****************************************************************************************"
-                    echo "WARNING: cannot find $Feature_BranchName in $i, so using master branch instead. "
-                    echo "****************************************************************************************"
-                    OPS_BUILD_BRANCH=master
-                fi
-              git clone -b $OPS_BUILD_BRANCH http://git.openswitch.net/openswitch/$i src/$i > /dev/null 2>&1
-           done
+           if [ ! -f .platform ] ; then
+             make configure genericx86-64
+           fi
+
            set -e
            # clean up .xml
            rm -rf build/*-test-results.xml
-           # set devenv
-           set +e
-           make devenv_init || true
-           set -e
-           # building image
-           cd $WORKSPACE
-           make fs
-           # init ct
-           make devenv_ct_init
-           y=`echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]'`
-           export VSI_IMAGE_NAME=$y
-           echo $VSI_IMAGE_NAME > .image_name
-           make export_docker_image $VSI_IMAGE_NAME
-           Repositories_List=`echo $Repositories_List | sed -e 's#,# #'`
-           for i in $Repositories_List
-           do
-            if [ "$i" == "ops-build" ]; then
-            echo "No need to provide ops-build in List of repositories, skipping this step"
-            continue
-            else
-              if [ -d "$WORKSPACE/src/$i/tests" ]; then
-                 echo "*************************************** Testing $i repo ***************************************"
-                 make devenv_ct_test PY_TEST_ARGS="src/$i/tests --junit-xml=build/module-test-results.xml"  || (make devenv_ct_clean; docker rmi -f $VSI_IMAGE_NAME; exit 1)
-              else
-                 echo "Tests folder does not exist in $i repo, skip running tests"
-                 continue
-              fi
-            fi
-           done
+           # Prepare the test environment
+           touch .devenv
+           make testenv_init
+           export TOPOLOGY_TEST_IMAGE=$(echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]')
+           # testenv_run will:
+           # build the fs, export into docker, and download the repos and run the tests
+           make testenv_run legacy $(echo $Repositories_List | sed -e 's#,# #')
+           # Cleanup
            test -e .sandbox_uuid && make devenv_ct_clean
-           docker images | grep $VSI_IMAGE_NAME && docker rmi -f $VSI_IMAGE_NAME
-           sudo chown jenkins.jenkins build/*-test-results.xml
-           fi
+           /usr/local/jenkins/slave_scripts/docker_clean_instances_and_image.sh $TOPOLOGY_TEST_IMAGE
+           sudo chown jenkins.jenkins build/test/legacy/*-test-results.xml
 
 - builder:
     name: fttest-for-image
@@ -1937,6 +1899,17 @@
                 - archive:
                     artifacts: 'openswitch-test/**'
                     allow-empty: 'true'
+
+- publisher:
+    name: conditional-gather-test-results
+    publishers:
+      - conditional-publisher:
+          - condition-kind: shell
+            condition-command: test -f build/test/{test}/test-results.xml
+            on-evaluation-failure: dont-run
+            action:
+                - junit:
+                    results: 'build/test/{test}/test-results.xml'
 
 - publisher:
     name: conditional-junit
