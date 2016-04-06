@@ -1,6 +1,6 @@
 - job:
     name: 'self-service-tier1-test'
-    node: vsi
+    node: ondemand
     parameters:
        - string:
             name: Feature_BranchName
