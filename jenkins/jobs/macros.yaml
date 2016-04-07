@@ -67,7 +67,7 @@
           mkdir -p /mnt/jenkins/workspace/sstate-cache
           cd build
           #BUILD_VERSION=$(../yocto/poky/bitbake/bin/bitbake -e | grep DISTRO_VERSION= | cut -d\" -f 2)
-          BUILD_VERSION=$(grep "DISTRO_VERSION = " yocto/openswitch/meta-distro-openswitch/conf/distro/openswitch.conf | sed -e 's/.*"\(.*\)"/\1/')
+          BUILD_VERSION=$(cat yocto/openswitch/meta-distro-openswitch/conf/distro/openswitch.conf | grep 'DISTRO_VERSION =' | cut -d\" -f 2)
           cd ..
           echo "ops-$BUILD_VERSION-$BRANCH+$BUILD_NUMBER" > .version_string
           if [ {platform} == "p4" ]
