@@ -310,7 +310,7 @@
            # Cleanup
            test -e .sandbox_uuid && make devenv_ct_clean
            /usr/local/jenkins/slave_scripts/docker_clean_instances_and_image.sh $TOPOLOGY_TEST_IMAGE
-           sudo chown jenkins.jenkins build/test/legacy/*-test-results.xml
+           sudo chown jenkins.jenkins build/test/legacy/test-results.xml
 
 - builder:
     name: fttest-for-image
@@ -551,6 +551,44 @@
            rm -Rf build/*_syslog.txt
 
 - builder:
+    name: module-test
+    builders:
+      - shell: |
+           #!/bin/bash -x
+           set -e
+           if git ls-remote https://git.openswitch.net/openswitch/ops | grep -swq "$ZUUL_BRANCH" ; then
+             OPS_BRANCH=$ZUUL_BRANCH
+           else
+             OPS_BRANCH=master
+           fi
+           rm -rf build/test/*/test-results.xml
+           cd src/{module}
+           cat extension.txt
+           if [ {platform} == "genericx86-64" ]
+           then
+             touch .devenv
+             make testenv_init
+             # If this module still has legacy component test, we run them too, otherwise only the legacy feature
+             if [ -d src/{module}/test ] ; then
+                TESTS_TO_RUN="ops {module}"
+             else
+                TESTS_TO_RUN="ops"
+             fi
+             export TOPOLOGY_TEST_IMAGE=$(echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]')
+             # build the fs, export into docker, and download the repos and run the tests
+             make testenv_run legacy $TESTS_TO_RUN
+             # If we have modular component tests, we run them
+             if [ -d src/{module}/ops-test/component ] ; then
+               make testenv_rerun component {module}
+             fi
+             test -e .sandbox_uuid && make devenv_ct_clean
+             /usr/local/jenkins/slave_scripts/docker_clean_instances_and_image.sh $TOPOLOGY_TEST_IMAGE
+             sudo chown jenkins.jenkins build/test/*/test-results.xml
+           else
+             echo "Skipping tests because it is not a genericx86-64 platform"
+           fi
+
+- builder:
     name: module-cttest
     builders:
       - shell: |
@@ -700,46 +738,6 @@
            else
              echo "Skipping cttest"
            fi
-
-- builder:
-    name: topology_test
-    builders:
-      - shell: |
-           #!/bin/bash -x
-           set -e
-           if [ {platform} == "genericx86-64" ]
-           then
-             echo "===================  Building Topology $test Tests from ops:$module =================== "
-             cd $WORKSPACE
-             make testenv_init
-             make testenv_run {test} {module}
-           else
-             echo "Skipping topology test component because of one of reasons: 1. Not a genericx86-64 platform; 2. Commit files are all in .md extension"
-           fi
-
-- builder:
-    name: topology_test_rerun
-    builders:
-      - shell: |
-           #!/bin/bash -x
-           set -e
-           if [ {platform} == "genericx86-64" ]
-           then
-             echo "===================  Building Topology $test Tests from ops:$module =================== "
-             cd $WORKSPACE
-             make testenv_init
-             make testenv_rerun {test} {module}
-           else
-             echo "Skipping topology test component because of one of reasons: 1. Not a genericx86-64 platform; 2. Commit files are all in .md extension"
-           fi
-
-- builder:
-    name: jekyll-build
-    builders:
-      - shell: |
-           #!/bin/bash -x
-           set -e
-           jekyll build
 
 #- builder:
 #    name: gulp-dist
@@ -1850,18 +1848,6 @@
          fail-build: false
 
 - publisher:
-    name: publish-topologyTest-results
-    publishers:
-      - conditional-publisher:
-          - condition-kind: shell
-            condition-command: test -f builds/tests/{test}/test-results.xml
-            on-evaluation-failure: dont-run
-            action:
-                - archive:
-                    artifacts: 'builds/tests/{test}/test-results.xml'
-                    allow-empty: 'true'
-
-- publisher:
     name: archive-test-logs
     publishers:
       - conditional-publisher:
@@ -1901,11 +1887,11 @@
     publishers:
       - conditional-publisher:
           - condition-kind: shell
-            condition-command: test -f build/test/{test}/test-results.xml
+            condition-command: ls build/test/*/test-results.xml > /dev/null
             on-evaluation-failure: dont-run
             action:
                 - junit:
-                    results: 'build/test/{test}/test-results.xml'
+                    results: 'build/test/**/test-results.xml'
 
 - publisher:
     name: conditional-junit

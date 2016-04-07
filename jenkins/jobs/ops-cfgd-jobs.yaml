@@ -41,15 +41,13 @@
         - module-build-branch:
             module: 'ops-cfgd'
             platform: 'genericx86-64'
-        - topology_test:
+        - module-test:
             module: 'ops-cfgd'
             platform: 'genericx86-64'
-            test: 'component'
     publishers:
-#        - conditional-junit
-#        - archive-syslog
-#        - post-ws-clean
-        - publish-topologyTest-results
+        - conditional-gather-test-results
+        - archive-syslog
+        - post-ws-clean
 
 
 - job-group:
