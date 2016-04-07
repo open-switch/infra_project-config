@@ -88,7 +88,7 @@
     publishers:
         - conditional-junit
         - archive-syslog
-        - publish-test-results-on-failure
+        - archive-test-logs-on-failure
         - post-ws-clean
 
 - job-template:
@@ -130,7 +130,7 @@
     publishers:
         - conditional-junit
         - archive-syslog
-        - publish-opsTest-results
+        - archive-test-logs
         - mail-on-fail:
              email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
 
@@ -176,7 +176,7 @@
     publishers:
         - conditional-junit
         - archive-syslog
-        - publish-opsTest-results
+        - archive-test-logs
         - mail-on-fail:
              email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
 
@@ -219,7 +219,7 @@
     publishers:
         - conditional-junit
         - archive-syslog
-        - publish-opsTest-results
+        - archive-test-logs
         - mail-on-fail:
              email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
 
@@ -271,7 +271,7 @@
     publishers:
         - conditional-junit
         - archive-syslog
-        - publish-opsTest-results
+        - archive-test-logs
         - mail-on-fail:
              email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
 
@@ -316,7 +316,7 @@
     publishers:
         - conditional-junit
         - archive-syslog
-        - publish-opsTest-results
+        - archive-test-logs
         - mail-on-fail:
              email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
 
@@ -367,7 +367,7 @@
     publishers:
         - conditional-junit
         - archive-syslog
-        - publish-opsTest-results
+        - archive-test-logs
         - mail-on-fail:
              email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
 

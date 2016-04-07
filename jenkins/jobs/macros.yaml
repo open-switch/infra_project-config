@@ -1862,23 +1862,19 @@
                     allow-empty: 'true'
 
 - publisher:
-    name: publish-opsTest-results
+    name: archive-test-logs
     publishers:
       - conditional-publisher:
           - condition-kind: shell
-            condition-command: ls opsTest-results > /dev/null
+            condition-command: test -d opsTest-results
             on-evaluation-failure: dont-run
             action:
                 - archive:
                     artifacts: 'opsTest-results/**/*.log'
                     allow-empty: 'true'
-
-- publisher:
-    name: publish-vsiTest-results
-    publishers:
       - conditional-publisher:
           - condition-kind: shell
-            condition-command: ls openswitch-test > /dev/null
+            condition-command: test -d openswitch-test
             on-evaluation-failure: dont-run
             action:
                 - archive:
@@ -1886,7 +1882,7 @@
                     allow-empty: 'true'
 
 - publisher:
-    name: publish-test-results-on-failure
+    name: archive-test-logs-on-failure
     publishers:
       - conditional-publisher:
           - condition-kind: current-status

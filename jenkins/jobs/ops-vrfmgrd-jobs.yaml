@@ -56,7 +56,7 @@
     publishers:
         - conditional-junit
         - archive-syslog
-        - publish-test-results-on-failure
+        - archive-test-logs-on-failure
         - post-ws-clean
 
 

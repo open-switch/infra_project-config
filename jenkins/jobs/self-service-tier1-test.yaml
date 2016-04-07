@@ -24,6 +24,5 @@
         - conditional-gather-test-results:
              test: legacy
         - archive-syslog
-        - publish-opsTest-results
-        - publish-vsiTest-results
+        - archive-test-logs
         - post-ws-clean
