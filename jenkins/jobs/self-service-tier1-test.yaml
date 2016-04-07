@@ -22,7 +22,7 @@
         - ops-selfservice-cit-ondemand
     publishers:
         - conditional-junit
-        - post-docker-clean
+        - archive-syslog
         - publish-opsTest-results
         - publish-vsiTest-results
         - post-ws-clean

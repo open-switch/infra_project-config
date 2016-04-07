@@ -62,7 +62,7 @@
         - simple-scp:
             dest: 'api/rest/'
         - conditional-junit
-        - post-docker-clean
+        - archive-syslog
         - publish-test-results-on-failure
         - post-ws-clean
 

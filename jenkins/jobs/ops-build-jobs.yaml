@@ -87,7 +87,7 @@
 
     publishers:
         - conditional-junit
-        - post-docker-clean
+        - archive-syslog
         - publish-test-results-on-failure
         - post-ws-clean
 
@@ -129,7 +129,7 @@
 
     publishers:
         - conditional-junit
-        - post-docker-clean
+        - archive-syslog
         - publish-opsTest-results
         - mail-on-fail:
              email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
@@ -175,7 +175,7 @@
 
     publishers:
         - conditional-junit
-        - post-docker-clean
+        - archive-syslog
         - publish-opsTest-results
         - mail-on-fail:
              email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
@@ -218,7 +218,7 @@
 
     publishers:
         - conditional-junit
-        - post-docker-clean
+        - archive-syslog
         - publish-opsTest-results
         - mail-on-fail:
              email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
@@ -270,7 +270,7 @@
 
     publishers:
         - conditional-junit
-        - post-docker-clean
+        - archive-syslog
         - publish-opsTest-results
         - mail-on-fail:
              email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
@@ -315,7 +315,7 @@
 
     publishers:
         - conditional-junit
-        - post-docker-clean
+        - archive-syslog
         - publish-opsTest-results
         - mail-on-fail:
              email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
@@ -366,7 +366,7 @@
 
     publishers:
         - conditional-junit
-        - post-docker-clean
+        - archive-syslog
         - publish-opsTest-results
         - mail-on-fail:
              email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"

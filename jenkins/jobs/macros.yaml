@@ -586,6 +586,7 @@
              sudo chown -R jenkins.jenkins /tmp/opsTest-results
              sudo rm -rf /tmp/opsTest-results/
            fi
+           rm -Rf build/*_syslog.txt
 
 - builder:
     name: module-cttest
@@ -1850,22 +1851,15 @@
               copy-after-failure: false
 
 - publisher:
-    name: post-docker-clean
+    name: archive-syslog
     publishers:
       # Publish logs from tests if it is present
       - postbuildscript:
           builders:
             - shell: |
-                 export VSI_IMAGE_NAME=`cat .image_name`
-                 export SYSLOG="${VSI_IMAGE_NAME}_syslog.txt"
+                 export TOPOLOGY_TEST_IMAGE=$(echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]')
+                 export SYSLOG="${TOPOLOGY_TEST_IMAGE}_syslog.txt"
                  sudo tail -n 2000 /var/log/syslog > build/$SYSLOG
-                 sudo docker ps | grep $VSI_IMAGE_NAME
-                 if [ $? = "0" ]; then
-                   sudo docker ps | grep $VSI_IMAGE_NAME | cut -d' ' -f1 | xargs sudo docker rm -vf
-                 fi
-                 test -e .sandbox_uuid && make devenv_ct_clean
-                 docker rmi -f $VSI_IMAGE_NAME 2>/dev/null
-                 #docker images | grep $VSI_IMAGE_NAME && docker rmi -f $VSI_IMAGE_NAME
           script-only-if-succeeded: False
           script-only-if-failed: True
       - conditional-publisher:

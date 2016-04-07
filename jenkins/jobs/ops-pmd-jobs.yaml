@@ -46,7 +46,7 @@
 
     publishers:
 #        - conditional-junit
-#        - post-docker-clean
+#        - archive-syslog
 #        - post-ws-clean
         - publish-topologyTest-results
 
