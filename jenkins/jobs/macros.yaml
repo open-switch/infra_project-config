@@ -418,6 +418,12 @@
           # Clone the module under test
           rm -rf src/$COV_MODULE
           git clone -b $COV_BRANCH http://git.openswitch.net/openswitch/$COV_MODULE src/$COV_MODULE
+          cd $WORKSPACE/src/$COV_MODULE
+          git fetch $ZUUL_URL/$ZUUL_PROJECT $ZUUL_REF
+          git checkout FETCH_HEAD
+          git reset --hard FETCH_HEAD
+          git clean -x -f -d -q
+          cd -
           # Trigger building of some basic recipe to get the recipe environment working, since devtool is not that good yet...
           make bake cmake-native
           make devenv_import $COV_MODULE $PWD/src/$COV_MODULE
