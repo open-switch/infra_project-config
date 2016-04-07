@@ -80,10 +80,10 @@
         - ops-build:
             platform: 'genericx86-64'
         - check-docker-state
-        - clear-test-results
+        - clear-test-logs
         - feature-cttest-for-ops-build:
             platform: 'genericx86-64'
-        - cp-test-results
+        - capture-test-logs
 
     publishers:
         - conditional-junit
@@ -121,11 +121,11 @@
         - create-build-artifacts
         - scp-artifacts
         - check-docker-state
-        - clear-test-results
+        - clear-test-logs
         - fttest-for-image:
             platform: '{platform}'
         - scp-artifacts-junit
-        - cp-opsTest-results
+        - capture-test-logs
 
     publishers:
         - conditional-junit
@@ -210,11 +210,11 @@
         - create-build-artifacts
         - scp-artifacts
         - check-docker-state
-        - clear-test-results
+        - clear-test-logs
         - fttest-for-image:
             platform: 'p4'
         - scp-artifacts-junit
-        - cp-opsTest-results
+        - capture-test-logs
 
     publishers:
         - conditional-junit
@@ -262,11 +262,11 @@
         - create-build-artifacts
         - scp-artifacts
         - check-docker-state
-        - clear-test-results
+        - clear-test-logs
         - fttest-for-image:
             platform: 'genericx86-64'
         - scp-artifacts-junit
-        - cp-opsTest-results
+        - capture-test-logs
 
     publishers:
         - conditional-junit
@@ -358,11 +358,11 @@
         - create-build-artifacts
         - scp-artifacts
         - check-docker-state
-        - clear-test-results
+        - clear-test-logs
         - fttest-for-image:
             platform: 'genericx86-64'
         - scp-artifacts-junit
-        - cp-opsTest-results
+        - capture-test-logs
 
     publishers:
         - conditional-junit

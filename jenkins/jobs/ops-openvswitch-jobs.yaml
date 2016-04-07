@@ -40,11 +40,11 @@
             module: 'ops-openvswitch'
             platform: 'genericx86-64'
         - check-docker-state
-        - clear-test-results
+        - clear-test-logs
         - module-cttest:
             module: 'ops-openvswitch'
             platform: 'genericx86-64'
-        - cp-test-results
+        - capture-test-logs
         - shell: |
             #!/bin/bash -x
             set -e

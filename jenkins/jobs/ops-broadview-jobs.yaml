@@ -45,11 +45,11 @@
             module: 'ops-broadview'
             platform: 'genericx86-64'
         - check-docker-state
-        - clear-test-results
+        - clear-test-logs
         - module-cttest:
             module: 'ops-broadview'
             platform: 'genericx86-64'
-        - cp-test-results
+        - capture-test-logs
     publishers:
         - conditional-junit
         - post-docker-clean

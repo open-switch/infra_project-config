@@ -564,7 +564,7 @@
            fi
 
 - builder:
-    name: clear-test-results
+    name: clear-test-logs
     builders:
       - shell: |
            #!/bin/bash -x
@@ -970,14 +970,7 @@
           rename 's/onie-installer/openswitch-onie-installer/' *
 
 - builder:
-    name: cp-opsTest-results
-    builders:
-      - shell: |
-          rm -rf opsTest-results
-          cp -rf /tmp/opsTest-results/. opsTest-results || true
-
-- builder:
-    name: cp-test-results
+    name: capture-test-logs
     builders:
       - shell: |
           # Copy ops-vsi test results

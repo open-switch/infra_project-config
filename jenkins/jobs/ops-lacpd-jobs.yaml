@@ -37,11 +37,11 @@
             module: 'ops-lacpd'
             platform: 'genericx86-64'
         - check-docker-state
-        - clear-test-results
+        - clear-test-logs
         - module-cttest:
             module: 'ops-lacpd'
             platform: 'genericx86-64'
-        - cp-test-results
+        - capture-test-logs
         - lcov-compile:
             module: 'ops-lacpd'
         - lcov-coverage-run:
