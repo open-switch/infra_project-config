@@ -27,7 +27,13 @@
         - module-build-branch:
             module: 'ops-classifierd'
             platform: '{platform}'
+        - lcov-compile:
+            module: 'ops-classifierd'
+        - lcov-coverage-run:
+            module: 'ops-classifierd'
     publishers:
+        - conditional-junit
+        - conditional-htmlreports
         - post-ws-clean
 
 - job-group:

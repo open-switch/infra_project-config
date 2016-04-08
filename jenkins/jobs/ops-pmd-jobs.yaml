@@ -42,8 +42,14 @@
         - module-test:
             module: 'ops-pmd'
             platform: 'genericx86-64'
+        - lcov-compile:
+            module: 'ops-pmd'
+        - lcov-coverage-run:
+            module: 'ops-pmd'
 
     publishers:
+        - conditional-junit
+        - conditional-htmlreports
         - conditional-gather-test-results
         - archive-syslog
         - post-ws-clean

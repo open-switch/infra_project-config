@@ -45,9 +45,14 @@
             module: 'ops-vland'
             platform: 'genericx86-64'
         - capture-test-logs
+        - lcov-compile:
+            module: 'ops-vland'
+        - lcov-coverage-run:
+            module: 'ops-vland'
 
     publishers:
         - conditional-junit
+        - conditional-htmlreports
         - archive-syslog
         - archive-test-logs-on-failure
         - post-ws-clean

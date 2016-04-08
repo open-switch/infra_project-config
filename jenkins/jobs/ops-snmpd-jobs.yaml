@@ -53,9 +53,14 @@
             module: 'ops-snmpd'
             platform: 'genericx86-64'
         - capture-test-logs
+        - lcov-compile:
+            module: 'ops-snmpd'
+        - lcov-coverage-run:
+            module: 'ops-snmpd'
 
     publishers:
         - conditional-junit
+        - conditional-htmlreports
         - archive-syslog
         - archive-test-logs-on-failure
         - post-ws-clean

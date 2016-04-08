@@ -38,9 +38,14 @@
         - module-cttest:
             module: 'ops-switchd-opennsl-plugin'
             platform: 'genericx86-64'
+        - lcov-compile:
+            module: 'ops-switchd-opennsl-plugin'
+        - lcov-coverage-run:
+            module: 'ops-switchd-opennsl-plugin'
 
     publishers:
         - conditional-junit
+        - conditional-htmlreports
         - archive-syslog
 
 - job-group:

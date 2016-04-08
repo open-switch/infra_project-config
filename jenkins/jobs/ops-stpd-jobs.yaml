@@ -45,9 +45,14 @@
             module: 'ops-stpd'
             platform: 'genericx86-64'
         - capture-test-logs
+        - lcov-compile:
+            module: 'ops-stpd'
+        - lcov-coverage-run:
+            module: 'ops-stpd'
 
     publishers:
         - conditional-junit
+        - conditional-htmlreports
         - archive-syslog
         - archive-test-logs-on-failure
         - post-ws-clean
