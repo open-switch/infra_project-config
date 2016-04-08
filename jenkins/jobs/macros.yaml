@@ -569,19 +569,21 @@
              cd $WORKSPACE
              touch .devenv
              make testenv_init
+             export TOPOLOGY_TEST_IMAGE=$(echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]')
+             # If we have modular component tests, we run them
+             SECOND_RUN_COMMAND=testenv_run
+             if [ -d src/{module}/ops-test/component ] ; then
+               make testenv_run component {module}
+               SECOND_RUN_COMMAND=testenv_rerun
+             fi
              # If this module still has legacy component test, we run them too, otherwise only the legacy feature
              if [ -d src/{module}/tests ] ; then
-                TESTS_TO_RUN="ops {module}"
+                TESTS_TO_RUN="{module} ops"
              else
                 TESTS_TO_RUN="ops"
              fi
-             export TOPOLOGY_TEST_IMAGE=$(echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]')
              # build the fs, export into docker, and download the repos and run the tests
-             make testenv_run legacy $TESTS_TO_RUN
-             # If we have modular component tests, we run them
-             if [ -d src/{module}/ops-test/component ] ; then
-               make testenv_rerun component {module}
-             fi
+             make $SECOND_RUN_COMMAND legacy $TESTS_TO_RUN
              test -e .sandbox_uuid && make devenv_ct_clean
              /usr/local/jenkins/slave_scripts/docker_clean_instances_and_image.sh $TOPOLOGY_TEST_IMAGE
              sudo chown jenkins.jenkins build/test/*/test-results.xml
