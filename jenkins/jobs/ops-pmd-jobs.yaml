@@ -48,7 +48,6 @@
             module: 'ops-pmd'
 
     publishers:
-        - conditional-junit
         - conditional-htmlreports
         - conditional-gather-test-results
         - archive-syslog
