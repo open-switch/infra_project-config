@@ -566,6 +566,7 @@
            cat extension.txt
            if [ {platform} == "genericx86-64" ]
            then
+             cd $WORKSPACE
              touch .devenv
              make testenv_init
              # If this module still has legacy component test, we run them too, otherwise only the legacy feature
