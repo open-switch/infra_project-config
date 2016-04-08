@@ -570,7 +570,7 @@
              touch .devenv
              make testenv_init
              # If this module still has legacy component test, we run them too, otherwise only the legacy feature
-             if [ -d src/{module}/test ] ; then
+             if [ -d src/{module}/tests ] ; then
                 TESTS_TO_RUN="ops {module}"
              else
                 TESTS_TO_RUN="ops"
