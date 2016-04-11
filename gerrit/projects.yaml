@@ -228,3 +228,7 @@
 #Sysmond
 - project: openswitch/ops-sysmond
   description: OpenSwitch System Monitoring Daemon
+
+#L2 MAC Management
+- project: openswitch/ops-l2macd
+  description: L2 MAC Management daemon
