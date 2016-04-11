@@ -1,0 +1,65 @@
+- job-template:
+    name: 'ops-sysmond-check-{platform}'
+    node: openswitch
+    wrappers:
+        - build-timeout:
+            timeout: 120
+    builders:
+        - revoke-sudo
+#        - module-build-branch:
+#            module: 'ops-sysmond'
+#            platform: '{platform}'
+#    publishers:
+#        - post-ws-clean
+
+- job:
+    name: 'ops-sysmond-gate-as5712'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 180
+
+    builders:
+        - revoke-sudo
+#        - module-build-branch:
+#            module: 'ops-sysmond'
+#            platform: 'as5712'
+#    publishers:
+#        - post-ws-clean
+
+- job:
+    name: 'ops-sysmond-gate-genericx86-64'
+    node: openswitch 
+
+    wrappers:
+        - build-timeout:
+            timeout: 180
+
+    builders:
+        - revoke-sudo
+#        - module-build-branch:
+#            module: 'ops-sysmond'
+#            platform: 'genericx86-64'
+#        - check-docker-state
+#        - clear-test-logs
+#        - module-cttest:
+#            module: 'ops-sysmond'
+#            platform: 'genericx86-64'
+#        - lcov-compile:
+#            module: 'ops-sysmond'
+#        - lcov-coverage-run:
+#            module: 'ops-sysmond'
+#        - capture-test-logs
+#
+#    publishers:
+#        - conditional-junit
+#        - conditional-htmlreports
+#        - archive-syslog
+#        - archive-test-logs-on-failure
+#        - post-ws-clean
+
+- job-group:
+    name: 'ops-sysmond-jobs'
+    jobs:
+      - 'ops-sysmond-check-{platform}'
