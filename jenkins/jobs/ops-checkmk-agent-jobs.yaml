@@ -28,7 +28,7 @@
 
 - job:
     name: 'ops-checkmk-agent-gate-genericx86-64'
-    node: vsi
+    node: vsi-test
     wrappers:
         - build-timeout:
             timeout: 240
