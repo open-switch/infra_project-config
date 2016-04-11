@@ -38,7 +38,7 @@
             platform: 'genericx86-64'
         - check-docker-state
         - clear-test-logs
-        - module-cttest:
+        - module-crt-cttest:
             module: 'ops-checkmk-agent'
             platform: 'genericx86-64'
         - capture-test-logs
