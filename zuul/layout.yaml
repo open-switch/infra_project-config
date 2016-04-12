@@ -679,7 +679,6 @@ projects:
       - md-gate
 
   - name: openswitch/ops-checkmk-agent
-    branch: ^feature/cit.*$
     template:
       - name: merge-check
       - name: module-build
