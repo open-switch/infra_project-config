@@ -52,7 +52,6 @@
             platform: 'genericx86-64'
     publishers:
         - conditional-junit
-        - post-docker-clean
         - post-ws-clean
 
 
@@ -60,4 +59,3 @@
     name: 'ops-l2macd-jobs'
     jobs:
       - 'ops-l2macd-check-{platform}'
-
