@@ -781,6 +781,16 @@ projects:
         module: ops-sysmond
         platform: as5712
 
+  - name: openswitch/ops-l2macd
+    template:
+      - name: merge-check
+      - name: module-build
+        module: ops-l2macd
+        platform: genericx86-64
+      - name: module-build
+        module: ops-l2macd
+        platform: as5712
+
   - name: openswitch/ops-vrfmgrd
     template:
       - name: merge-check

@@ -1,0 +1,63 @@
+- job-template:
+    name: 'ops-l2macd-check-{platform}'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build-branch:
+            module: 'ops-l2macd'
+            platform: '{platform}'
+    publishers:
+        - post-ws-clean
+
+- job:
+    name: 'ops-l2macd-gate-as5712'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 180
+        - timestamps
+        - ansicolor
+
+    builders:
+        - module-build-branch:
+            module: 'ops-l2macd'
+            platform: 'as5712'
+    publishers:
+        - post-ws-clean
+
+- job:
+    name: 'ops-l2macd-gate-genericx86-64'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 180
+        - timestamps
+        - ansicolor
+
+    builders:
+        - module-build-branch:
+            module: 'ops-l2macd'
+            platform: 'genericx86-64'
+        - module-cttest:
+            module: 'ops-l2macd'
+            platform: 'genericx86-64'
+    publishers:
+        - conditional-junit
+        - post-docker-clean
+        - post-ws-clean
+
+
+- job-group:
+    name: 'ops-l2macd-jobs'
+    jobs:
+      - 'ops-l2macd-check-{platform}'
+

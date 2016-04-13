@@ -444,6 +444,15 @@
         - 'ops-sysmond-jobs'
 
   - project:
+      name: openswitch/ops-l2macd
+      node: 'openswitch'
+      platform:
+        - genericx86-64
+        - as5712
+      jobs:
+        - 'ops-l2macd-jobs'
+
+  - project:
       name: openswitch/ops-vrfmgrd
       node: 'openswitch'
       platform:
