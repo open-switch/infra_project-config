@@ -361,10 +361,7 @@
     builders:
       - shell: |
           #!/bin/bash -x
-          # Clone and build the $COV_MODULE repo with coverage flags
-          # Currently this is hardcoded to use the $COV_MODULE repo and the $COV_BRANCH branch
-          COV_MODULE={module}
-          COV_BRANCH=master
+          # TODO: this job should be named lcov-setup as no compilation is required here
           rm -fr .[^.]* *
           # Clone OpenSwitch
           git clone -b master https://git.openswitch.net/openswitch/ops-build .
@@ -376,9 +373,9 @@
             make configure genericx86-64
           fi
           # Clone the module under test
-          rm -rf src/$COV_MODULE
-          git clone -b $COV_BRANCH http://git.openswitch.net/openswitch/$COV_MODULE src/$COV_MODULE
-          cd $WORKSPACE/src/$COV_MODULE
+          rm -rf src/{module}
+          git clone -b master http://git.openswitch.net/openswitch/{module} src/{module}
+          cd $WORKSPACE/src/{module}
           git fetch $ZUUL_URL/$ZUUL_PROJECT $ZUUL_REF
           git checkout FETCH_HEAD
           git reset --hard FETCH_HEAD
@@ -386,65 +383,63 @@
           cd -
           # Trigger building of some basic recipe to get the recipe environment working, since devtool is not that good yet...
           make bake cmake-native
-          make devenv_import $COV_MODULE $PWD/src/$COV_MODULE
+          make devenv_import {module} $PWD/src/{module}
           # Configure the Build System to build the module with the coverage flags. CMake only.
           # TODO: Add support for Make based repos and for Python.
           touch build/devenv-coverage-enabled
-          # Compile the module under test, it compiles with the coverage flags
-          make bake $COV_MODULE
           # Clone the OPS repo for Feature Tests
           rm -rf src/ops
-          git clone -b $COV_BRANCH https://git.openswitch.net/openswitch/ops src/ops
+          git clone -b master https://git.openswitch.net/openswitch/ops src/ops
 
 - builder:
     name: lcov-coverage-run
     builders:
       - shell: |
-          #!/bin/bash -x
-          # Configuration
-          COV_MODULE={module}
-          COV_BRANCH=master
-          COV_CONF_FILE="src/$COV_MODULE/ft_ct_coverage"        # Configuration file. If it exists then CT/FT coverage will be performed.
-          COV_MINIMUM=-1                                        # Minimum default of coverage.
-          COV_REPORT_DIR="coverage"                             # Location where the coverage report data will be placed
-          COV_DATA_DIR="src/$COV_MODULE/"                       # Repo directory where coverage data will be stored (gcda && gcno)
-          # If the COV_CONF_FILE does not exist, do not continue, i.e no coverage enabled at the repo.
-          if [ -f $COV_CONF_FILE ]
-          then
-            make fs
-            make devenv_ct_init
-            # Export the location where the coverage data has to be placed (.gcda and .gcno files).
-            export VSI_COV_DATA_DIR=$PWD/$COV_DATA_DIR
-            DOCKER_IMAGE_NAME=`echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]'`
-            export VSI_IMAGE_NAME=$DOCKER_IMAGE_NAME
-            make export_docker_image $VSI_IMAGE_NAME
-            # Create coverage data baseline
-            rm -rf $COV_REPORT_DIR
-            mkdir -p $COV_REPORT_DIR
-            lcov --zerocounters --directory $COV_DATA_DIR       # Clear all coverage counters before running the tests
-            lcov --initial --capture --directory $COV_DATA_DIR --output-file $COV_REPORT_DIR/app_base.info
-            # Run the Component and Feature Tests
-            # TODO: Determine if tests can be run in parallel or must definitely be sequential (multiple Docker images may write to the same gcda concurrently)
-            # TODO: It has been configured to NOT exit on first failure. We want all tests to run to get most possible coverage.
-            make devenv_ct_test PY_TEST_ARGS="src/$COV_MODULE/tests --junit-xml=build/component-test-results.xml"
-            # TODO: Enable FT
-            # make devenv_ct_test PY_TEST_ARGS="src/ops --junit-xml=build/feature-test-results.xml"
-            test -e .sandbox_uuid && make devenv_ct_clean
-            docker images | grep $VSI_IMAGE_NAME && docker rmi -f $VSI_IMAGE_NAME
-            # Stop debugging to make report output clearer
-            set +x
-            # Capture the coverage raw data and check that coverage data was generated
-            COV_RAW_DATA=`lcov --capture --directory $COV_DATA_DIR --output-file $COV_REPORT_DIR/app_test.info 2>&1`
-            if grep -q "ERROR: no \.gcda files found" <<< $COV_RAW_DATA; then
+            #!/bin/bash -x
+            # Configuration
+            COV_CONF_FILE="src/{module}/ft_ct_coverage"        # Configuration file. If it exists then CT/FT coverage will be performed.
+            COV_MINIMUM=-1                                     # Minimum default of coverage.
+            COV_REPORT_DIR="coverage"                          # Location where the coverage report data will be placed
+            COV_DATA_DIR="src/{module}/"                       # Repo directory where coverage data will be stored (gcda && gcno)
+            # If the COV_CONF_FILE does not exist, do not continue, i.e no coverage enabled at the repo.
+            if [ -f $COV_CONF_FILE ]
+            then
+              # Causes a new image to be compiled, repos in src/ (devenv) will be compiled with coverage flags
+              make fs
+              make devenv_ct_init
+              # Export the location where the coverage data has to be placed (.gcda and .gcno files).
+              export VSI_COV_DATA_DIR=$PWD/$COV_DATA_DIR
+              export VSI_IMAGE_NAME=`echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]'`
+              # Remove image, if existing
+              docker images | grep $VSI_IMAGE_NAME && docker rmi -f $VSI_IMAGE_NAME
+              make export_docker_image $VSI_IMAGE_NAME
+              # Create coverage data baseline
+              rm -rf $COV_REPORT_DIR
+              mkdir -p $COV_REPORT_DIR
+              lcov --zerocounters --directory $COV_DATA_DIR       # Clear all coverage counters before running the tests
+              lcov --initial --capture --directory $COV_DATA_DIR --output-file $COV_REPORT_DIR/app_base.info
+              # Run the Component and Feature Tests
+              # NOTE: It has been configured to NOT exit on first failure. We want all tests to run to get most possible coverage.
+              make devenv_ct_test PY_TEST_ARGS="src/{module}/tests --junit-xml=build/component-test-results.xml"
+              # TODO: Enable FT
+              # make devenv_ct_test PY_TEST_ARGS="src/ops --junit-xml=build/feature-test-results.xml"
+              test -e .sandbox_uuid && make devenv_ct_clean
+              # Remove image
+              docker images | grep $VSI_IMAGE_NAME && docker rmi -f $VSI_IMAGE_NAME
+              # Stop debugging to make report output clearer
+              set +x
+              # Capture the coverage raw data and check that coverage data was generated
+              COV_RAW_DATA=`lcov --capture --directory $COV_DATA_DIR --output-file $COV_REPORT_DIR/app_test.info 2>&1`
+              if grep -q "ERROR: no \.gcda files found" <<< $COV_RAW_DATA; then
                 echo "WARNING: No coverage data was generated during test run. Exiting now with no coverage report"
                 exit 0
-            fi
-            LCOV_COV_FILE="app_total.info"        # The file where the coverage data will be placed
-            # Read the configured minimum coverage percentage and exclude patterns from the repo conf file
-            # Configure exclude patterns using wildcars and separated by spaces, e.g to remove gtest and openvswitch files use:
-            # Exclude_pattern=*gtest* *openvswitch*
-            while read -r line
-            do
+              fi
+              LCOV_COV_FILE="app_total.info"        # The file where the coverage data will be placed
+              # Read the configured minimum coverage percentage and exclude patterns from the repo conf file
+              # Configure exclude patterns using wildcars and separated by spaces, e.g to remove gtest and openvswitch files use:
+              # Exclude_pattern=*gtest* *openvswitch*
+              while read -r line
+              do
                 tmp=`echo "$line" | sed -rn 's/^Minimum_coverage=([0-9]+)$/\1/p'`
                 if [ ! -z "$tmp" ]
                 then
@@ -479,35 +474,35 @@
               # Generate the HTML report
               mkdir -p $COV_REPORT_DIR/html
               cd $COV_REPORT_DIR/html
-              # TODO: Implement Branch Analysis
+              # TODO: Enable Branch Analysis
               echo "Creating HTML report"
               genhtml --no-branch-coverage ../$LCOV_COV_FILE > /dev/null 2>&1
-                cd ../..
-                echo ""
-                echo "**** Configuration and result info: ****"
-                echo ""
-                echo "The configured coverage threshold is: $COV_MINIMUM"
-                echo "The configured FT/CT code coverage exclude pattern is: $COV_EXCLUDE_PATTERN"
-                echo "The actual reported coverage is: $COV_REPORTED"
-                echo ""
-                if [ "$COV_MINIMUM" -gt "$COV_REPORTED" ]
-                then
-                  echo "The code does not have enough coverage"
-                  # TODO: Re-enable exit 1.
-                  # This is being disabled right now because on first stage of
-                  # the coverage analysis implementation we do not want to
-                  # block commits based on low coverage.
-                  # This will be re-enabled later on to prevent low coverage
-                  # commits from passing.
-                  # exit 1
-                  exit 0
-                else
-                  exit 0
-                fi
+              cd ../..
+              echo ""
+              echo "**** Configuration and result info: ****"
+              echo ""
+              echo "The configured coverage threshold is: $COV_MINIMUM"
+              echo "The configured FT/CT code coverage exclude pattern is: $COV_EXCLUDE_PATTERN"
+              echo "The actual reported coverage is: $COV_REPORTED"
+              echo ""
+              if [ "$COV_MINIMUM" -gt "$COV_REPORTED" ]
+              then
+                echo "The code does not have enough coverage"
+                # TODO: Re-enable exit 1.
+                # This is being disabled right now because on first stage of
+                # the coverage analysis implementation we do not want to
+                # block commits based on low coverage.
+                # This will be re-enabled later on to prevent low coverage
+                # commits from passing.
+                # exit 1
+                exit 0
               else
-                touch build/dummytest.xml
-                echo "Code coverage not enabled or unsupported platform, skipping..."
+                exit 0
               fi
+            else
+              touch build/dummytest.xml
+              echo "Code coverage not enabled or unsupported platform, skipping..."
+            fi
 
 - builder:
     name: check-docker-state
