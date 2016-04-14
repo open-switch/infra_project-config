@@ -41,7 +41,7 @@
             platform: 'genericx86-64'
         - check-docker-state
         - clear-test-logs
-        - module-cttest:
+        - module-test:
             module: 'ops-ntpd'
             platform: 'genericx86-64'
         - lcov-compile:
@@ -51,7 +51,7 @@
         - capture-test-logs
 
     publishers:
-        - conditional-junit
+        - conditional-gather-test-results
         - conditional-htmlreports
         - archive-syslog
         - archive-test-logs-on-failure

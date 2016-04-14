@@ -35,7 +35,7 @@
         - module-build-branch:
             module: 'ops-switchd-opennsl-plugin'
             platform: 'genericx86-64'
-        - module-cttest:
+        - module-test:
             module: 'ops-switchd-opennsl-plugin'
             platform: 'genericx86-64'
         - lcov-compile:
@@ -44,7 +44,7 @@
             module: 'ops-switchd-opennsl-plugin'
 
     publishers:
-        - conditional-junit
+        - conditional-gather-test-results
         - conditional-htmlreports
         - archive-syslog
 

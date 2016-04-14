@@ -49,12 +49,12 @@
             platform: 'genericx86-64'
         - check-docker-state
         - clear-test-logs
-        - module-cttest:
+        - module-test:
             module: 'ops-vrfmgrd'
             platform: 'genericx86-64'
         - capture-test-logs
     publishers:
-        - conditional-junit
+        - conditional-gather-test-results
         - archive-syslog
         - archive-test-logs-on-failure
         - post-ws-clean
@@ -64,4 +64,3 @@
     name: 'ops-vrfmgrd-jobs'
     jobs:
       - 'ops-vrfmgrd-check-{platform}'
-
