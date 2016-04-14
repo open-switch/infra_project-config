@@ -48,11 +48,11 @@
             module: 'ops-l2macd'
             platform: 'genericx86-64'
         - check-docker-state
-        - module-cttest:
+        - module-test:
             module: 'ops-l2macd'
             platform: 'genericx86-64'
     publishers:
-        - conditional-junit
+        - conditional-gather-test-results
         - post-ws-clean
 
 

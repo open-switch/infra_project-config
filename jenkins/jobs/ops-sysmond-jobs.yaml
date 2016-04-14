@@ -30,7 +30,7 @@
 
 - job:
     name: 'ops-sysmond-gate-genericx86-64'
-    node: openswitch 
+    node: openswitch
 
     wrappers:
         - build-timeout:
@@ -43,7 +43,7 @@
 #            platform: 'genericx86-64'
 #        - check-docker-state
 #        - clear-test-logs
-#        - module-cttest:
+#        - module-test:
 #            module: 'ops-sysmond'
 #            platform: 'genericx86-64'
 #        - lcov-compile:
@@ -53,7 +53,7 @@
 #        - capture-test-logs
 #
 #    publishers:
-#        - conditional-junit
+#        - conditional-gather-test-results
 #        - conditional-htmlreports
 #        - archive-syslog
 #        - archive-test-logs-on-failure

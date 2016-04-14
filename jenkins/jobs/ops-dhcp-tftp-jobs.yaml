@@ -41,7 +41,7 @@
             platform: 'genericx86-64'
         - check-docker-state
         - clear-test-logs
-        - module-cttest:
+        - module-test:
             module: 'ops-dhcp-tftp'
             platform: 'genericx86-64'
         - capture-test-logs
@@ -51,7 +51,7 @@
             module: 'ops-dhcp-tftp'
 
     publishers:
-        - conditional-junit
+        - conditional-gather-test-results
         - conditional-htmlreports
         - archive-syslog
         - archive-test-logs-on-failure

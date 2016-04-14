@@ -49,7 +49,7 @@
             platform: 'genericx86-64'
         - check-docker-state
         - clear-test-logs
-        - module-cttest:
+        - module-test:
             module: 'ops-snmpd'
             platform: 'genericx86-64'
         - capture-test-logs
@@ -59,7 +59,7 @@
             module: 'ops-snmpd'
 
     publishers:
-        - conditional-junit
+        - conditional-gather-test-results
         - conditional-htmlreports
         - archive-syslog
         - archive-test-logs-on-failure

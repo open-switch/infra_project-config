@@ -41,7 +41,7 @@
             platform: 'genericx86-64'
         - check-docker-state
         - clear-test-logs
-        - module-cttest:
+        - module-test:
             module: 'ops-openvswitch'
             platform: 'genericx86-64'
         - capture-test-logs
@@ -52,7 +52,7 @@
             make dist-docs
 
     publishers:
-        - conditional-junit
+        - conditional-gather-test-results
         - archive-syslog
         - archive-test-logs-on-failure
         - post-ws-clean
