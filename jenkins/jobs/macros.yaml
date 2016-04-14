@@ -523,24 +523,17 @@
            else
              docker ps -a
              docker images
+             # Cleanup docker containers and images before starting test
+             # WARN: This job needs to be modified when multiple gate jobs
+             #       start running on the same slave
+             docker ps -aq | xargs docker stop --time=5
+             docker ps -aq | xargs docker rm -f
+             docker rmi -f $(docker images -f "dangling=true" -q)
+             docker rmi -f $(docker images | grep '^ops.*'| awk '{print $1}')
+             echo "After docker cleanup"
+             docker ps -a
+             docker images
            fi
-
-- builder:
-    name: docker-cleanup
-    builders:
-      - shell: |
-           # Cleanup docker containers and images before starting test
-           # WARN: This job needs to be modified when multiple gate jobs
-           #       start running on the same slave
-           #!/bin/bash -x
-           set +e
-           docker ps -aq | xargs docker stop --time=5
-           docker ps -aq | xargs docker rm -f
-           docker rmi -f $(docker images -f "dangling=true" -q)
-           docker rmi -f $(docker images | grep '^ops.*'| awk '{print $1}')
-           echo "After docker cleanup"
-           docker ps -a
-           docker images
 
 - builder:
     name: clear-test-logs

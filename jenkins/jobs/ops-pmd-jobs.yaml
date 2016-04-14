@@ -39,6 +39,7 @@
         - module-build-branch:
             module: 'ops-pmd'
             platform: 'genericx86-64'
+        - check-docker-state
         - module-test:
             module: 'ops-pmd'
             platform: 'genericx86-64'

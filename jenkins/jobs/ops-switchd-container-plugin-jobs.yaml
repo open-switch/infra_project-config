@@ -40,7 +40,6 @@
             module: 'ops-switchd-container-plugin'
             platform: 'genericx86-64'
         - check-docker-state
-        - docker-cleanup
         - clear-test-logs
         - module-test:
             module: 'ops-switchd-container-plugin'
