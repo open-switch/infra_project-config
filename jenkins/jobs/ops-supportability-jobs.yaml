@@ -48,10 +48,6 @@
             module: 'ops-supportability'
             platform: 'genericx86-64'
         - capture-test-logs
-        - lcov-compile:
-            module: 'ops-supportability'
-        - lcov-coverage-run:
-            module: 'ops-supportability'
 
     publishers:
         - conditional-gather-test-results

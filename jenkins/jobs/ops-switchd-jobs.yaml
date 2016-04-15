@@ -45,10 +45,6 @@
             module: 'ops-switchd'
             platform: 'genericx86-64'
         - capture-test-logs
-        - lcov-compile:
-            module: 'ops-switchd'
-        - lcov-coverage-run:
-            module: 'ops-switchd'
 
     publishers:
         - conditional-gather-test-results

@@ -44,10 +44,6 @@
         - module-test:
             module: 'ops-ntpd'
             platform: 'genericx86-64'
-        - lcov-compile:
-            module: 'ops-ntpd'
-        - lcov-coverage-run:
-            module: 'ops-ntpd'
         - capture-test-logs
 
     publishers:
