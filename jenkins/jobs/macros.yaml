@@ -487,7 +487,7 @@
              # WARN: This job needs to be modified when multiple gate jobs
              #       start running on the same slave
              containers=$(docker ps -aq)
-             if [[ -z $containers ]]
+             if [ -z $containers ]
              then
                echo "No containers from previous runs"
              else
@@ -495,14 +495,14 @@
                docker rm -f $containers
              fi
              images=$(docker images -f "dangling=true" -q)
-             if [[ -z $images ]]
+             if [ -z $images ]
              then
                echo "No dangling docker images"
              else
                docker rmi -f $images
              fi
              images=$(docker images | grep '^ops.*' | awk '{print $1}')
-             if [[ -z $images ]]
+             if [ -z $images ]
              then
                echo "No ops images from previous runs"
              else
