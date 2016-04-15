@@ -48,10 +48,6 @@
             module: 'ops-aaa-utils'
             platform: 'genericx86-64'
         - capture-test-logs
-        - lcov-compile:
-            module: 'ops-aaa-utils'
-        - lcov-coverage-run:
-            module: 'ops-aaa-utils'
     publishers:
         - conditional-htmlreports
         - conditional-gather-test-results

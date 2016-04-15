@@ -45,10 +45,6 @@
             module: 'ops-config-yaml'
             platform: 'genericx86-64'
         - capture-test-logs
-        - lcov-compile:
-            module: 'ops-config-yaml'
-        - lcov-coverage-run:
-            module: 'ops-config-yaml'
 
     publishers:
         - conditional-gather-test-results

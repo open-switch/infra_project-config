@@ -31,10 +31,7 @@
         - module-build-branch:
             module: 'ops-ipapps'
             platform: '{platform}'
-        - lcov-compile:
-            module: 'ops-ipapps'
-        - lcov-coverage-run:
-            module: 'ops-ipapps'
+
     publishers:
         - conditional-junit
         - conditional-htmlreports

@@ -357,41 +357,6 @@
                  cp -rf genericx86-64_autotestJunitResults $TYPE/$VERSION_STRING/
 
 - builder:
-    name: lcov-compile
-    builders:
-      - shell: |
-          #!/bin/bash -x
-          # TODO: this job should be named lcov-setup as no compilation is required here
-          rm -fr .[^.]* *
-          # Clone OpenSwitch
-          git clone -b master https://git.openswitch.net/openswitch/ops-build .
-          # Setup the shared state local cache
-          export SSTATE_DIR=/mnt/jenkins/workspace/sstate-cache
-          mkdir -p /mnt/jenkins/workspace/sstate-cache
-          # Check if we need to configure
-          if [ ! -f .platform ] ; then
-            make configure genericx86-64
-          fi
-          # Clone the module under test
-          rm -rf src/{module}
-          git clone -b master http://git.openswitch.net/openswitch/{module} src/{module}
-          cd $WORKSPACE/src/{module}
-          git fetch $ZUUL_URL/$ZUUL_PROJECT $ZUUL_REF
-          git checkout FETCH_HEAD
-          git reset --hard FETCH_HEAD
-          git clean -x -f -d -q
-          cd -
-          # Trigger building of some basic recipe to get the recipe environment working, since devtool is not that good yet...
-          make bake cmake-native
-          make devenv_import {module} $PWD/src/{module}
-          # Configure the Build System to build the module with the coverage flags. CMake only.
-          # TODO: Add support for Make based repos and for Python.
-          touch build/devenv-coverage-enabled
-          # Clone the OPS repo for Feature Tests
-          rm -rf src/ops
-          git clone -b master https://git.openswitch.net/openswitch/ops src/ops
-
-- builder:
     name: lcov-coverage-run
     builders:
       - shell: |
@@ -573,6 +538,8 @@
            then
              cd $WORKSPACE
              touch .devenv
+             make {module}-clean
+             touch build/devenv-coverage-enabled
              make testenv_init
              export TOPOLOGY_TEST_IMAGE=$(echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]')
              # If we have modular component tests, we run them
@@ -611,6 +578,8 @@
            then
              cd $WORKSPACE
              touch .devenv
+             make {module}-clean
+             touch build/devenv-coverage-enabled
              make testenv_init
              export TOPOLOGY_TEST_IMAGE=$(echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]')
              # If we have modular component tests, we run them

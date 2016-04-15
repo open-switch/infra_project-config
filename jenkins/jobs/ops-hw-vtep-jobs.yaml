@@ -19,10 +19,7 @@
 
     builders:
         - revoke-sudo
-        - lcov-compile:
-            module: 'ops-hw-vtep'
-        - lcov-coverage-run:
-            module: 'ops-hw-vtep'
+
     publishers:
         - conditional-junit
         - conditional-htmlreports

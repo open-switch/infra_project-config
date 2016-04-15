@@ -25,10 +25,7 @@
         - module-build-branch:
             module: 'ops-hw-config'
             platform: '{platform}'
-        - lcov-compile:
-            module: 'ops-hw-config'
-        - lcov-coverage-run:
-            module: 'ops-hw-config'
+
     publishers:
         - conditional-junit
         - conditional-htmlreports

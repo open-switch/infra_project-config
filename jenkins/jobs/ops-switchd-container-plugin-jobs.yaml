@@ -45,10 +45,6 @@
             module: 'ops-switchd-container-plugin'
             platform: 'genericx86-64'
         - capture-test-logs
-        - lcov-compile:
-            module: 'ops-switchd-container-plugin'
-        - lcov-coverage-run:
-            module: 'ops-switchd-container-plugin'
 
     publishers:
         - conditional-htmlreports

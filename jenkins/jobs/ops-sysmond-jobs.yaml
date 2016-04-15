@@ -46,10 +46,6 @@
 #        - module-test:
 #            module: 'ops-sysmond'
 #            platform: 'genericx86-64'
-#        - lcov-compile:
-#            module: 'ops-sysmond'
-#        - lcov-coverage-run:
-#            module: 'ops-sysmond'
 #        - capture-test-logs
 #
 #    publishers:

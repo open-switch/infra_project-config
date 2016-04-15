@@ -49,10 +49,6 @@
             module: 'ops-arpmgrd'
             platform: 'genericx86-64'
         - capture-test-logs
-        - lcov-compile:
-            module: 'ops-arpmgrd'
-        - lcov-coverage-run:
-            module: 'ops-arpmgrd'
 
     publishers:
         - conditional-htmlreports

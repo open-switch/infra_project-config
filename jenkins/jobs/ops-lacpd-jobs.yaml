@@ -42,10 +42,6 @@
             module: 'ops-lacpd'
             platform: 'genericx86-64'
         - capture-test-logs
-        - lcov-compile:
-            module: 'ops-lacpd'
-        - lcov-coverage-run:
-            module: 'ops-lacpd'
     publishers:
         - conditional-gather-test-results
         - conditional-htmlreports

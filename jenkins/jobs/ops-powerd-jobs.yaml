@@ -27,12 +27,12 @@
         - module-build-branch:
             module: 'ops-powerd'
             platform: '{platform}'
-        - lcov-compile:
+        - module-test:
             module: 'ops-powerd'
-        - lcov-coverage-run:
-            module: 'ops-powerd'
+            platform: '{platform}'
+
     publishers:
-        - conditional-junit
+        - conditional-gather-test-results
         - conditional-htmlreports
         - post-ws-clean
 
