@@ -219,16 +219,14 @@ project-templates:
       - check-not-atomic-commit:
         - 'ops-check-{platform}'
     gate:
-      - check-not-atomic-commit:
-        - 'ops-gate-{platform}'
+      - 'ops-gate-{platform}'
 
   - name: module-build
     check:
       - check-not-atomic-commit:
         - '{module}-check-{platform}'
     gate:
-      - check-not-atomic-commit:
-        - '{module}-gate-{platform}'
+      - '{module}-gate-{platform}'
 
 # Jobs definitions are not required, but help us filter unrequired check jobs
 # We still run the jobs during gate
