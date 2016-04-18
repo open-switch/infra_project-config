@@ -216,9 +216,11 @@ project-templates:
 
   - name: ops-build
     check:
-      - 'ops-check-{platform}'
+      - check-not-atomic-commit:
+        - 'ops-check-{platform}'
     gate:
-      - 'ops-gate-{platform}'
+      - check-not-atomic-commit:
+        - 'ops-gate-{platform}'
 
   - name: module-build
     check:
@@ -812,4 +814,3 @@ projects:
       - name: module-build
         module: ops-rbac
         platform: as5712
-
