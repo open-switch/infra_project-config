@@ -5,7 +5,7 @@
     builders:
         - shell: |
             #!/bin/bash -x
-            if /usr/local/jenkins/slave_scripts/gerrit-query $ZUUL_CHANGE --comment | grep -q "^Atomic-Commit-ID:" ; then
+            if /usr/local/jenkins/slave_scripts/gerrit-query.py $ZUUL_CHANGE --comment | grep -q "^Atomic-Commit-ID:" ; then
               echo Found an atomic commit identifier, skipping testing on this pipeline
               exit 255
             fi
