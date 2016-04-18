@@ -222,9 +222,11 @@ project-templates:
 
   - name: module-build
     check:
-      - '{module}-check-{platform}'
+      - check-not-atomic-commit:
+        - '{module}-check-{platform}'
     gate:
-      - '{module}-gate-{platform}'
+      - check-not-atomic-commit:
+        - '{module}-gate-{platform}'
 
 # Jobs definitions are not required, but help us filter unrequired check jobs
 # We still run the jobs during gate

@@ -1,4 +1,16 @@
 - job:
+    name: check-not-atomic-commit
+    node: openswitch
+
+    builders:
+        - shell: |
+            #!/bin/bash -x
+            if /usr/local/jenkins/slave_scripts/gerrit-query $ZUUL_CHANGE --comment | grep -q "^Atomic-Commit-ID:" ; then
+              echo Found an atomic commit identifier, skipping testing on this pipeline
+              exit 255
+            fi
+
+- job:
     name: 'ops-check'
     node: openswitch
 
