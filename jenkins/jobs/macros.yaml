@@ -801,7 +801,7 @@
              export TOPOLOGY_TEST_IMAGE=$(echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]')
 
              SECOND_RUN_COMMAND=testenv_run
-             for tst in "${arr_files[@]}"
+             for tst in "$arr_files[@]"
              do
                echo $tst
                TEST_FAILURE=0
