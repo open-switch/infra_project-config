@@ -11,7 +11,7 @@
     builders:
         - revoke-sudo
         - module-build-branch:
-            module: 'ops-rbac-config'
+            module: 'ops-rbac'
             platform: '{platform}'
 
 - job-template:
