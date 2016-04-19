@@ -778,7 +778,7 @@
       - shell: |
            #!/bin/bash -x
            set +e
-           MOD_FRAMEWORK="^ops-tests\/test_.*?.py$"
+           MOD_FRAMEWORK="^ops-tests\/(.*?\/)?test_.*?.py$"
            PATTERN="^(.*?\/)?tests\/(.*?\/)?test_.*?.py$"
            TEST_FAILURE=0
            EXIT_FLAG=0
@@ -791,7 +791,7 @@
            fi
            rm -rf build/test/*/test-results.xml
            cd src/{module}
-           arr_files=($(git diff-tree --no-commit-id --name-only -r $ZUUL_COMMIT))
+           # arr_files=($(git diff-tree --no-commit-id --name-only -r $ZUUL_COMMIT))
            cat extension.txt
            if [ {platform} == "genericx86-64" ]
            then
@@ -801,7 +801,7 @@
              export TOPOLOGY_TEST_IMAGE=$(echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]')
 
              SECOND_RUN_COMMAND=testenv_run
-             for tst in "$arr_files[@]"
+             for tst in $(git diff-tree --no-commit-id --name-only -r $ZUUL_COMMIT) 
              do
                echo $tst
                TEST_FAILURE=0
