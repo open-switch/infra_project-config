@@ -792,7 +792,8 @@
            rm -rf build/test/*/test-results.xml
            cd src/{module}
            # arr_files=($(git diff-tree --no-commit-id --name-only -r $ZUUL_COMMIT))
-           cat extension.txt
+           git diff-tree --no-commit-id --name-only -r $ZUUL_COMMIT > incoming_patch.txt
+           cat incoming_patch.txt
            if [ {platform} == "genericx86-64" ]
            then
              cd $WORKSPACE
@@ -801,40 +802,43 @@
              export TOPOLOGY_TEST_IMAGE=$(echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]')
 
              SECOND_RUN_COMMAND=testenv_run
-             for tst in $(git diff-tree --no-commit-id --name-only -r $ZUUL_COMMIT) 
+             # for tst in $(git diff-tree --no-commit-id --name-only -r $ZUUL_COMMIT)
+             while read -r line
              do
-               echo $tst
+               echo $line
                TEST_FAILURE=0
 
-               if [ ! -f src/{module}/$tst ]
+               if [ ! -f src/{module}/$line ]
                then
                  echo "skipping deleted file"
                  continue
                fi
 
-               if [[ $tst =~ $MOD_FRAMEWORK ]];
+               if [[ $line =~ $MOD_FRAMEWORK ]];
                then
                  TEST_TYPE="component"
-               elif [[ $tst =~ $PATTERN ]];
+               elif [[ $line =~ $PATTERN ]];
                then
                  TEST_TYPE="legacy"
                else
                  continue
                fi
 
-               make $SECOND_RUN_COMMAND $TEST_TYPE {module} TESTENV_STRESS=yes TESTENV_ITERATIONS=5 TESTENV_EXTRA_PARAMETERS="-k $tst"
-               SECOND_RUN_COMMAND=testenv_rerun
+               test_file=$( echo $line | egrep -o 'test_.*?.py$')
+               make $SECOND_RUN_COMMAND $TEST_TYPE {module} TESTENV_ITERATIONS=5 TESTENV_EXTRA_PARAMETERS="-k $test_file"
                if [ $? != 0 ]
                then
                  TEST_FAILURE=1
                fi
+
+               SECOND_RUN_COMMAND=testenv_rerun
                if [ $TEST_FAILURE != 0 ]
                then
                  EXIT_FLAG=1
                  make devenv_ct_clean
                  echo $tst "failed"
                fi
-             done
+             done < src/{module}/incoming_patch.txt
 
              if [ $EXIT_FLAG == 1 ]
              then
