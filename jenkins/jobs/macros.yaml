@@ -69,6 +69,7 @@
           echo "ops-$BUILD_VERSION-$BRANCH+$BUILD_NUMBER" > .version_string
           if [ {platform} == "p4" ]
           then
+              make build/conf/local.conf
               echo "EXTRA_IMAGE_FEATURES += \"ops-p4\"" >> build/conf/local.conf
           else
               echo ""
