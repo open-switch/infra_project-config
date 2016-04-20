@@ -131,7 +131,6 @@
       node: 'openswitch'
       platform:
         - genericx86-64
-        - as5712
       jobs:
         - 'ops-ansible-jobs'
 

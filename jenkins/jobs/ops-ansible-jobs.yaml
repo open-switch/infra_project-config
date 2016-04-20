@@ -11,26 +11,6 @@
     builders:
         - revoke-sudo
         - gerrit-git-prep
-        - module-build-branch:
-            module: 'ops-ansible'
-            platform: '{platform}'
-    publishers:
-        - post-ws-clean
-
-- job:
-    name: 'ops-ansible-gate-as5712'
-    node: openswitch
-
-    wrappers:
-        - build-timeout:
-            timeout: 180
-
-    builders:
-        - module-build-branch:
-            module: 'ops-ansible'
-            platform: 'as5712'
-    publishers:
-        - post-ws-clean
 
 - job:
     name: 'ops-ansible-gate-genericx86-64'
@@ -61,4 +41,4 @@
 - job-group:
     name: 'ops-ansible-jobs'
     jobs:
-      - 'ops-ansible-check-{platform}' 
+      - 'ops-ansible-check-{platform}'

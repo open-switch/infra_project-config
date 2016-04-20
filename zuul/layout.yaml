@@ -354,9 +354,6 @@ projects:
       - name: module-build
         module: ops-ansible
         platform: genericx86-64
-      - name: module-build
-        module: ops-ansible
-        platform: as5712
 
   - name: openswitch/ops-arpmgrd
     template:
