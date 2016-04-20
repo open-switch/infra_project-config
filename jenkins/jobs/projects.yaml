@@ -127,6 +127,15 @@
         - 'ops-cli-jobs'
 
   - project:
+      name: openswitch/ops-ansible
+      node: 'openswitch'
+      platform:
+        - genericx86-64
+        - as5712
+      jobs:
+        - 'ops-ansible-jobs'
+
+  - project:
       name: openswitch/ops-config-yaml
       node: 'openswitch'
       platform:

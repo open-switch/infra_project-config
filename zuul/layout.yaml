@@ -351,10 +351,12 @@ projects:
   - name: openswitch/ops-ansible
     template:
       - name: merge-check
-    check:
-      - ops-ansible-check
-    gate:
-      - ops-ansible-gate
+      - name: module-build
+        module: ops-ansible
+        platform: genericx86-64
+      - name: module-build
+        module: ops-ansible
+        platform: as5712
 
   - name: openswitch/ops-arpmgrd
     template:
