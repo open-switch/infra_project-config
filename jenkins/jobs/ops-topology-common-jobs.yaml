@@ -1,0 +1,37 @@
+- job-template:
+   name: 'ops-topology-common-check-{platform}'
+   node: openswitch
+
+   wrappers:
+       - build-timeout:
+           timeout: 120
+       - timestamps
+       - ansicolor
+
+   builders:
+       - revoke-sudo
+       - module-build-branch:
+           module: 'ops-topology-common'
+           platform: '{platform}'
+
+- job-template:
+   name: 'ops-topology-common-gate-{platform}'
+   node: openswitch
+
+   wrappers:
+       - build-timeout:
+           timeout: 120
+       - timestamps
+       - ansicolor
+
+   builders:
+       - revoke-sudo
+       - module-build-branch:
+           module: 'ops-topology-common'
+           platform: '{platform}'
+
+- job-group:
+   name: 'ops-topology-common-jobs'
+   jobs:
+     - 'ops-topology-common-check-{platform}'
+     - 'ops-topology-common-gate-{platform}'

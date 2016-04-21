@@ -309,6 +309,15 @@
         - 'ops-dhcp-tftp-jobs'
 
   - project:
+      name: openswitch/ops-topology-common
+      node: 'openswitch'
+      platform:
+        - genericx86-64
+        - as5712
+      jobs:
+        - 'ops-topology-common-jobs'
+
+  - project:
       name: openswitch/ops-tempd
       node: 'openswitch'
       platform:
