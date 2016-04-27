@@ -142,7 +142,7 @@
        - git:
           url: http://git.openswitch.net/openswitch/ops-build
           branches:
-            - origin/release
+            - origin/rel/dill
 
     properties:
       - inject:
@@ -231,7 +231,7 @@
        - git:
           url: http://git.openswitch.net/openswitch/ops-build
           branches:
-            - origin/release
+            - origin/rel/dill
 
     properties:
       - inject:
