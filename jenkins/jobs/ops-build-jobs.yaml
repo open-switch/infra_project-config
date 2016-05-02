@@ -173,6 +173,13 @@
         - create-build-artifacts
         - scp-artifacts
 
+    publishers:
+        - conditional-junit
+        - archive-syslog
+        - archive-test-logs
+        - mail-on-fail:
+             email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
+
 - job:
     name: 'ops-release-as6712'
     node: vsi
