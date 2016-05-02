@@ -173,6 +173,45 @@
         - create-build-artifacts
         - scp-artifacts
 
+- job:
+    name: 'ops-release-as6712'
+    node: vsi
+
+    scm:
+       - git:
+          url: http://git.openswitch.net/openswitch/ops-build
+          branches:
+            - origin/rel/dill
+
+    properties:
+      - inject:
+          properties-content: |
+            TYPE=periodic/release
+            BRANCH=release
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - ssh-agent-credentials:
+              users:
+                  - '0f99f00f-a5c0-460d-97b5-9b3dbdfd0773'
+                  - 'ffc18805-a3da-4771-918a-eaaa6a1a0c70'
+
+    triggers:
+        - timed: 'H */6 * * *'
+
+    builders:
+        - ops-build:
+            platform: 'as6712'
+        - ops-meta-ide
+        - fttest-for-image:
+            platform: 'as6712'
+        - shared-states
+        - download-caches
+        - create-periodic-build-image
+        - create-build-artifacts
+        - scp-artifacts
+
     publishers:
         - conditional-junit
         - archive-syslog
