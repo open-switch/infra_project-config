@@ -486,3 +486,12 @@
         - as5712
       jobs:
         - 'ops-rbac-jobs'
+
+  - project:
+      name: openswitch/ops-vrrpd
+      node: 'openswitch'
+      platform:
+        - genericx86-64
+        - as5712
+      jobs:
+        - 'ops-vrrpd-jobs'

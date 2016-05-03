@@ -1,0 +1,66 @@
+- job-template:
+    name: 'ops-vrrpd-check-{platform}'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build-branch:
+            module: 'ops-vrrpd'
+            platform: '{platform}'
+    publishers:
+        - post-ws-clean
+
+- job:
+    name: 'ops-vrrpd-gate-as5712'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 180
+        - timestamps
+        - ansicolor
+
+    builders:
+        - module-build-branch:
+            module: 'ops-vrrpd'
+            platform: 'as5712'
+    publishers:
+        - post-ws-clean
+
+- job:
+    name: 'ops-vrrpd-gate-genericx86-64'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 180
+        - timestamps
+        - ansicolor
+
+    builders:
+        - module-build-branch:
+            module: 'ops-vrrpd'
+            platform: 'genericx86-64'
+        - check-docker-state
+        - clear-test-logs
+        - module-test:
+            module: 'ops-vrrpd'
+            platform: 'genericx86-64'
+        - capture-test-logs
+    publishers:
+        - conditional-gather-test-results
+        - archive-syslog
+        - archive-test-logs-on-failure
+        - post-ws-clean
+
+
+- job-group:
+    name: 'ops-vrrpd-jobs'
+    jobs:
+      - 'ops-vrrpd-check-{platform}'
