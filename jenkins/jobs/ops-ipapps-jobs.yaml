@@ -16,29 +16,48 @@
     publishers:
         - post-ws-clean
 
-- job-template:
-    name: 'ops-ipapps-gate-{platform}'
+- job:
+    name: 'ops-ipapps-gate-as5712'
     node: openswitch
 
     wrappers:
         - build-timeout:
             timeout: 180
-        - timestamps
-        - ansicolor
 
     builders:
-        - revoke-sudo
         - module-build-branch:
             module: 'ops-ipapps'
-            platform: '{platform}'
+            platform: 'as5712'
+    publishers:
+        - post-ws-clean
+
+- job:
+    name: 'ops-ipapps-gate-genericx86-64'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 180
+
+    builders:
+        - module-build-branch:
+            module: 'ops-ipapps'
+            platform: 'genericx86-64'
+        - check-docker-state
+        - clear-test-logs
+        - module-test:
+            module: 'ops-ipapps'
+            platform: 'genericx86-64'
+        - capture-test-logs
 
     publishers:
-        - conditional-junit
+        - conditional-gather-test-results
         - conditional-htmlreports
+        - archive-syslog
+        - archive-test-logs-on-failure
         - post-ws-clean
 
 - job-group:
-   name: 'ops-ipapps-jobs'
-   jobs:
-    - 'ops-ipapps-check-{platform}'
-    - 'ops-ipapps-gate-{platform}'
+    name: 'ops-ipapps-jobs'
+    jobs:
+      - 'ops-ipapps-check-{platform}'
