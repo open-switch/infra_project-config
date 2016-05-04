@@ -582,7 +582,6 @@
            fi
 
 - builder:
-- builder:
     name: module-test
     builders:
       - shell: |
