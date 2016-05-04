@@ -1,11 +1,9 @@
 - job-template:
     name: 'ops-powerd-check-{platform}'
     node: openswitch
-
     wrappers:
         - build-timeout:
             timeout: 120
-
     builders:
         - revoke-sudo
         - module-build-branch:
@@ -17,11 +15,9 @@
 - job-template:
     name: 'ops-powerd-gate-{platform}'
     node: openswitch
-
     wrappers:
         - build-timeout:
             timeout: 180
-
     builders:
         - revoke-sudo
         - module-build-branch:
@@ -30,7 +26,6 @@
         - module-test:
             module: 'ops-powerd'
             platform: '{platform}'
-
     publishers:
         - conditional-gather-test-results
         - conditional-htmlreports
