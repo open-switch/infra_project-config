@@ -224,6 +224,10 @@
 - project: openswitch/ops-checkmk-agent
   description: Check_mk Agent
 
+#MCLAG
+- project: openswitch/ops-mclagd
+  description: OpenSwitch Multi-Chassis LAG Daemon
+
 #SNMP
 - project: openswitch/ops-snmpd
   description: OpenSwitch SNMP service daemon

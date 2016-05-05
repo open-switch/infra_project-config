@@ -1,0 +1,68 @@
+- job-template:
+    name: 'ops-mclagd-check-{platform}'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - module-build-branch:
+            module: 'ops-mclagd'
+            platform: '{platform}'
+    publishers:
+        - post-ws-clean
+
+- job:
+    name: 'ops-mclagd-gate-as5712'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 180
+        - timestamps
+        - ansicolor
+
+    builders:
+        - module-build-branch:
+            module: 'ops-mclagd'
+            platform: 'as5712'
+    publishers:
+        - post-ws-clean
+
+- job:
+    name: 'ops-mclagd-gate-genericx86-64'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 180
+        - timestamps
+        - ansicolor
+
+    builders:
+        - module-build-branch:
+            module: 'ops-mclagd'
+            platform: 'genericx86-64'
+        - check-docker-state
+        - clear-test-logs
+        - module-test:
+            module: 'ops-mclagd'
+            platform: 'genericx86-64'
+        - capture-test-logs
+
+    publishers:
+        - conditional-gather-test-results
+        - conditional-htmlreports
+        - archive-syslog
+        - archive-test-logs-on-failure
+        - post-ws-clean
+
+
+- job-group:
+    name: 'ops-mclagd-jobs'
+    jobs:
+      - 'ops-mclagd-check-{platform}'

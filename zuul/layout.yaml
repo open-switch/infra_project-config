@@ -653,6 +653,16 @@ projects:
         module: ops-webui
         platform: as5712
 
+  - name: openswitch/ops-mclagd
+    template:
+      - name: merge-check
+      - name: module-build
+        module: ops-mclagd
+        platform: genericx86-64
+      - name: module-build
+        module: ops-mclagd
+        platform: as5712
+
   - name: openswitch/ops-mgmt-intf
     template:
       - name: merge-check
