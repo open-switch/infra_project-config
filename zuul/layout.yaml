@@ -493,6 +493,16 @@ projects:
         module: ops-lldpd
         platform: genericx86-64
 
+  - name: openswitch/ops-openbfdd
+    template:
+      - name: merge-check
+      - name: module-build
+        module: ops-openbfdd
+        platform: genericx86-64
+      - name: module-build
+        module: ops-openbfdd
+        platform: as5712
+
   - name: openswitch/ops-openvswitch
     template:
       - name: merge-check

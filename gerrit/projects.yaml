@@ -97,6 +97,9 @@
 - project: openswitch/ops-broadview
   description: OpenSwitch BroadView Buffer Monitor Agent
 
+- project: openswitch/ops-openbfdd
+  description: OpenSwitch BFD Daemon
+
 - project: openswitch/ops-openvswitch
   description: OpenSwitch OpenVswitch
 
