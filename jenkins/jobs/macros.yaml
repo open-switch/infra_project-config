@@ -1913,6 +1913,21 @@
                     allow-empty: 'true'
 
 - publisher:
+    name: archive-test-logs-on-failure-temp
+    publishers:
+      - conditional-publisher:
+          - condition-kind: current-status
+            condition-worst: FAILURE
+            condition-best: UNSTABLE
+            action:
+                - archive:
+                    artifacts: '/tmp/opsTest-results/**/*.log'
+                    allow-empty: 'true'
+                - archive:
+                    artifacts: '/tmp/openswitch-test/**'
+                    allow-empty: 'true'
+
+- publisher:
     name: conditional-gather-test-results
     publishers:
       - conditional-publisher:
