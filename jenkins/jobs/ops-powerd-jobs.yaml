@@ -12,27 +12,46 @@
     publishers:
         - post-ws-clean
 
-- job-template:
-    name: 'ops-powerd-gate-{platform}'
+- job:
+    name: 'ops-powerd-gate-as5712'
     node: openswitch
+
     wrappers:
         - build-timeout:
             timeout: 180
+
     builders:
-        - revoke-sudo
         - module-build-branch:
             module: 'ops-powerd'
-            platform: '{platform}'
+            platform: 'as5712'
+
+    publishers:
+        - post-ws-clean
+
+- job:
+    name: 'ops-powerd-gate-genericx86-64'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 180
+
+    builders:
+        - module-build-branch:
+            module: 'ops-powerd'
+            platform: 'genericx86-64'
         - module-test:
             module: 'ops-powerd'
-            platform: '{platform}'
+            platform: 'genericx86-64'
+
     publishers:
-        - conditional-gather-test-results
         - conditional-htmlreports
+        - conditional-gather-test-results
+        - archive-syslog
+        - archive-test-logs-on-failure
         - post-ws-clean
 
 - job-group:
     name: 'ops-powerd-jobs'
     jobs:
       - 'ops-powerd-check-{platform}'
-      - 'ops-powerd-gate-{platform}'
