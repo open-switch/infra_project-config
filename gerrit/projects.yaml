@@ -7,6 +7,10 @@
 - project: infra/system-config
   description: Infrastructure system configuration
 
+- project: infra/commit-validation
+  description: Git repository for maintaining a list of allowable defects for a release branch
+
+
 - project: infra/project-config
   description: Project configuration
 
