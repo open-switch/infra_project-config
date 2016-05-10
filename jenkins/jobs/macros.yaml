@@ -1764,16 +1764,25 @@
 - publisher:
     name: archive-test-logs-on-failure-temp
     publishers:
+      - postbuildscript:
+          builders:
+            - shell: |
+                # Copy ops-vsi test results
+                rm -rf openswitch-test
+                cp -rf /tmp/openswitch-test/. openswitch-test || true
+                # Copy ops-ft-framework test results
+                rm -rf opsTest-results
+                cp -rf /tmp/opsTest-results/. opsTest-results || true
       - conditional-publisher:
           - condition-kind: current-status
             condition-worst: FAILURE
             condition-best: UNSTABLE
             action:
                 - archive:
-                    artifacts: '/tmp/opsTest-results/**/*.log'
+                    artifacts: 'opsTest-results/**/*.log'
                     allow-empty: 'true'
                 - archive:
-                    artifacts: '/tmp/openswitch-test/**'
+                    artifacts: 'openswitch-test/**'
                     allow-empty: 'true'
 
 - publisher:
