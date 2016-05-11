@@ -190,6 +190,9 @@
 - project: openswitch/ops-vrfmgrd
   description: OpenSwitch VRF Manager Daemon
 
+- project: openswitch/ops-vrrpd
+  description: OpenSwitch VRRP Daemon
+
 # Connectivity Deamons
 - project: openswitch/ops-aaa-utils
   description: OpenSwitch Authentication, Authorization and Accounting Utils

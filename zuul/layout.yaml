@@ -831,3 +831,13 @@ projects:
       - name: module-build
         module: ops-rbac
         platform: as5712
+
+  - name: openswitch/ops-vrrpd
+    template:
+      - name: merge-check
+      - name: module-build
+        module: ops-vrrpd
+        platform: genericx86-64
+      - name: module-build
+        module: ops-vrrpd
+        platform: as5712
