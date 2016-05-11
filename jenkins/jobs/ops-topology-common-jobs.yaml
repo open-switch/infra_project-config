@@ -1,3 +1,4 @@
+# Leaving this as a place holder as builders will be added for both check and gate
 - job-template:
    name: 'ops-topology-common-check-{platform}'
    node: openswitch
@@ -10,9 +11,6 @@
 
    builders:
        - revoke-sudo
-       - module-build-branch:
-           module: 'ops-topology-common'
-           platform: '{platform}'
 
 - job-template:
    name: 'ops-topology-common-gate-{platform}'
@@ -26,9 +24,6 @@
 
    builders:
        - revoke-sudo
-       - module-build-branch:
-           module: 'ops-topology-common'
-           platform: '{platform}'
 
 - job-group:
    name: 'ops-topology-common-jobs'
