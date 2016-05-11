@@ -275,8 +275,9 @@
            # testenv_run will:
            # build the fs, export into docker, and download the repos and run the tests
            # The logic below will first runCT in all repos followed by all FT.
-           make testenv_run component $(echo $Repositories_List | sed -e 's#,# #g')
-           make testenv_rerun feature $(echo $Repositories_List | sed -e 's#,# #g')
+           # Do not abort if a test directory does not exist
+           make testenv_run component $(echo $Repositories_List | sed -e 's#,# #g') TESTENV_ABORT_IF_NOT_FOUND=false
+           make testenv_rerun feature $(echo $Repositories_List | sed -e 's#,# #g') TESTENV_ABORT_IF_NOT_FOUND=false
            # Cleanup
            test -e .sandbox_uuid && make devenv_ct_clean
            /usr/local/jenkins/slave_scripts/docker_clean_instances_and_image.sh $TOPOLOGY_TEST_IMAGE
