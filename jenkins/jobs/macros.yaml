@@ -186,7 +186,7 @@
                git checkout -b $OPS_BUILD_BRANCH --track origin/$OPS_BUILD_BRANCH
              fi
            fi
-           
+
            if [ "$OPS_BUILD_BRANCH" = "rel/dill" ] ; then
                 cd $WORKSPACE
                 echo "Validating git commit message if it contains a valid a Taiga ID in the format of TG-XXX, for example, TG-123 and that it is in list of allowed fixes for rel/dill branch"
@@ -844,6 +844,8 @@
           find images -name "*.tar.gz" -exec bash -c "cp \"\$0\" $TYPE/$VERSION_STRING/$PLATFORM/\$(basename -s .tar.gz \"\$0\")-$VERSION_STRING.tar.gz" {} \;
           find images -name "*.manifest" -exec bash -c "cp \"\$0\" $TYPE/$VERSION_STRING/$PLATFORM/\$(basename -s .manifest \"\$0\")-$VERSION_STRING.manifest" {} \;
           cp build/changelog.manifest $TYPE/$VERSION_STRING/$PLATFORM/changelog.manifest
+          git rev-parse HEAD >> git-sha.txt
+          cp git-sha.txt $DIST/$VERSION_STRING/$PLATFORM/git-sha.txt
           test -e .version_string && echo $VERSION_STRING > $TYPE/$VERSION_STRING/$PLATFORM/build_v
           cd $TYPE/$VERSION_STRING/$PLATFORM
           for file in $(ls) ; do sha256sum $file > $file.sha256sum ; done
