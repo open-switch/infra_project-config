@@ -219,7 +219,9 @@
                         exit 1
                     fi
                 fi
-           else
+    
+
+            else
                 echo "A valid Taiga ID in the format of TG-XXX, for example, TG-123 is not found in the commit message"
                 echo "Commit Message Validation failed"
                 echo "Please re-check with amended commit message and try again"
