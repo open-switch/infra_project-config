@@ -1814,6 +1814,8 @@
                 # Copy ops-ft-framework test results
                 rm -rf opsTest-results
                 cp -rf /tmp/opsTest-results/. opsTest-results || true
+          script-only-if-succeeded: False
+          script-only-if-failed: True
       - conditional-publisher:
           - condition-kind: current-status
             condition-worst: FAILURE
