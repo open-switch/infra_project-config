@@ -201,7 +201,7 @@
                     git clone https://git.openswitch.net/infra/commit-validation
 
                     tickets_list=`echo $taiga_ids | sed -e 's#,# #g'`
-                    for i in $tickets_list
+                    for i in $tickets_list;
                         do
                             defect_exists=`cat commit-validation/TaigaApprovedDefects.csv | awk -F"," '{print $1}' | grep -w $i | wc -l`
                             if [ $defect_exists -eq 1 ]; then
