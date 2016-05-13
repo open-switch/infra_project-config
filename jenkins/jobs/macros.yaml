@@ -206,7 +206,7 @@
                             if [ $defect_exists -eq 1 ]; then
                                 echo "Taiga Defect TG-$i is in list of allowed defects for release branch"
                                 echo "Validation successful"
-                                exit 0
+                                #exit 0
                                 defect_found=1
                             else
                                 defect_found=0
@@ -216,7 +216,7 @@
                         echo "Commit Message Validation failed"
                         echo "The Taiga ID(s) provided in commit message is not in the list of allowed defects for the release branch"
                         echo "Contact Barbara Crosser(barbara.crosser@hpe.com) or Chia-Lien Huang(chia-lien.huang@hpe.com) to get this defect approved"
-                        exit 1
+                        #exit 1
                     fi
                 fi
     
