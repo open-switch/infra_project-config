@@ -187,49 +187,6 @@
              fi
            fi
            
-           echo "OPS_BUILD_BRANCH $OPS_BUILD_BRANCH"
-
-           if [ "$ZUUL_BRANCH" = "rel/cilantro" ] ; then
-                cd $WORKSPACE
-                echo "Validating git commit message if it contains a valid a Taiga ID in the format of TG-XXX, for example, TG-123 and that it is in list of allowed fixes for rel/dill branch"
-                # Obtain only git commit message from HEAD, can be multi-line with white spaces
-                commit_msg=`git log --pretty=format:%s%b -n 1`
-                # To validate if a commit message has Taiga ID in format TG-XXX
-                id_state=`echo $commit_msg | grep -i "TG-[0-9].*" | wc -l`
-                if [ $id_state -ne 0 ]; then
-                    echo "Taiga ID exists in commit message"
-                    #parse the Taiga IDs in commit message
-                    taiga_ids=`echo $commit_msg | tr -s " " | tr " " "\n" | grep ^TG | sed "s/TG-//g" | tr "\n" "," | sed 's/,$//'`
-                    git clone https://git.openswitch.net/infra/commit-validation
-
-                    tickets_list=`echo $taiga_ids | sed -e 's#,# #g'`
-                    for i in $tickets_list; do
-                            defect_exists=`cat commit-validation/TaigaApprovedDefects.csv | cut -d',' -f1 | grep -w $i | wc -l`
-                            if [ $defect_exists -eq 1 ]; then
-                                echo "Taiga Defect TG-$i is in list of allowed defects for release branch"
-                                echo "Validation successful"
-                                #exit 0
-                                defect_found=1
-                            else
-                                defect_found=0
-                            fi
-                        done
-                    if [ $defect_found -eq 0 ]; then
-                        echo "Commit Message Validation failed"
-                        echo "The Taiga ID(s) provided in commit message is not in the list of allowed defects for the release branch"
-                        echo "Contact Barbara Crosser(barbara.crosser@hpe.com) or Chia-Lien Huang(chia-lien.huang@hpe.com) to get this defect approved"
-                        #exit 1
-                    fi
-                fi
-    
-
-            else
-                echo "A valid Taiga ID in the format of TG-XXX, for example, TG-123 is not found in the commit message"
-                echo "Commit Message Validation failed"
-                echo "Please re-check with amended commit message and try again"
-                exit 1
-           fi
-
            # Setup the shared state local cache
            export SSTATE_DIR=/mnt/jenkins/workspace/sstate-cache
            mkdir -p /mnt/jenkins/workspace/sstate-cache
