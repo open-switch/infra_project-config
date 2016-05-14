@@ -186,8 +186,10 @@
                git checkout -b $OPS_BUILD_BRANCH --track origin/$OPS_BUILD_BRANCH
              fi
            fi
+           
+           echo "OPS_BUILD_BRANCH $OPS_BUILD_BRANCH"
 
-           if [ "$OPS_BUILD_BRANCH" = "rel/cilantro" ] ; then
+           if [ "$ZUUL_BRANCH" = "rel/cilantro" ] ; then
                 cd $WORKSPACE
                 echo "Validating git commit message if it contains a valid a Taiga ID in the format of TG-XXX, for example, TG-123 and that it is in list of allowed fixes for rel/dill branch"
                 # Obtain only git commit message from HEAD, can be multi-line with white spaces
