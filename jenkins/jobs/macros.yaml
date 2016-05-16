@@ -1820,21 +1820,6 @@
 - publisher:
     name: archive-test-logs-on-failure
     publishers:
-      - conditional-publisher:
-          - condition-kind: current-status
-            condition-worst: FAILURE
-            condition-best: UNSTABLE
-            action:
-                - archive:
-                    artifacts: 'opsTest-results/**/*.log'
-                    allow-empty: 'true'
-                - archive:
-                    artifacts: 'openswitch-test/**'
-                    allow-empty: 'true'
-
-- publisher:
-    name: archive-test-logs-on-failure-temp
-    publishers:
       - postbuildscript:
           builders:
             - shell: |
@@ -1852,7 +1837,7 @@
             condition-best: UNSTABLE
             action:
                 - archive:
-                    artifacts: 'opsTest-results/**/*.log'
+                    artifacts: 'opsTest-results/**'
                     allow-empty: 'true'
                 - archive:
                     artifacts: 'openswitch-test/**'

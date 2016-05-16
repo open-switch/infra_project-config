@@ -46,7 +46,6 @@
         - module-test:
             module: 'ops-passwd-srv'
             platform: 'genericx86-64'
-        - capture-test-logs
 
     publishers:
         - conditional-gather-test-results

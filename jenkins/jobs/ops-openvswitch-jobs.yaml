@@ -44,7 +44,6 @@
         - module-test:
             module: 'ops-openvswitch'
             platform: 'genericx86-64'
-        - capture-test-logs
         - shell: |
             #!/bin/bash -x
             set -e

@@ -40,11 +40,10 @@
         - module-test:
             module: 'ops-cli'
             platform: 'genericx86-64'
-#        - capture-test-logs
     publishers:
         - conditional-gather-test-results
         - archive-syslog
-        - archive-test-logs-on-failure-temp
+        - archive-test-logs-on-failure
         - post-ws-clean
 
 - job-group:
