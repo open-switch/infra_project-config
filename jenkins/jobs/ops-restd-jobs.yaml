@@ -53,7 +53,6 @@
         - module-test:
             module: 'ops-restd'
             platform: 'genericx86-64'
-        - capture-test-logs
         - swagger-api:
             depended-repo: 'ops'
             files: 'ops-restapi.json'

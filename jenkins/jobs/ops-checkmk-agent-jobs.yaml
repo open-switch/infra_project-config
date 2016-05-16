@@ -41,7 +41,6 @@
         - module-stress-test:
             module: 'ops-checkmk-agent'
             platform: 'genericx86-64'
-        - capture-test-logs
 
     publishers:
         - conditional-gather-test-results

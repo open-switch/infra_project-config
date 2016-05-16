@@ -49,7 +49,6 @@
         - module-test:
             module: 'ops-broadview'
             platform: 'genericx86-64'
-        - capture-test-logs
     publishers:
         - conditional-gather-test-results
         - archive-syslog

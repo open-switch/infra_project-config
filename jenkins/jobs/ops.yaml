@@ -46,8 +46,6 @@
         - feature-cttest:
             module: 'ops'
             platform: 'genericx86-64'
-        - capture-test-logs
-
 
     publishers:
         - conditional-junit

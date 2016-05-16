@@ -83,7 +83,6 @@
         - clear-test-logs
         - feature-cttest-for-ops-build:
             platform: 'genericx86-64'
-        - capture-test-logs
 
     publishers:
         - conditional-junit

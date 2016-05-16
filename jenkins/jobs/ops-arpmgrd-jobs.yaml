@@ -48,7 +48,6 @@
         - module-test:
             module: 'ops-arpmgrd'
             platform: 'genericx86-64'
-        - capture-test-logs
 
     publishers:
         - conditional-htmlreports

@@ -41,7 +41,6 @@
         - module-test:
             module: 'ops-lacpd'
             platform: 'genericx86-64'
-        - capture-test-logs
     publishers:
         - conditional-gather-test-results
         - conditional-htmlreports

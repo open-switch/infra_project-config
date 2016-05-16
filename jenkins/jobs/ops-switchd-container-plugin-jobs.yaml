@@ -44,7 +44,6 @@
         - module-test-no-feature:
             module: 'ops-switchd-container-plugin'
             platform: 'genericx86-64'
-        - capture-test-logs
 
     publishers:
         - conditional-htmlreports
