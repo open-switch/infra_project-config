@@ -233,8 +233,8 @@ project-templates:
 jobs:
   - name: ^ops-.*(check|gate).*$
     skip-if:
-      - project: ^openswitch/
-        branch: ^feature/
+      - project: ^openswitch/.*$
+        branch: ^feature/.*$
 
   - name: ^ops-.*gate.*$
     skip-if:
