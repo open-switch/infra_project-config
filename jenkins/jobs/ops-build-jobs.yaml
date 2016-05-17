@@ -10,6 +10,7 @@
         - revoke-sudo
         - ops-distclean
         - gerrit-git-prep
+        - commit-message-validation
         - ops-build:
             platform: '{platform}'
     publishers:
