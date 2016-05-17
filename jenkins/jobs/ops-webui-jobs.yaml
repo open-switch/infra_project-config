@@ -11,6 +11,11 @@
         - module-build-branch:
             module: 'ops-webui'
             platform: '{platform}'
+        - shell: |
+            #!/bin/bash -x
+            set -e
+            make bake RECIPE="ops-webui -c unittest"
+
     publishers:
         - post-ws-clean
 
@@ -27,6 +32,11 @@
         - module-build-branch:
             module: 'ops-webui'
             platform: '{platform}'
+        - shell: |
+            #!/bin/bash -x
+            set -e
+            make bake RECIPE="ops-webui -c unittest"
+
     publishers:
         - post-ws-clean
 
