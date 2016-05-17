@@ -439,6 +439,7 @@
            if [ $? != 0 ]
            then
              echo "Docker command failed. Check if docker daemon is running."
+             exit 1
            else
              docker ps -a
              docker images
