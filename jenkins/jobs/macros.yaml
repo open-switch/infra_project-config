@@ -75,7 +75,7 @@
               echo ""
           fi
           make
-          
+
 - builder:
     name: commit-message-validation
     builders:
@@ -84,7 +84,7 @@
           echo "ZUUL_BRANCH $ZUUL_BRANCH"
           if [ "$ZUUL_BRANCH" = "rel/dill" ] ; then
           cd $WORKSPACE
-          echo "Validating git commit message if it contains a valid a Taiga ID in the format of TG-XXX, for example, TG-123 and that it is in list of allowed fixes for rel/dill branch"
+          echo "Validating git commit message if it contains a valid Taiga ID in the format of TG-XXX, for example, TG-123 and that it is in list of allowed fixes for rel/dill branch"
           # Obtain only git commit message from HEAD, can be multi-line with white spaces
           commit_msg=`git log --pretty=format:%s%b -n 1`
           # To validate if a commit message has Taiga ID in format TG-XXX
@@ -108,6 +108,7 @@
                 done
                 if [ $defect_found -eq 0 ]; then
                     echo "Commit Message Validation failed"
+                    echo "A Taiga ID should be in a separate line by itself. If the message has multiple Taiga ID, each one needs to be in a separate line"
                     echo "The Taiga ID(s) provided in commit message is not in the list of allowed defects for the release branch"
                     echo "Contact Barbara Crosser(barbara.crosser@hpe.com) or Chia-Lien Huang(chia-lien.huang@hpe.com) to get this defect approved"
                     exit 1
@@ -116,7 +117,7 @@
            else
             echo "Commit Message Validation is Skipped since it is not a release branch"
            fi
-           
+
 - builder:
     name: ops-build-tag
     builders:
@@ -154,39 +155,6 @@
           echo "Synchronizing download archive"
           cd build/downloads
           rsync --size-only -avz -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --progress *.tar.* *.zip --exclude=*.done static.openswitch.net:/srv/static/archive || true
-
-- builder:
-    name: module-build
-
-    builders:
-      - shell: |
-           #!/bin/bash -x
-           set -e
-
-           if [[ ! -e .git ]]; then
-             # Remove any content, otherwise the clone will fail
-             rm -Rf *
-             git clone https://git.openswitch.net/openswitch/ops-build .
-           else
-             git pull
-           fi
-           if [ ! -f .platform ] ; then
-             make configure {platform}
-             export SSTATE_DIR=/mnt/jenkins/workspace/sstate-cache
-             mkdir -p /mnt/jenkins/workspace/sstate-cache
-           fi
-           if grep -q {module} .devenv ; then
-             make devenv_rm {module}
-           fi
-           mkdir -p src/{module}
-           cd src/{module}
-           /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
-           git diff-tree --no-commit-id --name-only -r refs/heads/master > extension.txt
-           cd ../..
-           # Trigger building of some basic recipe to get the recipe environment working, since devtool is not that good yet...
-           make bake cmake-native
-           make devenv_import {module} $PWD/src/{module}
-           make bake {module}
 
 - builder:
     name: module-build-branch
@@ -230,7 +198,7 @@
            echo "ZUUL_BRANCH $ZUUL_BRANCH"
            if [ "$ZUUL_BRANCH" = "rel/dill" ] ; then
            cd $WORKSPACE
-           echo "Validating git commit message if it contains a valid a Taiga ID in the format of TG-XXX, for example, TG-123 and that it is in list of allowed fixes for rel/dill branch"
+           echo "Validating git commit message if it contains a valid Taiga ID in the format of TG-XXX, for example, TG-123 and that it is in list of allowed fixes for rel/dill branch"
            # Obtain only git commit message from HEAD, can be multi-line with white spaces
            commit_msg=`git log --pretty=format:%s%b -n 1`
            # To validate if a commit message has Taiga ID in format TG-XXX
@@ -255,6 +223,7 @@
                 done
                 if [ $defect_found -eq 0 ]; then
                     echo "Commit Message Validation failed"
+                    echo "A Taiga ID should be in a separate line by itself. If the message has multiple Taiga ID, each one needs to be in a separate line"
                     echo "The Taiga ID(s) provided in commit message is not in the list of allowed defects for the release branch"
                     echo "Contact Barbara Crosser(barbara.crosser@hpe.com) or Chia-Lien Huang(chia-lien.huang@hpe.com) to get this defect approved"
                     exit 1
@@ -386,8 +355,8 @@
            # testenv_run will:
            # build the fs, export into docker, and download the repos and run the tests
            # The logic below will first runCT in all repos followed by all FT.
-           make testenv_run component $(echo $Repositories_List | sed -e 's#,# #g')
-           make testenv_rerun feature $(echo $Repositories_List | sed -e 's#,# #g')
+           make testenv_run component $(echo $Repositories_List | sed -e 's#,# #g') TESTENV_ABORT_IF_NOT_FOUND=false
+           make testenv_rerun feature $(echo $Repositories_List | sed -e 's#,# #g') TESTENV_ABORT_IF_NOT_FOUND=false
            # Cleanup
            test -e .sandbox_uuid && make devenv_ct_clean
            /usr/local/jenkins/slave_scripts/docker_clean_instances_and_image.sh $TOPOLOGY_TEST_IMAGE
@@ -696,39 +665,6 @@
            else
              echo "Skipping tests because it is not a genericx86-64 platform"
            fi
-
-#- builder:
-#    name: gulp-dist
-#    builders:
-#      - shell: |
-#           #!/bin/bash -x
-#           set -e
-#
-#           if [[ ! -e .git ]]; then
-#             # Remove any content, otherwise the clone will fail
-#             rm -Rf *
-#             git clone https://git.openswitch.net/openswitch/ops-build .
-#           else
-#             git pull
-#           fi
-#           if [ ! -f .platform ] ; then
-#             make configure {platform}
-#             make build/conf/local.conf
-#             mkdir -p /mnt/jenkins/workspace/sstate-cache
-#             rm -Rf build/sstate-cache
-#             ln -sf /mnt/jenkins/workspace/sstate-cache build/sstate-cache
-#           fi
-#           make bake node-native
-#           export PATH=$PWD/build/tmp/sysroots/x86_64-linux/usr/bin:$PATH
-#           if ! [ -d website ] ; then mkdir website ; fi
-#           rm -Rf www
-#           cd website
-#           /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
-#           npm install
-#           npm install -g gulp
-#           npm install -g grommet
-#           gulp dist
-#           mv dist ../www
 
 - builder:
     name: gulp-prepare
