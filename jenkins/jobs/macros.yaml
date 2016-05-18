@@ -367,6 +367,26 @@
              echo "Skipping cttest because of one of reasons: 1. Not a genericx86-64 platform; 2. Commit files are all in .md extension"
            fi
 
+# This builder is for Topology Modular Test Framework
+- builder:
+    name: topology-check
+    builders:
+      - shell: |
+           #!/bin/bash -x
+           set -e
+           mkdir -p src/{module}
+           cd src/{module}
+           # This script clones the repo and applies the patch under test
+           /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
+           # tox runs all tests and generates results in .tox/coverage/tmp/tests.xml
+           tox
+           cd ../..
+           # By default, topology libraries generate test results under .tox/
+           # but the OPS Publishers look for tests under build. I am re-using those publishers.
+           mkdir -p build
+           mv src/{module}/.tox/coverage/tmp/tests.xml build/topology-test-results.xml
+           sudo chown jenkins.jenkins build/topology-test-results.xml
+
 - builder:
     name: ops-selfservice-cit-ondemand
     builders:

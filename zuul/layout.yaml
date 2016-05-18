@@ -619,9 +619,6 @@ projects:
       - name: module-build
         module: ops-topology-common
         platform: genericx86-64
-      - name: module-build
-        module: ops-topology-common
-        platform: as5712
 
   - name: openswitch/ops-topology-lib-vtysh
     template:
