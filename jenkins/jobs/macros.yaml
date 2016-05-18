@@ -1709,20 +1709,15 @@
 - publisher:
     name: archive-syslog
     publishers:
-      # Publish logs from tests if it is present
-      - postbuildscript:
-          builders:
-            - shell: |
-                 export TOPOLOGY_TEST_IMAGE=$(echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]')
-                 export SYSLOG="${TOPOLOGY_TEST_IMAGE}_syslog.txt"
-                 sudo tail -n 2000 /var/log/syslog > build/$SYSLOG
-          script-only-if-succeeded: False
-          script-only-if-failed: True
       - conditional-publisher:
-          - condition-kind: shell
-            condition-command: ls build/*_syslog.txt
-            on-evaluation-failure: dont-run
+          - condition-kind: current-status
+            condition-worst: FAILURE
+            condition-best: UNSTABLE
             action:
+                - shell: |
+                     export TOPOLOGY_TEST_IMAGE=$(echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]')
+                     export SYSLOG="${TOPOLOGY_TEST_IMAGE}_syslog.txt"
+                     sudo tail -n 2000 /var/log/syslog > build/$SYSLOG
                 - archive:
                     artifacts: 'build/*_syslog.txt'
                     allow-empty: 'true'
@@ -1766,22 +1761,18 @@
 - publisher:
     name: archive-test-logs-on-failure
     publishers:
-      - postbuildscript:
-          builders:
-            - shell: |
-                # Copy ops-vsi test results
-                rm -rf openswitch-test
-                cp -rf /tmp/openswitch-test/. openswitch-test || true
-                # Copy ops-ft-framework test results
-                rm -rf opsTest-results
-                cp -rf /tmp/opsTest-results/. opsTest-results || true
-          script-only-if-succeeded: False
-          script-only-if-failed: True
       - conditional-publisher:
           - condition-kind: current-status
             condition-worst: FAILURE
             condition-best: UNSTABLE
             action:
+                - shell: |
+                    # Copy ops-vsi test results
+                    rm -rf openswitch-test
+                    cp -rf /tmp/openswitch-test/. openswitch-test || true
+                    # Copy ops-ft-framework test results
+                    rm -rf opsTest-results
+                    cp -rf /tmp/opsTest-results/. opsTest-results || true
                 - archive:
                     artifacts: 'opsTest-results/**'
                     allow-empty: 'true'
