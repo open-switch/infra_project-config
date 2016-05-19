@@ -81,6 +81,32 @@
     builders:
       - shell: |
           #!/bin/bash -x
+          set +x
+          # Identify the branch to use for the build system
+          if git ls-remote https://git.openswitch.net/openswitch/ops-build | grep -swq "$ZUUL_BRANCH" ; then
+             OPS_BUILD_BRANCH=$ZUUL_BRANCH
+          else
+             OPS_BUILD_BRANCH=master
+          fi
+          echo "===================  Building ops-build on $OPS_BUILD_BRANCH =================== "
+          # If we already have a git repo, avoid nuking them to save build time
+          if [[ ! -e .git ]]; then
+            # I am temp adding this to resolve issue: fatal: A branch named 'feature/intervlan' already exists."
+            rm -fr .[^.]* *
+            git clone -b $OPS_BUILD_BRANCH https://git.openswitch.net/openswitch/ops-build .
+          else
+            # Move to master branch
+            git reset --hard
+            git checkout master
+            git pull
+            if [ "$OPS_BUILD_BRANCH" != "master" ] ; then
+                # If the branch already existed, remove it
+                if git branch | grep -wq $OPS_BUILD_BRANCH  ; then
+                    git branch -D $OPS_BUILD_BRANCH
+                fi
+            git checkout -b $OPS_BUILD_BRANCH --track origin/$OPS_BUILD_BRANCH
+            fi
+           fi
           echo "ZUUL_BRANCH $ZUUL_BRANCH"
           if [ "$ZUUL_BRANCH" = "rel/dill" ] ; then
           cd $WORKSPACE
