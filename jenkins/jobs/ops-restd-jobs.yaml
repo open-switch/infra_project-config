@@ -8,6 +8,8 @@
 
     builders:
         - revoke-sudo
+        - commit-message-validation:
+            module: 'ops-restd'
         - module-build-branch:
             module: 'ops-restd'
             platform: '{platform}'

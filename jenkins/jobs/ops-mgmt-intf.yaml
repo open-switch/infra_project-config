@@ -10,6 +10,8 @@
 
     builders:
         - revoke-sudo
+        - commit-message-validation:
+            module: 'ops-mgmt-intf'
         - module-build-branch:
             module: 'ops-mgmt-intf'
             platform: '{platform}'

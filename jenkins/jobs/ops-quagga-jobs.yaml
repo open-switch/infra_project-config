@@ -6,6 +6,8 @@
             timeout: 120
     builders:
         - revoke-sudo
+        - commit-message-validation:
+            module: 'ops-quagga'
         - module-build-branch:
             module: 'ops-quagga'
             platform: '{platform}'

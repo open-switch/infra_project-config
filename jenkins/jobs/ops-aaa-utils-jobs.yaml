@@ -8,6 +8,8 @@
 
     builders:
         - revoke-sudo
+        - commit-message-validation:
+            module: 'ops-aaa-utils'
         - module-build-branch:
             module: 'ops-aaa-utils'
             platform: '{platform}'

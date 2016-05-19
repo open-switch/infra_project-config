@@ -8,6 +8,8 @@
 
     builders:
         - revoke-sudo
+        - commit-message-validation:
+            module: 'ops-hw-config'
         - module-build-branch:
             module: 'ops-hw-config'
             platform: '{platform}'

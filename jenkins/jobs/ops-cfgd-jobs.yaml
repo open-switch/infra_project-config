@@ -8,6 +8,8 @@
 
     builders:
         - revoke-sudo
+        - commit-message-validation:
+            module: 'ops-cfgd'
         - module-build-branch:
             module: 'ops-cfgd'
             platform: '{platform}'

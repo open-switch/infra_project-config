@@ -6,6 +6,8 @@
             timeout: 120
     builders:
         - revoke-sudo
+        - commit-message-validation:
+            module: 'ops-config-yaml'
         - module-build-branch:
             module: 'ops-config-yaml'
             platform: '{platform}'

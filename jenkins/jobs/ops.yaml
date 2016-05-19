@@ -22,6 +22,8 @@
 
     builders:
         - revoke-sudo
+        - commit-message-validation:
+            module: 'ops'
 
 - job:
     name: 'ops-gate'

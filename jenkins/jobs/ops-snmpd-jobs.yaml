@@ -10,6 +10,8 @@
 
     builders:
         - revoke-sudo
+        - commit-message-validation:
+            module: 'ops-snmpd'
         - module-build-branch:
             module: 'ops-snmpd'
             platform: '{platform}'

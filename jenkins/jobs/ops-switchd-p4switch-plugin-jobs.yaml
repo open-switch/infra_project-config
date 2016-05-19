@@ -8,6 +8,8 @@
 
    builders:
        - revoke-sudo
+       - commit-message-validation:
+            module: 'ops-switchd-p4switch-plugin'
        - module-build-branch:
            module: 'ops-switchd-p4switch-plugin'
            platform: '{platform}'

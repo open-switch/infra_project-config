@@ -10,6 +10,8 @@
 
     builders:
         - revoke-sudo
+        - commit-message-validation:
+            module: 'ops-bufmond'
         - module-build-branch:
             module: 'ops-bufmond'
             platform: '{platform}'

@@ -8,6 +8,8 @@
 
     builders:
         - revoke-sudo
+        - commit-message-validation:
+            module: 'ops-fand'
         - module-build-branch:
             module: 'ops-fand'
             platform: '{platform}'

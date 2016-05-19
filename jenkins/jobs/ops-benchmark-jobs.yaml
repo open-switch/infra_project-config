@@ -10,6 +10,8 @@
 
     builders:
         - revoke-sudo
+        - commit-message-validation:
+            module: 'ops-benchmark-config'
         - module-build-branch:
             module: 'ops-benchmark-config'
             platform: '{platform}'

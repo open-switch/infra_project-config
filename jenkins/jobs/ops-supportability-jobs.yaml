@@ -8,6 +8,8 @@
 
     builders:
         - revoke-sudo
+        - commit-message-validation:
+            module: 'ops-supportability'
         - module-build-branch:
             module: 'ops-supportability'
             platform: '{platform}'

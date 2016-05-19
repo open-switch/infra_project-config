@@ -6,6 +6,8 @@
             timeout: 120
     builders:
         - revoke-sudo
+        - commit-message-validation:
+            module: 'ops-openvswitch'
         - module-build-branch:
             module: 'ops-openvswitch'
             platform: '{platform}'

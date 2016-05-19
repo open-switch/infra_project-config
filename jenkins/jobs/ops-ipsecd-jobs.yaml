@@ -10,6 +10,8 @@
 
     builders:
         - revoke-sudo
+        - commit-message-validation:
+            module: 'ops-ipsecd'
         - module-build-branch:
             module: 'ops-ipsecd'
             platform: '{platform}'

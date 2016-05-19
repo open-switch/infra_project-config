@@ -10,6 +10,8 @@
 
     builders:
         - revoke-sudo
+        - commit-message-validation:
+            module: 'ops-passwd-srv'
         - module-build-branch:
             module: 'ops-passwd-srv'
             platform: '{platform}'

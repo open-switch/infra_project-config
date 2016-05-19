@@ -10,6 +10,8 @@
 
     builders:
         - revoke-sudo
+        - commit-message-validation:
+            module: 'ops-vrfmgrd'
         - module-build-branch:
             module: 'ops-vrfmgrd'
             platform: '{platform}'

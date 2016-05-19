@@ -10,6 +10,8 @@
 
     builders:
         - revoke-sudo
+        - commit-message-validation:
+            module: 'ops-broadview'
         - module-build-branch:
             module: 'ops-broadview'
             platform: '{platform}'

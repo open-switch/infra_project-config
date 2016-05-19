@@ -8,6 +8,8 @@
 
     builders:
         - revoke-sudo
+        - commit-message-validation:
+            module: 'ops-hw-vtep'
 
 - job-template:
     name: 'ops-hw-vtep-gate-{platform}'

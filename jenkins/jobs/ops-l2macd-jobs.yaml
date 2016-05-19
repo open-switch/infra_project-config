@@ -10,6 +10,8 @@
 
     builders:
         - revoke-sudo
+        - commit-message-validation:
+            module: 'ops-l2macd'
         - module-build-branch:
             module: 'ops-l2macd'
             platform: '{platform}'

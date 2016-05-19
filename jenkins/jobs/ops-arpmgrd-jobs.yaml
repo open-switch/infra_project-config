@@ -8,6 +8,8 @@
 
     builders:
         - revoke-sudo
+        - commit-message-validation:
+            module: 'ops-arpmgrd'
         - module-build-branch:
             module: 'ops-arpmgrd'
             platform: '{platform}'

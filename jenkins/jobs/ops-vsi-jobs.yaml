@@ -8,6 +8,8 @@
 
     builders:
         - revoke-sudo
+        - commit-message-validation:
+            module: 'ops-vsi'
         - module-build-branch:
             module: 'ops-vsi'
             platform: '{platform}'

@@ -6,6 +6,8 @@
             timeout: 120
     builders:
         - revoke-sudo
+        - commit-message-validation:
+            module: 'ops-sysd'
         - module-build-branch:
             module: 'ops-sysd'
             platform: '{platform}'
