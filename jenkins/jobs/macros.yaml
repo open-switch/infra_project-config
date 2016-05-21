@@ -139,46 +139,29 @@
       - shell: |
           #!/bin/bash -x
           set +x
-          # Identify the branch to use for the build system
-          if git ls-remote https://git.openswitch.net/openswitch/ops-build | grep -swq "$ZUUL_BRANCH" ; then
-             OPS_BUILD_BRANCH=$ZUUL_BRANCH
-          else
-             OPS_BUILD_BRANCH=master
-          fi
-          echo "===================  Building ops-build on $OPS_BUILD_BRANCH =================== "
-          # If we already have a git repo, avoid nuking them to save build time
-          if [[ ! -e .git ]]; then
-            # I am temp adding this to resolve issue: fatal: A branch named 'feature/intervlan' already exists."
-            rm -fr .[^.]* *
-            git clone -b $OPS_BUILD_BRANCH https://git.openswitch.net/openswitch/ops-build .
-          else
-            # Move to master branch
-            git reset --hard
-            git checkout master
-            git pull
-            if [ "$OPS_BUILD_BRANCH" != "master" ] ; then
-                # If the branch already existed, remove it
-                if git branch | grep -wq $OPS_BUILD_BRANCH  ; then
-                    git branch -D $OPS_BUILD_BRANCH
-                fi
-            git checkout -b $OPS_BUILD_BRANCH --track origin/$OPS_BUILD_BRANCH
-            fi
-           fi
+          git clone -b $ZUUL_BRANCH https://git.openswitch.net/openswitch/{module} module
+          cd $WORKSPACE/module
+          #pwd
+          #ls -altr $WORKSPACE
+          #echo "ZUUL_COMMIT $ZUUL_COMMIT"
           echo "ZUUL_BRANCH $ZUUL_BRANCH"
-          if [ "$ZUUL_BRANCH" = "rel/dill" ] ; then
-          cd $WORKSPACE
-          echo "Validating git commit message if it contains a valid Taiga ID in the format of TG-XXX, for example, TG-123 and that it is in list of allowed fixes for rel/dill branch"
-          # Obtain only git commit message from HEAD, can be multi-line with white spaces
+          git reset --hard $ZUUL_COMMIT
+          echo "**************"
           commit_msg=`git log --pretty=format:%s%b -n 1`
           echo "Git commit message is $commit_msg"
+          echo "**************"
+          if [ "$ZUUL_BRANCH" = "rel/dill" ] ; then
+          cd $WORKSPACE
+          echo "Validating git commit message if it contains a valid Taiga ID in the format of TG-XXX, for example, TG-123 and that, it is in list of allowed fixes for rel/dill branch"
+          # Obtain only git commit message from HEAD, can be multi-line with white spaces
           # To validate if a commit message has Taiga ID in format TG-XXX
           id_state=`echo $commit_msg | grep -i "TG-[0-9].*" | wc -l`
           echo "id_sate $id_state"
           if [ -z "$id_state" ]; then
             echo "Unable to determine if a valid Taiga ID is provided"
-            echo "commit message received is $commit_msg"
             echo "If you believe you have provided a Taiga ID in your commit message, this means that the script is not able to parse it"
-            echo "Please make sure there is a space in front of TG-XXX in your commit message, please amend your commit message and upload for review again"
+            echo "Please make sure there is a space in front of TG-XXX in your commit message"
+            echo "Please amend your commit message and upload for review again"
             exit 1
           fi
           if [ $id_state -ne 0 ]; then
@@ -202,7 +185,6 @@
                 done
                 if [ $defect_found -eq 0 ]; then
                     echo "Commit Message Validation failed"
-                    echo "A Taiga ID should be in a separate line by itself. If the message has multiple Taiga ID, each one needs to be in a separate line"
                     echo "The Taiga ID(s) provided in commit message is not in the list of allowed defects for the release branch"
                     echo "Contact Barbara Crosser(barbara.crosser@hpe.com) or Chia-Lien Huang(chia-lien.huang@hpe.com) to get this defect approved"
                     exit 1
