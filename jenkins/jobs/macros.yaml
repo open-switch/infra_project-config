@@ -145,7 +145,11 @@
           #ls -altr $WORKSPACE
           #echo "ZUUL_COMMIT $ZUUL_COMMIT"
           echo "ZUUL_BRANCH $ZUUL_BRANCH"
-          git reset --hard $ZUUL_COMMIT
+          echo "BASE_LOG_PATH $BASE_LOG_PATH"
+          git remote -v
+          git branch
+          git fetch https://review.openswitch.net/openswitch/{module} refs/changes/$BASE_LOG_PATH && git checkout FETCH_HEAD
+          #git reset --hard $ZUUL_COMMIT
           echo "**************"
           commit_msg=`git log --pretty=format:%s%b -n 1`
           echo "Git commit message is $commit_msg"
@@ -167,7 +171,8 @@
           if [ $id_state -ne 0 ]; then
                 echo "Taiga ID exists in commit message"
                 #parse the Taiga IDs in commit message
-                taiga_ids=`echo $commit_msg | tr -s " " | tr " " "\n" | grep ^TG | sed "s/TG-//g" | tr -cd "[0-9\n]" | tr "\n" "," | sed 's/,$//'`
+                #taiga_ids=`echo $commit_msg | tr -s " " | tr " " "\n" | grep ^TG | sed "s/TG-//g" | tr -cd "[0-9\n]" | tr "\n" "," | sed 's/,$//'`
+                taiga_ids=`echo $commit_msg | tr " " "\n" | grep -i TG | sed "s/.*[Tt][Gg]-\([ 0-9]*\).*/\1/" | tr -d " "`
                 echo "taiga_ids $taiga_ids"
                 git clone https://git.openswitch.net/infra/commit-validation
                 tickets_list=`echo $taiga_ids | sed -e 's#,# #g'`
