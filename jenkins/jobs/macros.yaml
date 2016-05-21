@@ -159,7 +159,7 @@
           echo "Validating git commit message if it contains a valid Taiga ID in the format of TG-XXX, for example, TG-123 and that, it is in list of allowed fixes for rel/dill branch"
           # Obtain only git commit message from HEAD, can be multi-line with white spaces
           # To validate if a commit message has Taiga ID in format TG-XXX
-          id_state=`echo $commit_msg | grep -i "TG-[0-9].*" | wc -l`
+          id_state=`echo $commit_msg | grep -i "TG\s*-\s*[0-9].*" | wc -l`
           echo "id_sate $id_state"
           if [ -z "$id_state" ]; then
             echo "Unable to determine if a valid Taiga ID is provided"
@@ -172,7 +172,7 @@
                 echo "Taiga ID exists in commit message"
                 #parse the Taiga IDs in commit message
                 #taiga_ids=`echo $commit_msg | tr -s " " | tr " " "\n" | grep ^TG | sed "s/TG-//g" | tr -cd "[0-9\n]" | tr "\n" "," | sed 's/,$//'`
-                taiga_ids=`echo $commit_msg | tr " " "\n" | grep -i TG | sed "s/.*[Tt][Gg]-\([ 0-9]*\).*/\1/" | tr -d " "`
+                taiga_ids=`echo $commit_msg | sed "s/TG/ TG/Ig;s/TG[ ]*/TG/g" | sed "s/[ ]*TG[ ]*-[ ]*/ TG-/" | tr " " "\n" | grep -i TG | sed "s/.*[Tt][Gg]-\([ 0-9]*\).*/\1/" | tr -d " "`
                 echo "taiga_ids $taiga_ids"
                 git clone https://git.openswitch.net/infra/commit-validation
                 tickets_list=`echo $taiga_ids | sed -e 's#,# #g'`
