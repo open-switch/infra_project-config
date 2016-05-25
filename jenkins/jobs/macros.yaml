@@ -180,7 +180,7 @@
                 for i in $tickets_list; do
                     defect_exists=`cat commit-validation/TaigaApprovedDefects.csv | cut -d',' -f1 | grep -w $i | wc -l`
                     echo "defect_exists $defect_exists"
-                    if [ $defect_exists -gt 1 ]; then
+                    if [ $defect_exists -ge 1 ]; then
                         echo "Taiga Defect TG-$i is in list of allowed defects for release branch"
                         echo "Validation successful"
                         exit 0
