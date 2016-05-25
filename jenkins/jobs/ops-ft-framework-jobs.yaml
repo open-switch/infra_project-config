@@ -9,7 +9,7 @@
     builders:
         - revoke-sudo
         - commit-message-validation:
-            module: 'ft-framework'
+            module: 'ops-ft-framework'
 #        - module-build-branch:
 #            module: 'ft-framework'
 #            platform: '{platform}'
