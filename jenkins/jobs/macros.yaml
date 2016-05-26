@@ -484,8 +484,14 @@
            docker version
            if [ $? != 0 ]
            then
-             echo "Docker command failed. Check if docker daemon is running."
-             exit 1
+             echo "Docker daemon is not running. Try to restart."
+             sudo service docker restart
+             docker version
+             if [ $? != 0 ]
+             then
+                 echo "Docker daemon failed to restart. Aborting the build."
+                 exit 1
+             fi
            else
              docker ps -a
              docker images
