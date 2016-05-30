@@ -255,15 +255,13 @@ project-templates:
 
   - name: ops-build
     check:
-      - check-not-atomic-commit:
-        - 'ops-check-{platform}'
+      - 'ops-check-{platform}'
     independent-gate:
       - 'ops-gate-{platform}'
 
   - name: module-build
     check:
-      - check-not-atomic-commit:
-        - '{module}-check-{platform}'
+      - '{module}-check-{platform}'
     gate:
       - '{module}-gate-{platform}'
 
