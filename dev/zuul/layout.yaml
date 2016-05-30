@@ -5,10 +5,10 @@ pipelines:
   - name: check
     description: Newly uploaded patchsets enter this pipeline to receive an initial +/-1 Verified vote from Jenkins.
     success-message: Build succeeded (check pipeline).
-    failure-message: Build failed (check pipeline).  For information on how to proceed, see http://docs.openstack.org/infra/manual/developers.html#automated-testing
+    failure-message: Build failed (check pipeline).
     manager: IndependentPipelineManager
     source: gerrit
-    precedence: low
+    precedence: normal
     require:
       open: True
       current-patchset: True
@@ -21,7 +21,7 @@ pipelines:
         - event: comment-added
           require-approval:
             - verified: [-1, -2]
-              username: jenkins
+              username: zuul
           approval:
             - workflow: 1
     success:
@@ -34,16 +34,16 @@ pipelines:
   - name: gate
     description: Changes that have been approved by core developers are enqueued in order in this pipeline, and if they pass tests in Jenkins, will be merged.
     success-message: Build succeeded (gate pipeline).
-    failure-message: Build failed (gate pipeline).  For information on how to proceed, see http://docs.openstack.org/infra/manual/developers.html#automated-testing
+    failure-message: Build failed (gate pipeline).
     manager: DependentPipelineManager
     source: gerrit
-    precedence: low
+    precedence: high
     require:
       open: True
       current-patchset: True
       approval:
         - verified: [1, 2]
-          username: jenkins
+          username: zuul
         - workflow: 1
     trigger:
       gerrit:
@@ -52,8 +52,50 @@ pipelines:
             - workflow: 1
         - event: comment-added
           approval:
+            - code-review: 2
+        - event: comment-added
+          approval:
             - verified: 1
-          username: jenkins
+          username: zuul
+    start:
+      gerrit:
+        verified: 0
+    success:
+      gerrit:
+        verified: 2
+        submit: true
+    failure:
+      gerrit:
+        verified: -2
+    window-floor: 20
+    window-increase-factor: 2
+
+  - name: independent-gate
+    description: Changes that have been approved by core developers are enqueued in order in this pipeline, and if they pass tests in Jenkins, will be merged. Customized independent gate
+    success-message: Build succeeded (gate pipeline).
+    failure-message: Build failed (gate pipeline).
+    manager: IndependentPipelineManager
+    source: gerrit
+    precedence: high
+    require:
+      open: True
+      current-patchset: True
+      approval:
+        - verified: [1, 2]
+          username: zuul
+        - workflow: 1
+    trigger:
+      gerrit:
+        - event: comment-added
+          approval:
+            - workflow: 1
+        - event: comment-added
+          approval:
+            - code-review: 2
+        - event: comment-added
+          approval:
+            - verified: 1
+          username: zuul
     start:
       gerrit:
         verified: 0
@@ -124,7 +166,7 @@ pipelines:
     failure-message: Build failed (experimental pipeline).
     manager: IndependentPipelineManager
     source: gerrit
-    precedence: low
+    precedence: normal
     trigger:
       gerrit:
         - event: comment-added
@@ -141,7 +183,44 @@ pipelines:
     precedence: low
     trigger:
       timer:
-        - time: '0 * * * *'
+        - time: '0 */6 * * *'
+
+  - name: hourly
+    description: Jobs in this queue are triggered on a timer every hour.
+    manager: IndependentPipelineManager
+    source: gerrit
+    precedence: low
+    trigger:
+      timer:
+        - time: '0 */1 * * *'
+
+  - name: periodic-stable
+    description: Periodic checks of the stable branches.
+    manager: IndependentPipelineManager
+    source: gerrit
+    precedence: low
+    trigger:
+      timer:
+        - time: '1 6 * * *'
+    failure:
+      smtp:
+        from: jenkins@openswitch.net
+        to: openswitch-stable-maint@lists.openswitch.net
+        subject: 'Stable check of {change.project} failed'
+
+  - name: periodic-qa
+    description: Periodic jobs for the QA team.
+    manager: IndependentPipelineManager
+    source: gerrit
+    precedence: low
+    trigger:
+      timer:
+        - time: '2 6 * * *'
+    failure:
+      smtp:
+        from: jenkins@openswitch.net
+        to: openswitch-qa@lists.openswitch.net
+        subject: 'Periodic jobs for {change.project} failed'
 
   - name: merge-check
     description: >
@@ -149,12 +228,13 @@ pipelines:
       on the same project are still mergeable.
     failure-message: Build failed (merge-check pipeline).
     manager: IndependentPipelineManager
+    ignore-dependencies: true
     source: gerrit
     precedence: low
     require:
       approval:
         - verified: [1, 2]
-          username: jenkins
+          username: zuul
     trigger:
       zuul:
         - event: project-change-merged
@@ -162,59 +242,70 @@ pipelines:
       gerrit:
         verified: -1
 
+project-templates:
+  - name: merge-check
+    merge-check:
+      - noop
+
+  - name: noop-jobs
+    check:
+      - noop
+    gate:
+      - noop
+
+  - name: ops-build
+    check:
+      - check-not-atomic-commit:
+        - 'ops-check-{platform}'
+    independent-gate:
+      - 'ops-gate-{platform}'
+
+  - name: module-build
+    check:
+      - check-not-atomic-commit:
+        - '{module}-check-{platform}'
+    gate:
+      - '{module}-gate-{platform}'
+
+# Jobs definitions are not required, but help us filter unrequired check jobs
+# We still run the jobs during gate
 jobs:
-  - name: ^.*$
-    parameter-function: set_log_url
-  - name: completely-bogus-org/test
-    voting: false
-  - name: gtest-org/test2
-    voting: false
+  - name: ^ops-.*(check|gate).*$
+    skip-if:
+      - project: ^openswitch/.*$
+        branch: ^feature/.*$
+
+  - name: ^ops-.*gate.*$
+    skip-if:
+      - project: ^openswitch/ops$
+        all-files-match-any:
+          - ^.*\.md
+
+  - name: ops-check-as5712
+    files:
+      - ^yocto/openswitch/meta-platform-openswitch-as5712/.*$
+      - ^yocto/openswitch/.*grub.*$
+      - ^yocto/openswitch/.*ops-hw-config.*$
+      - ^yocto/openswitch/.*linux-ops.*$
+      - ^yocto/openswitch/.*opennsl-cdp.*$
+      - ^yocto/openswitch/.*onie-installer.*$
+      - ^yocto/openswitch/meta-distro-openswitch/conf/.*$
+      - ^yocto/poky/.*$
+
+  - name: ops-check-as6712
+    files:
+      - ^yocto/openswitch/meta-platform-openswitch-as6712/.*$
+      - ^yocto/openswitch/.*grub.*$
+      - ^yocto/openswitch/.*ops-hw-config.*$
+      - ^yocto/openswitch/.*linux-ops.*$
+      - ^yocto/openswitch/.*opennsl-cdp.*$
+      - ^yocto/openswitch/.*onie-installer.*$
+      - ^yocto/openswitch/meta-distro-openswitch/conf/.*$
+      - ^yocto/poky/.*$
 
 projects:
-  # This project is setup to run the internal zuul 'noop' job.
-  - name: gtest-org/gtest
-    check:
-      - noop
-    gate:
-      - noop
-    post:
-      - noop
-    tag:
-      - noop
-    pre-release:
-      - noop
-    release:
-      - noop
-    experimental:
-      - noop
-    silent:
-      - noop
-    merge-check:
-      - noop
-
-  # This project is setup to run the 'gate-noop' job on jenkins,
-  # make sure the job has been created on jenkins-dev.o.o
-  - name: gtest-org/gtest2
-    check:
-      - gate-noop
-    gate:
-      - gate-noop
-    post:
-      - gate-noop
-    tag:
-      - gate-noop
-    pre-release:
-      - gate-noop
-    release:
-      - gate-noop
-    experimental:
-      - gate-noop
-    silent:
-      - gate-noop
-    merge-check:
-      - gate-noop
-
-  # This project is setup to run jobs in the periodic pipeline
-  - name: gtest-org/test2
-    periodic:
-      - noop
+  - name: openswitch/ops-build
+    template:
+      - name: merge-check
+      - name: ops-build
+        platform: genericx86-64
