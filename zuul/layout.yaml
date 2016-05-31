@@ -72,8 +72,8 @@ pipelines:
 
   - name: independent-gate
     description: Changes that have been approved by core developers are enqueued in order in this pipeline, and if they pass tests in Jenkins, will be merged. Customized independent gate
-    success-message: Build succeeded (gate pipeline).
-    failure-message: Build failed (gate pipeline).
+    success-message: Build succeeded (independent-gate pipeline).
+    failure-message: Build failed (independent-gate pipeline).
     manager: IndependentPipelineManager
     source: gerrit
     precedence: high
@@ -84,6 +84,7 @@ pipelines:
         - verified: [1, 2]
           username: zuul
         - workflow: 1
+        - code-review: 2
     trigger:
       gerrit:
         - event: comment-added
