@@ -76,7 +76,7 @@ pipelines:
     failure-message: Build failed (independent-gate pipeline).
     manager: IndependentPipelineManager
     source: gerrit
-    precedence: high
+    precedence: normal
     require:
       open: True
       current-patchset: True
