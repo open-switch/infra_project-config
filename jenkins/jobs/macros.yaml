@@ -522,6 +522,21 @@
            else
              docker rmi -f $images
            fi
+           #Adding additional steps for cleanup
+           #Docker files in aufs fs are not being cleaned up correctly with regular docker commands due to some processes still holding the aufs mounts
+           service docker stop
+           killall -9 dhclient
+           cat /proc/mounts | grep aufs | awk '{print $2}' | sort -r | xargs umount
+           cat /proc/mounts | grep cgroup | awk '{print $2}' | sort -r | xargs umount
+           rm -rf /var/lib/docker/aufs/mnt/*
+           rm -rf /var/lib/docker/aufs/layers/*
+           rm -rf /var/lib/docker/aufs/diff/*
+           service docker start
+           echo "After docker cleanup"
+           cat /proc/mounts
+           df -k
+           docker ps -a
+           docker images
            echo "After docker cleanup"
            docker ps -a
            docker images
