@@ -489,41 +489,42 @@
              docker version
              if [ $? != 0 ]
              then
-                 echo "Docker daemon failed to restart. Aborting the build."
-                 exit 1
-             fi
-           else
-             docker ps -a
-             docker images
-             # Cleanup docker containers and images before starting test
-             # WARN: This job needs to be modified when multiple gate jobs
-             #       start running on the same slave
-             containers=$(docker ps -aq)
-             if [ -z $containers ]
-             then
-               echo "No containers from previous runs"
+               echo "Docker daemon failed to restart. Aborting the build."
+               exit 1
              else
-               docker stop --time=5 $containers
-               docker rm -f $containers
+               echo "Docker restarted successfully."
              fi
-             images=$(docker images -f "dangling=true" -q)
-             if [ -z $images ]
-             then
-               echo "No dangling docker images"
-             else
-               docker rmi -f $images
-             fi
-             images=$(docker images | grep '^ops.*' | awk '{print $1}')
-             if [ -z $images ]
-             then
-               echo "No ops images from previous runs"
-             else
-               docker rmi -f $images
-             fi
-             echo "After docker cleanup"
-             docker ps -a
-             docker images
            fi
+           docker ps -a
+           docker images
+           # Cleanup docker containers and images before starting test
+           # WARN: This job needs to be modified when multiple gate jobs
+           #       start running on the same slave
+           containers=$(docker ps -aq)
+           if [ -z $containers ]
+           then
+             echo "No containers from previous runs"
+           else
+             docker stop --time=5 $containers
+             docker rm -f $containers
+           fi
+           images=$(docker images -f "dangling=true" -q)
+           if [ -z $images ]
+           then
+             echo "No dangling docker images"
+           else
+             docker rmi -f $images
+           fi
+           images=$(docker images | grep '^ops.*' | awk '{print $1}')
+           if [ -z $images ]
+           then
+             echo "No ops images from previous runs"
+           else
+             docker rmi -f $images
+           fi
+           echo "After docker cleanup"
+           docker ps -a
+           docker images
 
 - builder:
     name: clear-test-logs
