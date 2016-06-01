@@ -301,7 +301,7 @@
             make bake cmake-native
             make devenv_import {module} $PWD/src/{module}
             make bake {module}
-           
+
 - builder:
     name: feature-cttest-for-ops-build
     builders:
@@ -382,6 +382,35 @@
            mkdir -p build
            mv src/{module}/.tox/coverage/tmp/tests.xml build/topology-test-results.xml
            sudo chown jenkins.jenkins build/topology-test-results.xml
+
+- builder:
+    name: generate-coverage-report
+    builders:
+      - shell: |
+           #!/bin/bash -x
+           set +x
+           echo "===================  Building ops-build on $OPS_BUILD_BRANCH =================== "
+           rm -fr .[^.]* *
+           git clone -b $OPS_BUILD_BRANCH https://git.openswitch.net/openswitch/ops-build .
+           # Setup the shared state local cache
+           export SSTATE_DIR=/mnt/jenkins/workspace/sstate-cache
+           mkdir -p /mnt/jenkins/workspace/sstate-cache
+           # Check if we need to configure
+           if [ ! -f .platform ] ; then
+             make configure genericx86-64
+           fi
+
+           set -e
+           # clean up .xml
+           rm -rf build/*-test-results.xml
+           # Prepare the test environment
+           touch .devenv
+           make testenv_init
+           make {module}-genearte_coverage_report
+           # Cleanup
+           test -e .sandbox_uuid && make devenv_ct_clean
+           /usr/local/jenkins/slave_scripts/docker_clean_instances_and_image.sh $TOPOLOGY_TEST_IMAGE
+           sudo chown jenkins.jenkins build/test/legacy/test-results.xml
 
 - builder:
     name: ops-selfservice-cit-ondemand
