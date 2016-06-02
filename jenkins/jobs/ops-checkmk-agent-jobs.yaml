@@ -54,3 +54,22 @@
     name: 'ops-checkmk-agent-jobs'
     jobs:
       - 'ops-checkmk-agent-check-{platform}'
+
+- job:
+    name: 'ops-checkmk-agent-coverage'
+    node: vsi
+    wrappers:
+        - build-timeout:
+            timeout: 180
+
+    triggers:
+        - timed: 'H */24 * * *'
+
+    builders:
+        - generate-coverage-report:
+            module: 'ops-arpmgrd'
+
+    publishers:
+        - conditional-htmlreports
+        - conditional-gather-test-results
+        - post-ws-clean
