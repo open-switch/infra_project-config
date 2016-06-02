@@ -251,3 +251,6 @@
 #L2 MAC Management
 - project: openswitch/ops-l2macd
   description: L2 MAC Management daemon
+
+- project: openswitch/ovs
+  description: OpenSwitch mirror of OpenVswitch
