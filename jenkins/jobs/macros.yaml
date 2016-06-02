@@ -507,9 +507,9 @@
            if [ `cat /proc/mounts | grep cgroup | wc -l` -ne 0 ]; then
             sudo cat /proc/mounts | grep cgroup | awk '{print $2}' | sort -r | xargs umount || true
            fi
-           rm -rf /var/lib/docker/aufs/mnt/*
-           rm -rf /var/lib/docker/aufs/layers/*
-           rm -rf /var/lib/docker/aufs/diff/*
+           sudo rm -rf /var/lib/docker/aufs/mnt/* || true
+           sudo rm -rf /var/lib/docker/aufs/layers/* || true
+           sudo rm -rf /var/lib/docker/aufs/diff/* || true
            sudo service docker start
            echo "After docker cleanup"
            cat /proc/mounts
