@@ -45,12 +45,11 @@
             platform: 'genericx86-64'
         - check-docker-state
         - clear-test-logs
-        - feature-cttest:
-            module: 'ops'
+        - module-test-for-ops:
             platform: 'genericx86-64'
 
     publishers:
-        - conditional-junit
+        - conditional-gather-test-results
         - archive-syslog
         - archive-test-logs-on-failure
         - post-ws-clean
