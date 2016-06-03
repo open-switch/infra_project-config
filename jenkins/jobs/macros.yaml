@@ -312,19 +312,17 @@
     builders:
       - shell: |
            #!/bin/bash -x
-           set -e
-           mkdir -p src/{module}
-           cd src/{module}
+           # The OPS Publishers look for tests under the build directory
+           # The topology-common's repo tox.ini is configured to generate the files in that directory
+           mkdir -p build
            # This script clones the repo and applies the patch under test
            /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
-           # tox runs all tests and generates results in .tox/coverage/tmp/tests.xml
            tox
-           cd ../..
-           # By default, topology libraries generate test results under .tox/
-           # but the OPS Publishers look for tests under build. I am re-using those publishers.
-           mkdir -p build
-           mv src/{module}/.tox/coverage/tmp/tests.xml build/topology-test-results.xml
-           sudo chown jenkins.jenkins build/topology-test-results.xml
+           # Capture tox exit code for further processing
+           RC=$?
+           # Change ownership for Jenkins to be able to process the results
+           chown jenkins.jenkins build/topology-test-results.xml
+           exit $RC
 
 - builder:
     name: generate-coverage-report
