@@ -123,7 +123,7 @@
         - scp-artifacts
         - check-docker-state
         - clear-test-logs
-        - fttest-for-image:
+        - feature-cttest-for-ops-build:
             platform: '{platform}'
         - scp-artifacts-junit
         - capture-test-logs
@@ -166,7 +166,7 @@
         - ops-build:
             platform: 'as5712'
         - ops-meta-ide
-        - fttest-for-image:
+        - feature-cttest-for-ops-build:
             platform: 'as5712'
         - shared-states
         - download-caches
@@ -212,7 +212,7 @@
         - ops-build:
             platform: 'as6712'
         - ops-meta-ide
-        - fttest-for-image:
+        - feature-cttest-for-ops-build:
             platform: 'as6712'
         - shared-states
         - download-caches
@@ -258,7 +258,7 @@
         - scp-artifacts
         - check-docker-state
         - clear-test-logs
-        - fttest-for-image:
+        - feature-cttest-for-ops-build:
             platform: 'p4'
         - scp-artifacts-junit
         - capture-test-logs
@@ -301,7 +301,7 @@
         - ops-build:
             platform: 'genericx86-64'
         - ops-meta-ide
-        - fttest-for-image:
+        - feature-cttest-for-ops-build:
             platform: 'genericx86-64'
         - shared-states
         - download-caches
@@ -310,7 +310,7 @@
         - scp-artifacts
         - check-docker-state
         - clear-test-logs
-        - fttest-for-image:
+        - feature-cttest-for-ops-build:
             platform: 'genericx86-64'
         - scp-artifacts-junit
         - capture-test-logs
@@ -406,7 +406,7 @@
         - scp-artifacts
         - check-docker-state
         - clear-test-logs
-        - fttest-for-image:
+        - feature-cttest-for-ops-build:
             platform: 'genericx86-64'
         - scp-artifacts-junit
         - capture-test-logs
