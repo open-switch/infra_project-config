@@ -506,7 +506,7 @@
            docker images
            echo "After docker cleanup"
            docker ps -a
-           docker images -a
+           docker images
 
 - builder:
     name: clear-test-logs
