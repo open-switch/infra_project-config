@@ -251,29 +251,19 @@
       - shell: |
            #!/bin/bash -x
            set -e
-           if git ls-remote https://git.openswitch.net/openswitch/ops | grep -swq "$ZUUL_BRANCH" ; then
-             OPS_BRANCH=$ZUUL_BRANCH
-           else
-             OPS_BRANCH=master
-           fi
-           rm -rf build/*-test-results.xml
+           rm -rf build/test/*/test-results.xml
            if [ {platform} == "genericx86-64" ] || [ {platform} == "p4" ]
            then
              cd $WORKSPACE
-             export VSI_IMAGE_NAME=$(echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]')
-             echo $VSI_IMAGE_NAME > .image_name
-             make export_docker_image $VSI_IMAGE_NAME
-
-             rm -rf src/ops
-             echo "===================  Using Feature Tests from ops:$OPS_BUILD_BRANCH =================== "
-             git clone -b $OPS_BRANCH https://git.openswitch.net/openswitch/ops src/ops
-             # Usually devenv_import initialized the devenv, but here we use a trick instead
              touch .devenv
-             make devenv_ct_init
-             make devenv_ct_test PY_TEST_ARGS="src/ops/tests --exitfirst --junit-xml=build/feature-test-results.xml" || (make devenv_ct_clean; docker rmi -f $VSI_IMAGE_NAME)
+             make testenv_init
+             export TOPOLOGY_TEST_IMAGE=$(echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]')
+             echo "===================  Using Feature Tests from ops:$OPS_BUILD_BRANCH =================== "
+             make testenv_run legacy ops
+
              test -e .sandbox_uuid && make devenv_ct_clean
-             docker images | grep $VSI_IMAGE_NAME && docker rmi -f $VSI_IMAGE_NAME
-             sudo chown jenkins.jenkins build/*-test-results.xml
+             /usr/local/jenkins/slave_scripts/docker_clean_instances_and_image.sh $TOPOLOGY_TEST_IMAGE
+             sudo chown jenkins.jenkins build/test/*/test-results.xml
            else
              echo "Skipping cttest because of one of reasons: 1. Not a genericx86-64 platform; 2. Commit files are all in .md extension"
            fi
@@ -549,11 +539,6 @@
       - shell: |
            #!/bin/bash -x
            set -e
-           if git ls-remote https://git.openswitch.net/openswitch/ops | grep -swq "$ZUUL_BRANCH" ; then
-             OPS_BRANCH=$ZUUL_BRANCH
-           else
-             OPS_BRANCH=master
-           fi
            rm -rf build/test/*/test-results.xml
            cd src/{module}
            cat extension.txt
@@ -589,11 +574,6 @@
       - shell: |
            #!/bin/bash -x
            set -e
-           if git ls-remote https://git.openswitch.net/openswitch/ops | grep -swq "$ZUUL_BRANCH" ; then
-             OPS_BRANCH=$ZUUL_BRANCH
-           else
-             OPS_BRANCH=master
-           fi
            rm -rf build/test/*/test-results.xml
            cd src/{module}
            cat extension.txt
@@ -650,11 +630,6 @@
            EXIT_FLAG=0
            TEST_TYPE=""
 
-           if git ls-remote https://git.openswitch.net/openswitch/ops | grep -swq "$ZUUL_BRANCH" ; then
-             OPS_BRANCH=$ZUUL_BRANCH
-           else
-             OPS_BRANCH=master
-           fi
            rm -rf build/test/*/test-results.xml
            cd src/{module}
            # arr_files=($(git diff-tree --no-commit-id --name-only -r $ZUUL_COMMIT))
