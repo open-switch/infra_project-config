@@ -497,7 +497,7 @@
            sudo service docker stop
            ps -ef | grep dhclient
            if [ $? -eq 0 ]; then
-            killall -9 dhclient
+            sudo killall -9 dhclient
            fi
            if [ `cat /proc/mounts | grep aufs | wc -l` -ne 0 ]; then
             sudo cat /proc/mounts | grep aufs | awk '{print $2}' | sort -r | xargs umount || true
