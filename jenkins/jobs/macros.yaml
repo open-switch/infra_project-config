@@ -862,7 +862,7 @@
           find images -name "*.manifest" -exec bash -c "cp \"\$0\" $TYPE/$VERSION_STRING/$PLATFORM/\$(basename -s .manifest \"\$0\")-$VERSION_STRING.manifest" {} \;
           cp build/changelog.manifest $TYPE/$VERSION_STRING/$PLATFORM/changelog.manifest
           git rev-parse HEAD >> git-sha.txt
-          cp git-sha.txt $DIST/$VERSION_STRING/$PLATFORM/git-sha.txt
+          cp git-sha.txt $TYPE/$VERSION_STRING/$PLATFORM/git-sha.txt
           test -e .version_string && echo $VERSION_STRING > $TYPE/$VERSION_STRING/$PLATFORM/build_v
           cd $TYPE/$VERSION_STRING/$PLATFORM
           for file in $(ls) ; do sha256sum $file > $file.sha256sum ; done
