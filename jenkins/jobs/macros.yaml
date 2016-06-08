@@ -309,6 +309,8 @@
            # Prepare the test environment
            touch .devenv
            make testenv_init
+           # The next command is to ensure that the repo is cloned locally
+           make testenv_run component {module} TESTENV_ABORT_IF_NOT_FOUND=false
            make {module}-genearte_coverage_report
            # Cleanup
            test -e .sandbox_uuid && make devenv_ct_clean
