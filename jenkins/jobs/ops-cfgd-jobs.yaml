@@ -29,7 +29,7 @@
             module: 'ops-cfgd'
             platform: '{platform}'
         - check-docker-state
-        - module-test:
+        - module-test-extended:
             module: 'ops-cfgd'
             platform: '{platform}'
     publishers:

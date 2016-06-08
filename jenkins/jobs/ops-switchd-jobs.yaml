@@ -28,7 +28,7 @@
             platform: '{platform}'
         - check-docker-state
         - clear-test-logs
-        - module-test:
+        - module-test-extended:
             module: 'ops-switchd'
             platform: '{platform}'
 

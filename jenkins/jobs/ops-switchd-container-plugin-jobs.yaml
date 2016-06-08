@@ -28,7 +28,7 @@
             platform: '{platform}'
         - check-docker-state
         - clear-test-logs
-        - module-test-core:
+        - module-test:
             module: 'ops-switchd-container-plugin'
             platform: '{platform}'
 

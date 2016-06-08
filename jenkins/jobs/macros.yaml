@@ -487,56 +487,6 @@
            rm -Rf build/*_syslog.txt
 
 - builder:
-    name: module-test
-    builders:
-      - shell: |
-           #!/bin/bash -x
-           set -e
-           rm -rf build/test/*/test-results.xml
-           cd src/{module}
-           cat extension.txt
-           if [ {platform} == "genericx86-64" ]
-           then
-             cd $WORKSPACE
-             touch .devenv
-             make {module}-clean
-             touch build/devenv-coverage-enabled
-             make testenv_init
-             export TOPOLOGY_TEST_IMAGE=$(echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]')
-             # If we have modular component tests, we run them
-             SECOND_RUN_COMMAND=testenv_run
-             if [ -d src/{module}/ops-tests/component ] ; then
-               make testenv_run component {module}
-               SECOND_RUN_COMMAND=testenv_rerun
-             fi
-             # If this module still has legacy component test, we run them too
-             if [ -d src/{module}/tests ] ; then
-               make $SECOND_RUN_COMMAND legacy {module}
-               SECOND_RUN_COMMAND=testenv_rerun
-             fi
-             # If this module has modular feature test, we run them
-             if [ -d src/{module}/ops-tests/feature ] ; then
-               make $SECOND_RUN_COMMAND feature {module}
-               SECOND_RUN_COMMAND=testenv_rerun
-             fi
-
-             # Run legacy FTs in ops
-             make $SECOND_RUN_COMMAND legacy ops
-
-             # If ops has modular feature tests, we run them
-             if [ -d src/ops/ops-tests/feature ] ; then
-               make testenv_rerun feature ops
-             fi
-
-             # build the fs, export into docker, and download the repos and run the tests
-             test -e .sandbox_uuid && make devenv_ct_clean
-             /usr/local/jenkins/slave_scripts/docker_clean_instances_and_image.sh $TOPOLOGY_TEST_IMAGE
-             sudo chown jenkins.jenkins build/test/*/test-results.xml
-           else
-             echo "Skipping tests because it is not a genericx86-64 platform"
-           fi
-
-- builder:
     name: module-test-extended
     builders:
       - shell: |
@@ -589,7 +539,7 @@
            fi
 
 - builder:
-    name: module-test-core
+    name: module-test
     builders:
       - shell: |
            #!/bin/bash -x
