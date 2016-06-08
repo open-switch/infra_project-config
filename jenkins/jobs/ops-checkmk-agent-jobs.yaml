@@ -67,7 +67,7 @@
 
     builders:
         - generate-coverage-report:
-            module: 'ops-arpmgrd'
+            module: 'ops-ntpd'
 
     publishers:
         - conditional-htmlreports
