@@ -246,30 +246,7 @@
             make bake {module}
 
 - builder:
-    name: feature-cttest-for-ops-build
-    builders:
-      - shell: |
-           #!/bin/bash -x
-           set -e
-           rm -rf build/test/*/test-results.xml
-           if [ {platform} == "genericx86-64" ] || [ {platform} == "p4" ]
-           then
-             cd $WORKSPACE
-             touch .devenv
-             make testenv_init
-             export TOPOLOGY_TEST_IMAGE=$(echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]')
-             echo "===================  Using Feature Tests from ops:$OPS_BUILD_BRANCH =================== "
-             make testenv_run legacy ops
-
-             test -e .sandbox_uuid && make devenv_ct_clean
-             /usr/local/jenkins/slave_scripts/docker_clean_instances_and_image.sh $TOPOLOGY_TEST_IMAGE
-             sudo chown jenkins.jenkins build/test/*/test-results.xml
-           else
-             echo "Skipping cttest because of one of reasons: 1. Not a genericx86-64 platform; 2. Commit files are all in .md extension"
-           fi
-
-- builder:
-    name: module-test-for-ops
+    name: module-test-ops-ft-only
     builders:
       - shell: |
            #!/bin/bash -x
