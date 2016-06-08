@@ -72,4 +72,3 @@
     publishers:
         - conditional-htmlreports
         - conditional-gather-test-results
-        - post-ws-clean
