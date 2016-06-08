@@ -134,6 +134,7 @@
         - archive-test-logs
         - mail-on-fail:
              email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
+        - post-ws-clean
 
 - job:
     name: 'ops-release-as5712'
@@ -180,6 +181,7 @@
         - archive-test-logs
         - mail-on-fail:
              email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
+        - post-ws-clean
 
 - job:
     name: 'ops-release-as6712'
@@ -226,6 +228,7 @@
         - archive-test-logs
         - mail-on-fail:
              email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
+        - post-ws-clean
 
 - job:
     name: 'ops-periodic-p4'
@@ -269,6 +272,7 @@
         - archive-test-logs
         - mail-on-fail:
              email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
+        - post-ws-clean
 
 - job:
     name: 'ops-release-genericx86-64'
@@ -321,6 +325,7 @@
         - archive-test-logs
         - mail-on-fail:
              email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
+        - post-ws-clean
 
 
 - job:
