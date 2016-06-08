@@ -25,53 +25,6 @@
         - revoke-sudo
 
 - job:
-    name: 'website-hourly'
-    node: openswitch
-
-    wrappers:
-        - build-timeout:
-            timeout: 60
-        - timestamps
-        - ansicolor
-
-    builders:
-        - revoke-sudo
-        - shell: |
-            #!/bin/bash -x
-            set -e
-
-            if [[ ! -e .git ]]; then
-              # Remove any content, otherwise the clone will fail
-              rm -Rf *
-              git clone https://git.openswitch.net/openswitch/ops-build .
-            else
-              git pull
-            fi
-            mkdir -p /mnt/jenkins/workspace/sstate-cache
-            export SSTATE_DIR=/mnt/jenkins/workspace/sstate-cache
-            if [ ! -f .platform ] ; then
-                make configure genericx86-64
-            fi
-            touch .devenv # hack to enable devenv
-            if [ ! -d src/ops-website ] ; then
-                make devenv_add ops-website
-                make ops-website-setup
-            fi
-            make ops-website-update
-            make ops-website-dist
-            rm -Rf www
-            cp -R src/ops-website/dist www
-
-    publishers:
-        - scp:
-            site: static.openswitch.net
-            files:
-              - target: ''
-                source: 'www/**'
-                keep-hierarchy: true
-                copy-after-failure: false
-
-- job:
     name: 'website-stage-hourly'
     node: openswitch
 
@@ -80,9 +33,6 @@
             timeout: 65
         - timestamps
         - ansicolor
-
-    triggers:
-        - timed: '@hourly'
 
     builders:
         - revoke-sudo

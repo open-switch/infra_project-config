@@ -309,8 +309,8 @@ projects:
       - website-check
     gate:
       - website-gate
-#    hourly:
-#      - website-hourly
+    hourly:
+      - website-stage-hourly
 
   - name: openswitch/ops-benchmark
     template:
