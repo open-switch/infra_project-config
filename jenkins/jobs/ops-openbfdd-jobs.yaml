@@ -14,23 +14,8 @@
     publishers:
         - post-ws-clean
 
-- job:
-    name: 'ops-openbfdd-gate-as5712'
-    node: openswitch
-
-    wrappers:
-        - build-timeout:
-            timeout: 180
-
-    builders:
-        - module-build-branch:
-            module: 'ops-openbfdd'
-            platform: 'as5712'
-    publishers:
-        - post-ws-clean
-
-- job:
-    name: 'ops-openbfdd-gate-genericx86-64'
+- job-template:
+    name: 'ops-openbfdd-gate-{platform}'
     node: vsi
 
     wrappers:
@@ -40,12 +25,12 @@
     builders:
         - module-build-branch:
             module: 'ops-openbfdd'
-            platform: 'genericx86-64'
+            platform: '{platform}'
         - check-docker-state
         - clear-test-logs
         - module-test:
             module: 'ops-openbfdd'
-            platform: 'genericx86-64'
+            platform: '{platform}'
         - capture-test-logs
 
     publishers:
@@ -58,3 +43,4 @@
     name: 'ops-openbfdd-jobs'
     jobs:
       - 'ops-openbfdd-check-{platform}'
+      - 'ops-openbfdd-gate-{platform}'

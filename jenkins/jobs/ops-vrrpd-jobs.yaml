@@ -18,25 +18,8 @@
     publishers:
         - post-ws-clean
 
-- job:
-    name: 'ops-vrrpd-gate-as5712'
-    node: openswitch
-
-    wrappers:
-        - build-timeout:
-            timeout: 180
-        - timestamps
-        - ansicolor
-
-    builders:
-        - module-build-branch:
-            module: 'ops-vrrpd'
-            platform: 'as5712'
-    publishers:
-        - post-ws-clean
-
-- job:
-    name: 'ops-vrrpd-gate-genericx86-64'
+- job-template:
+    name: 'ops-vrrpd-gate-{platform}'
     node: vsi
 
     wrappers:
@@ -48,12 +31,12 @@
     builders:
         - module-build-branch:
             module: 'ops-vrrpd'
-            platform: 'genericx86-64'
+            platform: '{platform}'
         - check-docker-state
         - clear-test-logs
         - module-test:
             module: 'ops-vrrpd'
-            platform: 'genericx86-64'
+            platform: '{platform}'
     publishers:
         - conditional-gather-test-results
         - archive-syslog
@@ -65,3 +48,4 @@
     name: 'ops-vrrpd-jobs'
     jobs:
       - 'ops-vrrpd-check-{platform}'
+      - 'ops-vrrpd-gate-{platform}'

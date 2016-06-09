@@ -14,23 +14,8 @@
     publishers:
         - post-ws-clean
 
-- job:
-    name: 'ops-ntpd-gate-as5712'
-    node: openswitch
-
-    wrappers:
-        - build-timeout:
-            timeout: 180
-
-    builders:
-        - module-build-branch:
-            module: 'ops-ntpd'
-            platform: 'as5712'
-    publishers:
-        - post-ws-clean
-
-- job:
-    name: 'ops-ntpd-gate-genericx86-64'
+- job-template:
+    name: 'ops-ntpd-gate-{platform}'
     node: vsi
 
     wrappers:
@@ -40,12 +25,12 @@
     builders:
         - module-build-branch:
             module: 'ops-ntpd'
-            platform: 'genericx86-64'
+            platform: '{platform}'
         - check-docker-state
         - clear-test-logs
         - module-test:
             module: 'ops-ntpd'
-            platform: 'genericx86-64'
+            platform: '{platform}'
 
     publishers:
         - conditional-gather-test-results
@@ -58,3 +43,4 @@
     name: 'ops-ntpd-jobs'
     jobs:
       - 'ops-ntpd-check-{platform}'
+      - 'ops-ntpd-gate-{platform}'

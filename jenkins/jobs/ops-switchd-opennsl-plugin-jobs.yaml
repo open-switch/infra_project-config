@@ -12,8 +12,8 @@
             module: 'ops-switchd-opennsl-plugin'
             platform: '{platform}'
 
-- job:
-    name: 'ops-switchd-opennsl-plugin-gate-as5712'
+- job-template:
+    name: 'ops-switchd-opennsl-plugin-gate-{platform}'
     node: openswitch
 
     wrappers:
@@ -23,30 +23,10 @@
     builders:
         - module-build-branch:
             module: 'ops-switchd-opennsl-plugin'
-            platform: 'as5712'
-
-- job:
-    name: 'ops-switchd-opennsl-plugin-gate-genericx86-64'
-    node: vsi
-
-    wrappers:
-        - build-timeout:
-            timeout: 240
-
-    builders:
-        - module-build-branch:
-            module: 'ops-switchd-opennsl-plugin'
-            platform: 'genericx86-64'
-        - module-test:
-            module: 'ops-switchd-opennsl-plugin'
-            platform: 'genericx86-64'
-
-    publishers:
-        - conditional-gather-test-results
-        - conditional-htmlreports
-        - archive-syslog
+            platform: '{platform}'
 
 - job-group:
     name: 'ops-switchd-opennsl-plugin-jobs'
     jobs:
       - 'ops-switchd-opennsl-plugin-check-{platform}'
+      - 'ops-switchd-opennsl-plugin-gate-{platform}'

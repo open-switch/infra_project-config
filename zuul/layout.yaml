@@ -317,9 +317,6 @@ projects:
       - name: merge-check
       - name: module-build
         module: ops-benchmark
-        platform: as5712
-      - name: module-build
-        module: ops-benchmark
         platform: genericx86-64
 
   - name: openswitch/ops-dhcp-tftp
@@ -328,9 +325,6 @@ projects:
       - name: module-build
         module: ops-dhcp-tftp
         platform: genericx86-64
-      - name: module-build
-        module: ops-dhcp-tftp
-        platform: as5712
 
   - name: openswitch/governance
     template:
@@ -364,9 +358,6 @@ projects:
       - name: module-build
         module: ops-sysd
         platform: genericx86-64
-      - name: module-build
-        module: ops-sysd
-        platform: as5712
 
   - name: openswitch/ops-utils
     template:
@@ -374,9 +365,6 @@ projects:
       - name: module-build
         platform: genericx86-64
         module: ops-utils
-      - name: module-build
-        module: ops-utils
-        platform: as5712
 
   - name: openswitch/ops-aaa-utils
     template:
@@ -398,9 +386,6 @@ projects:
       - name: module-build
         module: ops-arpmgrd
         platform: genericx86-64
-      - name: module-build
-        module: ops-arpmgrd
-        platform: as5712
 
   - name: openswitch/ops-hw-config
     template:
@@ -408,9 +393,6 @@ projects:
       - name: module-build
         module: ops-hw-config
         platform: genericx86-64
-      - name: module-build
-        module: ops-hw-config
-        platform: as5712
 
   - name: openswitch/ops-bufmond
     template:
@@ -418,9 +400,6 @@ projects:
       - name: module-build
         module: ops-bufmond
         platform: genericx86-64
-      - name: module-build
-        module: ops-bufmond
-        platform: as5712
 
   - name: openswitch/ops-broadview
     template:
@@ -428,9 +407,6 @@ projects:
       - name: module-build
         module: ops-broadview
         platform: genericx86-64
-      - name: module-build
-        module: ops-broadview
-        platform: as5712
 
   - name: openswitch/ops-cfgd
     template:
@@ -445,9 +421,6 @@ projects:
       - name: module-build
         module: ops-cli
         platform: genericx86-64
-      - name: module-build
-        module: ops-cli
-        platform: as5712
 
   - name: openswitch/ops-config-yaml
     template:
@@ -462,9 +435,6 @@ projects:
       - name: module-build
         module: ops-fand
         platform: genericx86-64
-      - name: module-build
-        module: ops-fand
-        platform: as5712
 
   - name: openswitch/ops-ft-framework
     template:
@@ -472,9 +442,6 @@ projects:
       - name: module-build
         module: ops-ft-framework
         platform: genericx86-64
-      - name: module-build
-        module: ops-ft-framework
-        platform: as5712
 
   - name: openswitch/ops-hw-vtep
     template:
@@ -482,9 +449,6 @@ projects:
       - name: module-build
         module: ops-hw-vtep
         platform: genericx86-64
-      - name: module-build
-        module: ops-hw-vtep
-        platform: as5712
 
   - name: openswitch/ops-portd
     template:
@@ -492,9 +456,6 @@ projects:
       - name: module-build
         module: ops-portd
         platform: genericx86-64
-      - name: module-build
-        module: ops-portd
-        platform: as5712
 
   - name: openswitch/ops-intfd
     template:
@@ -509,9 +470,6 @@ projects:
       - name: module-build
         module: ops-lacpd
         platform: genericx86-64
-      - name: module-build
-        module: ops-lacpd
-        platform: as5712
 
   - name: openswitch/ops-ledd
     template:
@@ -519,9 +477,6 @@ projects:
       - name: module-build
         module: ops-ledd
         platform: genericx86-64
-      - name: module-build
-        module: ops-ledd
-        platform: as5712
 
   - name: openswitch/ops-lldpd
     template:
@@ -536,9 +491,6 @@ projects:
       - name: module-build
         module: ops-openbfdd
         platform: genericx86-64
-      - name: module-build
-        module: ops-openbfdd
-        platform: as5712
 
   - name: openswitch/ops-openvswitch
     template:
@@ -546,9 +498,6 @@ projects:
       - name: module-build
         module: ops-openvswitch
         platform: genericx86-64
-      - name: module-build
-        module: ops-openvswitch
-        platform: as5712
 
   - name: openswitch/ops-ovs
     template:
@@ -564,9 +513,6 @@ projects:
       - name: module-build
         module: ops-switchd
         platform: genericx86-64
-      - name: module-build
-        module: ops-switchd
-        platform: as5712
 
   - name: openswitch/ops-switchd-container-plugin
     template:
@@ -609,9 +555,6 @@ projects:
       - name: module-build
         module: ops-pmd
         platform: genericx86-64
-      - name: module-build
-        module: ops-pmd
-        platform: as5712
 
   - name: openswitch/ops-powerd
     template:
@@ -619,9 +562,6 @@ projects:
       - name: module-build
         module: ops-powerd
         platform: genericx86-64
-      - name: module-build
-        module: ops-powerd
-        platform: as5712
 
   - name: openswitch/ops-quagga
     template:
@@ -636,9 +576,6 @@ projects:
       - name: module-build
         module: ops-restd
         platform: genericx86-64
-      - name: module-build
-        module: ops-restd
-        platform: as5712
 
   - name: openswitch/ops-tempd
     template:
@@ -646,9 +583,6 @@ projects:
       - name: module-build
         module: ops-tempd
         platform: genericx86-64
-      - name: module-build
-        module: ops-tempd
-        platform: as5712
 
   - name: openswitch/ops-topology-common
     template:
@@ -663,9 +597,6 @@ projects:
       - name: module-build
         module: ops-topology-lib-vtysh
         platform: genericx86-64
-      - name: module-build
-        module: ops-topology-lib-vtysh
-        platform: as5712
 
   - name: openswitch/ops-vland
     template:
@@ -673,9 +604,6 @@ projects:
       - name: module-build
         module: ops-vland
         platform: genericx86-64
-      - name: module-build
-        module: ops-vland
-        platform: as5712
 
   - name: openswitch/ops-vsi
     template:
@@ -683,9 +611,6 @@ projects:
       - name: module-build
         module: ops-vsi
         platform: genericx86-64
-      - name: module-build
-        module: ops-vsi
-        platform: as5712
 
   - name: openswitch/ops-webui
     template:
@@ -693,9 +618,6 @@ projects:
       - name: module-build
         module: ops-webui
         platform: genericx86-64
-      - name: module-build
-        module: ops-webui
-        platform: as5712
 
   - name: openswitch/ops-mclagd
     template:
@@ -703,9 +625,6 @@ projects:
       - name: module-build
         module: ops-mclagd
         platform: genericx86-64
-      - name: module-build
-        module: ops-mclagd
-        platform: as5712
 
   - name: openswitch/ops-mgmt-intf
     template:
@@ -713,9 +632,6 @@ projects:
       - name: module-build
         module: ops-mgmt-intf
         platform: genericx86-64
-      - name: module-build
-        module: ops-mgmt-intf
-        platform: as5712
 
   - name: openswitch/ops-supportability
     template:
@@ -723,9 +639,6 @@ projects:
       - name: module-build
         module: ops-supportability
         platform: genericx86-64
-      - name: module-build
-        module: ops-supportability
-        platform: as5712
 
   - name: openswitch/ops-docs
     template:
@@ -772,9 +685,6 @@ projects:
       - name: module-build
         module: ops-ntpd
         platform: genericx86-64
-      - name: module-build
-        module: ops-ntpd
-        platform: as5712
 
   - name: openswitch/ops-ipsecd
     template:
@@ -782,9 +692,6 @@ projects:
       - name: module-build
         module: ops-ipsecd
         platform: genericx86-64
-      - name: module-build
-        module: ops-ipsecd
-        platform: as5712
 
   - name: openswitch/ops-ipapps
     template:
@@ -792,9 +699,6 @@ projects:
       - name: module-build
         module: ops-ipapps
         platform: genericx86-64
-      - name: module-build
-        module: ops-ipapps
-        platform: as5712
 
   - name: openswitch/ops-classifierd
     template:
@@ -802,9 +706,6 @@ projects:
       - name: module-build
         module: ops-classifierd
         platform: genericx86-64
-      - name: module-build
-        module: ops-classifierd
-        platform: as5712
 
   - name: openswitch/ops-passwd-srv
     template:
@@ -812,9 +713,6 @@ projects:
       - name: module-build
         module: ops-passwd-srv
         platform: genericx86-64
-      - name: module-build
-        module: ops-passwd-srv
-        platform: as5712
 
   - name: openswitch/ops-stpd
     template:
@@ -822,9 +720,6 @@ projects:
       - name: module-build
         module: ops-stpd
         platform: genericx86-64
-      - name: module-build
-        module: ops-stpd
-        platform: as5712
 
   - name: openswitch/ops-snmpd
     template:
@@ -832,9 +727,6 @@ projects:
       - name: module-build
         module: ops-snmpd
         platform: genericx86-64
-      - name: module-build
-        module: ops-snmpd
-        platform: as5712
 
   - name: openswitch/ops-sysmond
     template:
@@ -842,9 +734,6 @@ projects:
       - name: module-build
         module: ops-sysmond
         platform: genericx86-64
-      - name: module-build
-        module: ops-sysmond
-        platform: as5712
 
   - name: openswitch/ops-l2macd
     template:
@@ -852,9 +741,6 @@ projects:
       - name: module-build
         module: ops-l2macd
         platform: genericx86-64
-      - name: module-build
-        module: ops-l2macd
-        platform: as5712
 
   - name: openswitch/ops-vrfmgrd
     template:
@@ -862,9 +748,6 @@ projects:
       - name: module-build
         module: ops-vrfmgrd
         platform: genericx86-64
-      - name: module-build
-        module: ops-vrfmgrd
-        platform: as5712
 
   - name: openswitch/ops-rbac
     template:
@@ -872,9 +755,6 @@ projects:
       - name: module-build
         module: ops-rbac
         platform: genericx86-64
-      - name: module-build
-        module: ops-rbac
-        platform: as5712
 
   - name: openswitch/ops-vrrpd
     template:
@@ -882,6 +762,3 @@ projects:
       - name: module-build
         module: ops-vrrpd
         platform: genericx86-64
-      - name: module-build
-        module: ops-vrrpd
-        platform: as5712

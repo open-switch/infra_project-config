@@ -12,8 +12,8 @@
         - revoke-sudo
         - gerrit-git-prep
 
-- job:
-    name: 'ops-ansible-gate-genericx86-64'
+- job-template:
+    name: 'ops-ansible-gate-{platform}'
     node: vsi
 
     wrappers:
@@ -23,12 +23,12 @@
     builders:
         - module-build-branch:
             module: 'ops-ansible'
-            platform: 'genericx86-64'
+            platform: '{platform}'
         - check-docker-state
         - clear-test-logs
         - module-test:
             module: 'ops-ansible'
-            platform: 'genericx86-64'
+            platform: '{platform}'
 
     publishers:
         - conditional-gather-test-results
@@ -41,3 +41,4 @@
     name: 'ops-ansible-jobs'
     jobs:
       - 'ops-ansible-check-{platform}'
+      - 'ops-ansible-gate-{platform}'

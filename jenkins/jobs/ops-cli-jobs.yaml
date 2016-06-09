@@ -14,21 +14,8 @@
     publishers:
         - post-ws-clean
 
-- job:
-    name: 'ops-cli-gate-as5712'
-    node: openswitch
-    wrappers:
-        - build-timeout:
-            timeout: 180
-    builders:
-        - module-build-branch:
-            module: 'ops-cli'
-            platform: 'as5712'
-    publishers:
-        - post-ws-clean
-
-- job:
-    name: 'ops-cli-gate-genericx86-64'
+- job-template:
+    name: 'ops-cli-gate-{platform}'
     node: vsi
     wrappers:
         - build-timeout:
@@ -36,12 +23,12 @@
     builders:
         - module-build-branch:
             module: 'ops-cli'
-            platform: 'genericx86-64'
+            platform: '{platform}'
         - check-docker-state
         - clear-test-logs
         - module-test:
             module: 'ops-cli'
-            platform: 'genericx86-64'
+            platform: '{platform}'
     publishers:
         - conditional-gather-test-results
         - archive-syslog
@@ -52,3 +39,4 @@
     name: 'ops-cli-jobs'
     jobs:
       - 'ops-cli-check-{platform}'
+      - 'ops-cli-gate-{platform}'

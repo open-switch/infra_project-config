@@ -16,30 +16,8 @@
     publishers:
         - post-ws-clean
 
-- job:
-    name: 'ops-restd-gate-as5712'
-    node: openswitch
-
-    wrappers:
-        - build-timeout:
-            timeout: 180
-
-    builders:
-        - revoke-sudo
-        - module-build-branch:
-            module: 'ops-restd'
-            platform: 'as5712'
-        - swagger-api:
-            depended-repo: 'ops'
-            files: 'ops-restapi.json'
-
-    publishers:
-        - simple-scp:
-            dest: 'api/rest/'
-        - post-ws-clean
-
-- job:
-    name: 'ops-restd-gate-genericx86-64'
+- job-template:
+    name: 'ops-restd-gate-{platform}'
     node: vsi
 
     wrappers:
@@ -49,12 +27,12 @@
     builders:
         - module-build-branch:
             module: 'ops-restd'
-            platform: 'genericx86-64'
+            platform: '{platform}'
         - check-docker-state
         - clear-test-logs
         - module-test:
             module: 'ops-restd'
-            platform: 'genericx86-64'
+            platform: '{platform}'
         - swagger-api:
             depended-repo: 'ops'
             files: 'ops-restapi.json'
@@ -71,3 +49,4 @@
     name: 'ops-restd-jobs'
     jobs:
       - 'ops-restd-check-{platform}'
+      - 'ops-restd-gate-{platform}'

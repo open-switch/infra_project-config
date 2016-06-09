@@ -14,7 +14,6 @@
       node: 'openswitch'
       platform:
         - genericx86-64
-        - as5712
       jobs:
         - 'ops-benchmark-jobs'
 
@@ -34,7 +33,6 @@
       node: 'openswitch'
       platform:
         - genericx86-64
-        - as5712
       jobs:
         - 'ops-sysd-jobs'
 
@@ -43,7 +41,6 @@
       node: 'openswitch'
       platform:
         - genericx86-64
-        - as5712
       jobs:
         - 'ops-utils-jobs'
 
@@ -68,7 +65,6 @@
       node: 'openswitch'
       platform:
         - genericx86-64
-        - as5712
       jobs:
         - 'ops-arpmgrd-jobs'
 
@@ -76,7 +72,6 @@
       name: openswitch/ops-hw-config
       node: 'openswitch'
       platform:
-        - as5712
         - genericx86-64
       jobs:
        - 'ops-hw-config-jobs'
@@ -85,7 +80,6 @@
       name: openswitch/ops-hw-vtep
       node: 'openswitch'
       platform:
-        - as5712
         - genericx86-64
       jobs:
         - 'ops-hw-vtep-jobs'
@@ -94,7 +88,6 @@
       name: openswitch/ops-bufmond
       node: 'openswitch'
       platform:
-        - as5712
         - genericx86-64
       jobs:
         - 'ops-bufmond-jobs'
@@ -103,7 +96,6 @@
       name: openswitch/ops-broadview
       node: 'openswitch'
       platform:
-        - as5712
         - genericx86-64
       jobs:
         - 'ops-broadview-jobs'
@@ -113,7 +105,6 @@
       node: 'openswitch'
       platform:
         - genericx86-64
-        - as5712
       jobs:
         - 'ops-cfgd-jobs'
 
@@ -122,7 +113,6 @@
       node: 'openswitch'
       platform:
         - genericx86-64
-        - as5712
       jobs:
         - 'ops-cli-jobs'
 
@@ -147,7 +137,6 @@
       node: 'openswitch'
       platform:
         - genericx86-64
-        - as5712
       jobs:
         - 'ops-fand-jobs'
 
@@ -155,7 +144,6 @@
       name: openswitch/ops-ft-framework
       node: 'openswitch'
       platform:
-        - as5712
         - genericx86-64
       jobs:
         - 'ops-ft-framework-jobs'
@@ -164,7 +152,6 @@
       name: openswitch/ops-portd
       node: 'openswitch'
       platform:
-        - as5712
         - genericx86-64
       jobs:
         - 'ops-portd-jobs'
@@ -174,7 +161,6 @@
       node: 'openswitch'
       platform:
         - genericx86-64
-        - as5712
       jobs:
         - 'ops-intfd-jobs'
 
@@ -183,7 +169,6 @@
       node: 'openswitch'
       platform:
         - genericx86-64
-        - as5712
       jobs:
         - 'ops-lacpd-jobs'
 
@@ -192,7 +177,6 @@
       node: 'openswitch'
       platform:
         - genericx86-64
-        - as5712
       jobs:
         - 'ops-ledd-jobs'
 
@@ -201,7 +185,6 @@
       node: 'openswitch'
       platform:
         - genericx86-64
-        - as5712
       jobs:
         - 'ops-lldpd-jobs'
 
@@ -210,7 +193,6 @@
       node: 'openswitch'
       platform:
         - genericx86-64
-        - as5712
       jobs:
         - 'ops-openbfdd-jobs'
 
@@ -219,7 +201,6 @@
       node: 'openswitch'
       platform:
         - genericx86-64
-        - as5712
       jobs:
         - 'ops-openvswitch-jobs'
 
@@ -228,7 +209,6 @@
       node: 'openswitch'
       platform:
         - genericx86-64
-        - as5712
       jobs:
         - 'ops-switchd-jobs'
 
@@ -277,7 +257,6 @@
       node: 'openswitch'
       platform:
         - genericx86-64
-        - as5712
       jobs:
         - 'ops-pmd-jobs'
 
@@ -286,7 +265,6 @@
       node: 'openswitch'
       platform:
         - genericx86-64
-        - as5712
       jobs:
         - 'ops-powerd-jobs'
 
@@ -295,7 +273,6 @@
       node: 'openswitch'
       platform:
         - genericx86-64
-        - as5712
       jobs:
         - 'ops-quagga-jobs'
 
@@ -304,7 +281,6 @@
       node: 'openswitch'
       platform:
         - genericx86-64
-        - as5712
       jobs:
         - 'ops-restd-jobs'
 
@@ -313,7 +289,6 @@
       node: 'openswitch'
       platform:
         - genericx86-64
-        - as5712
       jobs:
         - 'ops-dhcp-tftp-jobs'
 
@@ -322,7 +297,6 @@
       node: 'openswitch'
       platform:
         - genericx86-64
-        - as5712
       jobs:
         - 'ops-topology-common-jobs'
 
@@ -331,7 +305,6 @@
       node: 'openswitch'
       platform:
         - genericx86-64
-        - as5712
       jobs:
         - 'ops-tempd-jobs'
 
@@ -340,7 +313,6 @@
       node: 'openswitch'
       platform:
         - genericx86-64
-        - as5712
       jobs:
         - 'ops-topology-lib-vtysh-jobs'
 
@@ -349,7 +321,6 @@
       node: 'openswitch'
       platform:
         - genericx86-64
-        - as5712
       jobs:
         - 'ops-vland-jobs'
 
@@ -358,7 +329,6 @@
       node: 'openswitch'
       platform:
         - genericx86-64
-        - as5712
       jobs:
         - 'ops-vsi-jobs'
 
@@ -366,7 +336,6 @@
       name: openswitch/ops-webui
       node: 'openswitch'
       platform:
-        - as5712
         - genericx86-64
       jobs:
         - 'ops-webui-jobs'
@@ -375,7 +344,6 @@
       name: openswitch/ops-mclagd
       node: 'openswitch'
       platform:
-        - as5712
         - genericx86-64
       jobs:
         - 'ops-mclagd-jobs'
@@ -385,7 +353,6 @@
       name: openswitch/ops-mgmt-intf
       node: 'openswitch'
       platform:
-        - as5712
         - genericx86-64
       jobs:
         - 'ops-mgmt-intf-jobs'
@@ -394,7 +361,6 @@
       name: openswitch/ops-supportability
       node: 'openswitch'
       platform:
-        - as5712
         - genericx86-64
       jobs:
         - 'ops-supportability-jobs'
@@ -412,7 +378,6 @@
       node: 'openswitch'
       platform:
         - genericx86-64
-        - as5712
       jobs:
         - 'ops-ntpd-jobs'
 
@@ -420,7 +385,6 @@
       name: openswitch/ops-ipsecd
       node: 'openswitch'
       platform:
-        - as5712
         - genericx86-64
       jobs:
         - 'ops-ipsecd-jobs'
@@ -429,7 +393,6 @@
       name: openswitch/ops-ipapps
       node: 'openswitch'
       platform:
-        - as5712
         - genericx86-64
       jobs:
         - 'ops-ipapps-jobs'
@@ -438,7 +401,6 @@
       name: openswitch/ops-classifierd
       node: 'openswitch'
       platform:
-        - as5712
         - genericx86-64
       jobs:
         - 'ops-classifierd-jobs'
@@ -447,7 +409,6 @@
       name: openswitch/ops-passwd-srv
       node: 'openswitch'
       platform:
-        - as5712
         - genericx86-64
       jobs:
           - 'ops-passwd-srv-jobs'
@@ -457,7 +418,6 @@
       node: 'openswitch'
       platform:
         - genericx86-64
-        - as5712
       jobs:
         - 'ops-stpd-jobs'
 
@@ -466,7 +426,6 @@
       node: 'openswitch'
       platform:
         - genericx86-64
-        - as5712
       jobs:
         - 'ops-snmpd-jobs'
 
@@ -475,7 +434,6 @@
       node: 'openswitch'
       platform:
         - genericx86-64
-        - as5712
       jobs:
         - 'ops-sysmond-jobs'
 
@@ -484,7 +442,6 @@
       node: 'openswitch'
       platform:
         - genericx86-64
-        - as5712
       jobs:
         - 'ops-l2macd-jobs'
 
@@ -493,7 +450,6 @@
       node: 'openswitch'
       platform:
         - genericx86-64
-        - as5712
       jobs:
         - 'ops-vrfmgrd-jobs'
 
@@ -502,7 +458,6 @@
       node: 'openswitch'
       platform:
         - genericx86-64
-        - as5712
       jobs:
         - 'ops-rbac-jobs'
 
@@ -511,6 +466,5 @@
       node: 'openswitch'
       platform:
         - genericx86-64
-        - as5712
       jobs:
         - 'ops-vrrpd-jobs'

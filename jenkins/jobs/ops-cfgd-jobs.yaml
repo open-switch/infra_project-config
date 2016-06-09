@@ -16,23 +16,8 @@
     publishers:
         - post-ws-clean
 
-- job:
-    name: 'ops-cfgd-gate-as5712'
-    node: openswitch
-
-    wrappers:
-        - build-timeout:
-            timeout: 180
-
-    builders:
-        - module-build-branch:
-            module: 'ops-cfgd'
-            platform: 'as5712'
-    publishers:
-        - post-ws-clean
-
-- job:
-    name: 'ops-cfgd-gate-genericx86-64'
+- job-template:
+    name: 'ops-cfgd-gate-{platform}'
     node: vsi
 
     wrappers:
@@ -42,11 +27,11 @@
     builders:
         - module-build-branch:
             module: 'ops-cfgd'
-            platform: 'genericx86-64'
+            platform: '{platform}'
         - check-docker-state
         - module-test:
             module: 'ops-cfgd'
-            platform: 'genericx86-64'
+            platform: '{platform}'
     publishers:
         - conditional-gather-test-results
         - archive-syslog
@@ -57,3 +42,4 @@
     name: 'ops-cfgd-jobs'
     jobs:
       - 'ops-cfgd-check-{platform}'
+      - 'ops-cfgd-gate-{platform}'

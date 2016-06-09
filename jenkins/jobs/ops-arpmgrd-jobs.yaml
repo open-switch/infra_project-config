@@ -17,24 +17,8 @@
     publishers:
         - post-ws-clean
 
-- job:
-    name: 'ops-arpmgrd-gate-as5712'
-    node: openswitch
-
-    wrappers:
-        - build-timeout:
-            timeout: 180
-
-    builders:
-        - module-build-branch:
-            module: 'ops-arpmgrd'
-            platform: 'as5712'
-
-    publishers:
-        - post-ws-clean
-
-- job:
-    name: 'ops-arpmgrd-gate-genericx86-64'
+- job-template:
+    name: 'ops-arpmgrd-gate-{platform}'
     node: vsi
 
     wrappers:
@@ -44,12 +28,12 @@
     builders:
         - module-build-branch:
             module: 'ops-arpmgrd'
-            platform: 'genericx86-64'
+            platform: '{platform}'
         - check-docker-state
         - clear-test-logs
         - module-test:
             module: 'ops-arpmgrd'
-            platform: 'genericx86-64'
+            platform: '{platform}'
 
     publishers:
         - conditional-htmlreports
@@ -62,3 +46,4 @@
     name: 'ops-arpmgrd-jobs'
     jobs:
       - 'ops-arpmgrd-check-{platform}'
+      - 'ops-arpmgrd-gate-{platform}'

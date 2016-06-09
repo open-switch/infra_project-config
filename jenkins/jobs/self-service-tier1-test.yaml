@@ -5,13 +5,12 @@
        - string:
             name: Feature_BranchName
             default:
-            description: "Please give the name of feature branch that you want us to run CIT for"
+            description: "Feature branch on which CIT needs to be executed"
        - string:
             name: Repositories_List
             default:
-            description: "Please give the list of repositories to fetch the above given Feature Branch in comma separated values, for example: ops-aaa-utils,ops-portd,ops-cli "
+            description: "List of repositories whose tests need to be executed for the above Feature Branch in comma separated values, for example: ops-aaa-utils,ops-portd,ops-cli "
     wrappers:
-        - workspace-cleanup
         - build-timeout:
             timeout: 180
     properties:
@@ -19,10 +18,11 @@
             authenticated:
                - job-build
     builders:
+        - check-docker-state
+        - clear-test-logs
         - ops-selfservice-cit-ondemand
     publishers:
-        - conditional-gather-test-results:
-             test: legacy
+        - conditional-gather-test-results
         - archive-syslog
         - archive-test-logs
         - post-ws-clean

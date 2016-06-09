@@ -10,9 +10,6 @@
         - revoke-sudo
         - commit-message-validation:
             module: 'ops-ft-framework'
-#        - module-build-branch:
-#            module: 'ft-framework'
-#            platform: '{platform}'
     publishers:
         - post-ws-clean
 
@@ -26,9 +23,6 @@
 
     builders:
         - revoke-sudo
-#        - module-build-branch:
-#            module: 'ft-framework'
-#            platform: '{platform}'
     publishers:
         - post-ws-clean
 
