@@ -351,6 +351,10 @@ projects:
       - ops-periodic-as5712
       - ops-periodic-as6712
       - ops-periodic-appliance
+      - ops-release-genericx86-64
+      - ops-release-as5712
+      - ops-release-as6712
+      - ops-release-appliance
       - ops-periodic-p4
 
   - name: openswitch/ops-sysd

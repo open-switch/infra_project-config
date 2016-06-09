@@ -136,8 +136,8 @@
              email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
         - post-ws-clean
 
-- job:
-    name: 'ops-release-as5712'
+- job-template:
+    name: 'ops-release-{platform}'
     node: vsi
 
     scm:
@@ -154,73 +154,31 @@
 
     wrappers:
         - build-timeout:
-            timeout: 120
+            timeout: 180
         - ssh-agent-credentials:
               users:
                   - '0f99f00f-a5c0-460d-97b5-9b3dbdfd0773'
                   - 'ffc18805-a3da-4771-918a-eaaa6a1a0c70'
-
-    triggers:
-        - timed: 'H */6 * * *'
+                  - 'cac4b49c-deb6-4254-b092-c687ecc95fdb'
 
     builders:
+        - ops-distclean
+        - branch-git-prep:
+            branch: master
         - ops-build:
-            platform: 'as5712'
+            platform: '{platform}'
         - ops-meta-ide
-        - module-test-ops-ft-only:
-            platform: 'as5712'
         - shared-states
         - download-caches
         - create-periodic-build-image
         - create-build-artifacts
         - scp-artifacts
-
-    publishers:
-        - conditional-junit
-        - archive-syslog
-        - archive-test-logs
-        - mail-on-fail:
-             email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
-        - post-ws-clean
-
-- job:
-    name: 'ops-release-as6712'
-    node: vsi
-
-    scm:
-       - git:
-          url: http://git.openswitch.net/openswitch/ops-build
-          branches:
-            - origin/rel/dill
-
-    properties:
-      - inject:
-          properties-content: |
-            TYPE=periodic/release
-            BRANCH=release
-
-    wrappers:
-        - build-timeout:
-            timeout: 120
-        - ssh-agent-credentials:
-              users:
-                  - '0f99f00f-a5c0-460d-97b5-9b3dbdfd0773'
-                  - 'ffc18805-a3da-4771-918a-eaaa6a1a0c70'
-
-    triggers:
-        - timed: 'H */6 * * *'
-
-    builders:
-        - ops-build:
-            platform: 'as6712'
-        - ops-meta-ide
+        - check-docker-state
+        - clear-test-logs
         - module-test-ops-ft-only:
-            platform: 'as6712'
-        - shared-states
-        - download-caches
-        - create-periodic-build-image
-        - create-build-artifacts
-        - scp-artifacts
+            platform: '{platform}'
+        - scp-artifacts-junit
+        - capture-test-logs
 
     publishers:
         - conditional-junit
@@ -263,59 +221,6 @@
         - clear-test-logs
         - module-test-ops-ft-only:
             platform: 'p4'
-        - scp-artifacts-junit
-        - capture-test-logs
-
-    publishers:
-        - conditional-junit
-        - archive-syslog
-        - archive-test-logs
-        - mail-on-fail:
-             email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
-        - post-ws-clean
-
-- job:
-    name: 'ops-release-genericx86-64'
-    node: vsi
-
-    scm:
-       - git:
-          url: http://git.openswitch.net/openswitch/ops-build
-          branches:
-            - origin/rel/dill
-
-    properties:
-      - inject:
-          properties-content: |
-            TYPE=periodic/release
-            BRANCH=release
-
-    wrappers:
-        - build-timeout:
-            timeout: 180
-        - ssh-agent-credentials:
-              users:
-                  - '0f99f00f-a5c0-460d-97b5-9b3dbdfd0773'
-                  - 'ffc18805-a3da-4771-918a-eaaa6a1a0c70'
-
-    triggers:
-        - timed: 'H */6 * * *'
-
-    builders:
-        - ops-build:
-            platform: 'genericx86-64'
-        - ops-meta-ide
-        - module-test-ops-ft-only:
-            platform: 'genericx86-64'
-        - shared-states
-        - download-caches
-        - create-periodic-build-image
-        - create-build-artifacts
-        - scp-artifacts
-        - check-docker-state
-        - clear-test-logs
-        - module-test-ops-ft-only:
-            platform: 'genericx86-64'
         - scp-artifacts-junit
         - capture-test-logs
 
@@ -431,7 +336,6 @@
       - 'ops-gate-as6712'
       - 'ops-gate-genericx86-64'
       - 'ops-periodic-{platform}'
-      - 'ops-release-as5712'
-      - 'ops-release-genericx86-64'
+      - 'ops-release-{platform}'
       - 'ops-tag-as5712'
       - 'ops-tag-genericx86-64'
