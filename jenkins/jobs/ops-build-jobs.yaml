@@ -162,9 +162,6 @@
                   - 'cac4b49c-deb6-4254-b092-c687ecc95fdb'
 
     builders:
-        - ops-distclean
-        - branch-git-prep:
-            branch: release
         - ops-build:
             platform: '{platform}'
         - ops-meta-ide
