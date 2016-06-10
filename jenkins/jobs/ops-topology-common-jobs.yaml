@@ -12,7 +12,7 @@
        - revoke-sudo
        - topology-check:
           module: 'ops-topology-common'
-          platform: 'genericx86-64'
+          platform: '{platform}'
 
    publishers:
        - conditional-junit
@@ -32,7 +32,7 @@
        - revoke-sudo
        - topology-check:
           module: 'ops-topology-common'
-          platform: 'genericx86-64'
+          platform: '{platform}'
 
    publishers:
        - conditional-junit

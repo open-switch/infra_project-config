@@ -9,7 +9,6 @@
     builders:
         - revoke-sudo
         - gerrit-git-prep
-#        - commit-message-validation-ops
 
 - job:
     name: 'ops-ovs-gate'

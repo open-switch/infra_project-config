@@ -20,7 +20,7 @@
 
 - job-template:
     name: 'ops-benchmark-gate-{platform}'
-    node: openswitch
+    node: vsi
 
     wrappers:
         - build-timeout:

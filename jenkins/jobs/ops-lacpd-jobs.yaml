@@ -14,22 +14,8 @@
     publishers:
         - post-ws-clean
 
-- job:
-    name: 'ops-lacpd-gate-as5712'
-    node: openswitch
-    wrappers:
-        - build-timeout:
-            timeout: 180
-
-    builders:
-        - module-build-branch:
-            module: 'ops-lacpd'
-            platform: 'as5712'
-    publishers:
-        - post-ws-clean
-
-- job:
-    name: 'ops-lacpd-gate-genericx86-64'
+- job-template:
+    name: 'ops-lacpd-gate-{platform}'
     node: vsi
     wrappers:
         - build-timeout:
@@ -37,12 +23,12 @@
     builders:
         - module-build-branch:
             module: 'ops-lacpd'
-            platform: 'genericx86-64'
+            platform: '{platform}'
         - check-docker-state
         - clear-test-logs
         - module-test:
             module: 'ops-lacpd'
-            platform: 'genericx86-64'
+            platform: '{platform}'
     publishers:
         - conditional-gather-test-results
         - conditional-htmlreports
@@ -54,3 +40,4 @@
     name: 'ops-lacpd-jobs'
     jobs:
       - 'ops-lacpd-check-{platform}'
+      - 'ops-lacpd-gate-{platform}'

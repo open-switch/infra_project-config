@@ -14,8 +14,8 @@
     publishers:
         - post-ws-clean
 
-- job:
-    name: 'ops-sysd-gate-as5712'
+- job-template:
+    name: 'ops-sysd-gate-{platform}'
     node: vsi
 
     wrappers:
@@ -25,27 +25,12 @@
     builders:
         - module-build-branch:
             module: 'ops-sysd'
-            platform: 'as5712'
-    publishers:
-        - post-ws-clean
-
-- job:
-    name: 'ops-sysd-gate-genericx86-64'
-    node: vsi
-
-    wrappers:
-        - build-timeout:
-            timeout: 180
-
-    builders:
-        - module-build-branch:
-            module: 'ops-sysd'
-            platform: 'genericx86-64'
+            platform: '{platform}'
         - check-docker-state
         - clear-test-logs
         - module-test:
             module: 'ops-sysd'
-            platform: 'genericx86-64'
+            platform: '{platform}'
 
     publishers:
         - conditional-gather-test-results
@@ -58,3 +43,4 @@
     name: 'ops-sysd-jobs'
     jobs:
       - 'ops-sysd-check-{platform}'
+      - 'ops-sysd-gate-{platform}'

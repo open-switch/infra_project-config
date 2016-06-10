@@ -18,8 +18,8 @@
     publishers:
         - post-ws-clean
 
-- job:
-    name: 'ops-broadview-gate-as5712'
+- job-template:
+    name: 'ops-broadview-gate-{platform}'
     node: vsi
     wrappers:
         - build-timeout:
@@ -27,30 +27,12 @@
     builders:
         - module-build-branch:
             module: 'ops-broadview'
-            platform: 'as5712'
-        - module-test:
-            module: 'ops-broadview'
-            platform: 'as5712'
-    publishers:
-        - conditional-junit
-        - archive-syslog
-        - post-ws-clean
-
-- job:
-    name: 'ops-broadview-gate-genericx86-64'
-    node: vsi
-    wrappers:
-        - build-timeout:
-            timeout: 180
-    builders:
-        - module-build-branch:
-            module: 'ops-broadview'
-            platform: 'genericx86-64'
+            platform: '{platform}'
         - check-docker-state
         - clear-test-logs
         - module-test:
             module: 'ops-broadview'
-            platform: 'genericx86-64'
+            platform: '{platform}'
     publishers:
         - conditional-gather-test-results
         - archive-syslog
@@ -61,3 +43,4 @@
     name: 'ops-broadview-jobs'
     jobs:
       - 'ops-broadview-check-{platform}'
+      - 'ops-broadview-gate-{platform}'

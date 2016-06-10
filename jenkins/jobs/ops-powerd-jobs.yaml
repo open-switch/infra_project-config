@@ -14,24 +14,8 @@
     publishers:
         - post-ws-clean
 
-- job:
-    name: 'ops-powerd-gate-as5712'
-    node: openswitch
-
-    wrappers:
-        - build-timeout:
-            timeout: 180
-
-    builders:
-        - module-build-branch:
-            module: 'ops-powerd'
-            platform: 'as5712'
-
-    publishers:
-        - post-ws-clean
-
-- job:
-    name: 'ops-powerd-gate-genericx86-64'
+- job-template:
+    name: 'ops-powerd-gate-{platform}'
     node: vsi
 
     wrappers:
@@ -41,10 +25,12 @@
     builders:
         - module-build-branch:
             module: 'ops-powerd'
-            platform: 'genericx86-64'
+            platform: '{platform}'
+        - check-docker-state
+        - clear-test-logs
         - module-test:
             module: 'ops-powerd'
-            platform: 'genericx86-64'
+            platform: '{platform}'
 
     publishers:
         - conditional-htmlreports
@@ -57,3 +43,4 @@
     name: 'ops-powerd-jobs'
     jobs:
       - 'ops-powerd-check-{platform}'
+      - 'ops-powerd-gate-{platform}'

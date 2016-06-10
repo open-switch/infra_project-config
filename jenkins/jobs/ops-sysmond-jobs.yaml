@@ -14,23 +14,8 @@
     publishers:
         - post-ws-clean
 
-- job:
-    name: 'ops-sysmond-gate-as5712'
-    node: openswitch
-
-    wrappers:
-        - build-timeout:
-            timeout: 180
-
-    builders:
-        - module-build-branch:
-            module: 'ops-sysmond'
-            platform: 'as5712'
-    publishers:
-        - post-ws-clean
-
-- job:
-    name: 'ops-sysmond-gate-genericx86-64'
+- job-template:
+    name: 'ops-sysmond-gate-{paltform}'
     node: vsi
 
     wrappers:
@@ -40,12 +25,12 @@
     builders:
         - module-build-branch:
             module: 'ops-sysmond'
-            platform: 'genericx86-64'
+            platform: '{platform}'
         - check-docker-state
         - clear-test-logs
         - module-test:
             module: 'ops-sysmond'
-            platform: 'genericx86-64'
+            platform: '{platform}'
 
     publishers:
         - conditional-gather-test-results
@@ -58,3 +43,4 @@
     name: 'ops-sysmond-jobs'
     jobs:
       - 'ops-sysmond-check-{platform}'
+      - 'ops-sysmond-gate-{platform}'

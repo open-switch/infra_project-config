@@ -14,23 +14,8 @@
     publishers:
         - post-ws-clean
 
-- job:
-    name: 'ops-lldpd-gate-as5712'
-    node: openswitch
-
-    wrappers:
-        - build-timeout:
-            timeout: 180
-
-    builders:
-        - module-build-branch:
-            module: 'ops-lldpd'
-            platform: 'as5712'
-    publishers:
-        - post-ws-clean
-
-- job:
-    name: 'ops-lldpd-gate-genericx86-64'
+- job-template:
+    name: 'ops-lldpd-gate-{platform}'
     node: vsi
 
     wrappers:
@@ -40,12 +25,12 @@
     builders:
         - module-build-branch:
             module: 'ops-lldpd'
-            platform: 'genericx86-64'
+            platform: '{platform}'
         - check-docker-state
         - clear-test-logs
         - module-test:
             module: 'ops-lldpd'
-            platform: 'genericx86-64'
+            platform: '{platform}'
 
     publishers:
         - conditional-gather-test-results
@@ -57,3 +42,4 @@
     name: 'ops-lldpd-jobs'
     jobs:
       - 'ops-lldpd-check-{platform}'
+      - 'ops-lldpd-gate-{platform}'

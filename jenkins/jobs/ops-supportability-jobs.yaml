@@ -16,8 +16,8 @@
     publishers:
         - post-ws-clean
 
-- job:
-    name: 'ops-supportability-gate-as5712'
+- job-template:
+    name: 'ops-supportability-gate-{platform}'
     node: vsi
 
     wrappers:
@@ -27,28 +27,12 @@
     builders:
         - module-build-branch:
             module: 'ops-supportability'
-            platform: 'as5712'
-
-    publishers:
-        - post-ws-clean
-
-- job:
-    name: 'ops-supportability-gate-genericx86-64'
-    node: vsi
-
-    wrappers:
-        - build-timeout:
-            timeout: 180
-
-    builders:
-        - module-build-branch:
-            module: 'ops-supportability'
-            platform: 'genericx86-64'
+            platform: '{platform}'
         - check-docker-state
         - clear-test-logs
         - module-test:
             module: 'ops-supportability'
-            platform: 'genericx86-64'
+            platform: '{platform}'
 
     publishers:
         - conditional-gather-test-results
@@ -61,3 +45,4 @@
    name: 'ops-supportability-jobs'
    jobs:
     - 'ops-supportability-check-{platform}'
+    - 'ops-supportability-gate-{platform}'

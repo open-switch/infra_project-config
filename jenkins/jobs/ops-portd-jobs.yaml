@@ -14,23 +14,8 @@
     publishers:
         - post-ws-clean
 
-- job:
-    name: 'ops-portd-gate-as5712'
-    node: openswitch
-
-    wrappers:
-        - build-timeout:
-            timeout: 180
-
-    builders:
-        - module-build-branch:
-            module: 'ops-portd'
-            platform: 'as5712'
-    publishers:
-        - post-ws-clean
-
-- job:
-    name: 'ops-portd-gate-genericx86-64'
+- job-template:
+    name: 'ops-portd-gate-{platform}'
     node: vsi
 
     wrappers:
@@ -40,12 +25,12 @@
     builders:
         - module-build-branch:
             module: 'ops-portd'
-            platform: 'genericx86-64'
+            platform: '{platform}'
         - check-docker-state
         - clear-test-logs
         - module-test:
             module: 'ops-portd'
-            platform: 'genericx86-64'
+            platform: '{platform}'
 
     publishers:
         - conditional-gather-test-results
@@ -58,3 +43,4 @@
     name: 'ops-portd-jobs'
     jobs:
       - 'ops-portd-check-{platform}'
+      - 'ops-portd-gate-{platform}'
