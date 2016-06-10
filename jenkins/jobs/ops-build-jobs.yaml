@@ -164,7 +164,7 @@
     builders:
         - ops-distclean
         - branch-git-prep:
-            branch: master
+            branch: release
         - ops-build:
             platform: '{platform}'
         - ops-meta-ide
