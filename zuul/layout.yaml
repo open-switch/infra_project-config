@@ -355,6 +355,7 @@ projects:
       - ops-release-genericx86-64
       - ops-release-as5712
       - ops-release-as6712
+      - ops-release-as7712
       - ops-release-appliance
       - ops-periodic-p4
 
