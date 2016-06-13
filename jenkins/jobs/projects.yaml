@@ -25,7 +25,6 @@
         - genericx86-64
         - as5712
         - as6712
-        - as7712
         - appliance
       jobs:
         - 'ops-default-builds'
