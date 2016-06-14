@@ -350,6 +350,7 @@ projects:
       - ops-periodic-genericx86-64
       - ops-periodic-as5712
       - ops-periodic-as6712
+      - ops-periodic-as7712
       - ops-periodic-appliance
       - ops-release-genericx86-64
       - ops-release-as5712
