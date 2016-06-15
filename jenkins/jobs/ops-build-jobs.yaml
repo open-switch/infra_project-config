@@ -190,7 +190,7 @@
 
 - job:
     name: 'ops-periodic-p4'
-    node: vsi
+    node: periodic
     properties:
       - inject:
           properties-content: |
