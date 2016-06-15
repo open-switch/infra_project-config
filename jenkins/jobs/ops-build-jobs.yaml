@@ -236,16 +236,6 @@
 - job-template:
     name: 'ops-tagged-release-{platform}'
     node: vsi
-    parameters:
-      - string:
-          name: tag_v
-    scm:
-      - git:
-          url: http://git.openswitch.net/openswitch/ops-build
-          Refspec: +refs/heads/*:refs/remotes/origin/*
-          branches:
-            - refs/tags/$tag_v
-
     properties:
       - inject:
           properties-content: |
@@ -261,6 +251,9 @@
                   - 'ffc18805-a3da-4771-918a-eaaa6a1a0c70'
 
     builders:
+        - ops-distclean
+        - branch-git-prep:
+            branch: rel/dill
         - ops-build-tag:
             platform: '{platform}'
         - ops-meta-ide
@@ -282,6 +275,7 @@
         - archive-test-logs
         - mail-on-fail:
              email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
+        - post-ws-clean
 
 - job-group:
     name: 'ops-default-builds'
