@@ -154,10 +154,11 @@
       - shell: |
           #!/bin/bash -x
           make configure {platform}
+          echo {platform} > .platform_in_archive
           BUILD_NUMBER=$(date -u +"%Y%m%d%H")
           export SSTATE_DIR=/mnt/jenkins/workspace/sstate-cache
           mkdir -p /mnt/jenkins/workspace/sstate-cache
-          tag_v=git for-each-ref refs/tags --sort=-taggerdate --format='%(refname)' --count=1
+          tag_v=$(git for-each-ref refs/tags --sort=-taggerdate --format='%(refname)' --count=1 | cut -d'/' -f3)
           echo "ops-$tag_v-$BRANCH" > .version_string
           make
 

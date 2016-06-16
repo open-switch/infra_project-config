@@ -342,7 +342,7 @@
         - branch-git-prep:
             branch: rel/dill
         - ops-build-tag:
-            platform: '{platform}'
+            platform: 'as5712'
         - ops-meta-ide
         - shared-states
         - download-caches
