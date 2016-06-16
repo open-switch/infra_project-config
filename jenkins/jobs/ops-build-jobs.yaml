@@ -320,6 +320,40 @@
              email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
         - post-ws-clean
 
+- job:
+    name: 'ops-test-tagged-as5712'
+    node: vsi
+    properties:
+      - inject:
+          properties-content: |
+            TYPE=tagged
+            BRANCH=tag
+
+    wrappers:
+        - build-timeout:
+            timeout: 180
+        - ssh-agent-credentials:
+              users:
+                  - '0f99f00f-a5c0-460d-97b5-9b3dbdfd0773'
+                  - 'ffc18805-a3da-4771-918a-eaaa6a1a0c70'
+
+    builders:
+        - ops-distclean
+        - branch-git-prep:
+            branch: rel/dill
+        - ops-build-tag:
+            platform: '{platform}'
+        - ops-meta-ide
+        - shared-states
+        - download-caches
+        - create-periodic-build-image
+        - create-build-artifacts
+        - check-docker-state
+        - clear-test-logs
+
+    publishers:
+        - post-ws-clean
+
 - job-group:
     name: 'ops-default-builds'
     jobs:
@@ -331,3 +365,4 @@
       - 'ops-release-{platform}'
       - 'ops-tagged-release-{platform}'
       - 'ops-tagged-{platform}'
+      - 'ops-test-tagged-as5712'
