@@ -148,7 +148,7 @@ pipelines:
     trigger:
       gerrit:
         - event: ref-updated
-          ref: ^refs/tags/[0-9]+(\.[0-9]+)(\.[0-9]+)
+          ref: ^refs/tags/[0-9]+(\.[0-9]+)(\.[0-9]+)$
 
   - name: silent
     description: This pipeline is used for silently testing new jobs.
