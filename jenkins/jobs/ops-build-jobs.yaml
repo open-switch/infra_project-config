@@ -350,6 +350,10 @@
         - create-build-artifacts
         - check-docker-state
         - clear-test-logs
+        - module-test-ops-ft-only:
+            platform: 'as5712'
+        - scp-artifacts-junit
+        - capture-test-logs
 
     publishers:
         - post-ws-clean
