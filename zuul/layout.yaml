@@ -358,6 +358,8 @@ projects:
       - ops-release-as7712
       - ops-release-appliance
       - ops-periodic-p4
+    tag:
+      - ops-test-tagged-as5712
 
   - name: openswitch/ops-sysd
     template:
