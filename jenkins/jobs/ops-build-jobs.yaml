@@ -348,6 +348,7 @@
         - download-caches
         - create-periodic-build-image
         - create-build-artifacts
+        - scp-artifacts
         - check-docker-state
         - clear-test-logs
         - module-test-ops-ft-only:
