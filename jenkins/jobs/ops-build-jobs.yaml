@@ -139,13 +139,6 @@
 - job-template:
     name: 'ops-release-{platform}'
     node: vsi
-
-    scm:
-       - git:
-          url: http://git.openswitch.net/openswitch/ops-build
-          branches:
-            - origin/rel/dill
-
     properties:
       - inject:
           properties-content: |
@@ -321,6 +314,7 @@
         - post-ws-clean
 
 - job:
+    #Test Job for reference.
     name: 'ops-test-tagged-as5712'
     node: vsi
     properties:
