@@ -425,7 +425,7 @@
            else
              docker rmi -f $images
            fi
-           images=$(docker images | grep '^ops.*' | awk '{print $1}')
+           images=$(docker images | grep -E '^ops.*|^self-service.*' | awk '{print $1}')
            if [ -z $images ]
            then
              echo "No ops images from previous runs"
