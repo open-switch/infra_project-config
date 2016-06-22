@@ -94,7 +94,7 @@
 
 - job-template:
     name: 'ops-periodic-{platform}'
-    node: vsi
+    node: periodic
     properties:
       - inject:
           properties-content: |
