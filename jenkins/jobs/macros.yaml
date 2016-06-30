@@ -281,7 +281,7 @@
            mkdir -p build
            # This script clones the repo and applies the patch under test
            /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
-           tox
+           tox -r
            # Capture tox exit code for further processing
            RC=$?
            # Change ownership for Jenkins to be able to process the results
