@@ -138,7 +138,7 @@
 
 - job-template:
     name: 'ops-release-{platform}'
-    node: vsi
+    node: periodic
     properties:
       - inject:
           properties-content: |
@@ -227,7 +227,7 @@
 
 - job-template:
     name: 'ops-tagged-release-{platform}'
-    node: vsi
+    node: periodic
     properties:
       - inject:
           properties-content: |
@@ -271,7 +271,7 @@
 
 - job-template:
     name: 'ops-tagged-{platform}'
-    node: vsi
+    node: periodic
     properties:
       - inject:
           properties-content: |
@@ -316,7 +316,7 @@
 - job:
     #Test Job for reference.
     name: 'ops-test-tagged-as5712'
-    node: vsi
+    node: periodic
     properties:
       - inject:
           properties-content: |
