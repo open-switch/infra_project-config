@@ -133,7 +133,7 @@
         - archive-syslog
         - archive-test-logs
         - mail-on-fail:
-             email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
+             email-by-space-when-fail: "infra@lists.openswitch.com"
         - post-ws-clean
 
 - job-template:
@@ -178,7 +178,7 @@
         - archive-syslog
         - archive-test-logs
         - mail-on-fail:
-             email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
+             email-by-space-when-fail: "infra@lists.openswitch.com"
         - post-ws-clean
 
 - job:
@@ -222,7 +222,7 @@
         - archive-syslog
         - archive-test-logs
         - mail-on-fail:
-             email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
+             email-by-space-when-fail: "infra@lists.openswitch.com"
         - post-ws-clean
 
 - job-template:
@@ -266,7 +266,7 @@
         - archive-syslog
         - archive-test-logs
         - mail-on-fail:
-             email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
+             email-by-space-when-fail: "infra@lists.openswitch.com"
         - post-ws-clean
 
 - job-template:
@@ -310,7 +310,7 @@
         - archive-syslog
         - archive-test-logs
         - mail-on-fail:
-             email-by-space-when-fail: "openswitch-infra@groups.int.hpe.com"
+             email-by-space-when-fail: "infra@lists.openswitch.com"
         - post-ws-clean
 
 - job:
