@@ -14,7 +14,7 @@
             result: 'success'
 
     builders:
-        - shell: | 
+        - shell: |
             #!/bin/bash
             export dir=/srv/static/archive/artifacts/periodic/master
             ssh static.openswitch.net "rm -rf $dir/latest"
@@ -23,3 +23,35 @@
             ssh static.openswitch.net "ln -s $dir/$build_v $dir/latest"
             ssh static.openswitch.net "cp -rf $dir/$build_v/as5712/changelog.manifest $dir/latest/"
             ssh static.openswitch.net "echo $build_v > $dir/latest/build_v"
+
+- job:
+    name: 'ops-master-tier2-genericx86'
+    node: periodic
+
+    properties:
+      - inject:
+          properties-content: |
+            ARCHIVE=periodic/master
+
+    wrappers:
+        - build-timeout:
+            timeout: 180
+        - ssh-agent-credentials:
+              users:
+                  - '0f99f00f-a5c0-460d-97b5-9b3dbdfd0773'
+                  - 'ffc18805-a3da-4771-918a-eaaa6a1a0c70'
+                  - 'cac4b49c-deb6-4254-b092-c687ecc95fdb'
+    triggers:
+        - reverse:
+            # Run this job every time we have a successful x86 build from master branch
+            jobs: 'ops-periodic-genericx86-64'
+            result: 'success'
+
+    builders:
+        - ops-distclean
+        - branch-git-prep:
+            branch: master
+        - tier2-execute
+
+    publishers:
+        - post-ws-clean

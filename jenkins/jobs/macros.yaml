@@ -583,6 +583,59 @@
            fi
 
 - builder:
+    name: tier2-execute
+    builders:
+      - shell: |
+          #~/bin/bash -x
+          if [ ! -f .platform ] ; then
+              make configure genericx86-64
+          fi
+
+          #Manipulate the workspace to copy images from archives instead of building it locally
+          mkdir -p $WORKSPACE/images
+          mkdir -p $WORKSPACE/build/tmp/deploy/images/genericx86-64
+
+          wget http://archive.openswitch.net/artifacts/$ARCHIVE/latest/genericx86-64/build_v -O build_v
+          export build_v=`cat build_v`
+          wget http://archive.openswitch.net/artifacts/$ARCHIVE/latest/genericx86-64/openswitch-disk-image-genericx86-64-$build_v.tar.gz -qO $WORKSPACE/images/openswitch-disk-image-genericx86-64.tar.gz
+          wget http://archive.openswitch.net/artifacts/$ARCHIVE/latest/genericx86-64/openswitch-disk-image-genericx86-64-$build_v.tar.gz -qO $WORKSPACE/build/tmp/deploy/images/genericx86-64/openswitch-disk-image-genericx86-64.tar.gz
+          export TOPOLOGY_TEST_IMAGE=$(echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]')
+          make export_docker_image $TOPOLOGY_TEST_IMAGE
+
+          make testenv_init
+
+          # Get the manifest files from the archives and clone all the repos
+          wget http://archive.openswitch.net/artifacts/$ARCHIVE/latest/genericx86-64/changelog.manifest -O changelog.manifest
+          sed -i -e 's#https:#http:#g#' changelog.manifest
+          #Hack to remove ops-openvswitch repo from the manifest to avoid fetching this repo
+          sed -i '/ops-openvswitch/d' changelog.manifest
+          rm -rf src/*
+          while read -r line
+          do
+            set +x
+            repo=`echo $line | cut -d';' -f1`
+            repo_url=`echo $line | cut -d';' -f3`
+            repo_sha=`echo $line | cut -d';' -f2`
+
+            test -e src/$repo/.git || git clone $repo_url src/$repo
+            cd src/$repo ;
+            echo "git reset --hard $repo_sha" ;
+            git reset --hard $repo_sha ;
+            cd $WORKSPACE
+
+            # Run CT and FT for this repo
+            # We use testenv_rerun commands in order to skip image compilation
+            make testenv_rerun component $repo TESTENV_ABORT_IF_NOT_FOUND=false
+            make testenv_rerun feature $repo TESTENV_ABORT_IF_NOT_FOUND=false
+
+          done < "changelog.manifest"
+
+          test -e .sandbox_uuid && make devenv_ct_clean
+          /usr/local/jenkins/slave_scripts/docker_clean_instances_and_image.sh $TOPOLOGY_TEST_IMAGE
+          sudo chown jenkins.jenkins build/test/*/test-results.xml
+
+
+- builder:
     name: module-stress-test
     builders:
       - shell: |
