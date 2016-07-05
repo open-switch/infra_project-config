@@ -135,7 +135,7 @@
                 if [ $defect_found -eq 0 ]; then
                     echo "Commit Message Validation failed"
                     echo "The Taiga ID(s) provided in commit message is not in the list of allowed defects for the release branch"
-                    echo "Please contact Barbara Crosser(barbara.crosser@hpe.com) / Chia-Lien Huang(chia-lien.huang@hpe.com) / Ajay Kunnath(ajay.kunnath@hpe.com) / Achyuthan Panduranga(achyuth@hpe.com) to get this defect approved"
+                    echo "Please contact Barbara Crosser(barbara.crosser@hpe.com) / Susan Scotten(susan.scotten@hpe.com) / Ajay Kunnath(ajay.kunnath@hpe.com) / Achyuthan Panduranga(achyuth@hpe.com) to get this defect approved"
                     exit 1
                 fi
             else
