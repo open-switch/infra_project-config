@@ -1498,6 +1498,20 @@
           make dist-docs
 
 - builder:
+    name: shutdown-debug-slaves
+    builders:
+      - shell: |
+          #!/bin/bash -x
+	  echo "Hello World"
+
+- builder:
+    name: debug-slaves
+    builders:
+      - shell: |
+          #!/bin/bash -x
+          echo "Hello World"
+
+- builder:
     name: swagger-api
     builders:
       - shell: |

@@ -1,0 +1,28 @@
+- job:
+    name: 'self-service-debug-slave'
+    node: awscli
+    parameters:
+       - choice:
+	 - debugslave1
+	 - debugslave2
+	 - debugslave3
+    wrappers:
+        - build-timeout:
+            timeout: 180
+	- timestamps
+    properties:
+        - authorization:
+            authenticated:
+               - job-build
+    builders:
+        - debug-slaves
+
+- job:
+    name: 'shutdown-debug-slaves'
+    node: awscli
+    wrappers:
+        - build-timeout:
+            timeout: 180
+        - timestamps
+    builders:
+        - shutdown-debug-slaves
