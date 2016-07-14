@@ -5,7 +5,7 @@
 #Global Variables
 #Gerrit Host names
 review-ops=review.openswitch.net
-review-nos=review-nos.rose.rdlabs.hpecorp.net
+review-nos=
 
 #validate number of arguments
 
