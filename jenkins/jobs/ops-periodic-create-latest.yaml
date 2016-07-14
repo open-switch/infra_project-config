@@ -34,13 +34,14 @@
             ARCHIVE=periodic/master
 
     wrappers:
+        - timestamps
+        - ansicolor
         - build-timeout:
             timeout: 180
         - ssh-agent-credentials:
               users:
                   - '0f99f00f-a5c0-460d-97b5-9b3dbdfd0773'
                   - 'ffc18805-a3da-4771-918a-eaaa6a1a0c70'
-                  - 'cac4b49c-deb6-4254-b092-c687ecc95fdb'
     triggers:
         - reverse:
             # Run this job every time we have a successful x86 build from master branch
@@ -54,4 +55,6 @@
         - tier2-execute
 
     publishers:
+        - archive-syslog
+        - archive-test-logs
         - post-ws-clean
