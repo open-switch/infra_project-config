@@ -440,21 +440,15 @@
             sudo killall -9 dhclient
            fi
            if [ `cat /proc/mounts | grep aufs | wc -l` -ne 0 ]; then
-            sudo su
-            cat /proc/mounts | grep aufs | awk '{print $2}' | sort -r | xargs umount || true
-            exit
+            sudo cat /proc/mounts | grep aufs | awk '{print $2}' | sort -r | xargs umount || true
            fi
            if [ `cat /proc/mounts | grep cgroup | wc -l` -ne 0 ]; then
-            sudo su
-            cat /proc/mounts | grep cgroup | awk '{print $2}' | sort -r | xargs umount || true
-            exit
+            sudo cat /proc/mounts | grep cgroup | awk '{print $2}' | sort -r | xargs umount || true
            fi
-           sudo su
-           rm -rf /var/lib/docker/aufs/mnt/* || true
-           rm -rf /var/lib/docker/aufs/layers/* || true
-           rm -rf /var/lib/docker/aufs/diff/* || true
-           service docker start
-           exit
+           sudo rm -rf /var/lib/docker/aufs/mnt/* || true
+           sudo rm -rf /var/lib/docker/aufs/layers/* || true
+           sudo rm -rf /var/lib/docker/aufs/diff/* || true
+           sudo service docker start
            echo "After docker cleanup"
            cat /proc/mounts
            df -k
