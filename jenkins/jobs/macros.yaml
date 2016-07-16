@@ -442,19 +442,19 @@
            if [ `cat /proc/mounts | grep aufs | wc -l` -ne 0 ]; then
             sudo su
             cat /proc/mounts | grep aufs | awk '{print $2}' | sort -r | xargs umount || true
-            sudo su jenkins
+            exit
            fi
            if [ `cat /proc/mounts | grep cgroup | wc -l` -ne 0 ]; then
             sudo su
             cat /proc/mounts | grep cgroup | awk '{print $2}' | sort -r | xargs umount || true
-            sudo su jenkins
+            exit
            fi
            sudo su
            rm -rf /var/lib/docker/aufs/mnt/* || true
            rm -rf /var/lib/docker/aufs/layers/* || true
            rm -rf /var/lib/docker/aufs/diff/* || true
            service docker start
-           sudo su jenkins
+           exit
            echo "After docker cleanup"
            cat /proc/mounts
            df -k
