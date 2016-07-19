@@ -488,6 +488,11 @@
              sudo chown -R jenkins.jenkins /tmp/opsTest-results
              sudo rm -rf /tmp/opsTest-results/
            fi
+           # Clear modular framework logs
+           find /tmp -maxdepth 1 -type d -regextype posix-extended \
+           -regex '.*test\_.*' | xargs sudo chown -R jenkins.jenkins
+           find /tmp -maxdepth 1 -type d -regextype posix-extended \
+           -regex '.*test\_.*' | xargs sudo rm -rf
            rm -Rf build/*_syslog.txt
 
 - builder:
@@ -1835,6 +1840,10 @@
                 # Copy ops-ft-framework test results
                 rm -rf opsTest-results
                 cp -rf /tmp/opsTest-results/. opsTest-results || true
+                # Copy modular framework test results
+                rm -rf modFramework-results
+                find /tmp -maxdepth 1 -type d -regextype posix-extended \
+                -regex '.*test\_.*' | xargs cp -rf -t modFramework-results || true
           script-only-if-succeeded: False
           script-only-if-failed: False
       - conditional-publisher:
@@ -1847,6 +1856,9 @@
                     allow-empty: 'true'
                 - archive:
                     artifacts: 'openswitch-test/**'
+                    allow-empty: 'true'
+                - archive:
+                    artifacts: 'modFramework-results/**'
                     allow-empty: 'true'
 
 - publisher:
