@@ -302,6 +302,17 @@ jobs:
       - ^yocto/openswitch/meta-distro-openswitch/conf/.*$
       - ^yocto/poky/.*$
 
+  - name: ops-check-as7712
+    files:
+      - ^yocto/openswitch/meta-platform-openswitch-as7712/.*$
+      - ^yocto/openswitch/.*grub.*$
+      - ^yocto/openswitch/.*ops-hw-config.*$
+      - ^yocto/openswitch/.*linux-ops.*$
+      - ^yocto/openswitch/.*opennsl-cdp.*$
+      - ^yocto/openswitch/.*onie-installer.*$
+      - ^yocto/openswitch/meta-distro-openswitch/conf/.*$
+      - ^yocto/poky/.*$
+
 projects:
   - name: infra/website
     template:
