@@ -707,6 +707,12 @@ projects:
     gate:
       - infra-project-config-gate
 
+  - name: infra/system-config
+    template:
+      - name: merge-check
+    check:
+      - infra-system-config-check
+
   - name: openswitch/ops-ntpd
     template:
       - name: merge-check

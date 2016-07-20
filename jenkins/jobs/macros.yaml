@@ -169,6 +169,16 @@
           make bake meta-ide-support
 
 - builder:
+    name: puppet-syntax-check
+    builders:
+      - shell: |
+          export LANG=en_US.utf8
+          find . -iname *.pp | xargs puppet parser validate --modulepath=`pwd`/modules/openstack_project
+          for f in `find . -iname *.erb` ; do
+             erb -x -T '-' $f | ruby -c
+          done
+
+- builder:
     name: shared-states
 
     builders:

@@ -1,0 +1,14 @@
+- job:
+    name: 'infra-system-config-check'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 10
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - gerrit-git-prep
+        - puppet-syntax-check
