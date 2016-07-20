@@ -489,10 +489,8 @@
              sudo rm -rf /tmp/opsTest-results/
            fi
            # Clear modular framework logs
-           find /tmp -maxdepth 1 -type d -regextype posix-extended \
-           -regex '.*test\_.*' | xargs sudo chown -R jenkins.jenkins
-           find /tmp -maxdepth 1 -type d -regextype posix-extended \
-           -regex '.*test\_.*' | xargs sudo rm -rf
+           find /tmp -maxdepth 1 -type d -regextype posix-extended -regex '.*test\_.*' | xargs sudo chown -R jenkins.jenkins
+           find /tmp -maxdepth 1 -type d -regextype posix-extended -regex '.*test\_.*' | xargs sudo rm -rf
            rm -Rf build/*_syslog.txt
 
 - builder:
@@ -1843,8 +1841,7 @@
                 # Copy modular framework test results
                 rm -rf modFramework-results
                 mkdir modFramework-results
-                find /tmp -maxdepth 1 -type d -regextype posix-extended \
-                -regex '.*test\_.*' | xargs cp -rf -t modFramework-results || true
+                find /tmp -maxdepth 1 -type d -regextype posix-extended -regex '.*test\_.*' | xargs cp -rf -t modFramework-results || true
           script-only-if-succeeded: False
           script-only-if-failed: False
       - conditional-publisher:
