@@ -610,17 +610,17 @@
           mkdir -p $WORKSPACE/images
           mkdir -p $WORKSPACE/build/tmp/deploy/images/genericx86-64
 
-          wget http://archive.openswitch.net/artifacts/$ARCHIVE/latest/genericx86-64/build_v -O build_v
+          wget http://archive.openswitch.net/artifacts/{path}/latest/genericx86-64/build_v -O build_v
           export build_v=`cat build_v`
-          wget http://archive.openswitch.net/artifacts/$ARCHIVE/latest/genericx86-64/openswitch-disk-image-genericx86-64-$build_v.tar.gz -qO $WORKSPACE/images/openswitch-disk-image-genericx86-64.tar.gz
-          wget http://archive.openswitch.net/artifacts/$ARCHIVE/latest/genericx86-64/openswitch-disk-image-genericx86-64-$build_v.tar.gz -qO $WORKSPACE/build/tmp/deploy/images/genericx86-64/openswitch-disk-image-genericx86-64.tar.gz
+          wget http://archive.openswitch.net/artifacts/{path}/latest/genericx86-64/openswitch-disk-image-genericx86-64-$build_v.tar.gz -qO $WORKSPACE/images/openswitch-disk-image-genericx86-64.tar.gz
+          wget http://archive.openswitch.net/artifacts/{path}/latest/genericx86-64/openswitch-disk-image-genericx86-64-$build_v.tar.gz -qO $WORKSPACE/build/tmp/deploy/images/genericx86-64/openswitch-disk-image-genericx86-64.tar.gz
           export TOPOLOGY_TEST_IMAGE=$(echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]')
           make export_docker_image $TOPOLOGY_TEST_IMAGE
 
           make testenv_init
 
           # Get the manifest files from the archives and clone all the repos
-          wget http://archive.openswitch.net/artifacts/$ARCHIVE/latest/genericx86-64/changelog.manifest -O changelog.manifest
+          wget http://archive.openswitch.net/artifacts/{path}/latest/genericx86-64/changelog.manifest -O changelog.manifest
           sed -i -e 's#https:#http:#g#' changelog.manifest
           #Hack to remove ops-openvswitch repo from the manifest to avoid fetching this repo
           sed -i '/ops-openvswitch/d' changelog.manifest

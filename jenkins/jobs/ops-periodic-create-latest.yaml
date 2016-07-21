@@ -28,11 +28,6 @@
     name: 'ops-master-tier2-genericx86'
     node: periodic
 
-    properties:
-      - inject:
-          properties-content: |
-            ARCHIVE=periodic/master
-
     wrappers:
         - timestamps
         - ansicolor
@@ -52,7 +47,8 @@
         - ops-distclean
         - branch-git-prep:
             branch: master
-        - tier2-execute
+        - tier2-execute:
+            path: periodic/master
 
     publishers:
         - archive-syslog
