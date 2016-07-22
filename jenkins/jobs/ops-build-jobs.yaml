@@ -126,17 +126,8 @@
         - create-periodic-build-image
         - create-build-artifacts
         - scp-artifacts
-        - check-docker-state
-        - clear-test-logs
-        - module-test-ops-ft-only:
-            platform: '{platform}'
-        - scp-artifacts-junit
-        - capture-test-logs
 
     publishers:
-        - conditional-junit
-        - archive-syslog
-        - archive-test-logs
         - mail-on-fail:
              email-by-space-when-fail: "infra@lists.openswitch.com"
         - post-ws-clean
@@ -172,17 +163,8 @@
         - create-periodic-build-image
         - create-build-artifacts
         - scp-artifacts
-        - check-docker-state
-        - clear-test-logs
-        - module-test-ops-ft-only:
-            platform: '{platform}'
-        - scp-artifacts-junit
-        - capture-test-logs
 
     publishers:
-        - conditional-junit
-        - archive-syslog
-        - archive-test-logs
         - mail-on-fail:
              email-by-space-when-fail: "infra@lists.openswitch.com"
         - post-ws-clean
@@ -262,17 +244,8 @@
         - create-periodic-build-image
         - create-build-artifacts
         - scp-artifacts
-        - check-docker-state
-        - clear-test-logs
-        - module-test-ops-ft-only:
-            platform: '{platform}'
-        - scp-artifacts-junit
-        - capture-test-logs
 
     publishers:
-        - conditional-junit
-        - archive-syslog
-        - archive-test-logs
         - mail-on-fail:
              email-by-space-when-fail: "infra@lists.openswitch.com"
         - post-ws-clean
@@ -307,17 +280,8 @@
         - create-periodic-build-image
         - create-build-artifacts
         - scp-artifacts
-        - check-docker-state
-        - clear-test-logs
-        - module-test-ops-ft-only:
-            platform: '{platform}'
-        - scp-artifacts-junit
-        - capture-test-logs
 
     publishers:
-        - conditional-junit
-        - archive-syslog
-        - archive-test-logs
         - mail-on-fail:
              email-by-space-when-fail: "infra@lists.openswitch.com"
         - post-ws-clean
@@ -353,12 +317,6 @@
         - create-periodic-build-image
         - create-build-artifacts
         - scp-artifacts
-        - check-docker-state
-        - clear-test-logs
-        - module-test-ops-ft-only:
-            platform: 'as5712'
-        - scp-artifacts-junit
-        - capture-test-logs
 
     publishers:
         - post-ws-clean
