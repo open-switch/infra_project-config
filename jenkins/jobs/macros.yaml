@@ -498,9 +498,14 @@
              sudo chown -R jenkins.jenkins /tmp/opsTest-results
              sudo rm -rf /tmp/opsTest-results/
            fi
-           # Clear modular framework logs
-           find /tmp -maxdepth 1 -type d -regextype posix-extended -regex '.*test\_.*' | xargs sudo chown -R jenkins.jenkins
-           find /tmp -maxdepth 1 -type d -regextype posix-extended -regex '.*test\_.*' | xargs sudo rm -rf
+           ls /tmp/topology/docker
+           if [ $? != 0 ]
+           then
+             echo "No previous test logs from modular framework."
+           else
+             sudo chown -R jenkins.jenkins /tmp/topology/docker
+             sudo rm -rf /tmp/topology/docker/
+           fi
            rm -Rf build/*_syslog.txt
 
 - builder:
@@ -1861,8 +1866,7 @@
                 cp -rf /tmp/opsTest-results/. opsTest-results || true
                 # Copy modular framework test results
                 rm -rf modFramework-results
-                mkdir modFramework-results
-                find /tmp -maxdepth 1 -type d -regextype posix-extended -regex '.*test\_.*' | xargs cp -rf -t modFramework-results || true
+                cp -rf /tmp/topology/docker/. modFramework-results || true
           script-only-if-succeeded: False
           script-only-if-failed: False
       - conditional-publisher:
