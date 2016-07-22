@@ -598,10 +598,17 @@
            fi
 
 - builder:
-    name: tier2-execute
+    name: ops-tier2-execute
     builders:
       - shell: |
           #~/bin/bash -x
+          if [[ ! -e .git ]]; then
+            rm -fr .[^.]* *
+            git clone -b {branch} https://git.openswitch.net/openswitch/ops-build .
+          else
+            git pull
+          fi
+
           if [ ! -f .platform ] ; then
               make configure genericx86-64
           fi

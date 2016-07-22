@@ -45,10 +45,9 @@
 
     builders:
         - ops-distclean
-        - branch-git-prep:
-            branch: master
-        - tier2-execute:
+        - ops-tier2-execute:
             path: periodic/master
+            branch: master
 
     publishers:
         - archive-syslog
