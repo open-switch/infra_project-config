@@ -602,12 +602,8 @@
     builders:
       - shell: |
           #~/bin/bash -x
-          if [[ ! -e .git ]]; then
-            rm -fr .[^.]* *
-            git clone -b {branch} https://git.openswitch.net/openswitch/ops-build .
-          else
-            git pull
-          fi
+          set -e
+          git clone -b {branch} https://git.openswitch.net/openswitch/ops-build .
 
           if [ ! -f .platform ] ; then
               make configure genericx86-64
