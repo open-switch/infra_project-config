@@ -624,6 +624,7 @@
           export TOPOLOGY_TEST_IMAGE=$(echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]')
           make export_docker_image $TOPOLOGY_TEST_IMAGE
 
+          touch .devenv
           make testenv_init
 
           # Get the manifest files from the archives and clone all the repos
