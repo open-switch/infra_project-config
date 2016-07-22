@@ -45,11 +45,14 @@
 
     builders:
         - ops-distclean
+        - check-docker-state
+        - clear-test-logs
         - ops-tier2-execute:
             path: periodic/master
             branch: master
 
     publishers:
+        - conditional-gather-test-results
         - archive-syslog
-        - archive-test-logs
+        - archive-test-logs-on-failure
         - post-ws-clean
