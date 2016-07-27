@@ -254,6 +254,14 @@
         - 'ops-switchd-sai-plugin-jobs'
 
   - project:
+      name: openswitch/ops-switchd-fpa-plugin
+      node: 'openswitch'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'ops-switchd-fpa-plugin-jobs'
+
+  - project:
       name: openswitch/ops-pmd
       node: 'openswitch'
       platform:

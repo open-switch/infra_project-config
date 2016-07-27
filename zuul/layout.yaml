@@ -577,6 +577,13 @@ projects:
         module: ops-switchd-sai-plugin
         platform: genericx86-64
 
+  - name: openswitch/ops-switchd-fpa-plugin
+    template:
+      - name: merge-check
+      - name: module-build
+        module: ops-switchd-fpa-plugin
+        platform: genericx86-64
+		
   - name: openswitch/ops-pmd
     template:
       - name: merge-check

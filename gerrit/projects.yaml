@@ -127,6 +127,9 @@
 - project: openswitch/ops-switchd-sai-plugin
   description: OpenSwitch SAI OVS plugin
 
+- project: openswitch/ops-switchd-fpa-plugin
+  description: OpenSwitch Marvell OVS plugin
+
 - project: openswitch/ops-hw-config
   description: Configuration files repository for all the platforms
 
