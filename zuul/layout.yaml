@@ -583,7 +583,7 @@ projects:
       - name: module-build
         module: ops-switchd-fpa-plugin
         platform: genericx86-64
-		
+
   - name: openswitch/ops-pmd
     template:
       - name: merge-check
