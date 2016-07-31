@@ -186,7 +186,7 @@
           #!/bin/bash -x
           echo "Synchronizing shared states"
           cd /mnt/jenkins/workspace/sstate-cache
-          rsync --ignore-existing --exclude='*.done' --size-only -avzL -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --progress ?? `lsb_release -s -i`-`lsb_release -s -r` static.openswitch.net:/tmp/mnt/sstate || true
+          rsync --ignore-existing --exclude='*.done' --size-only -avzL -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --progress ?? `lsb_release -s -i`-`lsb_release -s -r` static.openswitch.net:/srv/static/sstate || true
 
 - builder:
     name: download-caches
