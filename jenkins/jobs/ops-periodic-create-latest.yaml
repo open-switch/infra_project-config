@@ -32,7 +32,7 @@
         - timestamps
         - ansicolor
         - build-timeout:
-            timeout: 180
+            timeout: 240
         - ssh-agent-credentials:
               users:
                   - 'ffc18805-a3da-4771-918a-eaaa6a1a0c70'

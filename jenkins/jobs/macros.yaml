@@ -656,8 +656,13 @@
 
             # Run CT and FT for this repo
             # We use testenv_rerun commands in order to skip image compilation
-            make testenv_rerun component $repo TESTENV_ABORT_IF_NOT_FOUND=false
-            make testenv_rerun feature $repo TESTENV_ABORT_IF_NOT_FOUND=false
+
+            if [ -d src/$repo/ops-tests/component ] ; then
+              make testenv_rerun component $repo TESTENV_ABORT_IF_NOT_FOUND=false
+            fi
+            if [ -d src/$repo/ops-tests/feature ] ; then
+              make testenv_rerun feature $repo TESTENV_ABORT_IF_NOT_FOUND=false
+            fi
 
           done < "changelog.manifest"
 

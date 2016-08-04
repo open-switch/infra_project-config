@@ -23,3 +23,36 @@
             ssh static.openswitch.net "ln -s $dir/$build_v $dir/latest"
             ssh static.openswitch.net "cp -rf $dir/$build_v/as5712/changelog.manifest $dir/latest/"
             ssh static.openswitch.net "echo $build_v > $dir/latest/build_v"
+
+- job:
+    name: 'ops-release-tier2-genericx86'
+    node: periodic
+
+    wrappers:
+        - timestamps
+        - ansicolor
+        - build-timeout:
+            timeout: 240
+        - ssh-agent-credentials:
+              users:
+                  - 'ffc18805-a3da-4771-918a-eaaa6a1a0c70'
+                  - 'cac4b49c-deb6-4254-b092-c687ecc95fdb'
+    triggers:
+        - reverse:
+            # Run this job every time we have a successful x86 build from master branch
+            jobs: 'ops-release-genericx86-64'
+            result: 'success'
+
+    builders:
+        - ops-distclean
+        - check-docker-state
+        - clear-test-logs
+        - ops-tier2-execute:
+            path: periodic/release
+            branch: rel/dill
+
+    publishers:
+        - conditional-gather-test-results
+        - archive-syslog
+        - archive-test-logs-on-failure
+        - post-ws-clean
