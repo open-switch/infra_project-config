@@ -16,7 +16,7 @@
 
 - job-template:
     name: 'ops-quagga-gate-{platform}'
-    node: vsi
+    node: vsi-test
 
     wrappers:
         - build-timeout:
