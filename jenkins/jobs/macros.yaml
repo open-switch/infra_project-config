@@ -12,6 +12,13 @@
           /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
 
 - builder:
+    name: aws-maintainance-weekly
+    builders:
+      - shell: |
+          #!/bin/bash
+          echo "Running weekly maintainance script to release un-used aws resources"
+
+- builder:
     name: revoke-sudo
     builders:
       - shell: |
