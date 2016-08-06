@@ -26,7 +26,7 @@
         - module-build-branch:
             module: 'ops-quagga'
             platform: '{platform}'
-        - check-docker-state
+        - check-docker-state-tmp
         - clear-test-logs
         - module-test:
             module: 'ops-quagga'

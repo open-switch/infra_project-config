@@ -483,6 +483,75 @@
            docker images
 
 - builder:
+    name: check-docker-state-tmp
+    builders:
+      - shell: |
+           # Check docker containers and images before starting test
+           #!/bin/bash -x
+           set +e
+           docker version
+           if [ $? != 0 ]
+           then
+             echo "Docker daemon is not running. Try to restart."
+             sudo service docker restart
+             docker version
+             if [ $? != 0 ]
+             then
+               echo "Docker daemon failed to restart. Aborting the build."
+               exit 1
+             else
+               echo "Docker restarted successfully."
+             fi
+           fi
+           docker ps -a
+           docker images
+           # Cleanup docker containers and images before starting test
+           # WARN: This job needs to be modified when multiple gate jobs
+           #       start running on the same slave
+           containers=$(docker ps -aq)
+           if [ -z $containers ]
+           then
+             echo "No containers from previous runs"
+           else
+             docker stop --time=5 $containers
+             docker rm -f $containers
+           fi
+           images=$(docker images -f "dangling=true" -q)
+           if [ -z $images ]
+           then
+             echo "No dangling docker images"
+           else
+             docker rmi -f $images
+           fi
+           images=$(docker images -aq)
+           if [ -z $images ]
+           then
+             echo "No docker images from previous runs"
+           else
+             docker rmi -f $images
+           fi
+           #Adding additional steps for cleanup
+           #Docker files in aufs fs are not being cleaned up correctly with regular docker commands due to some processes still holding the aufs mounts
+           sudo service docker stop
+           ps -ef | grep dhclient
+           if [ $? -eq 0 ]; then
+            sudo killall -9 dhclient
+           fi
+           if [ `cat /proc/mounts | grep aufs | wc -l` -ne 0 ]; then
+            sudo cat /proc/mounts | grep aufs | awk '{print $2}' | sort -r | xargs sudo umount || true
+           fi
+           sudo rm -rf /var/lib/docker/aufs || true
+           sudo service docker start
+           echo "After docker cleanup"
+           cat /proc/mounts
+           df -k
+           docker pull openswitch/ubuntutest
+           docker pull ubuntu:14.04
+           echo "After docker cleanup"
+           docker ps -a
+           docker images
+
+- builder:
     name: clear-test-logs
     builders:
       - shell: |
