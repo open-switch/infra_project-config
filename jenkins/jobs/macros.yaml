@@ -50,6 +50,30 @@
            >volumeinfo.txt
 
 - builder:
+    name: aws-weekly-backup
+    builders:
+      - shell: |
+          #!/bin/bash
+          # Creates Snapshot of both root and all EBS volumes of important openswitch servers on a weekly basis
+          #Maintain the list of servers to be backed in comma separated fashion below
+          hosts_list=jenkins.openswitch.net,static.openswitch.net,review.openswitch.net,zuul.openswitch.net,git.openswitch.net,git03.openswitch.net,git04.openswitch.net
+          hosts=`echo $hosts_list | sed -e 's#,# #g'`
+          for host in $hosts
+          do
+            # Getting elastic ip address
+            elastic_ip=`dig +short $host`
+            # Getting InstanceId based on Elastic ip obtained
+            instance_id=`aws ec2 describe-addresses --public-ips $elastic_ip --query 'Addresses[].[InstanceId]' --output text`
+            # Getting Volume id based on InstanceId
+            volume_id=`aws ec2 describe-volumes --filters Name=attachment.instance-id,Values=$instance_id --query 'Volumes[].[VolumeId]' --output text`
+            # Setting Snapshot description
+            snapshot_description=$host-`date +%Y-%m-%d`
+            echo "Creating Snapshot for the volume: $volume_id with description: $snapshot_description"
+            # Create snapshot
+            aws ec2 create-snapshot --description $snapshot_description --volume-id $volume_id
+          done
+
+- builder:
     name: revoke-sudo
     builders:
       - shell: |
