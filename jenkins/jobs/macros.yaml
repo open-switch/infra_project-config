@@ -25,6 +25,29 @@
              echo $unused_ips
              aws ec2 describe-addresses --query 'Addresses[].[AllocationId,AssociationId]' --output text | awk '$2 == "None" { print $1 }' | xargs -I {} aws ec2 release-address --allocation-id {}
           fi
+          echo "Check and Release all un-used EBS volumes"
+          aws ec2 describe-volumes --query 'Volumes[].[VolumeId,State,CreateTime]' --output text | awk '$2 == "available" { print $1,$3 }'  >> volumeinfo.txt
+          echo "The following EBS volumes are currently not attached to any EC2 instances and are created more than 60 days ago, they will be deleted"
+          cat volumeinfo.txt
+          # looping file contents searated by space
+          _input="volumeinfo.txt"
+          while IFS=' ' read -r volume timestamp
+          do
+            # make sure server timestamp in UTC as AWS will return timestamp in UTC or else export TZ
+            #echo "volume is $volume and corresponding timestamp is $timestamp"
+            awsvolumetime=`date --date=$timestamp +"%s"`
+            # getting differnce when comparated present system time
+            secondsDiff=$(( `date '+%Y%m%d%H%M%S'` - $awsvolumetime ))
+            # if differnce is more than 60 days then voulmes will be deleted
+            if [ $secondsDiff -gt 5184000 ]
+               then
+               aws ec2 delete-volume --volume-id $volume
+               else
+               echo "Volume canot be delted since less than 60 days UTC"
+            fi
+           done < "$_input"
+           # Erase after parsing to avoid duplication
+           >volumeinfo.txt
 
 - builder:
     name: revoke-sudo
