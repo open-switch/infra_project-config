@@ -17,6 +17,14 @@
       - shell: |
           #!/bin/bash
           echo "Running weekly maintainance script to release un-used aws resources"
+          echo "Checking if there are any un-used Elastic IPs that we are paying for"
+          num_unusedips=`aws ec2 describe-addresses --query 'Addresses[].[AllocationId,AssociationId]' --output text | awk '$2 == "None" { print $1 }' | wc -l`
+          if [ $num_unusedips -ne 0 ]; then
+             echo "Following Elastic Ip's are unused and will be released"
+             unused_ips=`aws ec2 describe-addresses --query 'Addresses[].[AllocationId,AssociationId]' --output text | awk '$2 == "None" { print $1 }'`
+             echo $unused_ips
+             aws ec2 describe-addresses --query 'Addresses[].[AllocationId,AssociationId]' --output text | awk '$2 == "None" { print $1 }' | xargs -I {} aws ec2 release-address --allocation-id {}
+          fi
 
 - builder:
     name: revoke-sudo
