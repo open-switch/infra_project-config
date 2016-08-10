@@ -1,0 +1,14 @@
+- job:
+    name: 'infra-aws-shutdown-debug-slaves-daily'
+    node: awscli
+
+    wrappers:
+        - build-timeout:
+            timeout: 10
+        - timestamps
+        - ansicolor
+
+    builders:
+        - revoke-sudo
+        - gerrit-git-prep
+        - aws-shutdown-testslaves

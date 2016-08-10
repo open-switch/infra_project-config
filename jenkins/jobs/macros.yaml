@@ -74,6 +74,13 @@
           done
 
 - builder:
+    name: aws-shutdown-testslaves
+    builders:
+      - shell: |
+          #!/bin/bash
+          # shutdown all slaves that have a ec2 tag called purpose with value debug-slave
+          aws ec2 describe-instances --filter "Name=tag-key,Values=purpose" "Name=tag-value,Values=debug-slave" --query 'Reservations[].Instances[].[InstanceId]' --output text xargs -I {} aws ec2 stop-instances --instance-ids {}
+- builder:
     name: revoke-sudo
     builders:
       - shell: |
