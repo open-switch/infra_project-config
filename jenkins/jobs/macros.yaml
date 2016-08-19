@@ -775,6 +775,12 @@
           export build_v=`cat build_v`
           wget http://archive.openswitch.net/artifacts/{path}/latest/genericx86-64/openswitch-disk-image-genericx86-64-$build_v.tar.gz -qO $WORKSPACE/images/openswitch-disk-image-genericx86-64.tar.gz
           wget http://archive.openswitch.net/artifacts/{path}/latest/genericx86-64/openswitch-disk-image-genericx86-64-$build_v.tar.gz -qO $WORKSPACE/build/tmp/deploy/images/genericx86-64/openswitch-disk-image-genericx86-64.tar.gz
+          if ( ! [ -e $WORKSPACE/images/openswitch-disk-image-genericx86-64.tar ] ) && [ -e $WORKSPACE/images/openswitch-disk-image-genericx86-64.tar.gz ] ; then
+              gzip -dk $WORKSPACE/images/openswitch-disk-image-genericx86-64.tar.gz
+          fi
+          if ( ! [ -e $WORKSPACE/build/tmp/deploy/images/genericx86-64/openswitch-disk-image-genericx86-64.tar ] ) && [ -e $WORKSPACE/build/tmp/deploy/images/genericx86-64/openswitch-disk-image-genericx86-64.tar.gz ] ; then
+              gzip -dk $WORKSPACE/build/tmp/deploy/images/genericx86-64/openswitch-disk-image-genericx86-64.tar.gz
+          fi
           export TOPOLOGY_TEST_IMAGE=$(echo $JOB_NAME-$BUILD_NUMBER  | tr '[A-Z]' '[a-z]')
           make export_docker_image $TOPOLOGY_TEST_IMAGE
 
