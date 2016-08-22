@@ -1690,14 +1690,12 @@
       - shell: |
           #!/bin/bash -x
           set -e
-          rm -rf $WORKSPACE/src/{depended-repo}
-          git clone https://git.openswitch.net/openswitch/{depended-repo} $WORKSPACE/src/{depended-repo}
           rm -rf $WORKSPACE/src/ops-openvswitch
           git clone -b patches/branch-2.5 https://git.openswitch.net/openswitch/ovs $WORKSPACE/src/ops-openvswitch
           cp /usr/local/jenkins/slave_scripts/inflect.py $WORKSPACE/src/ops-restd/opslib/
           cd $WORKSPACE/src/ops-restd/opslib
           mkdir -p $WORKSPACE/scp
-          PYTHONPATH=../../ops-openvswitch/python python apidocgen.py ../../{depended-repo}/schema/vswitch.extschema ../../{depended-repo}/schema/vswitch.xml > $WORKSPACE/scp/{files}
+          PYTHONPATH=../../ops-openvswitch/python python apidocgen.py $WORKSPACE/build/tmp/sysroots/genericx86-64/usr/share/openvswitch/openswitch.opsschema > $WORKSPACE/scp/{files}
           if [[ $? -ne 0 ]]; then
              exit 1
           else
