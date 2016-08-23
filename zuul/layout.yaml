@@ -265,12 +265,6 @@ project-templates:
       - '{module}-check-{platform}'
     gate:
       - '{module}-gate-{platform}'
-
-  - name: module-build-test
-    check:
-      - '{module}-check-{platform}'
-    gate:
-      - '{module}-gate-{platform}'
       - 'md-gate'
 
 # Jobs definitions are not required, but help us filter unrequired check jobs
@@ -285,7 +279,7 @@ jobs:
     skip-if:
       - project: ^openswitch/.*$
         all-files-match-any:
-          - ^.*\.md
+          - ^.*\.md$
 
   - name: ops-check-as5712
     files:
@@ -701,7 +695,7 @@ projects:
   - name: openswitch/ops-checkmk-agent
     template:
       - name: merge-check
-      - name: module-build-test
+      - name: module-build
         module: ops-checkmk-agent
         platform: genericx86-64
 
