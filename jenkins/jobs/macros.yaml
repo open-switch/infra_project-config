@@ -11,43 +11,43 @@
           export BRANCH={branch}
           /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
 
-- builder:
-    name: aws-maintainance-weekly
-    builders:
-      - shell: |
-          #!/bin/bash
-          echo "Running weekly maintainance script to release un-used aws resources"
-          echo "Checking if there are any un-used Elastic IPs that we are paying for"
-          num_unusedips=`aws ec2 describe-addresses --query 'Addresses[].[AllocationId,AssociationId]' --output text | awk '$2 == "None" { print $1 }' | wc -l`
-          if [ $num_unusedips -ne 0 ]; then
-             echo "Following Elastic Ip's are unused and will be released"
-             unused_ips=`aws ec2 describe-addresses --query 'Addresses[].[AllocationId,AssociationId]' --output text | awk '$2 == "None" { print $1 }'`
-             echo $unused_ips
-             aws ec2 describe-addresses --query 'Addresses[].[AllocationId,AssociationId]' --output text | awk '$2 == "None" { print $1 }' | xargs -I {} aws ec2 release-address --allocation-id {}
-          fi
-          echo "Check and Release all un-used EBS volumes"
-          aws ec2 describe-volumes --query 'Volumes[].[VolumeId,State,CreateTime]' --output text | awk '$2 == "available" { print $1,$3 }'  >> volumeinfo.txt
-          echo "The following EBS volumes are currently not attached to any EC2 instances and are created more than 60 days ago, they will be deleted"
-          cat volumeinfo.txt
-          # looping file contents searated by space
-          _input="volumeinfo.txt"
-          while IFS=' ' read -r volume timestamp
-          do
-            # make sure server timestamp in UTC as AWS will return timestamp in UTC or else export TZ
-            #echo "volume is $volume and corresponding timestamp is $timestamp"
-            awsvolumetime=`date --date=$timestamp +"%s"`
-            # getting differnce when comparated present system time
-            secondsDiff=$(( `date '+%Y%m%d%H%M%S'` - $awsvolumetime ))
-            # if differnce is more than 60 days then voulmes will be deleted
-            if [ $secondsDiff -gt 5184000 ]
-               then
-               aws ec2 delete-volume --volume-id $volume
-               else
-               echo "Volume canot be delted since less than 60 days UTC"
-            fi
-           done < "$_input"
-           # Erase after parsing to avoid duplication
-           >volumeinfo.txt
+#- builder:
+#    name: aws-maintainance-weekly
+#    builders:
+#      - shell: |
+#          #!/bin/bash
+#          echo "Running weekly maintainance script to release un-used aws resources"
+#          echo "Checking if there are any un-used Elastic IPs that we are paying for"
+#          num_unusedips=`aws ec2 describe-addresses --query 'Addresses[].[AllocationId,AssociationId]' --output text | awk '$2 == "None" { print $1 }' | wc -l`
+#          if [ $num_unusedips -ne 0 ]; then
+#             echo "Following Elastic Ip's are unused and will be released"
+#             unused_ips=`aws ec2 describe-addresses --query 'Addresses[].[AllocationId,AssociationId]' --output text | awk '$2 == "None" { print $1 }'`
+#             echo $unused_ips
+#             aws ec2 describe-addresses --query 'Addresses[].[AllocationId,AssociationId]' --output text | awk '$2 == "None" { print $1 }' | xargs -I {} aws ec2 release-address --allocation-id {}
+#          fi
+#          echo "Check and Release all un-used EBS volumes"
+#          aws ec2 describe-volumes --query 'Volumes[].[VolumeId,State,CreateTime]' --output text | awk '$2 == "available" { print $1,$3 }'  >> volumeinfo.txt
+#          echo "The following EBS volumes are currently not attached to any EC2 instances and are created more than 60 days ago, they will be deleted"
+#          cat volumeinfo.txt
+#          # looping file contents searated by space
+#          _input="volumeinfo.txt"
+#          while IFS=' ' read -r volume timestamp
+#          do
+#            # make sure server timestamp in UTC as AWS will return timestamp in UTC or else export TZ
+#            #echo "volume is $volume and corresponding timestamp is $timestamp"
+#            awsvolumetime=`date --date=$timestamp +"%s"`
+#            # getting differnce when comparated present system time
+#            secondsDiff=$(( `date '+%Y%m%d%H%M%S'` - $awsvolumetime ))
+#            # if differnce is more than 60 days then voulmes will be deleted
+#            if [ $secondsDiff -gt 5184000 ]
+#               then
+#               aws ec2 delete-volume --volume-id $volume
+#               else
+#               echo "Volume canot be delted since less than 60 days UTC"
+#            fi
+#           done < "$_input"
+#           # Erase after parsing to avoid duplication
+#           >volumeinfo.txt
 
 - builder:
     name: aws-weekly-backup
@@ -56,7 +56,7 @@
           #!/bin/bash
           # Creates Snapshot of both root and all EBS volumes of important openswitch servers on a weekly basis
           #Maintain the list of servers to be backed in comma separated fashion below
-          hosts_list=jenkins.openswitch.net,static.openswitch.net,review.openswitch.net,zuul.openswitch.net,git.openswitch.net,git03.openswitch.net,git04.openswitch.net
+          hosts_list=puppetmaster.openswitch.net,jenkins.openswitch.net,static.openswitch.net,review.openswitch.net,zuul.openswitch.net,zm01.openswitch.net,eavesdrop.openswitch.net,git.openswitch.net,git03.openswitch.net,git04.openswitch.net,lists.openswitch.net,wiki.openswitch.net
           hosts=`echo $hosts_list | sed -e 's#,# #g'`
           for host in $hosts
           do
@@ -68,11 +68,8 @@
             volume_id=`aws ec2 describe-volumes --filters Name=attachment.instance-id,Values=$instance_id --query 'Volumes[].[VolumeId]' --output text`
             for volume in $volume_id
                do
-               # Setting Snapshot description
-               snapshot_description=$host-`date +%Y-%m-%d`
-               echo "Creating Snapshot for the volume: $volume_id with description: $snapshot_description"
-               # Create snapshot
-               aws ec2 create-snapshot --description $snapshot_description --volume-id $volume_id
+               #creating snapshot for each volume and deleting volumes those created 30 days ago
+               /usr/local/jenkins/slave_scripts/ec2-automate-backup.sh -v "$volume" -k 30
                done
           done
 

@@ -10,5 +10,4 @@
 
     builders:
         - revoke-sudo
-        - gerrit-git-prep
         - aws-weekly-backup
