@@ -753,7 +753,7 @@
     builders:
       - shell: |
           #!/bin/bash -x
-          set -e
+          #set -e
           if [[ ! -e .git ]]; then
             rm -fr .[^.]* *
             git clone -b {branch} https://git.openswitch.net/openswitch/ops-build .
@@ -771,10 +771,10 @@
           mkdir -p $WORKSPACE/images
           mkdir -p $WORKSPACE/build/tmp/deploy/images/genericx86-64
 
-          wget http://archive.openswitch.net/artifacts/{path}/latest/genericx86-64/build_v -O build_v
+          wget http://archive.openswitch.net/{path}/build_v -O build_v
           export build_v=`cat build_v`
-          wget http://archive.openswitch.net/artifacts/{path}/latest/genericx86-64/openswitch-disk-image-genericx86-64-$build_v.tar.gz -qO $WORKSPACE/images/openswitch-disk-image-genericx86-64.tar.gz
-          wget http://archive.openswitch.net/artifacts/{path}/latest/genericx86-64/openswitch-disk-image-genericx86-64-$build_v.tar.gz -qO $WORKSPACE/build/tmp/deploy/images/genericx86-64/openswitch-disk-image-genericx86-64.tar.gz
+          wget http://archive.openswitch.net/{path}/openswitch-disk-image-genericx86-64-$build_v.tar.gz -qO $WORKSPACE/images/openswitch-disk-image-genericx86-64.tar.gz
+          wget http://archive.openswitch.net/{path}/openswitch-disk-image-genericx86-64-$build_v.tar.gz -qO $WORKSPACE/build/tmp/deploy/images/genericx86-64/openswitch-disk-image-genericx86-64.tar.gz
           if ( ! [ -e $WORKSPACE/images/openswitch-disk-image-genericx86-64.tar ] ) && [ -e $WORKSPACE/images/openswitch-disk-image-genericx86-64.tar.gz ] ; then
               gzip -dk $WORKSPACE/images/openswitch-disk-image-genericx86-64.tar.gz
           fi
@@ -788,7 +788,7 @@
           make testenv_init
 
           # Get the manifest files from the archives and clone all the repos
-          wget http://archive.openswitch.net/artifacts/{path}/latest/genericx86-64/changelog.manifest -O changelog.manifest
+          wget http://archive.openswitch.net/{path}/changelog.manifest -O changelog.manifest
           sed -i -e 's#https:#http:#g#' changelog.manifest
           #Hack to remove ops-openvswitch repo from the manifest to avoid fetching this repo
           sed -i '/ops-openvswitch/d' changelog.manifest

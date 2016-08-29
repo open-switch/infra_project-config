@@ -39,8 +39,8 @@
                   - 'cac4b49c-deb6-4254-b092-c687ecc95fdb'
     triggers:
         - reverse:
-            # Run this job every time we have a successful x86 build from master branch
-            jobs: 'ops-release-genericx86-64'
+            # Run this job every time we have a successful latest x86 build from master branch
+            jobs: 'ops-periodic-release-create-latest'
             result: 'success'
 
     builders:
@@ -48,7 +48,7 @@
         - check-docker-state
         - clear-test-logs
         - ops-tier2-execute:
-            path: periodic/release
+            path: artifacts/periodic/release/latest/genericx86-64
             branch: rel/dill
 
     publishers:
