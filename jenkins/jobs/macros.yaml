@@ -1063,8 +1063,9 @@
           PLATFORM=$(cat .platform_in_archive)
           rm -Rf $TYPE
           mkdir -p $TYPE/$VERSION_STRING/$PLATFORM
-          if ( ! [ -e images/openswitch-disk-image-${PLATFORM}.tar.gz ] ) && [ -e images/openswitch-disk-image-${PLATFORM}.tar ] ; then
-            gzip -f images/openswitch-disk-image-${PLATFORM}.tar > images/openswitch-disk-image-${PLATFORM}.tar.gz
+          count=`ls -l images/openswitch-disk-image-*.tar 2>/dev/null | wc -l`
+          if [ $count != 0 ]; then
+            gzip -f images/openswitch-disk-image-*.tar
           fi
           find images -name "onie-installer*" -exec bash -c "cp \"\$0\" $TYPE/$VERSION_STRING/$PLATFORM/\$(basename \"\$0\")-$VERSION_STRING" {} \;
           find images -name "*.ova" -exec bash -c "cp \"\$0\" $TYPE/$VERSION_STRING/$PLATFORM/\$(basename -s .ova \"\$0\")-$VERSION_STRING.ova" {} \;
