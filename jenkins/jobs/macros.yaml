@@ -11,6 +11,14 @@
           export BRANCH={branch}
           /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
 
+- builder:
+    name: tag-git-prep
+    builders:
+      - shell: |
+          #!/bin/bash
+          export ZUUL_URL=git://git.openswitch.net
+          /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
+
 #- builder:
 #    name: aws-maintainance-weekly
 #    builders:

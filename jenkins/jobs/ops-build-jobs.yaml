@@ -234,8 +234,7 @@
 
     builders:
         - ops-distclean
-        - branch-git-prep:
-            branch: rel/dill
+        - tag-git-prep:
         - ops-build-tag:
             platform: '{platform}'
         - ops-meta-ide
@@ -270,8 +269,7 @@
 
     builders:
         - ops-distclean
-        - branch-git-prep:
-            branch: rel/dill
+        - tag-git-prep:
         - ops-build-tag:
             platform: '{platform}'
         - ops-meta-ide
