@@ -16,7 +16,7 @@
 
 - job-template:
     name: 'ops-checkmk-agent-gate-{platform}'
-    node: vsi-test
+    node: vsi
     wrappers:
         - build-timeout:
             timeout: 240
@@ -44,7 +44,7 @@
 
 - job:
     name: 'ops-checkmk-agent-coverage'
-    node: vsi-test
+    node: vsi
     wrappers:
         - build-timeout:
             timeout: 180
