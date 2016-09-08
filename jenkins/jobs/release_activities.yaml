@@ -1,0 +1,53 @@
+- job:
+    name: 'tagging-branch'
+    node: openswitch
+
+    parameters:
+        - string:
+            name: branch_name
+            default: rel/dill
+            description: "Specifying a branch name as the tag target, e.g. rel/dill"
+
+    wrappers:
+        - build-timeout:
+            timeout: 60
+        - timestamps
+        - ansicolor
+        - ssh-agent-credentials:
+             users:
+                - 'ffc18805-a3da-4771-918a-eaaa6a1a0c70'
+
+    builders:
+        - revoke-sudo
+        - shell: |
+            #!/bin/bash -x
+            /usr/local/jenkins/slave_scripts/tagging_branch.sh $branch_name
+
+- job:
+    name: 'create-branch'
+    node: openswitch
+
+    parameters:
+        - string:
+            name: branch_name
+            default: rel/dill
+            description: "New branch name, e.g. rel/dill"
+        - string:
+            name: SHA
+            default:
+            description: "SHA value of ops-build where we need a branch"
+
+    wrappers:
+        - build-timeout:
+            timeout: 60
+        - timestamps
+        - ansicolor
+        - ssh-agent-credentials:
+             users:
+                - 'ffc18805-a3da-4771-918a-eaaa6a1a0c70'
+
+    builders:
+        - revoke-sudo
+        - shell: |
+            #!/bin/bash -x
+            /usr/local/jenkins/slave_scripts/create_branch.sh $branch_name $SHA
