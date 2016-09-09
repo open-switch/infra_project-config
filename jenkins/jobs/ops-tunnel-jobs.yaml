@@ -1,0 +1,37 @@
+- job-template:
+   name: 'ops-tunnel-check-{platform}'
+   node: openswitch
+
+   wrappers:
+       - build-timeout:
+           timeout: 120
+       - timestamps
+       - ansicolor
+
+   builders:
+       - revoke-sudo
+       - module-build-branch:
+           module: 'ops-tunnel'
+           platform: '{platform}'
+
+- job-template:
+   name: 'ops-tunnel-gate-{platform}'
+   node: openswitch
+
+   wrappers:
+       - build-timeout:
+           timeout: 120
+       - timestamps
+       - ansicolor
+
+   builders:
+       - revoke-sudo
+       - module-build-branch:
+           module: 'ops-tunnel'
+           platform: '{platform}'
+
+- job-group:
+   name: 'ops-tunnel-jobs'
+   jobs:
+     - 'ops-tunnel-check-{platform}'
+     - 'ops-tunnel-gate-{platform}'

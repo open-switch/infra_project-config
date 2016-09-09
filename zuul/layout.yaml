@@ -815,3 +815,10 @@ projects:
       - name: module-build
         module: ops-vrrpd
         platform: genericx86-64
+
+  - name: openswitch/ops-tunnel
+    template:
+     - name: merge-check
+     - name: module-build
+       module: ops-tunnel
+       platform: genericx86-64

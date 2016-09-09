@@ -201,6 +201,9 @@
 - project: openswitch/ops-vrrpd
   description: OpenSwitch VRRP Daemon
 
+- project: openswitch/ops-tunnel
+  description: OpenSwitch Tunnel
+
 # Connectivity Deamons
 - project: openswitch/ops-aaa-utils
   description: OpenSwitch Authentication, Authorization and Accounting Utils
