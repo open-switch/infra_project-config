@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Usage: ./create_release_branch <new_branch_name> <SHA of ops-build>
+#Usage: ./create_release_branch <new_branch_name> <SHA of ops-build>
 
 # Create a sandbox directory if it does not exist
 if [ ! -d branch_creation ]; then
@@ -15,12 +15,12 @@ cd branch_creation
 # Clone ops-build if it does not exist already
 if [ ! -d ops-build ]; then
     echo "Cloning ops-build and reset to the desired SHA"
-    git clone https://git.openswitch.net/openswitch/ops-build
+    git clone ssh://openswitch-jenkins@review.openswitch.net:29418/openswitch/ops-build
     cd ops-build
 else
     echo "ops-build already exists."
     cd ops-build
-    # git pull --rebase
+    git pull --rebase
 fi
 
 # Rest ops-build to the SHA that from where we need to branch
@@ -39,11 +39,12 @@ do
             sha=HEAD
         fi
     fi
+
     repo=`echo $recipe | cut -d'/' -f7 | cut -d'.' -f1`
-
-    echo "SHA $sha repository $repo"
-
-    # Create a branch at this SHA
-    #ssh -p 29418 review.openswitch.net gerrit create-branch $repo $1 $sha
-
+    echo "######################################################"
+    echo "######################################################"
+    echo Create branch $1 on repo openswitch/$repo based on SHA value $sha from recipe: $recipe
+    ssh -p 29418 openswitch-jenkins@review.openswitch.net gerrit create-branch openswitch/$repo $1 $sha
+    echo "######################################################"
+    echo "######################################################"
 done
