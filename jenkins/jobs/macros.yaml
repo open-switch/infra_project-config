@@ -801,6 +801,8 @@
           #Hack to remove ops-openvswitch repo from the manifest to avoid fetching this repo
           sed -i '/ops-openvswitch/d' changelog.manifest
           rm -rf src/*
+          # Run all tests for tier2 irrespective of failures
+          export TOXENV=py34-tier2
           while read -r line
           do
             set +x
@@ -828,6 +830,7 @@
 
           done < "changelog.manifest"
 
+          unset TOXENV
           test -e .sandbox_uuid && make devenv_ct_clean
           /usr/local/jenkins/slave_scripts/docker_clean_instances_and_image.sh $TOPOLOGY_TEST_IMAGE
           sudo chown jenkins.jenkins build/test/*/test-results*
