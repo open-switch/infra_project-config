@@ -97,6 +97,9 @@
 - project: openswitch/ops-topology-common
   description: OpenSwitch Topology Modular Framework Common Code
 
+- project: openswitch/ops-topology-connect
+  description: OpenSwitch Topology Modular Framework, Topology Connect Engine Code
+
 - project: openswitch/ops-bufmond
   description: OpenvSwitch Buffer Monitor Daemon
 
