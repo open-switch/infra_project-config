@@ -816,13 +816,9 @@
             git reset --hard $repo_sha ;
             cd $WORKSPACE
 
-            # Run CT and FT for this repo
+            # Run FT for this repo
             # We use testenv_rerun commands in order to skip image compilation
 
-            if [ -d src/$repo/ops-tests/component ] ; then
-              make testenv_rerun component $repo TESTENV_ABORT_IF_NOT_FOUND=false
-              mv build/test/component/test-results.xml build/test/component/test-results-$repo.xml
-            fi
             if [ -d src/$repo/ops-tests/feature ] ; then
               make testenv_rerun feature $repo TESTENV_ABORT_IF_NOT_FOUND=false
               mv build/test/feature/test-results.xml build/test/feature/test-results-$repo.xml
