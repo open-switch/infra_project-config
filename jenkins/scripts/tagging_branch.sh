@@ -1,59 +1,56 @@
 #!/bin/bash
-#Include the path from where the files are. Find files with .bb extensions and remove the extension. Searching for SRCREV value in each repository.
- Put the repository name and hash value together.
-if ! [ -d "ops-build" ]; then
-    echo "Cloning ops-build repo"
+
+#Usage: ./tagging_branch <new_tag_name> <SHA of ops-build>
+
+# Create a sandbox directory if it does not exist
+if [ ! -d tagging_branch ]; then
+    echo "Creating a new directory for working"
+    mkdir tagging_branch
+else
+    echo "Directory exists. Moving on..."
+fi
+
+cd tagging_branch
+
+# Clone ops-build if it does not exist already
+if [ ! -d ops-build ]; then
+    echo "Cloning ops-build and reset to the desired SHA"
     git clone ssh://openswitch-jenkins@review.openswitch.net:29418/openswitch/ops-build
+    cd ops-build
+else
+    echo "ops-build already exists."
+    cd ops-build
+    git pull --rebase
 fi
-pwd='/mnt/jenkins/workspace/tagging-branch/ops-build/yocto/openswitch/meta-distro-openswitch/recipes-ops'
-auto_rev="\${AUTOREV}"
-declare -A keys
-#echo $1
-for i in $(find $pwd -name *.bb);do
-# Search Each file for SRCREV string
-if grep -q SRCREV "$i";then
-hash=$(grep SRCREV $i | cut -d'"' -f2)
-#Replace AUTOREV with HEAD, so that it will show the last commit sha value.
-echo $hash
-if [ "$auto_rev" = "$hash" ]; then
-  hash="HEAD"
-fi
-#Mapping the repository value with SHA value as key-value pair in hashes.
 
-file_name=$(basename $i .bb)
-echo "$file_name,$hash"
-keys[$file_name]=$hash
-fi
-done
-#Making a directory, to clone all the repository in it.
+# Rest ops-build to the SHA that from where we need to branch
+git reset --hard $2
 
-if ! [ -d "$pwd/clones" ]; then
-  mkdir $pwd/clones
+if [ ! -d src ]; then
+    mkdir src
 fi
-for j in "${!keys[@]}"
+#Parse the recipe files and clone all the repos and reset each repo to the SHA in the recipe file
+for recipe in `find yocto/openswitch/meta-distro-openswitch/recipes-ops/. -name *.bb`
 do
-  echo "key :" $j
-  echo "value :" ${keys[$j]}
-if ! [ -d "$pwd/clones/$j" ]; then
-     echo $j is not present
-     git clone ssh://openswitch-jenkins@review.openswitch.net:29418/openswitch/$j $pwd/clones/$j
-fi
-#Changing the path to the directory and start tagging according to the SHA value
-cd $pwd/clones/$j
-if [ `git rev-parse --verify "remotes/origin/$1"` ]; then
-   git checkout $1
-   git branch
-   git pull --rebase origin
-   git reset --hard ${keys[$j]}
-   echo Creating tag $2 on repo $j
-   git tag -a $2 -m "Creating a tag on the SHA Value"
-   echo "#####################################################"
-   echo "#####################################################"
-   echo pushing tag on repo $j
-   echo "#####################################################"
-   echo "#####################################################"
-   git push origin --tags
- else
-   echo Branch $1 does not exist on repo $j
-fi
+    if grep -q SRCREV "$recipe"; then
+        sha=$(grep SRCREV $recipe | cut -d'"' -f2)
+        if [ $sha = "\${AUTOREV}" ]; then
+            sha=HEAD
+        fi
+    fi
+
+    repo=`echo $recipe | cut -d'/' -f7 | cut -d'.' -f1`
+    mkdir -p src/$repo
+    cd src/$repo
+    git clone ssh://openswitch-jenkins@review.openswitch.net:29418/openswitch/$repo .
+    git pull --rebase origin
+    git reset --hard $sha
+    git tag -a $1 -m "Creating a tag on the SHA value"
+    echo "######################################################"
+    echo "######################################################"
+    echo pushing tag on repo $repo
+    git push origin --tags
+    cd ../..
+    echo "######################################################"
+    echo "######################################################"
 done
