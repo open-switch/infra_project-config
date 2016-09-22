@@ -177,7 +177,7 @@ pipelines:
     failure:
       gerrit: {}
 
-  - name: periodic
+  - name: periodic-master
     description: Jobs in this queue are triggered on a timer.
     manager: IndependentPipelineManager
     source: gerrit
@@ -185,6 +185,15 @@ pipelines:
     trigger:
       timer:
         - time: '0 */6 * * *'
+
+  - name: periodic-release
+    description: Jobs in this queue are triggered on a timer.
+    manager: IndependentPipelineManager
+    source: gerrit
+    precedence: low
+    trigger:
+      timer:
+        - time: '0 3,9,15,21 * * *'
 
   - name: hourly
     description: Jobs in this queue are triggered on a timer every hour.
@@ -367,18 +376,19 @@ projects:
         platform: as5712
       - name: ops-build
         platform: as6712
-    periodic:
+    periodic-master:
       - ops-periodic-genericx86-64
       - ops-periodic-as5712
       - ops-periodic-as6712
       - ops-periodic-as7712
       - ops-periodic-appliance
+      - ops-periodic-p4
+    periodic-release:
       - ops-release-genericx86-64
       - ops-release-as5712
       - ops-release-as6712
       - ops-release-as7712
       - ops-release-appliance
-      - ops-periodic-p4
     tag:
       - ops-tagged-as5712
       - ops-tagged-as6712
