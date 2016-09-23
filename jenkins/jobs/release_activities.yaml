@@ -4,13 +4,13 @@
 
     parameters:
         - string:
-            name: branch_name
-            default:
-            description: "Specifying a branch name as the tag target, e.g. rel/dill"
-        - string:
             name: tag_name
             default:
-            description: "New tag name, e.g. 1.0.0"
+            description: "New tag, e.g. 1.0.0"
+        - string:
+            name: SHA
+            default:
+            description: "SHA value of ops-build where we need a tag, e.g. 099caa049056755366c4b189020edb106a06dde6"
 
     wrappers:
         - build-timeout:
