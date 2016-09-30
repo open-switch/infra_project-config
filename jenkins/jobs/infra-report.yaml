@@ -1,0 +1,27 @@
+- job:
+    name: 'infra-report'
+    node: infra
+
+    parameters:
+        - string:
+            name: branch_name
+            default: rel/dill
+            description: "Branch name where the data to be analyzed"
+
+    wrappers:
+        - build-timeout:
+            timeout: 60
+        - timestamps
+        - ansicolor
+        - ssh-agent-credentials:
+             users:
+                - 'ffc18805-a3da-4771-918a-eaaa6a1a0c70'
+
+    builders:
+        - revoke-sudo
+        - shell: |
+            #!/bin/bash
+            /usr/local/jenkins/slave_scripts/line_of_code.sh $branch_name
+
+    publishers:
+        - post-ws-clean
