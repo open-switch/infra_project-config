@@ -193,7 +193,7 @@ pipelines:
     precedence: low
     trigger:
       timer:
-        - time: '0 3,9,15,21 * * *'
+        - time: '0 3 * * *'
 
   - name: hourly
     description: Jobs in this queue are triggered on a timer every hour.
