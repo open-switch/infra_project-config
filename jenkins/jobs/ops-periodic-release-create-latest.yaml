@@ -26,13 +26,13 @@
 
 - job:
     name: 'ops-release-tier2-genericx86'
-    node: periodic
+    node: tier2
 
     wrappers:
         - timestamps
         - ansicolor
         - build-timeout:
-            timeout: 300
+            timeout: 600
         - ssh-agent-credentials:
               users:
                   - 'ffc18805-a3da-4771-918a-eaaa6a1a0c70'
