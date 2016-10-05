@@ -26,17 +26,17 @@
         - module-build-branch:
             module: 'ops-openbfdd'
             platform: '{platform}'
-        - check-docker-state
-        - clear-test-logs
-        - module-test:
-            module: 'ops-openbfdd'
-            platform: '{platform}'
-        - capture-test-logs
+#        - check-docker-state
+#        - clear-test-logs
+#        - module-test:
+#            module: 'ops-openbfdd'
+#            platform: '{platform}'
+#        - capture-test-logs
 
     publishers:
-        - conditional-gather-test-results
-        - archive-syslog
-        - archive-test-logs-on-failure
+#        - conditional-gather-test-results
+#        - archive-syslog
+#        - archive-test-logs-on-failure
         - post-ws-clean
 
 - job-group:
