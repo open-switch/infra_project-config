@@ -558,6 +558,7 @@
            docker pull openswitch/omd
            docker pull host/freeradius-ubuntu
            docker pull openswitch/centos_ntp
+           docker pull openswitch/tacacs_server:latest
            docker ps -a
            docker images
            echo "After docker cleanup"
