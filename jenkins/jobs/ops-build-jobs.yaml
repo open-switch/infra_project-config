@@ -129,7 +129,7 @@
 
     publishers:
         - mail-on-fail:
-             email-by-space-when-fail: "infra@lists.openswitch.com"
+             email-by-space-when-fail: "infra-alerts@lists.openswitch.net"
         - post-ws-clean
 
 - job-template:
@@ -166,7 +166,7 @@
 
     publishers:
         - mail-on-fail:
-             email-by-space-when-fail: "infra@lists.openswitch.com"
+             email-by-space-when-fail: "infra-alerts@lists.openswitch.net"
         - post-ws-clean
 
 - job:
@@ -211,7 +211,7 @@
         - archive-syslog
         - archive-test-logs
         - mail-on-fail:
-             email-by-space-when-fail: "infra@lists.openswitch.com"
+             email-by-space-when-fail: "infra-alerts@lists.openswitch.net"
         - post-ws-clean
 
 - job-template:
@@ -246,7 +246,7 @@
 
     publishers:
         - mail-on-fail:
-             email-by-space-when-fail: "infra@lists.openswitch.com"
+             email-by-space-when-fail: "infra-alerts@lists.openswitch.net"
         - post-ws-clean
 
 - job-template:
@@ -281,7 +281,7 @@
 
     publishers:
         - mail-on-fail:
-             email-by-space-when-fail: "infra@lists.openswitch.com"
+             email-by-space-when-fail: "infra-alerts@lists.openswitch.net"
         - post-ws-clean
 
 - job:
