@@ -263,3 +263,7 @@
 
 - project: openswitch/ovs
   description: OpenSwitch mirror of OpenVswitch
+
+#OPX Repositories
+- project: opx/opx-logging
+  description: OPX Logging
