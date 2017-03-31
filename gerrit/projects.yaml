@@ -268,86 +268,86 @@
 - project: opx/opx-logging
   description: Logging utilities
 
-- project: opx-platform-config
+- project: opx/opx-platform-config
   description: Platform configuration files, scripts, shared libraries, etc
 
-- project: opx-common-utils
+- project: opx/opx-common-utils
   description: Utilities library for thread queues, mutex support, and other items
 
-- project: opx-cps
+- project: opx/opx-cps
   description: CPS object library files and micro-service API
 
-- project: opx-db-sql
+- project: opx/opx-db-sql
   description: Wrapper to db-sql API used for VM target
 
-- project: opx-base-model
+- project: opx/opx-base-model
   description: YANG models which define the object model for all software components
 
-- project: opx-nas-acl
+- project: opx/opx-nas-acl
   description: Access control list component of network abstraction service
 
-- project: opx-nas-common
+- project: opx/opx-nas-common
   description: Common utilities used by network abstraction service modules
 
-- project: opx-nas-daemon
+- project: opx/opx-nas-daemon
   description: Network abstraction service daemon
 
-- project: opx-nas-interface
+- project: opx/opx-nas-interface
   description: Interface portion of the network abstraction service
 
-- project: opx-nas-l2
+- project: opx/opx-nas-l2
   description: Layer 2 component of the network abstraction service
 
-- project: opx-nas-l3
+- project: opx/opx-nas-l3
   description: Layer 3 component of the network abstraction service
 
-- project: opx-nas-ndi
+- project: opx/opx-nas-ndi
   description: Mediation layer between the NAS software and the SAI API
 
-- project: opx-nas-ndi-api
+- project: opx/opx-nas-ndi-api
   description: NDI API definitions of the network abstraction service
 
-- project: opx-nas-qos
+- project: opx/opx-nas-qos
   description: Quality of service functionality for the network abstraction service
 
-- project: opx-nas-linux
+- project: opx/opx-nas-linux
   description: Linux integration portion of the network abstraction service
 
-- project: opx-sai-api
+- project: opx/opx-sai-api
   description: All public API declarations for the switch abstraction interface
 
-- project: opx-sai-common
+- project: opx/opx-sai-common
   description: Common code for the switch abstraction interface
 
-- project: opx-sai-common-utils
+- project: opx/opx-sai-common-utils
   description: Common utilities used for the switch abstraction interface
 
-- project: opx-sai-vm
+- project: opx/opx-sai-vm
   description: SAI implementation for the OpenSwitch simulator/virtual machine
 
-- project: opx-pas
+- project: opx/opx-pas
   description: Platform adaptation service daemon implementation
 
-- project: opx-sdi-api
+- project: opx/opx-sdi-api
   description: All declarations of the system device interface API
 
-- project: opx-sdi-device-drivers
+- project: opx/opx-sdi-device-drivers
   description: Device drivers for the system device interface
 
-- project: opx-sdi-sys
+- project: opx/opx-sdi-sys
   description: Implementation of SDI entity abstraction layer for real hardware
 
-- project: opx-sdi-sys-vm
+- project: opx/opx-sdi-sys-vm
   description: Implementation of SDI entity abstraction layer for OpenSwitch simulator/virtual machine
 
-- project: opx-sdi-framework
+- project: opx/opx-sdi-framework
   description: Implementation of the OPX SDI API for Dell-branded hardware
 
-- project: opx-tmpctl
+- project: opx/opx-tmpctl
   description: Implementation of the temperature control (TC) module
 
-- project: opx-build
+- project: opx/opx-build
   description: Build information for OpenSwitch OPX
 
-- project: opx-manifest
+- project: opx/opx-manifest
   description: Repo tool manifest
