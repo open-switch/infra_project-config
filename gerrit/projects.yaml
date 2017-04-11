@@ -351,3 +351,15 @@
 
 - project: opx/opx-manifest
   description: Repo tool manifest
+
+- project: opx/opx-core
+  description: OPX metapackage
+
+- project: opx/opx-docs
+  description: OPX documentation
+
+- project: opx/opx-test
+  description: OPX basic smoketest for PAS, NAS, and CPS
+
+- project: opx/opx-onie-installer
+  description: OPX ONIE installer creator
