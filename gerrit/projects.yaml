@@ -363,3 +363,7 @@
 
 - project: opx/opx-onie-installer
   description: OPX ONIE installer creator
+
+# Mellanox Repositories
+- project: opx/opx-mlnx-sdi-sys
+  description: SDI entity abstraction layer for Mellanox platforms
