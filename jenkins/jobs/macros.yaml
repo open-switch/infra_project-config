@@ -1750,8 +1750,11 @@
           mkdir -p /mnt/jenkins/workspace/sstate-cache
 
           # Import and build module
+          mkdir -p {module}
+          pushd {module}
           /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
           git diff-tree --no-commit-id --name-only -r refs/heads/master > extension.txt
+          popd
 
           export PATH=$PATH:$PWD/opx-build/scripts
           pushd opx-build/scripts

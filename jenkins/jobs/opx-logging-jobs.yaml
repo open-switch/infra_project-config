@@ -8,11 +8,10 @@
 
     builders:
         - revoke-sudo
-        - commit-message-validation:
-            module: 'opx-logging'
         - opx-module-build-branch:
             module: 'opx-logging'
             platform: '{platform}'
+
     publishers:
         - post-ws-clean
 
