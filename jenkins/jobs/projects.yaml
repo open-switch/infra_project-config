@@ -485,3 +485,11 @@
         - genericx86-64
       jobs:
         - 'ops-tunnel-jobs'
+
+  - project:
+      name: opx/opx-logging
+      node: 'openswitch'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'opx-logging-jobs'
