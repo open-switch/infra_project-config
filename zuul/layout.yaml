@@ -285,6 +285,12 @@ project-templates:
       - '{module}-gate-{platform}'
       - 'md-gate'
 
+  - name: opx-module-build
+    check:
+      - '{module}-check-{platform}'
+    gate:
+      - noop
+
 # Jobs definitions are not required, but help us filter unrequired check jobs
 # We still run the jobs during gate
 jobs:
@@ -831,4 +837,11 @@ projects:
      - name: merge-check
      - name: module-build
        module: ops-tunnel
+       platform: genericx86-64
+
+  - name: opx/opx-logging
+    template:
+     - name: merge-check
+     - name: opx-module-build
+       module: opx-logging
        platform: genericx86-64

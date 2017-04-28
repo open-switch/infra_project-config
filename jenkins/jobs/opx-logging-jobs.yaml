@@ -1,0 +1,17 @@
+- job-template:
+    name: 'opx-logging-check-{platform}'
+    node: openswitch
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+
+    builders:
+        - revoke-sudo
+        - commit-message-validation:
+            module: 'opx-logging'
+        - opx-module-build-branch:
+            module: 'opx-logging'
+            platform: '{platform}'
+    publishers:
+        - post-ws-clean
