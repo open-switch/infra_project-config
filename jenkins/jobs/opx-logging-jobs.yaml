@@ -15,3 +15,8 @@
             platform: '{platform}'
     publishers:
         - post-ws-clean
+
+- job-group:
+    name: 'opx-logging-jobs'
+    jobs:
+      - 'opx-logging-check-{platform}'
