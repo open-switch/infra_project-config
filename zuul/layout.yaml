@@ -289,7 +289,7 @@ project-templates:
     check:
       - '{module}-check-{platform}'
     gate:
-      - noop
+      - '{module}-gate-{platform}'
 
 # Jobs definitions are not required, but help us filter unrequired check jobs
 # We still run the jobs during gate

@@ -15,6 +15,23 @@
     publishers:
         - post-ws-clean
 
+- job-template:
+    name: 'opx-logging-gate-{platform}'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+
+    builders:
+        - revoke-sudo
+        - opx-module-build-branch:
+            module: 'opx-logging'
+            platform: '{platform}'
+
+    publishers:
+        - post-ws-clean
+
 - job-group:
     name: 'opx-logging-jobs'
     jobs:

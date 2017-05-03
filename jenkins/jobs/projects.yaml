@@ -488,7 +488,7 @@
 
   - project:
       name: opx/opx-logging
-      node: 'openswitch'
+      node: 'vsi'
       platform:
         - genericx86-64
       jobs:
