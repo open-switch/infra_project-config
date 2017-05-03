@@ -326,8 +326,6 @@
       - 'ops-gate-as5712'
       - 'ops-gate-as6712'
       - 'ops-gate-genericx86-64'
-      - 'ops-periodic-{platform}'
-      - 'ops-release-{platform}'
       - 'ops-tagged-release-{platform}'
       - 'ops-tagged-{platform}'
       - 'ops-test-tagged-as5712'

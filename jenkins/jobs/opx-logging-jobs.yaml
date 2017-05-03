@@ -1,6 +1,6 @@
 - job-template:
     name: 'opx-logging-check-{platform}'
-    node: openswitch
+    node: vsi
 
     wrappers:
         - build-timeout:

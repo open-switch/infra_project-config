@@ -382,19 +382,6 @@ projects:
         platform: as5712
       - name: ops-build
         platform: as6712
-    periodic-master:
-      - ops-periodic-genericx86-64
-      - ops-periodic-as5712
-      - ops-periodic-as6712
-      - ops-periodic-as7712
-      - ops-periodic-appliance
-      - ops-periodic-p4
-    periodic-release:
-      - ops-release-genericx86-64
-      - ops-release-as5712
-      - ops-release-as6712
-      - ops-release-as7712
-      - ops-release-appliance
     tag:
       - ops-tagged-as5712
       - ops-tagged-as6712
