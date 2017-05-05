@@ -487,9 +487,217 @@
         - 'ops-tunnel-jobs'
 
   - project:
+      name: opx/opx-base-model
+      node: 'vsi'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'opx-base-model-jobs'
+
+  - project:
+      name: opx/opx-common-utils
+      node: 'vsi'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'opx-common-utils-jobs'
+
+  - project:
+      name: opx/opx-cps
+      node: 'vsi'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'opx-cps-jobs'
+
+  - project:
+      name: opx/opx-db-sql
+      node: 'vsi'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'opx-db-sql-jobs'
+
+  - project:
       name: opx/opx-logging
       node: 'vsi'
       platform:
         - genericx86-64
       jobs:
         - 'opx-logging-jobs'
+
+  - project:
+      name: opx/opx-nas-acl
+      node: 'vsi'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'opx-nas-acl-jobs'
+
+  - project:
+      name: opx/opx-nas-common
+      node: 'vsi'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'opx-nas-common-jobs'
+
+  - project:
+      name: opx/opx-nas-daemon
+      node: 'vsi'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'opx-nas-daemon-jobs'
+
+  - project:
+      name: opx/opx-nas-interface
+      node: 'vsi'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'opx-nas-interface-jobs'
+
+  - project:
+      name: opx/opx-nas-l2
+      node: 'vsi'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'opx-nas-l2-jobs'
+
+  - project:
+      name: opx/opx-nas-l3
+      node: 'vsi'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'opx-nas-l3-jobs'
+
+  - project:
+      name: opx/opx-nas-linux
+      node: 'vsi'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'opx-nas-linux-jobs'
+
+  - project:
+      name: opx/opx-nas-ndi
+      node: 'vsi'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'opx-nas-ndi-jobs'
+
+  - project:
+      name: opx/opx-nas-ndi-api
+      node: 'vsi'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'opx-nas-ndi-api-jobs'
+
+  - project:
+      name: opx/opx-nas-qos
+      node: 'vsi'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'opx-nas-qos-jobs'
+
+  - project:
+      name: opx/opx-pas
+      node: 'vsi'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'opx-pas-jobs'
+
+  - project:
+      name: opx/opx-platform-config
+      node: 'vsi'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'opx-platform-config-jobs'
+
+  - project:
+      name: opx/opx-sai-api
+      node: 'vsi'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'opx-sai-api-jobs'
+
+  - project:
+      name: opx/opx-sai-common
+      node: 'vsi'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'opx-sai-common-jobs'
+
+  - project:
+      name: opx/opx-sai-common-utils
+      node: 'vsi'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'opx-sai-common-utils-jobs'
+
+  - project:
+      name: opx/opx-sai-vm
+      node: 'vsi'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'opx-sai-vm-jobs'
+
+  - project:
+      name: opx/opx-sdi-api
+      node: 'vsi'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'opx-sdi-api-jobs'
+
+  - project:
+      name: opx/opx-sdi-device-drivers
+      node: 'vsi'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'opx-sdi-device-drivers-jobs'
+
+  - project:
+      name: opx/opx-sdi-framework
+      node: 'vsi'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'opx-sdi-framework-jobs'
+
+  - project:
+      name: opx/opx-sdi-sys
+      node: 'vsi'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'opx-sdi-sys-jobs'
+
+  - project:
+      name: opx/opx-sdi-sys-vm
+      node: 'vsi'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'opx-sdi-sys-vm-jobs'
+
+  - project:
+      name: opx/opx-tmpctl
+      node: 'vsi'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'opx-tmpctl-jobs'

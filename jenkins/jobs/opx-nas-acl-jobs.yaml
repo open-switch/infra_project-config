@@ -1,5 +1,5 @@
 - job-template:
-    name: 'opx-logging-check-{platform}'
+    name: 'opx-nas-acl-check-{platform}'
     node: vsi
 
     wrappers:
@@ -9,14 +9,14 @@
     builders:
         - revoke-sudo
         - opx-module-build-branch:
-            module: 'opx-logging'
+            module: 'opx-nas-acl'
             platform: '{platform}'
 
     publishers:
         - post-ws-clean
 
 - job-template:
-    name: 'opx-logging-gate-{platform}'
+    name: 'opx-nas-acl-gate-{platform}'
     node: vsi
 
     wrappers:
@@ -26,14 +26,14 @@
     builders:
         - revoke-sudo
         - opx-module-build-branch:
-            module: 'opx-logging'
+            module: 'opx-nas-acl'
             platform: '{platform}'
 
     publishers:
         - post-ws-clean
 
 - job-group:
-    name: 'opx-logging-jobs'
+    name: 'opx-nas-acl-jobs'
     jobs:
-      - 'opx-logging-check-{platform}'
-      - 'opx-logging-gate-{platform}'
+      - 'opx-nas-acl-check-{platform}'
+      - 'opx-nas-acl-gate-{platform}'

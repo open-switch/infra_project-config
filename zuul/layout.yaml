@@ -826,9 +826,191 @@ projects:
        module: ops-tunnel
        platform: genericx86-64
 
+  - name: opx/opx-base-model
+    template:
+     - name: merge-check
+     - name: opx-module-build
+       module: opx-base-model
+       platform: genericx86-64
+
+  - name: opx/opx-common-utils
+    template:
+     - name: merge-check
+     - name: opx-module-build
+       module: opx-common-utils
+       platform: genericx86-64
+
+  - name: opx/opx-cps
+    template:
+     - name: merge-check
+     - name: opx-module-build
+       module: opx-cps
+       platform: genericx86-64
+
+  - name: opx/opx-db-sql
+    template:
+     - name: merge-check
+     - name: opx-module-build
+       module: opx-db-sql
+       platform: genericx86-64
+
   - name: opx/opx-logging
     template:
      - name: merge-check
      - name: opx-module-build
        module: opx-logging
+       platform: genericx86-64
+
+  - name: opx/opx-nas-acl
+    template:
+     - name: merge-check
+     - name: opx-module-build
+       module: opx-nas-acl
+       platform: genericx86-64
+
+  - name: opx/opx-nas-common
+    template:
+     - name: merge-check
+     - name: opx-module-build
+       module: opx-nas-common
+       platform: genericx86-64
+
+  - name: opx/opx-nas-daemon
+    template:
+     - name: merge-check
+     - name: opx-module-build
+       module: opx-nas-daemon
+       platform: genericx86-64
+
+  - name: opx/opx-nas-interface
+    template:
+     - name: merge-check
+     - name: opx-module-build
+       module: opx-nas-interface
+       platform: genericx86-64
+
+  - name: opx/opx-nas-l2
+    template:
+     - name: merge-check
+     - name: opx-module-build
+       module: opx-nas-l2
+       platform: genericx86-64
+
+  - name: opx/opx-nas-l3
+    template:
+     - name: merge-check
+     - name: opx-module-build
+       module: opx-nas-l3
+       platform: genericx86-64
+
+  - name: opx/opx-nas-linux
+    template:
+     - name: merge-check
+     - name: opx-module-build
+       module: opx-nas-linux
+       platform: genericx86-64
+
+  - name: opx/opx-nas-ndi
+    template:
+     - name: merge-check
+     - name: opx-module-build
+       module: opx-nas-ndi
+       platform: genericx86-64
+
+  - name: opx/opx-nas-ndi-api
+    template:
+     - name: merge-check
+     - name: opx-module-build
+       module: opx-nas-ndi-api
+       platform: genericx86-64
+
+  - name: opx/opx-nas-qos
+    template:
+     - name: merge-check
+     - name: opx-module-build
+       module: opx-nas-qos
+       platform: genericx86-64
+
+  - name: opx/opx-pas
+    template:
+     - name: merge-check
+     - name: opx-module-build
+       module: opx-pas
+       platform: genericx86-64
+
+  - name: opx/opx-platform-config
+    template:
+     - name: merge-check
+     - name: opx-module-build
+       module: opx-platform-config
+       platform: genericx86-64
+
+  - name: opx/opx-sai-api
+    template:
+     - name: merge-check
+     - name: opx-module-build
+       module: opx-sai-api
+       platform: genericx86-64
+
+  - name: opx/opx-sai-common
+    template:
+     - name: merge-check
+     - name: opx-module-build
+       module: opx-sai-common
+       platform: genericx86-64
+
+  - name: opx/opx-sai-common-utils
+    template:
+     - name: merge-check
+     - name: opx-module-build
+       module: opx-sai-common-utils
+       platform: genericx86-64
+
+  - name: opx/opx-sai-vm
+    template:
+     - name: merge-check
+     - name: opx-module-build
+       module: opx-sai-vm
+       platform: genericx86-64
+
+  - name: opx/opx-sdi-api
+    template:
+     - name: merge-check
+     - name: opx-module-build
+       module: opx-sdi-api
+       platform: genericx86-64
+
+  - name: opx/opx-sdi-device-drivers
+    template:
+     - name: merge-check
+     - name: opx-module-build
+       module: opx-sdi-device-drivers
+       platform: genericx86-64
+
+  - name: opx/opx-sdi-framework
+    template:
+     - name: merge-check
+     - name: opx-module-build
+       module: opx-sdi-framework
+       platform: genericx86-64
+
+  - name: opx/opx-sdi-sys
+    template:
+     - name: merge-check
+     - name: opx-module-build
+       module: opx-sdi-sys
+       platform: genericx86-64
+
+  - name: opx/opx-sdi-sys-vm
+    template:
+     - name: merge-check
+     - name: opx-module-build
+       module: opx-sdi-sys-vm
+       platform: genericx86-64
+
+  - name: opx/opx-tmpctl
+    template:
+     - name: merge-check
+     - name: opx-module-build
+       module: opx-tmpctl
        platform: genericx86-64
