@@ -1757,9 +1757,6 @@
           popd
 
           export PATH=$PATH:$PWD/opx-build/scripts
-          pushd opx-build/scripts
-          opx_setup
-          popd
           opx-build/scripts/opx_run /bin/bash -ci "cd /mnt && opx-build/scripts/opx_build {module}"
 
 
