@@ -369,5 +369,5 @@
   description: SDI entity abstraction layer for Mellanox platforms
 
 # SAI 1.0 Implementation
-- project: opx/opx-nas-ndi-sai-1.0
-  description: The NDI implementation that supports SAI 1.0
+- project: opx/opx-nas-ndi-sai-1-x
+  description: The NDI implementation that supports SAI 1.x
