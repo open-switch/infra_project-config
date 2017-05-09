@@ -1734,16 +1734,9 @@
       - shell: |
           #!/bin/bash -ex
 
-          # Identify the branch to use for the build system
-          if git ls-remote https://git.openswitch.net/opx/opx-build | grep -swq "$ZUUL_BRANCH" ; then
-            OPX_BUILD_BRANCH=$ZUUL_BRANCH
-          else
-            OPX_BUILD_BRANCH=master
-          fi
-
           # start fresh
           rm -rf .[^.]* *
-          git clone -b $OPX_BUILD_BRANCH https://git.openswitch.net/opx/opx-build
+          git clone -b feature/fetch-prerequisites https://git.openswitch.net/opx/opx-build
 
           # Setup the shared state local cache
           export SSTATE_DIR=/mnt/jenkins/workspace/sstate-cache
@@ -1755,6 +1748,8 @@
           /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
           git diff-tree --no-commit-id --name-only -r refs/heads/master > extension.txt
           popd
+
+          docker pull dell-networking-docker-opx-docker.bintray.io/opx/opx-build
 
           export PATH=$PATH:$PWD/opx-build/scripts
           opx-build/scripts/opx_run /bin/bash -ci "cd /mnt && opx-build/scripts/opx_build {module}"
