@@ -291,6 +291,12 @@ project-templates:
     gate:
       - '{module}-gate-{platform}'
 
+  - name: opx-build
+    check:
+      - 'opx-build-check-{platform}'
+    check:
+      - 'opx-build-gate-{platform}'
+
 # Jobs definitions are not required, but help us filter unrequired check jobs
 # We still run the jobs during gate
 jobs:
@@ -831,6 +837,12 @@ projects:
      - name: merge-check
      - name: opx-module-build
        module: opx-base-model
+       platform: genericx86-64
+
+  - name: opx/opx-build
+    template:
+     - name: merge-check
+     - name: opx-build
        platform: genericx86-64
 
   - name: opx/opx-common-utils
