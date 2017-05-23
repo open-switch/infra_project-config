@@ -511,6 +511,14 @@
         - 'opx-common-utils-jobs'
 
   - project:
+      name: opx/opx-core
+      node: 'vsi'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'opx-core-jobs'
+
+  - project:
       name: opx/opx-cps
       node: 'vsi'
       platform:

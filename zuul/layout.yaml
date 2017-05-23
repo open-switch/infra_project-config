@@ -852,6 +852,13 @@ projects:
        module: opx-common-utils
        platform: genericx86-64
 
+  - name: opx/opx-core
+    template:
+     - name: merge-check
+     - name: opx-module-build
+       module: opx-core
+       platform: genericx86-64
+
   - name: opx/opx-cps
     template:
      - name: merge-check
