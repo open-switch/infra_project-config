@@ -1760,7 +1760,7 @@
     name: opx-build-branch
     builders:
       - shell: |
-          #!/bin/bash -eEx
+          #!/bin/bash -ex
           cleanup () {
             echo "Cleaning up..."
             rm -rf .[^.]* *
@@ -1770,7 +1770,7 @@
             docker pull dell-networking-docker-opx-docker.bintray.io/opx/opx-build:latest
             docker tag -f dell-networking-docker-opx-docker.bintray.io/opx/opx-build:latest docker-opx:latest
           }
-          trap cleanup ERR EXIT
+          trap cleanup EXIT
 
           # Setup the shared state local cache
           export SSTATE_DIR=/mnt/jenkins/workspace/sstate-cache
@@ -1803,7 +1803,7 @@
     name: opx-vm-smoketest
     builders:
       - shell: |
-          #!/bin/bash -xeu
+          #!/bin/bash -ex
 
           instance=""
           workdir=$(pwd)
