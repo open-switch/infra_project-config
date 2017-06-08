@@ -294,7 +294,7 @@ project-templates:
   - name: opx-build
     check:
       - 'opx-build-check-{platform}'
-    check:
+    independent-gate:
       - 'opx-build-gate-{platform}'
 
 # Jobs definitions are not required, but help us filter unrequired check jobs

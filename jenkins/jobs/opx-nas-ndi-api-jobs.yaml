@@ -11,6 +11,7 @@
         - opx-module-build-branch:
             module: 'opx-nas-ndi-api'
             platform: '{platform}'
+        - opx-vm-smoketest
 
     publishers:
         - post-ws-clean
@@ -28,6 +29,7 @@
         - opx-module-build-branch:
             module: 'opx-nas-ndi-api'
             platform: '{platform}'
+        - opx-vm-smoketest
 
     publishers:
         - post-ws-clean

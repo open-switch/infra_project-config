@@ -1799,6 +1799,94 @@
           export PATH=$PATH:$PWD/opx-build/scripts
           opx-build/scripts/opx_run /bin/bash -ci "cd /mnt && opx-build/scripts/opx_build"
 
+- builder:
+    name: opx-vm-smoketest
+    builders:
+      - shell: |
+          #!/bin/bash -xeu
+
+          instance=""
+          workdir=$(pwd)
+
+          function clean {
+            if [[ -z "$instance" ]]; then
+              read instance < "$workdir/opx-smoketest/instance"
+            fi
+
+            aws ec2 terminate-instances --instance-ids $instance
+            rm -rf "$workdir/opx-smoketest"
+          }
+          trap clean EXIT
+
+          # Clone test script
+          git clone git://git.openswitch.net/opx/opx-test "$workdir/opx-smoketest"
+          pushd "$workdir/opx-smoketest"
+
+          # Create AWS instance
+          instance=$(aws ec2 run-instances --image-id ami-221ea342 --security-group-ids sg-79aad61d --count 1 --instance-type t2.micro --subnet-id subnet-eb094a9c --key-name aws --query 'Instances[0].InstanceId' | cut -d'"' -f2)
+          echo $instance > instance
+
+          aws ec2 create-tags --resources $instance --tags Key=Name,Value=smoketest-opx-$(date "+%s")
+
+          instance_ip=$(aws ec2 describe-instances --instance-ids $instance --query 'Reservations[0].Instances[0].PrivateIpAddress' | cut -d'"' -f2)
+
+          # Fix Ansible 2.0 keyword deprecation
+          cat << EOF > inventory.yaml
+          [devices]
+          baseHW ansible_host=$instance_ip
+
+          [devices:vars]
+          ansible_user=admin
+          ansible_ssh_private_key_file=/home/jenkins/aws
+          EOF
+
+          cat << EOF > ansible.cfg
+          [defaults]
+          inventory = inventory.yaml
+          hostfile = /etc/ansible/hosts
+          log_path = smoketest_base.log
+          host_key_checking = False
+          pipelining = True
+          forks = 50
+          deprecation_warnings = False
+          jinja2_extensions = jinja2.ext.do
+          force_handlers = True
+          gather_facts = False
+          host_key_checking = False
+          timeout = 60
+
+          [ssh_connection]
+          control_path = %(directory)s/%%h
+          EOF
+
+          aws ec2 wait instance-status-ok --instance-ids $instance
+
+          # Install packages
+          if test -n "$(find .. -maxdepth 1 -name '*.deb' -print -quit)"; then
+            ssh -i ~/aws admin@$instance_ip 'echo "deb http://security.debian.org/ jessie/updates main" | sudo tee -a /etc/apt/sources.list'
+            ssh -i ~/aws admin@$instance_ip 'sudo apt-get update && sudo apt-get install -y dpkg-dev'
+            ssh -i ~/aws admin@$instance_ip 'mkdir mydebs'
+            scp -i ~/aws ../*.deb admin@$instance_ip:mydebs/
+            ssh -i ~/aws admin@$instance_ip 'cd mydebs && dpkg-scanpackages . /dev/null | gzip -9c > Packages.gz'
+            ssh -i ~/aws admin@$instance_ip 'echo "deb [trusted=yes] file:/home/admin/mydebs ./" | sudo tee -a /etc/apt/sources.list'
+          fi
+
+          ssh -i ~/aws admin@$instance_ip 'echo "deb [trusted=yes] http://dl.bintray.com/open-switch/opx-apt jessie main" | sudo tee -a /etc/apt/sources.list'
+          ssh -i ~/aws admin@$instance_ip 'sudo apt-get update'
+          ssh -i ~/aws admin@$instance_ip 'DEBIAN_FRONTEND=noninteractive sudo apt-get install -y opx-dell-vm'
+
+          # Reboot to properly launch services
+          aws ec2 reboot-instances --instance-ids $instance
+          aws ec2 wait instance-status-ok --instance-ids $instance
+
+          # TODO: Figure out why ping is necessary before running playbook
+          ansible baseHW -i inventory.yaml -m ping
+
+          # Run Smoketest
+          ansible-playbook -vvv opx_smoketest.yaml --extra-vars "dut=baseHW"
+
+          popd
+
 # =====================================================================
 
 - wrapper:
