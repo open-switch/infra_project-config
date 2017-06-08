@@ -11,7 +11,6 @@
         - opx-module-build-branch:
             module: 'opx-db-sql'
             platform: '{platform}'
-        - opx-vm-smoketest
 
     publishers:
         - post-ws-clean
@@ -29,7 +28,6 @@
         - opx-module-build-branch:
             module: 'opx-db-sql'
             platform: '{platform}'
-        - opx-vm-smoketest
 
     publishers:
         - post-ws-clean

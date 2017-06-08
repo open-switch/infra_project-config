@@ -1756,55 +1756,7 @@
           export PATH=$PATH:$PWD/opx-build/scripts
           opx-build/scripts/opx_run /bin/bash -ci "cd /mnt && opx-build/scripts/opx_build {module}"
 
-- builder:
-    name: opx-build-branch
-    builders:
-      - shell: |
-          #!/bin/bash -ex
-          cleanup () {
-            echo "Cleaning up..."
-            rm -rf .[^.]* *
-            docker rm $(docker ps -q -f status=exited)
-            docker rmi docker-opx:latest
-            docker images --quiet --filter=dangling=true | xargs --no-run-if-empty docker rmi -f
-            docker pull dell-networking-docker-opx-docker.bintray.io/opx/opx-build:latest
-            docker tag -f dell-networking-docker-opx-docker.bintray.io/opx/opx-build:latest docker-opx:latest
-          }
-          trap cleanup EXIT
-
-          # Setup the shared state local cache
-          export SSTATE_DIR=/mnt/jenkins/workspace/sstate-cache
-          mkdir -p /mnt/jenkins/workspace/sstate-cache
-
-          # Import and build module
-          mkdir -p opx-build
-          pushd opx-build
-          /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
-          git diff-tree --no-commit-id --name-only -r refs/heads/master > extension.txt
-          popd
-
-          # Build image
-          pushd opx-build/scripts
-          docker rmi docker-opx:latest
-          opx_setup
-          popd
-
-          # Full build of all packages in manifest
-          mkdir test_build_all
-          cd test_build_all
-          repo init -u https://git.openswitch.net/opx/opx-manifest
-          repo sync
-          rm -rf opx-build
-          git clone ../opx-build
-          export PATH=$PATH:$PWD/opx-build/scripts
-          opx-build/scripts/opx_run /bin/bash -ci "cd /mnt && opx-build/scripts/opx_build"
-
-- builder:
-    name: opx-vm-smoketest
-    builders:
-      - shell: |
-          #!/bin/bash -ex
-
+          # TODO: Break VM Smoketest into own builder
           instance=""
           workdir=$(pwd)
 
@@ -1885,7 +1837,48 @@
           # Run Smoketest
           ansible-playbook -vvv opx_smoketest.yaml --extra-vars "dut=baseHW"
 
+- builder:
+    name: opx-build-branch
+    builders:
+      - shell: |
+          #!/bin/bash -ex
+          cleanup () {
+            echo "Cleaning up..."
+            rm -rf .[^.]* *
+            docker rm $(docker ps -q -f status=exited)
+            docker rmi docker-opx:latest
+            docker images --quiet --filter=dangling=true | xargs --no-run-if-empty docker rmi -f
+            docker pull dell-networking-docker-opx-docker.bintray.io/opx/opx-build:latest
+            docker tag -f dell-networking-docker-opx-docker.bintray.io/opx/opx-build:latest docker-opx:latest
+          }
+          trap cleanup EXIT
+
+          # Setup the shared state local cache
+          export SSTATE_DIR=/mnt/jenkins/workspace/sstate-cache
+          mkdir -p /mnt/jenkins/workspace/sstate-cache
+
+          # Import and build module
+          mkdir -p opx-build
+          pushd opx-build
+          /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
+          git diff-tree --no-commit-id --name-only -r refs/heads/master > extension.txt
           popd
+
+          # Build image
+          pushd opx-build/scripts
+          docker rmi docker-opx:latest
+          opx_setup
+          popd
+
+          # Full build of all packages in manifest
+          mkdir test_build_all
+          cd test_build_all
+          repo init -u https://git.openswitch.net/opx/opx-manifest
+          repo sync
+          rm -rf opx-build
+          git clone ../opx-build
+          export PATH=$PATH:$PWD/opx-build/scripts
+          opx-build/scripts/opx_run /bin/bash -ci "cd /mnt && opx-build/scripts/opx_build"
 
 # =====================================================================
 
