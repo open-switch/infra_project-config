@@ -1832,10 +1832,10 @@
           aws ec2 wait instance-status-ok --instance-ids $instance
 
           # TODO: Figure out why ping is necessary before running playbook
-          ansible baseHW -i inventory.yaml -m ping
+          # ansible baseHW -i inventory.yaml -m ping
 
           # Run Smoketest
-          ansible-playbook -vvv opx_smoketest.yaml --extra-vars "dut=baseHW"
+          # ansible-playbook -vvv opx_smoketest.yaml --extra-vars "dut=baseHW"
 
 - builder:
     name: opx-build-branch
