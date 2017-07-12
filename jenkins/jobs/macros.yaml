@@ -1754,7 +1754,7 @@
           docker tag -f dell-networking-docker-opx-docker.bintray.io/opx/opx-build:latest docker-opx:latest
 
           export PATH=$PATH:$PWD/opx-build/scripts
-          #opx-build/scripts/opx_run /bin/bash -ci "cd /mnt && opx-build/scripts/opx_build {module}"
+          opx-build/scripts/opx_run /bin/bash -ci "cd /mnt && opx-build/scripts/opx_build {module}"
 
 - builder:
     name: opx-build-branch

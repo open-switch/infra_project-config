@@ -487,233 +487,175 @@
         - 'ops-tunnel-jobs'
 
   - project:
-      name: opx/opx-base-model
-      node: 'vsi'
-      platform:
-        - genericx86-64
+      name: opx-base-model
+      node: vsi
       jobs:
-        - 'opx-base-model-jobs'
+        - opx-module-build
 
   - project:
-      name: opx/opx-build
-      node: 'vsi'
-      platform:
-        - genericx86-64
+      name: opx-build
+      node: vsi
       jobs:
-        - 'opx-build-jobs'
+        - opx-build
 
   - project:
-      name: opx/opx-common-utils
-      node: 'vsi'
-      platform:
-        - genericx86-64
+      name: opx-common-utils
+      node: vsi
       jobs:
-        - 'opx-common-utils-jobs'
+        - opx-module-build
 
   - project:
-      name: opx/opx-core
-      node: 'vsi'
-      platform:
-        - genericx86-64
+      name: opx-core
+      node: vsi
       jobs:
-        - 'opx-core-jobs'
+        - opx-module-build
 
   - project:
-      name: opx/opx-cps
-      node: 'vsi'
-      platform:
-        - genericx86-64
+      name: opx-cps
+      node: vsi
       jobs:
-        - 'opx-cps-jobs'
+        - opx-module-build
 
   - project:
-      name: opx/opx-db-sql
-      node: 'vsi'
-      platform:
-        - genericx86-64
+      name: opx-db-sql
+      node: vsi
       jobs:
-        - 'opx-db-sql-jobs'
+        - opx-module-build
 
   - project:
-      name: opx/opx-logging
-      node: 'vsi'
-      platform:
-        - genericx86-64
+      name: opx-logging
+      node: vsi
       jobs:
-        - 'opx-logging-jobs'
+        - opx-module-build
 
   - project:
-      name: opx/opx-nas-acl
-      node: 'vsi'
-      platform:
-        - genericx86-64
+      name: opx-nas-acl
+      node: vsi
       jobs:
-        - 'opx-nas-acl-jobs'
+        - opx-module-build
 
   - project:
-      name: opx/opx-nas-common
-      node: 'vsi'
-      platform:
-        - genericx86-64
+      name: opx-nas-common
+      node: vsi
       jobs:
-        - 'opx-nas-common-jobs'
+        - opx-module-build
 
   - project:
-      name: opx/opx-nas-daemon
-      node: 'vsi'
-      platform:
-        - genericx86-64
+      name: opx-nas-daemon
+      node: vsi
       jobs:
-        - 'opx-nas-daemon-jobs'
+        - opx-module-build
 
   - project:
-      name: opx/opx-nas-interface
-      node: 'vsi'
-      platform:
-        - genericx86-64
+      name: opx-nas-interface
+      node: vsi
       jobs:
-        - 'opx-nas-interface-jobs'
+        - opx-module-build
 
   - project:
-      name: opx/opx-nas-l2
-      node: 'vsi'
-      platform:
-        - genericx86-64
+      name: opx-nas-l2
+      node: vsi
       jobs:
-        - 'opx-nas-l2-jobs'
+        - opx-module-build
 
   - project:
-      name: opx/opx-nas-l3
-      node: 'vsi'
-      platform:
-        - genericx86-64
+      name: opx-nas-l3
+      node: vsi
       jobs:
-        - 'opx-nas-l3-jobs'
+        - opx-module-build
 
   - project:
-      name: opx/opx-nas-linux
-      node: 'vsi'
-      platform:
-        - genericx86-64
+      name: opx-nas-linux
+      node: vsi
       jobs:
-        - 'opx-nas-linux-jobs'
+        - opx-module-build
 
   - project:
-      name: opx/opx-nas-ndi
-      node: 'vsi'
-      platform:
-        - genericx86-64
+      name: opx-nas-ndi
+      node: vsi
       jobs:
-        - 'opx-nas-ndi-jobs'
+        - opx-module-build
 
   - project:
-      name: opx/opx-nas-ndi-api
-      node: 'vsi'
-      platform:
-        - genericx86-64
+      name: opx-nas-ndi-api
+      node: vsi
       jobs:
-        - 'opx-nas-ndi-api-jobs'
+        - opx-module-build
 
   - project:
-      name: opx/opx-nas-qos
-      node: 'vsi'
-      platform:
-        - genericx86-64
+      name: opx-nas-qos
+      node: vsi
       jobs:
-        - 'opx-nas-qos-jobs'
+        - opx-module-build
 
   - project:
-      name: opx/opx-pas
-      node: 'vsi'
-      platform:
-        - genericx86-64
+      name: opx-pas
+      node: vsi
       jobs:
-        - 'opx-pas-jobs'
+        - opx-module-build
 
   - project:
-      name: opx/opx-platform-config
-      node: 'vsi'
-      platform:
-        - genericx86-64
+      name: opx-platform-config
+      node: vsi
       jobs:
-        - 'opx-platform-config-jobs'
+        - opx-module-build
 
   - project:
-      name: opx/opx-sai-api
-      node: 'vsi'
-      platform:
-        - genericx86-64
+      name: opx-sai-api
+      node: vsi
       jobs:
-        - 'opx-sai-api-jobs'
+        - opx-module-build
 
   - project:
-      name: opx/opx-sai-common
-      node: 'vsi'
-      platform:
-        - genericx86-64
+      name: opx-sai-common
+      node: vsi
       jobs:
-        - 'opx-sai-common-jobs'
+        - opx-module-build
 
   - project:
-      name: opx/opx-sai-common-utils
-      node: 'vsi'
-      platform:
-        - genericx86-64
+      name: opx-sai-common-utils
+      node: vsi
       jobs:
-        - 'opx-sai-common-utils-jobs'
+        - opx-module-build
 
   - project:
-      name: opx/opx-sai-vm
-      node: 'vsi'
-      platform:
-        - genericx86-64
+      name: opx-sai-vm
+      node: vsi
       jobs:
-        - 'opx-sai-vm-jobs'
+        - opx-module-build
 
   - project:
-      name: opx/opx-sdi-api
-      node: 'vsi'
-      platform:
-        - genericx86-64
+      name: opx-sdi-api
+      node: vsi
       jobs:
-        - 'opx-sdi-api-jobs'
+        - opx-module-build
 
   - project:
-      name: opx/opx-sdi-device-drivers
-      node: 'vsi'
-      platform:
-        - genericx86-64
+      name: opx-sdi-device-drivers
+      node: vsi
       jobs:
-        - 'opx-sdi-device-drivers-jobs'
+        - opx-module-build
 
   - project:
-      name: opx/opx-sdi-framework
-      node: 'vsi'
-      platform:
-        - genericx86-64
+      name: opx-sdi-framework
+      node: vsi
       jobs:
-        - 'opx-sdi-framework-jobs'
+        - opx-module-build
 
   - project:
-      name: opx/opx-sdi-sys
-      node: 'vsi'
-      platform:
-        - genericx86-64
+      name: opx-sdi-sys
+      node: vsi
       jobs:
-        - 'opx-sdi-sys-jobs'
+        - opx-module-build
 
   - project:
-      name: opx/opx-sdi-sys-vm
-      node: 'vsi'
-      platform:
-        - genericx86-64
+      name: opx-sdi-sys-vm
+      node: vsi
       jobs:
-        - 'opx-sdi-sys-vm-jobs'
+        - opx-module-build
 
   - project:
-      name: opx/opx-tmpctl
-      node: 'vsi'
-      platform:
-        - genericx86-64
+      name: opx-tmpctl
+      node: vsi
       jobs:
-        - 'opx-tmpctl-jobs'
+        - opx-module-build

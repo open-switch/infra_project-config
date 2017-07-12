@@ -285,17 +285,19 @@ project-templates:
       - '{module}-gate-{platform}'
       - 'md-gate'
 
+  # Package Build
   - name: opx-module-build
     check:
-      - '{module}-check-{platform}'
+      - '{module}-build-{platform}'
     gate:
-      - '{module}-gate-{platform}'
+      - '{module}-build-{platform}'
 
+  # Installer Build
   - name: opx-build
     check:
-      - 'opx-build-check-{platform}'
+      - 'opx-build-{platform}'
     independent-gate:
-      - 'opx-build-gate-{platform}'
+      - 'opx-build-{platform}'
 
 # Jobs definitions are not required, but help us filter unrequired check jobs
 # We still run the jobs during gate
