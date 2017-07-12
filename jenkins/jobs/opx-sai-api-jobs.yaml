@@ -1,0 +1,39 @@
+- job-template:
+    name: 'opx-sai-api-check-{platform}'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+
+    builders:
+        - revoke-sudo
+        - opx-module-build-branch:
+            module: 'opx-sai-api'
+            platform: '{platform}'
+
+    publishers:
+        - post-ws-clean
+
+- job-template:
+    name: 'opx-sai-api-gate-{platform}'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+
+    builders:
+        - revoke-sudo
+        - opx-module-build-branch:
+            module: 'opx-sai-api'
+            platform: '{platform}'
+
+    publishers:
+        - post-ws-clean
+
+- job-group:
+    name: 'opx-sai-api-jobs'
+    jobs:
+      - 'opx-sai-api-check-{platform}'
+      - 'opx-sai-api-gate-{platform}'

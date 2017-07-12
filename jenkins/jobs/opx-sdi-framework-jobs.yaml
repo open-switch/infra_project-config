@@ -1,0 +1,39 @@
+- job-template:
+    name: 'opx-sdi-framework-check-{platform}'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+
+    builders:
+        - revoke-sudo
+        - opx-module-build-branch:
+            module: 'opx-sdi-framework'
+            platform: '{platform}'
+
+    publishers:
+        - post-ws-clean
+
+- job-template:
+    name: 'opx-sdi-framework-gate-{platform}'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+
+    builders:
+        - revoke-sudo
+        - opx-module-build-branch:
+            module: 'opx-sdi-framework'
+            platform: '{platform}'
+
+    publishers:
+        - post-ws-clean
+
+- job-group:
+    name: 'opx-sdi-framework-jobs'
+    jobs:
+      - 'opx-sdi-framework-check-{platform}'
+      - 'opx-sdi-framework-gate-{platform}'

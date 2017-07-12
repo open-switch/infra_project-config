@@ -1,0 +1,39 @@
+- job-template:
+    name: 'opx-nas-daemon-check-{platform}'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+
+    builders:
+        - revoke-sudo
+        - opx-module-build-branch:
+            module: 'opx-nas-daemon'
+            platform: '{platform}'
+
+    publishers:
+        - post-ws-clean
+
+- job-template:
+    name: 'opx-nas-daemon-gate-{platform}'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+
+    builders:
+        - revoke-sudo
+        - opx-module-build-branch:
+            module: 'opx-nas-daemon'
+            platform: '{platform}'
+
+    publishers:
+        - post-ws-clean
+
+- job-group:
+    name: 'opx-nas-daemon-jobs'
+    jobs:
+      - 'opx-nas-daemon-check-{platform}'
+      - 'opx-nas-daemon-gate-{platform}'

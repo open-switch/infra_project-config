@@ -1,0 +1,39 @@
+- job-template:
+    name: 'opx-nas-ndi-check-{platform}'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+
+    builders:
+        - revoke-sudo
+        - opx-module-build-branch:
+            module: 'opx-nas-ndi'
+            platform: '{platform}'
+
+    publishers:
+        - post-ws-clean
+
+- job-template:
+    name: 'opx-nas-ndi-gate-{platform}'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+
+    builders:
+        - revoke-sudo
+        - opx-module-build-branch:
+            module: 'opx-nas-ndi'
+            platform: '{platform}'
+
+    publishers:
+        - post-ws-clean
+
+- job-group:
+    name: 'opx-nas-ndi-jobs'
+    jobs:
+      - 'opx-nas-ndi-check-{platform}'
+      - 'opx-nas-ndi-gate-{platform}'

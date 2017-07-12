@@ -1,0 +1,39 @@
+- job-template:
+    name: 'opx-sdi-sys-vm-check-{platform}'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+
+    builders:
+        - revoke-sudo
+        - opx-module-build-branch:
+            module: 'opx-sdi-sys-vm'
+            platform: '{platform}'
+
+    publishers:
+        - post-ws-clean
+
+- job-template:
+    name: 'opx-sdi-sys-vm-gate-{platform}'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+
+    builders:
+        - revoke-sudo
+        - opx-module-build-branch:
+            module: 'opx-sdi-sys-vm'
+            platform: '{platform}'
+
+    publishers:
+        - post-ws-clean
+
+- job-group:
+    name: 'opx-sdi-sys-vm-jobs'
+    jobs:
+      - 'opx-sdi-sys-vm-check-{platform}'
+      - 'opx-sdi-sys-vm-gate-{platform}'

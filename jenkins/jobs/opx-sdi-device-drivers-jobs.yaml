@@ -1,0 +1,39 @@
+- job-template:
+    name: 'opx-sdi-device-drivers-check-{platform}'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+
+    builders:
+        - revoke-sudo
+        - opx-module-build-branch:
+            module: 'opx-sdi-device-drivers'
+            platform: '{platform}'
+
+    publishers:
+        - post-ws-clean
+
+- job-template:
+    name: 'opx-sdi-device-drivers-gate-{platform}'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+
+    builders:
+        - revoke-sudo
+        - opx-module-build-branch:
+            module: 'opx-sdi-device-drivers'
+            platform: '{platform}'
+
+    publishers:
+        - post-ws-clean
+
+- job-group:
+    name: 'opx-sdi-device-drivers-jobs'
+    jobs:
+      - 'opx-sdi-device-drivers-check-{platform}'
+      - 'opx-sdi-device-drivers-gate-{platform}'
