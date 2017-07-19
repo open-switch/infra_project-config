@@ -1729,14 +1729,13 @@
 
 - builder:
     name: opx-module-build-branch
-
     builders:
       - shell: |
           #!/bin/bash -ex
 
           # Start fresh
           rm -rf .[^.]* *
-          git clone -b feature/fetch-prerequisites https://git.openswitch.net/opx/opx-build
+          git clone https://git.openswitch.net/opx/opx-build
 
           # Setup the shared state local cache
           export SSTATE_DIR=/mnt/jenkins/workspace/sstate-cache
@@ -1750,8 +1749,8 @@
           popd
 
           # Reset image from Bintray
-          docker pull dell-networking-docker-opx-docker.bintray.io/opx/opx-build:latest
-          docker tag -f dell-networking-docker-opx-docker.bintray.io/opx/opx-build:latest docker-opx:latest
+          docker pull dell-networking-docker-opx-docker.bintray.io/opx/opx-build:fetch
+          docker tag -f dell-networking-docker-opx-docker.bintray.io/opx/opx-build:fetch docker-opx:latest
 
           export PATH=$PATH:$PWD/opx-build/scripts
           opx-build/scripts/opx_run /bin/bash -ci "cd /mnt && opx-build/scripts/opx_build {module}"
@@ -1767,8 +1766,8 @@
             docker rm $(docker ps -q -f status=exited) || true
             docker rmi docker-opx:latest || true
             docker images --quiet --filter=dangling=true | xargs --no-run-if-empty docker rmi -f
-            docker pull dell-networking-docker-opx-docker.bintray.io/opx/opx-build:latest
-            docker tag -f dell-networking-docker-opx-docker.bintray.io/opx/opx-build:latest docker-opx:latest
+            docker pull dell-networking-docker-opx-docker.bintray.io/opx/opx-build:fetch
+            docker tag -f dell-networking-docker-opx-docker.bintray.io/opx/opx-build:fetch docker-opx:latest
           }}
           trap cleanup EXIT
 
