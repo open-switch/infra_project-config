@@ -265,14 +265,17 @@
   description: OpenSwitch mirror of OpenVswitch
 
 #OPX Repositories
-- project: opx/opx-logging
-  description: Logging utilities
+- project: opx/opx-base-model
+  description: YANG models which define the object model for all software components
 
-- project: opx/opx-platform-config
-  description: Platform configuration files, scripts, shared libraries, etc
+- project: opx/opx-build
+  description: Build information for OpenSwitch OPX
 
 - project: opx/opx-common-utils
   description: Utilities library for thread queues, mutex support, and other items
+
+- project: opx/opx-core
+  description: OPX metapackage
 
 - project: opx/opx-cps
   description: CPS object library files and micro-service API
@@ -280,8 +283,14 @@
 - project: opx/opx-db-sql
   description: Wrapper to db-sql API used for VM target
 
-- project: opx/opx-base-model
-  description: YANG models which define the object model for all software components
+- project: opx/opx-docs
+  description: OPX documentation
+
+- project: opx/opx-logging
+  description: Logging utilities
+
+- project: opx/opx-manifest
+  description: Repo tool manifest
 
 - project: opx/opx-nas-acl
   description: Access control list component of network abstraction service
@@ -301,6 +310,9 @@
 - project: opx/opx-nas-l3
   description: Layer 3 component of the network abstraction service
 
+- project: opx/opx-nas-linux
+  description: Linux integration portion of the network abstraction service
+
 - project: opx/opx-nas-ndi
   description: Mediation layer between the NAS software and the SAI API
 
@@ -310,8 +322,14 @@
 - project: opx/opx-nas-qos
   description: Quality of service functionality for the network abstraction service
 
-- project: opx/opx-nas-linux
-  description: Linux integration portion of the network abstraction service
+- project: opx/opx-onie-installer
+  description: OPX ONIE installer creator
+
+- project: opx/opx-pas
+  description: Platform adaptation service daemon implementation
+
+- project: opx/opx-platform-config
+  description: Platform configuration files, scripts, shared libraries, etc
 
 - project: opx/opx-sai-api
   description: All public API declarations for the switch abstraction interface
@@ -325,14 +343,14 @@
 - project: opx/opx-sai-vm
   description: SAI implementation for the OpenSwitch simulator/virtual machine
 
-- project: opx/opx-pas
-  description: Platform adaptation service daemon implementation
-
 - project: opx/opx-sdi-api
   description: All declarations of the system device interface API
 
 - project: opx/opx-sdi-device-drivers
   description: Device drivers for the system device interface
+
+- project: opx/opx-sdi-framework
+  description: Implementation of the OPX SDI API for Dell-branded hardware
 
 - project: opx/opx-sdi-sys
   description: Implementation of SDI entity abstraction layer for real hardware
@@ -340,29 +358,11 @@
 - project: opx/opx-sdi-sys-vm
   description: Implementation of SDI entity abstraction layer for OpenSwitch simulator/virtual machine
 
-- project: opx/opx-sdi-framework
-  description: Implementation of the OPX SDI API for Dell-branded hardware
-
-- project: opx/opx-tmpctl
-  description: Implementation of the temperature control (TC) module
-
-- project: opx/opx-build
-  description: Build information for OpenSwitch OPX
-
-- project: opx/opx-manifest
-  description: Repo tool manifest
-
-- project: opx/opx-core
-  description: OPX metapackage
-
-- project: opx/opx-docs
-  description: OPX documentation
-
 - project: opx/opx-test
   description: OPX basic smoketest for PAS, NAS, and CPS
 
-- project: opx/opx-onie-installer
-  description: OPX ONIE installer creator
+- project: opx/opx-tmpctl
+  description: Implementation of the temperature control (TC) module
 
 # Mellanox Repositories
 - project: opx/opx-mlnx-sdi-sys
