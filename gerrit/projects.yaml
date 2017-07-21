@@ -367,6 +367,9 @@
 - project: opx/opx-tmpctl
   description: Implementation of the temperature control (TC) module
 
+- project: opx/opx-tools
+  description: Tools used for OPX package management
+
 # Mellanox Repositories
 - project: opx/opx-mlnx-sdi-sys
   description: SDI entity abstraction layer for Mellanox platforms

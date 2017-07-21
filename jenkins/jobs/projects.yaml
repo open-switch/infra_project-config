@@ -725,3 +725,11 @@
         - genericx86-64
       jobs:
         - 'opx-tmpctl-jobs'
+
+  - project:
+      name: opx/opx-tools
+      node: 'vsi'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'opx-tools-jobs'

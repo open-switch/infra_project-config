@@ -1040,3 +1040,10 @@ projects:
      - name: opx-module-build
        module: opx-tmpctl
        platform: genericx86-64
+
+  - name: opx/opx-tools
+    template:
+     - name: merge-check
+     - name: opx-module-build
+       module: opx-tools
+       platform: genericx86-64
