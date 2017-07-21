@@ -1778,6 +1778,13 @@
           export SSTATE_DIR=/mnt/jenkins/workspace/sstate-cache
           mkdir -p /mnt/jenkins/workspace/sstate-cache
 
+          # Full build of all packages in manifest
+          mkdir test_build_all
+          cd test_build_all
+          repo init -u https://git.openswitch.net/opx/opx-manifest
+          repo sync
+          rm -rf opx-build
+
           # Import and build module
           mkdir -p opx-build
           pushd opx-build
@@ -1790,13 +1797,8 @@
           ./opx_setup
           popd
 
-          # Full build of all packages in manifest
-          mkdir test_build_all
-          cd test_build_all
-          repo init -u https://git.openswitch.net/opx/opx-manifest
-          repo sync
-          rm -rf opx-build
-          git clone ../opx-build
+          docker images
+
           export PATH=$PATH:$PWD/opx-build/scripts
           opx-build/scripts/opx_run /bin/bash -ci "cd /mnt && opx-build/scripts/opx_build"
 
