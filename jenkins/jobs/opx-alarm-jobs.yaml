@@ -1,0 +1,39 @@
+- job-template:
+    name: 'opx-alarm-check-{platform}'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+
+    builders:
+        - revoke-sudo
+        - opx-module-build-branch:
+            module: 'opx-alarm'
+            platform: '{platform}'
+
+    publishers:
+        - post-ws-clean
+
+- job-template:
+    name: 'opx-alarm-gate-{platform}'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+
+    builders:
+        - revoke-sudo
+        - opx-module-build-branch:
+            module: 'opx-alarm'
+            platform: '{platform}'
+
+    publishers:
+        - post-ws-clean
+
+- job-group:
+    name: 'opx-alarm-jobs'
+    jobs:
+      - 'opx-alarm-check-{platform}'
+      - 'opx-alarm-gate-{platform}'

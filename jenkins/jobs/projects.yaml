@@ -487,6 +487,14 @@
         - 'ops-tunnel-jobs'
 
   - project:
+      name: opx/opx-alarm
+      node: 'vsi'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'opx-alarm-jobs'
+
+  - project:
       name: opx/opx-base-model
       node: 'vsi'
       platform:

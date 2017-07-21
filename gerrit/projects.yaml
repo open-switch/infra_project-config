@@ -265,6 +265,9 @@
   description: OpenSwitch mirror of OpenVswitch
 
 #OPX Repositories
+- project: opx/opx-alarm
+  description: Alarm service implementation
+
 - project: opx/opx-base-model
   description: YANG models which define the object model for all software components
 

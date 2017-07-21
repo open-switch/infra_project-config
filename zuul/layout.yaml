@@ -832,6 +832,13 @@ projects:
        module: ops-tunnel
        platform: genericx86-64
 
+  - name: opx/opx-alarm
+    template:
+     - name: merge-check
+     - name: opx-module-build
+       module: opx-alarm
+       platform: genericx86-64
+
   - name: opx/opx-base-model
     template:
      - name: merge-check
