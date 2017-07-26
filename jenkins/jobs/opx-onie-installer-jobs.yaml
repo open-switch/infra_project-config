@@ -1,0 +1,37 @@
+- job-template:
+    name: 'opx-onie-installer-check-{platform}'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+
+    builders:
+        - revoke-sudo
+        - opx-onie-installer-build-branch:
+            platform: '{platform}'
+
+    publishers:
+        - post-ws-clean
+
+- job-template:
+    name: 'opx-onie-installer-gate-{platform}'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+
+    builders:
+        - revoke-sudo
+        - opx-onie-installer-build-branch:
+            platform: '{platform}'
+
+    publishers:
+        - post-ws-clean
+
+- job-group:
+    name: 'opx-onie-installer-jobs'
+    jobs:
+      - 'opx-onie-installer-check-{platform}'
+      - 'opx-onie-installer-gate-{platform}'

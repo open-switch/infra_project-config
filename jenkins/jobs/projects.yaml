@@ -639,6 +639,14 @@
         - 'opx-nas-qos-jobs'
 
   - project:
+      name: opx/opx-onie-installer
+      node: 'vsi'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'opx-onie-installer-jobs'
+
+  - project:
       name: opx/opx-pas
       node: 'vsi'
       platform:

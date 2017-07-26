@@ -1802,6 +1802,32 @@
           export PATH=$PATH:$PWD/opx-build/scripts
           opx-build/scripts/opx_run /bin/bash -ci "cd /mnt && opx-build/scripts/opx_build"
 
+- builder:
+    name: opx-onie-installer-build-branch
+    builders:
+      - shell: |
+          #!/bin/bash -ex
+
+          # Start fresh
+          rm -rf .[^.]* *
+
+          # Setup the shared state local cache
+          export SSTATE_DIR=/mnt/jenkins/workspace/sstate-cache
+          mkdir -p /mnt/jenkins/workspace/sstate-cache
+
+          # Import and build module
+          mkdir -p opx-onie-installer
+          pushd opx-onie-installer
+          /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
+          git diff-tree --no-commit-id --name-only -r refs/heads/master > extension.txt
+          popd
+
+          # Clone build scripts
+          git clone git://git.openswitch.net/opx/opx-build
+
+          # Build installer from Bintray
+          ./opx-build/scripts/opx_rel_pkgasm.py -b opx-onie-installer/release_bp/OPX_dell_base.xml
+
 # =====================================================================
 
 - wrapper:
