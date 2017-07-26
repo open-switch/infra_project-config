@@ -880,12 +880,22 @@ projects:
        module: opx-db-sql
        platform: genericx86-64
 
+  - name: opx/opx-docs
+    template:
+     - name: merge-check
+     - name: noop-jobs
+
   - name: opx/opx-logging
     template:
      - name: merge-check
      - name: opx-module-build
        module: opx-logging
        platform: genericx86-64
+
+  - name: opx/opx-manifest
+    template:
+     - name: merge-check
+     - name: noop-jobs
 
   - name: opx/opx-nas-acl
     template:
@@ -956,6 +966,11 @@ projects:
      - name: opx-module-build
        module: opx-nas-qos
        platform: genericx86-64
+
+  - name: opx/opx-onie-installer
+    template:
+     - name: merge-check
+     - name: noop-jobs
 
   - name: opx/opx-pas
     template:
@@ -1033,6 +1048,11 @@ projects:
      - name: opx-module-build
        module: opx-sdi-sys-vm
        platform: genericx86-64
+
+  - name: opx/opx-test
+    template:
+     - name: merge-check
+     - name: noop-jobs
 
   - name: opx/opx-tmpctl
     template:
