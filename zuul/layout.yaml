@@ -897,6 +897,13 @@ projects:
      - name: merge-check
      - name: noop-jobs
 
+  - name: opx/opx-mlnx-sdi-sys
+    template:
+     - name: merge-check
+     - name: opx-module-build
+       module: opx-mlnx-sdi-sys
+       platform: genericx86-64
+
   - name: opx/opx-nas-acl
     template:
      - name: merge-check

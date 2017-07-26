@@ -1,0 +1,39 @@
+- job-template:
+    name: 'opx-mlnx-sdi-sys-check-{platform}'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+
+    builders:
+        - revoke-sudo
+        - opx-module-build-branch:
+            module: 'opx-mlnx-sdi-sys'
+            platform: '{platform}'
+
+    publishers:
+        - post-ws-clean
+
+- job-template:
+    name: 'opx-mlnx-sdi-sys-gate-{platform}'
+    node: vsi
+
+    wrappers:
+        - build-timeout:
+            timeout: 120
+
+    builders:
+        - revoke-sudo
+        - opx-module-build-branch:
+            module: 'opx-mlnx-sdi-sys'
+            platform: '{platform}'
+
+    publishers:
+        - post-ws-clean
+
+- job-group:
+    name: 'opx-mlnx-sdi-sys-jobs'
+    jobs:
+      - 'opx-mlnx-sdi-sys-check-{platform}'
+      - 'opx-mlnx-sdi-sys-gate-{platform}'

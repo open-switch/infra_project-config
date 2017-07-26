@@ -551,6 +551,14 @@
         - 'opx-logging-jobs'
 
   - project:
+      name: opx/opx-mlnx-sdi-sys
+      node: 'vsi'
+      platform:
+        - genericx86-64
+      jobs:
+        - 'opx-mlnx-sdi-sys-jobs'
+
+  - project:
       name: opx/opx-nas-acl
       node: 'vsi'
       platform:
