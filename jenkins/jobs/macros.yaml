@@ -1824,15 +1824,9 @@
 
           # Clone build scripts
           git clone git://git.openswitch.net/opx/opx-build
-          virtualenv --system-site-packages .env
-          source .env/bin/activate
-          pip install -r ./opx-build/requirements.txt
 
           # Build installer from Bintray
           ./opx-build/scripts/opx_rel_pkgasm.py -b opx-onie-installer/release_bp/OPX_dell_base.xml
-
-          deactivate
-          rm -rf .env
 
 # =====================================================================
 
