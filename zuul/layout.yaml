@@ -917,6 +917,11 @@ projects:
        module: opx-nas-acl
        platform: genericx86-64
 
+  - name: opx/opx-nas-apps
+    template:
+     - name: merge-check
+     - name: noop-jobs
+
   - name: opx/opx-nas-common
     template:
      - name: merge-check

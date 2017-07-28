@@ -298,6 +298,9 @@
 - project: opx/opx-nas-acl
   description: Access control list component of network abstraction service
 
+- project: opx/opx-nas-apps
+  description: Miscellaneous NAS applications
+
 - project: opx/opx-nas-common
   description: Common utilities used by network abstraction service modules
 
