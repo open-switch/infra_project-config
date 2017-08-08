@@ -1828,6 +1828,96 @@
           # Build installer from Bintray
           ./opx-build/scripts/opx_rel_pkgasm.py -b opx-onie-installer/release_bp/OPX_dell_base.xml
 
+- builder:
+    name: opx-vm-smoketest-branch
+    builders:
+      - shell: |
+          #!/bin/bash -ex
+          instance=""
+          workdir=$(pwd)
+          keyfile=/home/jenkins/aws
+
+          function clean {{
+            [[ -z "$instance" ]] && read instance < "$workdir/opx-smoketest/instance"
+            [[ $instance ]] && aws ec2 terminate-instances --instance-ids "$instance"
+            rm -rf "$workdir/opx-smoketest"
+          }}
+          trap clean EXIT
+
+          # Clone test script
+          git clone git://git.openswitch.net/opx/opx-test "$workdir/opx-smoketest"
+          pushd "$workdir/opx-smoketest"
+
+          # Create AWS instance
+          instance=$(aws ec2 run-instances --image-id ami-221ea342 --security-group-ids sg-79aad61d --count 1 --instance-type t2.micro --subnet-id subnet-eb094a9c --key-name aws --query 'Instances[0].InstanceId' | cut -d'"' -f2)
+          echo "$instance" > ./instance
+
+          aws ec2 create-tags --resources "$instance" --tags "Key=Name,Value=smoketest-opx-$(date "+%s")"
+
+          instance_ip=$(aws ec2 describe-instances --instance-ids "$instance" --query 'Reservations[0].Instances[0].PublicIpAddress' | cut -d'"' -f2)
+
+          # Fix Ansible 2.0 keyword deprecation
+          cat << EOF > inventory.yaml
+          [devices]
+          baseVM ansible_host=$instance_ip
+
+          [devices:vars]
+          ansible_user=admin
+          ansible_ssh_private_key_file=$keyfile
+          EOF
+
+          cat << EOF > ansible.cfg
+          [defaults]
+          deprecation_warnings = False
+          force_handlers = True
+          forks = 50
+          gather_facts = False
+          host_key_checking = False
+          hostfile = /etc/ansible/hosts
+          inventory = inventory.yaml
+          jinja2_extensions = jinja2.ext.do
+          log_path = ../smoketest_base.log
+          pipelining = True
+          timeout = 60
+
+          [ssh_connection]
+          control_path = %(directory)s/%%h
+          EOF
+
+          aws ec2 wait instance-status-ok --instance-ids "$instance"
+
+          # Install packages
+          ssh_aws="ssh -o StrictHostKeyChecking=no -i $keyfile admin@$instance_ip"
+          if test -n "$(find .. -maxdepth 1 -name '*.deb' -print -quit)"; then
+            $ssh_aws 'echo "deb http://security.debian.org/ jessie/updates main" | sudo tee -a /etc/apt/sources.list'
+            $ssh_aws 'sudo apt-get update && sudo apt-get install -y dpkg-dev'
+            $ssh_aws 'mkdir mydebs'
+            scp -o StrictHostKeychecking=no -i "$keyfile" ../*.deb "admin@$instance_ip:mydebs/"
+            $ssh_aws 'cd mydebs && dpkg-scanpackages . /dev/null | gzip -9c > Packages.gz'
+            $ssh_aws 'echo "deb [trusted=yes] file:/home/admin/mydebs ./" | sudo tee -a /etc/apt/sources.list'
+          fi
+
+          $ssh_aws 'echo "deb [trusted=yes] https://dl.bintray.com/open-switch/opx-apt jessie main" | sudo tee -a /etc/apt/sources.list'
+          $ssh_aws 'echo "deb [trusted=yes] http://dell-networking.bintray.com/opx-apt jessie main" | sudo tee -a /etc/apt/sources.list'
+          $ssh_aws 'sudo apt-get update'
+          $ssh_aws 'DEBIAN_FRONTEND=noninteractive sudo apt-get install -y opx-dell-vm'
+
+          # Reboot to properly launch services
+          aws ec2 reboot-instances --instance-ids "$instance"
+          aws ec2 wait instance-status-ok --instance-ids "$instance"
+
+          echo "Waiting for key to be ready...."
+          waitaws () {{
+            sleep 10
+            ansible baseVM -i inventory.yaml -m ping
+          }}
+          waitaws || waitaws || waitaws
+
+          # Run Smoketest
+          ansible-playbook opx_smoketest.yaml --extra-vars "dut=baseVM" -u admin
+
+          popd
+
 # =====================================================================
 
 - wrapper:
