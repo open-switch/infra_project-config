@@ -1837,12 +1837,12 @@
           workdir=$(pwd)
           keyfile=/home/jenkins/aws
 
-          function clean {{
+          cleanup {
             [[ -z "$instance" ]] && read instance < "$workdir/opx-smoketest/instance"
             [[ $instance ]] && aws ec2 terminate-instances --instance-ids "$instance"
             rm -rf "$workdir/opx-smoketest"
-          }}
-          trap clean EXIT
+          }
+          trap cleanup EXIT
 
           # Clone test script
           git clone git://git.openswitch.net/opx/opx-test "$workdir/opx-smoketest"
@@ -1907,10 +1907,10 @@
           aws ec2 wait instance-status-ok --instance-ids "$instance"
 
           echo "Waiting for key to be ready...."
-          waitaws () {{
+          waitaws () {
             sleep 10
             ansible baseVM -i inventory.yaml -m ping
-          }}
+          }
           waitaws || waitaws || waitaws
 
           # Run Smoketest
