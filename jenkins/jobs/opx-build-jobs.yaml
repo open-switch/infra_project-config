@@ -10,6 +10,7 @@
         - revoke-sudo
         - opx-build-branch:
             platform: '{platform}'
+        - opx-vm-smoketest-branch
 
     publishers:
         - post-ws-clean
@@ -26,6 +27,7 @@
         - revoke-sudo
         - opx-build-branch:
             platform: '{platform}'
+        - opx-vm-smoketest-branch
 
     publishers:
         - post-ws-clean
