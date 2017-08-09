@@ -1837,7 +1837,7 @@
           workdir=$(pwd)
           keyfile=/home/jenkins/aws
 
-          cleanup {
+          cleanup () {
             [[ -z "$instance" ]] && read instance < "$workdir/opx-smoketest/instance"
             [[ $instance ]] && aws ec2 terminate-instances --instance-ids "$instance"
             rm -rf "$workdir/opx-smoketest"
