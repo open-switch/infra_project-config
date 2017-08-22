@@ -303,6 +303,12 @@ project-templates:
     independent-gate:
       - 'opx-onie-installer-gate-{platform}'
 
+  - name: opx-test-only
+    check:
+      - 'opx-test-check-{platform}'
+    independent-gate:
+      - 'opx-test-gate-{platform}'
+
 # Jobs definitions are not required, but help us filter unrequired check jobs
 # We still run the jobs during gate
 jobs:
@@ -1071,7 +1077,8 @@ projects:
   - name: opx/opx-test
     template:
      - name: merge-check
-     - name: noop-jobs
+     - name: opx-test-only
+       platform: vm
 
   - name: opx/opx-tmpctl
     template:
