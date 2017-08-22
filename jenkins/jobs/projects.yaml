@@ -735,6 +735,14 @@
         - 'opx-sdi-sys-vm-jobs'
 
   - project:
+      name: opx/opx-test
+      node: 'vsi'
+      platform:
+        - vm
+      jobs:
+        - 'opx-test-jobs'
+
+  - project:
       name: opx/opx-tmpctl
       node: 'vsi'
       platform:
