@@ -1897,8 +1897,6 @@
             $ssh_aws 'echo "deb [trusted=yes] file:/home/admin/mydebs ./" | sudo tee -a /etc/apt/sources.list'
           fi
 
-          $ssh_aws 'sudo add-apt-repository "deb http://dell-networking.bintray.com/opx-apt jessie main"'
-          $ssh_aws 'sudo add-apt-repository "deb http://dl.bintray.com/open-switch/opx-apt jessie main"'
           $ssh_aws 'echo "deb http://dl.bintray.com/open-switch/opx-apt jessie main" | sudo tee -a /etc/apt/sources.list'
           $ssh_aws 'echo "deb http://dell-networking.bintray.com/opx-apt jessie main" | sudo tee -a /etc/apt/sources.list'
           $ssh_aws 'sudo apt-get update'
@@ -1987,8 +1985,6 @@
           # Install packages
           ssh_aws="ssh -o StrictHostKeyChecking=no -i $keyfile admin@$instance_ip"
 
-          $ssh_aws 'sudo add-apt-repository "deb http://dell-networking.bintray.com/opx-apt jessie main"'
-          $ssh_aws 'sudo add-apt-repository "deb http://dl.bintray.com/open-switch/opx-apt jessie main"'
           $ssh_aws 'echo "deb http://dl.bintray.com/open-switch/opx-apt jessie main" | sudo tee -a /etc/apt/sources.list'
           $ssh_aws 'echo "deb http://dell-networking.bintray.com/opx-apt jessie main" | sudo tee -a /etc/apt/sources.list'
           $ssh_aws 'sudo apt-get update'
