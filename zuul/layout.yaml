@@ -1011,13 +1011,6 @@ projects:
        module: opx-platform-config
        platform: genericx86-64
 
-  - name: opx/opx-sai-api
-    template:
-     - name: merge-check
-     - name: opx-module-build
-       module: opx-sai-api
-       platform: genericx86-64
-
   - name: opx/opx-sai-common
     template:
      - name: merge-check

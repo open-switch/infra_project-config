@@ -663,14 +663,6 @@
         - 'opx-platform-config-jobs'
 
   - project:
-      name: opx/opx-sai-api
-      node: 'vsi'
-      platform:
-        - genericx86-64
-      jobs:
-        - 'opx-sai-api-jobs'
-
-  - project:
       name: opx/opx-sai-common
       node: 'vsi'
       platform:
