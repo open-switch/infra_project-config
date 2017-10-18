@@ -1736,7 +1736,6 @@
           # Start fresh
           rm -rf .[^.]* *
           repo init -u git://git.openswitch.net/opx/opx-manifest && repo sync
-          repo forall -c 'git remote add origin blank'
 
           # Import and build module
           mkdir -p {module}
