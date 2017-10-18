@@ -1741,7 +1741,7 @@
           mkdir -p {module}
           pushd {module}
           /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
-          git diff-tree --no-commit-id --name-only -r refs/heads/master > extension.txt
+          #git diff-tree --no-commit-id --name-only -r refs/heads/master > extension.txt
           popd
 
           # Reset image from Bintray
@@ -1785,7 +1785,7 @@
           mkdir -p opx-build
           pushd opx-build
           /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
-          git diff-tree --no-commit-id --name-only -r refs/heads/master > extension.txt
+          #git diff-tree --no-commit-id --name-only -r refs/heads/master > extension.txt
           popd
 
           # Build image
@@ -1815,7 +1815,7 @@
           mkdir -p opx-onie-installer
           pushd opx-onie-installer
           /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
-          git diff-tree --no-commit-id --name-only -r refs/heads/master > extension.txt
+          #git diff-tree --no-commit-id --name-only -r refs/heads/master > extension.txt
           popd
 
           # Clone build scripts
@@ -1942,7 +1942,7 @@
           mkdir -p "$workdir/opx-smoketest"
           pushd "$workdir/opx-smoketest"
           /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
-          git diff-tree --no-commit-id --name-only -r refs/heads/master > extension.txt
+          #git diff-tree --no-commit-id --name-only -r refs/heads/master > extension.txt
 
           # Create AWS instance
           instance=$(aws ec2 run-instances --image-id ami-221ea342 --security-group-ids sg-79aad61d --count 1 --instance-type t2.micro --subnet-id subnet-eb094a9c --key-name aws --query 'Instances[0].InstanceId' | cut -d'"' -f2)
