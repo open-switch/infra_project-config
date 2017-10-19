@@ -1762,8 +1762,8 @@
             docker rm $(docker ps -q -f status=exited) || true
             docker rmi docker-opx:latest || true
             docker images --quiet --filter=dangling=true | xargs --no-run-if-empty docker rmi -f
-            docker pull dell-networking-docker-opx-docker.bintray.io/opx/opx-build:fetch
-            docker tag -f dell-networking-docker-opx-docker.bintray.io/opx/opx-build:fetch docker-opx:latest
+            docker pull dell-networking-docker-opx-docker.bintray.io/opx/opx-build:latest
+            docker tag -f dell-networking-docker-opx-docker.bintray.io/opx/opx-build:latest docker-opx:latest
           }}
           trap cleanup EXIT
 
@@ -1779,7 +1779,6 @@
           cd test_build_all
           repo init -u https://git.openswitch.net/opx/opx-manifest
           repo sync
-          rm -rf opx-build
 
           # Import and build module
           mkdir -p opx-build
