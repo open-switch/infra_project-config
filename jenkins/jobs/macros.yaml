@@ -1775,8 +1775,6 @@
           mkdir -p /mnt/jenkins/workspace/sstate-cache
 
           # Full build of all packages in manifest
-          mkdir test_build_all
-          cd test_build_all
           repo init -u https://git.openswitch.net/opx/opx-manifest
           repo sync
 
