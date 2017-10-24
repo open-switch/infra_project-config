@@ -1829,7 +1829,7 @@
           opx-build/scripts/idx-pkgs
 
           # Build installer from local packages
-          ./opx-build/scripts/opx_rel_pkgasm.py -b opx-onie-installer/release_bp/OPX_dell_base.xml
+          opx-build/scripts/opx_run /bin/bash -ci "cd /mnt && opx-build/scripts/opx_rel_pkgasm.py -b opx-onie-installer/release_bp/OPX_dell_base.xml"
 
 - builder:
     name: opx-vm-smoketest-branch
