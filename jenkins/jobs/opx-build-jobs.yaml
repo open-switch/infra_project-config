@@ -30,6 +30,7 @@
         - opx-vm-smoketest-branch
 
     publishers:
+        - publish-docker-image
         - post-ws-clean
 
 - job-group:

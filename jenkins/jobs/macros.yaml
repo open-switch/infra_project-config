@@ -1760,33 +1760,24 @@
           cleanup () {{
             echo "Cleaning up..."
             docker rm $(docker ps -q -f status=exited) || true
-            docker rmi docker-opx:latest || true
             docker images --quiet --filter=dangling=true | xargs --no-run-if-empty docker rmi -f
-            docker pull dell-networking-docker-opx-docker.bintray.io/opx/opx-build:latest
-            docker tag -f dell-networking-docker-opx-docker.bintray.io/opx/opx-build:latest docker-opx:latest
           }}
           trap cleanup EXIT
 
           # Start fresh
           rm -rf .[^.]* *
 
-          # Setup the shared state local cache
-          export SSTATE_DIR=/mnt/jenkins/workspace/sstate-cache
-          mkdir -p /mnt/jenkins/workspace/sstate-cache
-
           # Full build of all packages in manifest
           repo init -u https://git.openswitch.net/opx/opx-manifest
           repo sync
 
           # Import and build module
-          mkdir -p opx-build
           pushd opx-build
           /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
-          #git diff-tree --no-commit-id --name-only -r refs/heads/master > extension.txt
           popd
 
           # Build image
-          pushd opx-build/scripts
+          pushd opx-build/docker
           ./opx_setup
           popd
 
@@ -2028,6 +2019,15 @@
           fail: true
 
 # ======================================================================
+
+- publisher:
+    name: publish-docker-image
+    publishers:
+      - postbuildscript:
+          builders:
+            - shell: |
+                cat ~/.dockerpass | docker login -u opxbuild --password-stdin
+                docker push opxhub/build
 
 - publisher:
     name: tarball
