@@ -1780,11 +1780,10 @@
           pushd opx-build/docker
           ./opx_setup
           popd
-
           docker images
 
-          export PATH=$PATH:$PWD/opx-build/scripts
-          opx-build/scripts/opx_run /bin/bash -ci "cd /mnt && opx-build/scripts/opx_build"
+          # Build all repositories
+          opx-build/scripts/opx_run opx_build
 
 - builder:
     name: opx-onie-installer-build-branch
