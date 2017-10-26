@@ -1735,21 +1735,22 @@
 
           # Start fresh
           rm -rf .[^.]* *
-          repo init -u git://git.openswitch.net/opx/opx-manifest && repo sync
 
-          # Import and build module
+          # Clone all repositories
+          repo init -u https://git.openswitch.net/opx/opx-manifest
+          repo sync
+
+          # Clone changes
           mkdir -p {module}
           pushd {module}
           /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
-          #git diff-tree --no-commit-id --name-only -r refs/heads/master > extension.txt
           popd
 
-          # Reset image from Bintray
-          docker pull dell-networking-docker-opx-docker.bintray.io/opx/opx-build:latest
-          docker tag -f dell-networking-docker-opx-docker.bintray.io/opx/opx-build:latest docker-opx:latest
+          # Pull build image
+          docker pull opxhub/build:latest
 
-          export PATH=$PATH:$PWD/opx-build/scripts
-          opx-build/scripts/opx_run /bin/bash -ci "cd /mnt && opx-build/scripts/opx_build all"
+          # Build all repositories
+          opx-build/scripts/opx_run opx_build
 
 - builder:
     name: opx-build-branch
@@ -1767,16 +1768,17 @@
           # Start fresh
           rm -rf .[^.]* *
 
-          # Full build of all packages in manifest
+          # Clone all repositories
           repo init -u https://git.openswitch.net/opx/opx-manifest
           repo sync
 
-          # Import and build module
+          # Clone changes
+          mkdir -p {module}
           pushd opx-build
           /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
           popd
 
-          # Build image
+          # Create build image
           pushd opx-build/docker
           ./opx_setup
           popd
@@ -1794,32 +1796,27 @@
           # Start fresh
           rm -rf .[^.]* *
 
-          # Setup the shared state local cache
-          export SSTATE_DIR=/mnt/jenkins/workspace/sstate-cache
-          mkdir -p /mnt/jenkins/workspace/sstate-cache
-
+          # Clone all repositories
           repo init -u https://git.openswitch.net/opx/opx-manifest
           repo sync
 
-          # Import and build module
+          # Clone changes
           mkdir -p opx-onie-installer
           pushd opx-onie-installer
           /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
           popd
 
-          # Reset image from Bintray
-          docker pull dell-networking-docker-opx-docker.bintray.io/opx/opx-build:latest
-          docker tag -f dell-networking-docker-opx-docker.bintray.io/opx/opx-build:latest docker-opx:latest
+          # Pull build image
+          docker pull opxhub/build:latest
 
-          # Build all packages
-          export PATH=$PATH:$PWD/opx-build/scripts
-          opx-build/scripts/opx_run /bin/bash -ci "cd /mnt && opx-build/scripts/opx_build"
+          # Build all repositories
+          opx-build/scripts/opx_run opx_build
 
           # Index built packages
           opx-build/scripts/idx-pkgs
 
           # Build installer from local packages
-          opx-build/scripts/opx_run /bin/bash -ci "cd /mnt && opx-build/scripts/opx_rel_pkgasm.py -b opx-onie-installer/release_bp/OPX_dell_base.xml"
+          opx-build/scripts/opx_run opx_rel_pkgasm.py -b opx-onie-installer/release_bp/OPX_dell_base.xml
 
 - builder:
     name: opx-vm-smoketest-branch
