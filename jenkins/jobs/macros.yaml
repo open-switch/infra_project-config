@@ -1841,9 +1841,8 @@
           # Create AWS instance
           instance=$(aws ec2 run-instances --image-id ami-221ea342 --security-group-ids sg-79aad61d --count 1 --instance-type t2.micro --subnet-id subnet-eb094a9c --key-name aws --query 'Instances[0].InstanceId' | cut -d'"' -f2)
           echo "$instance" > ./instance
-
+          aws ec2 wait instance-status-ok --instance-ids "$instance"
           aws ec2 create-tags --resources "$instance" --tags "Key=Name,Value=smoketest-opx-$(date "+%s")"
-
           instance_ip=$(aws ec2 describe-instances --instance-ids "$instance" --query 'Reservations[0].Instances[0].PublicIpAddress' | cut -d'"' -f2)
 
           # Fix Ansible 2.0 keyword deprecation
@@ -1873,8 +1872,6 @@
           [ssh_connection]
           control_path = %(directory)s/%%h
           EOF
-
-          aws ec2 wait instance-status-ok --instance-ids "$instance"
 
           # Install packages
           ssh_aws="ssh -o StrictHostKeyChecking=no -i $keyfile admin@$instance_ip"
@@ -1941,9 +1938,8 @@
           # Create AWS instance
           instance=$(aws ec2 run-instances --image-id ami-221ea342 --security-group-ids sg-79aad61d --count 1 --instance-type t2.micro --subnet-id subnet-eb094a9c --key-name aws --query 'Instances[0].InstanceId' | cut -d'"' -f2)
           echo "$instance" > ./instance
-
+          aws ec2 wait instance-status-ok --instance-ids "$instance"
           aws ec2 create-tags --resources "$instance" --tags "Key=Name,Value=smoketest-opx-$(date "+%s")"
-
           instance_ip=$(aws ec2 describe-instances --instance-ids "$instance" --query 'Reservations[0].Instances[0].PublicIpAddress' | cut -d'"' -f2)
 
           # Fix Ansible 2.0 keyword deprecation
@@ -1973,8 +1969,6 @@
           [ssh_connection]
           control_path = %(directory)s/%%h
           EOF
-
-          aws ec2 wait instance-status-ok --instance-ids "$instance"
 
           # Install packages
           ssh_aws="ssh -o StrictHostKeyChecking=no -i $keyfile admin@$instance_ip"
