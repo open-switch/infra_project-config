@@ -2026,7 +2026,7 @@
       - postbuildscript:
           builders:
             - shell: |
-                cat ~/.dockerpass | docker login -u opxbuild --password-stdin
+                docker login -u opxbuild -p "$(cat ~/.dockerpass)" -e "tyler.heucke@dell.com"
                 docker push opxhub/build
 
 - publisher:
