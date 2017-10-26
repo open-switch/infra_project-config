@@ -1773,7 +1773,7 @@
           repo sync
 
           # Clone changes
-          mkdir -p {module}
+          mkdir -p opx-build
           pushd opx-build
           /usr/local/jenkins/slave_scripts/gerrit-git-prep.sh https://review.openswitch.net git://git.openswitch.net
           popd
