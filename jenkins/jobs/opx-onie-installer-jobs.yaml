@@ -8,8 +8,10 @@
 
     builders:
         - revoke-sudo
-        - opx-onie-installer-build-branch:
-            platform: '{platform}'
+        - opx-setup:
+            module: 'opx-onie-installer'
+        - opx-pull-docker-image
+        - opx-assemble-onie-installer
 
     publishers:
         - post-ws-clean
@@ -24,8 +26,12 @@
 
     builders:
         - revoke-sudo
-        - opx-onie-installer-build-branch:
-            platform: '{platform}'
+        - opx-setup:
+            module: 'opx-onie-installer'
+        - opx-pull-docker-image
+        - opx-build-module:
+            module: 'all'
+        - opx-local-assemble-onie-installer
 
     publishers:
         - post-ws-clean

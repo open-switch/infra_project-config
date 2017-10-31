@@ -8,10 +8,13 @@
 
     builders:
         - revoke-sudo
-        - opx-module-build-branch:
+        - opx-setup:
             module: 'opx-sdi-sys-vm'
-            platform: '{platform}'
-        - opx-vm-smoketest-branch
+        - opx-pull-docker-image
+        - opx-build-module:
+            module: 'all'
+        - opx-test-smoke-aws:
+            module: 'opx-sdi-sys-vm'
 
     publishers:
         - post-ws-clean
@@ -26,10 +29,13 @@
 
     builders:
         - revoke-sudo
-        - opx-module-build-branch:
+        - opx-setup:
             module: 'opx-sdi-sys-vm'
-            platform: '{platform}'
-        - opx-vm-smoketest-branch
+        - opx-pull-docker-image
+        - opx-build-module:
+            module: 'all'
+        - opx-test-smoke-aws:
+            module: 'opx-sdi-sys-vm'
 
     publishers:
         - post-ws-clean

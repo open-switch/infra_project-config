@@ -8,9 +8,13 @@
 
     builders:
         - revoke-sudo
-        - opx-build-branch:
-            platform: '{platform}'
-        - opx-vm-smoketest-branch
+        - opx-setup:
+            module: 'opx-build'
+        - opx-build-docker-image
+        - opx-build-module:
+            module: 'all'
+        - opx-test-smoke-aws:
+            module: 'opx-build'
 
     publishers:
         - post-ws-clean
@@ -25,9 +29,13 @@
 
     builders:
         - revoke-sudo
-        - opx-build-branch:
-            platform: '{platform}'
-        - opx-vm-smoketest-branch
+        - opx-setup:
+            module: 'opx-build'
+        - opx-build-docker-image
+        - opx-build-module:
+            module: 'all'
+        - opx-test-smoke-aws:
+            module: 'opx-build'
 
     publishers:
         - publish-docker-image

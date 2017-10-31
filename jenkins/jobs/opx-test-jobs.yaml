@@ -8,8 +8,8 @@
 
     builders:
         - revoke-sudo
-        - opx-test:
-            platform: '{platform}'
+        - opx-test-smoke-aws:
+            module: 'opx-test'
 
     publishers:
         - post-ws-clean
@@ -24,8 +24,8 @@
 
     builders:
         - revoke-sudo
-        - opx-test:
-            platform: '{platform}'
+        - opx-test-smoke-aws:
+            module: 'opx-test'
 
     publishers:
         - post-ws-clean

@@ -8,10 +8,13 @@
 
     builders:
         - revoke-sudo
-        - opx-module-build-branch:
+        - opx-setup:
             module: 'opx-nas-linux'
-            platform: '{platform}'
-        - opx-vm-smoketest-branch
+        - opx-pull-docker-image
+        - opx-build-module:
+            module: 'all'
+        - opx-test-smoke-aws:
+            module: 'opx-nas-linux'
 
     publishers:
         - post-ws-clean
@@ -26,10 +29,13 @@
 
     builders:
         - revoke-sudo
-        - opx-module-build-branch:
+        - opx-setup:
             module: 'opx-nas-linux'
-            platform: '{platform}'
-        - opx-vm-smoketest-branch
+        - opx-pull-docker-image
+        - opx-build-module:
+            module: 'all'
+        - opx-test-smoke-aws:
+            module: 'opx-nas-linux'
 
     publishers:
         - post-ws-clean

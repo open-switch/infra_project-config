@@ -291,24 +291,6 @@ project-templates:
     gate:
       - '{module}-gate-{platform}'
 
-  - name: opx-build
-    check:
-      - 'opx-build-check-{platform}'
-    independent-gate:
-      - 'opx-build-gate-{platform}'
-
-  - name: opx-onie-installer-build
-    check:
-      - 'opx-onie-installer-check-{platform}'
-    independent-gate:
-      - 'opx-onie-installer-gate-{platform}'
-
-  - name: opx-test-only
-    check:
-      - 'opx-test-check-{platform}'
-    independent-gate:
-      - 'opx-test-gate-{platform}'
-
 # Jobs definitions are not required, but help us filter unrequired check jobs
 # We still run the jobs during gate
 jobs:
@@ -861,7 +843,8 @@ projects:
   - name: opx/opx-build
     template:
      - name: merge-check
-     - name: opx-build
+     - name: opx-module-build
+       module: opx-build
        platform: genericx86-64
 
   - name: opx/opx-common-utils
@@ -994,7 +977,8 @@ projects:
   - name: opx/opx-onie-installer
     template:
      - name: merge-check
-     - name: opx-onie-installer-build
+     - name: opx-module-build
+       module: opx-onie-installer
        platform: genericx86-64
 
   - name: opx/opx-pas
@@ -1070,8 +1054,9 @@ projects:
   - name: opx/opx-test
     template:
      - name: merge-check
-     - name: opx-test-only
-       platform: vm
+     - name: opx-module-build
+       module: opx-test
+       platform: genericx86-64
 
   - name: opx/opx-tmpctl
     template:
