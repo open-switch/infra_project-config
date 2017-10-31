@@ -2016,7 +2016,9 @@
       - postbuildscript:
           builders:
             - shell: |
+                set +x
                 docker login -u opxbuild -p "$(cat ~/.dockerpass)" -e "tyler.heucke@dell.com"
+                set -x
                 docker push opxhub/build
 
 - publisher:
