@@ -338,6 +338,12 @@ jobs:
       - ^yocto/openswitch/meta-distro-openswitch/conf/.*$
       - ^yocto/poky/.*$
 
+  - name: ^opx-.*(check|gate).*$
+    skip-if:
+      - project: ^opx/.*$
+        all-files-match-any:
+          - ^.*\.md$
+
 projects:
   - name: infra/website
     template:
