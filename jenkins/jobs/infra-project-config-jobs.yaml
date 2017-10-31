@@ -12,6 +12,7 @@
         - revoke-sudo
         - gerrit-git-prep
         - yaml-verifyall
+        - test-jenkins-jobs
 
 - job:
     name: 'infra-project-config-gate'
@@ -27,3 +28,4 @@
         - revoke-sudo
         - gerrit-git-prep
         - yaml-verifyall
+        - test-jenkins-jobs

@@ -139,6 +139,13 @@
           done
 
 - builder:
+    name: test-jenkins-jobs
+    builders:
+      - shell: |
+          #!/bin/bash -xe
+          jenkins-jobs --ignore-cache test -r jenkins/jobs/
+
+- builder:
     name: ops-build
     builders:
       - shell: |
