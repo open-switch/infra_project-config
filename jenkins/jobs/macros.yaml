@@ -2237,12 +2237,6 @@
                 - archive:
                     artifacts: 'opsTest-results/**'
                     allow-empty: 'true'
-                - archive:
-                    artifacts: 'openswitch-test/**'
-                    allow-empty: 'true'
-                - archive:
-                    artifacts: 'modFramework-results/**'
-                    allow-empty: 'true'
 
 - publisher:
     name: conditional-gather-test-results
