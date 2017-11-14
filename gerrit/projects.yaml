@@ -377,3 +377,15 @@
 # SAI 1.0 Implementation
 - project: opx/opx-nas-ndi-sai-1-x
   description: The NDI implementation that supports SAI 1.x
+
+- project: opx/ansible-role-opx-acl
+  description: Example Ansible role to provision OPX ACL tables. 
+
+- project: opx/ansible-role-opx-mac
+  description: Example Ansible role to provision OPX MAC address table. 
+
+- project: opx/ansible-role-opx-qos
+  description: Example Ansible role to provision OPX quality of service tables. 
+
+- project: opx/ansible-role-opx-system
+  description: Example Ansible role to provision OPX via linux utilities.

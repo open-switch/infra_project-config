@@ -1077,3 +1077,23 @@ projects:
      - name: opx-module-build
        module: opx-tools
        platform: genericx86-64
+
+  - name: opx/ansible-role-opx-acl
+    template:
+     - name: merge-check
+     - name: noop-jobs
+
+  - name: opx/ansible-role-opx-mac
+    template:
+     - name: merge-check
+     - name: noop-jobs
+
+  - name: opx/ansible-role-opx-qos
+    template:
+     - name: merge-check
+     - name: noop-jobs
+
+  - name: opx/ansible-role-opx-system
+    template:
+     - name: merge-check
+     - name: noop-jobs
