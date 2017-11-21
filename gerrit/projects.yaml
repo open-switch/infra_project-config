@@ -389,3 +389,6 @@
 
 - project: opx/ansible-role-opx-system
   description: Example Ansible role to provision OPX via linux utilities.
+
+- project: opx/ansible-opx-examples
+  description: Example Ansible playbook to use OPX Ansible modules and roles.
