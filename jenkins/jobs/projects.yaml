@@ -730,7 +730,7 @@
       name: opx/opx-test
       node: 'vsi'
       platform:
-        - vm
+        - genericx86-64
       jobs:
         - 'opx-test-jobs'
 
