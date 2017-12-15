@@ -1479,6 +1479,11 @@
       - shell: "/usr/local/jenkins/slave_scripts/run-tox.sh {envlist}"
 
 - builder:
+    name: tox-multiple
+    builders:
+      - shell: "tox -e {envlist}"
+
+- builder:
     name: assert-no-extra-files
     builders:
       - shell: |
