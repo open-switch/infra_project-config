@@ -1,6 +1,6 @@
 - job:
     name: 'infra-project-config-check'
-    node: openswitch
+    node: vsi
 
     wrappers:
         - build-timeout:
@@ -16,7 +16,7 @@
 
 - job:
     name: 'infra-project-config-gate'
-    node: openswitch
+    node: vsi
 
     wrappers:
         - build-timeout:

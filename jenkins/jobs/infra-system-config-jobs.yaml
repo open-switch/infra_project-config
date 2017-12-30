@@ -1,6 +1,6 @@
 - job:
     name: 'infra-system-config-check'
-    node: openswitch
+    node: vsi
 
     wrappers:
         - build-timeout:
