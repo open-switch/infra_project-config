@@ -11,7 +11,6 @@
     builders:
         - revoke-sudo
         - gerrit-git-prep
-        - yaml-verifyall
         - test-jenkins-jobs
 
 - job:
@@ -27,5 +26,4 @@
     builders:
         - revoke-sudo
         - gerrit-git-prep
-        - yaml-verifyall
         - test-jenkins-jobs
