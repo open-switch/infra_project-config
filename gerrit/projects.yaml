@@ -1,5 +1,8 @@
 ---
 # Infrastructure projects
+- project: infra/concourse
+  description: Concourse CI Configuration
+
 - project: infra/jeepyb
   description: Gerrit Project Builder Tools
   upstream: https://git.openstack.org/openstack-infra/jeepyb
@@ -379,13 +382,13 @@
   description: The NDI implementation that supports SAI 1.x
 
 - project: opx/ansible-role-opx-acl
-  description: Example Ansible role to provision OPX ACL tables. 
+  description: Example Ansible role to provision OPX ACL tables.
 
 - project: opx/ansible-role-opx-mac
-  description: Example Ansible role to provision OPX MAC address table. 
+  description: Example Ansible role to provision OPX MAC address table.
 
 - project: opx/ansible-role-opx-qos
-  description: Example Ansible role to provision OPX quality of service tables. 
+  description: Example Ansible role to provision OPX quality of service tables.
 
 - project: opx/ansible-role-opx-system
   description: Example Ansible role to provision OPX via linux utilities.
