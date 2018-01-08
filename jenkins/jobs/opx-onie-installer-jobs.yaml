@@ -31,7 +31,7 @@
         - opx-pull-docker-image
         - opx-build-module:
             module: 'all'
-        - opx-local-assemble-onie-installer
+        - opx-assemble-onie-installer
 
     publishers:
         - post-ws-clean
