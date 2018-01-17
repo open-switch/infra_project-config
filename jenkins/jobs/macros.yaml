@@ -1876,13 +1876,8 @@
           # Reboot to properly launch services
           aws ec2 reboot-instances --instance-ids "$instance"
           aws ec2 wait instance-status-ok --instance-ids "$instance"
-
-          echo "Waiting for key to be ready...."
-          waitaws () {{
-            sleep 10
-            ansible baseVM -i inventory.yaml -m ping
-          }}
-          waitaws || waitaws || waitaws
+          echo "Waiting for instance to be ready..."
+          sleep 210
 
           # Run Smoketest
           ansible-playbook opx_smoketest.yaml --extra-vars "dut=baseVM" -u admin
