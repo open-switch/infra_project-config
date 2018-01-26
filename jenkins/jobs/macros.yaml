@@ -1763,8 +1763,8 @@
     builders:
       - shell: |
           #!/bin/bash -ex
-          pushd opx-build/docker
-          ./opx_setup
+          pushd opx-build
+          ./docker_build.sh
           popd
           docker images
 
