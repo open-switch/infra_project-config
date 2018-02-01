@@ -1,8 +1,5 @@
 ---
 # Infrastructure projects
-- project: infra/deb
-  description: deb.openswitch.net Source
-
 - project: infra/k8s
   description: OpenSwitch Cluster
 
