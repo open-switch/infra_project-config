@@ -10,6 +10,7 @@ New to the team? Start with [onboarding](onboarding.md).
   - [Moving Docker Installation](configuration/moving-docker-installation.md)
   - [Renewing Puppet Certs](configuration/renewing-puppet-certs.md)
   - [Zuul Troubleshooting](configuration/zuul-troubleshooting.md)
+- [Continuous Integration](ci.md)
 
 ## Zuul/Gerrit CI Overview
 
