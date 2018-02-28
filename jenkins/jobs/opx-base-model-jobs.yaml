@@ -12,7 +12,7 @@
             module: 'opx-base-model'
         - opx-pull-docker-image
         - opx-build-module:
-            module: 'all'
+            module: 'opx-base-model'
         - opx-test-smoke-aws:
             module: 'opx-base-model'
 

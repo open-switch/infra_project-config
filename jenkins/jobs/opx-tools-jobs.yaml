@@ -12,7 +12,7 @@
             module: 'opx-tools'
         - opx-pull-docker-image
         - opx-build-module:
-            module: 'all'
+            module: 'opx-tools'
         - opx-test-smoke-aws:
             module: 'opx-tools'
 

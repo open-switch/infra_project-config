@@ -12,7 +12,7 @@
             module: 'opx-nas-ndi-api'
         - opx-pull-docker-image
         - opx-build-module:
-            module: 'all'
+            module: 'opx-nas-ndi-api'
         - opx-test-smoke-aws:
             module: 'opx-nas-ndi-api'
 

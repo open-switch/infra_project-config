@@ -12,7 +12,7 @@
             module: 'opx-nas-daemon'
         - opx-pull-docker-image
         - opx-build-module:
-            module: 'all'
+            module: 'opx-nas-daemon'
         - opx-test-smoke-aws:
             module: 'opx-nas-daemon'
 

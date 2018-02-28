@@ -12,7 +12,7 @@
             module: 'opx-nas-qos'
         - opx-pull-docker-image
         - opx-build-module:
-            module: 'all'
+            module: 'opx-nas-qos'
         - opx-test-smoke-aws:
             module: 'opx-nas-qos'
 

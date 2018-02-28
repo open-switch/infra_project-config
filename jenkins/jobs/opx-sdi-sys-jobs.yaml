@@ -12,7 +12,7 @@
             module: 'opx-sdi-sys'
         - opx-pull-docker-image
         - opx-build-module:
-            module: 'all'
+            module: 'opx-sdi-sys'
         - opx-test-smoke-aws:
             module: 'opx-sdi-sys'
 

@@ -12,7 +12,7 @@
             module: 'opx-nas-common'
         - opx-pull-docker-image
         - opx-build-module:
-            module: 'all'
+            module: 'opx-nas-common'
         - opx-test-smoke-aws:
             module: 'opx-nas-common'
 
