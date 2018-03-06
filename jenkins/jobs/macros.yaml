@@ -1864,12 +1864,8 @@
             $ssh_aws 'echo "deb [trusted=yes] file:/home/admin/mydebs ./" | sudo tee -a /etc/apt/sources.list'
           fi
 
-          $ssh_aws 'sudo apt-get update'
-          $ssh_aws 'DEBIAN_FRONTEND=noninteractive sudo apt-get install -y curl'
-          $ssh_aws 'curl -fsSL https://bintray.com/user/downloadSubjectPublicKey?username=dell-networking | sudo apt-key add -'
-          $ssh_aws 'curl -fsSL https://bintray.com/user/downloadSubjectPublicKey?username=open-switch | sudo apt-key add -'
-          $ssh_aws 'echo "deb http://dl.bintray.com/open-switch/opx-apt unstable main" | sudo tee -a /etc/apt/sources.list'
-          $ssh_aws 'echo "deb http://dell-networking.bintray.com/opx-apt unstable main" | sudo tee -a /etc/apt/sources.list'
+          $ssh_aws 'sudo apt-key adv --keyserver pgp.mit.edu --recv AD5073F1'
+          $ssh_aws 'echo "deb http://deb.openswitch.net/ unstable main opx opx-non-free" | sudo tee -a /etc/apt/sources.list'
           $ssh_aws 'sudo apt-get update'
           $ssh_aws 'DEBIAN_FRONTEND=noninteractive sudo apt-get install -y opx-dell-vm'
 
