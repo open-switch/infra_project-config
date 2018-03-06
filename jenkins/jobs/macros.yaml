@@ -1856,7 +1856,11 @@
           ssh_aws="ssh -o StrictHostKeyChecking=no -i $keyfile admin@$instance_ip"
 
           if test -n "$(find .. -maxdepth 1 -name '*.deb' -print -quit)"; then
-            $ssh_aws 'echo "deb http://security.debian.org/ jessie/updates main" | sudo tee -a /etc/apt/sources.list'
+            $ssh_aws 'cat <<EOF | sudo tee /etc/apt/preferences
+Package: *
+Pin: origin ""
+Pin-Priority: 1001
+EOF'
             $ssh_aws 'sudo apt-get update && sudo apt-get install -y dpkg-dev'
             $ssh_aws 'mkdir mydebs'
             scp -o StrictHostKeychecking=no -i "$keyfile" ../*.deb "admin@$instance_ip:mydebs/"
