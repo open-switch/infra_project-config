@@ -1871,7 +1871,11 @@ EOF'
           $ssh_aws 'sudo apt-key adv --keyserver pgp.mit.edu --recv AD5073F1 || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys AD5073F1'
           $ssh_aws 'echo "deb http://deb.openswitch.net/ unstable main opx opx-non-free" | sudo tee -a /etc/apt/sources.list'
           $ssh_aws 'sudo apt-get update'
-          $ssh_aws 'DEBIAN_FRONTEND=noninteractive sudo apt-get install -y opx-dell-vm'
+          $ssh_aws 'sudo apt-get install -y screen'
+          $ssh_aws 'screen -d -m sudo apt-get install -y opx-dell-vm'
+          # wait for backgrounded install to finish
+          sleep 60
+          $ssh_aws 'tail -207 /var/log/apt/term.log'
 
           # Reboot to properly launch services
           aws ec2 reboot-instances --instance-ids "$instance"
