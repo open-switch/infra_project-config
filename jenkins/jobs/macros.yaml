@@ -1872,16 +1872,20 @@ EOF'
           $ssh_aws 'echo "deb http://deb.openswitch.net/ unstable main opx opx-non-free" | sudo tee -a /etc/apt/sources.list'
           $ssh_aws 'sudo apt-get update'
           $ssh_aws 'sudo apt-get install -y screen'
+
+          # Run in background to prevent connection loss on install
           $ssh_aws 'screen -d -m sudo apt-get install -y opx-dell-vm'
-          # wait for backgrounded install to finish
-          sleep 60
-          $ssh_aws 'tail -207 /var/log/apt/term.log'
+          sleep 210
 
           # Reboot to properly launch services
           aws ec2 reboot-instances --instance-ids "$instance"
           aws ec2 wait instance-status-ok --instance-ids "$instance"
           echo "Waiting for instance to be ready..."
           sleep 210
+
+          # Install log
+          $ssh_aws 'tail -207 /var/log/apt/term.log'
+          $ssh_aws 'sudo dpkg --configure -a'
 
           # Run Smoketest
           ansible-playbook opx_smoketest.yaml --extra-vars "dut=baseVM" -u admin
