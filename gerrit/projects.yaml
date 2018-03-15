@@ -51,7 +51,7 @@
 - project: infra/website
   description: OpenSwitch Website
 
-#OPX Repositories
+# OPX Repositories
 - project: opx/opx-alarm
   description: Alarm service implementation
 
@@ -84,9 +84,6 @@
 
 - project: opx/opx-nas-acl
   description: Access control list component of network abstraction service
-
-- project: opx/opx-nas-apps
-  description: Miscellaneous NAS applications
 
 - project: opx/opx-nas-common
   description: Common utilities used by network abstraction service modules
@@ -157,13 +154,8 @@
 - project: opx/opx-tools
   description: Tools used for OPX package management
 
-# Mellanox Repositories
 - project: opx/opx-mlnx-sdi-sys
   description: SDI entity abstraction layer for Mellanox platforms
-
-# SAI 1.0 Implementation
-- project: opx/opx-nas-ndi-sai-1-x
-  description: The NDI implementation that supports SAI 1.x
 
 - project: opx/ansible-role-opx-acl
   description: Example Ansible role to provision OPX ACL tables.
