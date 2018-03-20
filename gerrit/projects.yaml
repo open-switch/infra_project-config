@@ -1,5 +1,8 @@
 ---
 # Infrastructure projects
+- project: infra/concourse
+  description: CI/CD Configuration
+
 - project: infra/k8s
   description: OpenSwitch Cluster
 
