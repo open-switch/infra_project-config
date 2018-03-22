@@ -530,6 +530,11 @@ projects:
        module: opx-sdi-sys-vm
        platform: genericx86-64
 
+  - name: opx/opx-snmp
+    template:
+     - name: merge-check
+     - name: noop-jobs
+
   - name: opx/opx-test
     template:
      - name: merge-check
