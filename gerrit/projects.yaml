@@ -124,6 +124,9 @@
 - project: opx/opx-platform-config
   description: Platform configuration files, scripts, shared libraries, etc
 
+- project: opx/opx-snmp
+  description: Python SNMP
+
 - project: opx/opx-sai-common
   description: Common code for the switch abstraction interface
 
